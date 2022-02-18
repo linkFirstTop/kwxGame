@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ChangeLanguageUISkin" width="1920" height="1080" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="1752646cb0a" ></w:Config>
+	<e:Rect width="100%" height="100%" fillAlpha="0.4" />
+	<e:Group horizontalCenter="0" verticalCenter="0">
+		<e:Image source="changeLanguagebg_png" />
+		<e:Image id="btnTitle" source="resource/assets/language/cn/comm/commTitle_language.png" horizontalCenter="0.5"  y="34"/>
+		
+		<ns1:BaseButton id="btnClose" right="16" y="12" width="95" height="95">
+			<e:Skin>
+				<e:Image  source="button_close_png" width="95" height="95" />
+			</e:Skin>
+		</ns1:BaseButton>
+		<e:Group id="gItems" verticalCenter="0" horizontalCenter="0">
+
+			<e:Group name="cn" touchChildren="false">
+				<e:Group horizontalCenter="0" verticalCenter="0">
+					<e:Image id="btnSelect_cn" source="icon_select_no_png" />
+					<e:Label text="简体中文"  verticalCenter="0" size="32" fontFamily="Microsoft YaHei" textColor="0x7f5844" x="66"/>
+				</e:Group>
+				
+				<e:Rect width="230" height="80" fillAlpha="0"/>
+			</e:Group>
+
+			<e:Group name="tc" touchChildren="false">
+				<e:Group horizontalCenter="0" verticalCenter="0">
+					<e:Image id="btnSelect_tc" source="icon_select_no_png" />
+					<e:Label text="繁体中文"  verticalCenter="0" size="32" fontFamily="Microsoft YaHei" textColor="0x7f5844" x="66"/>
+				</e:Group>
+				<e:Rect width="230" height="80" fillAlpha="0"/>
+			</e:Group>
+
+			<e:Group name="en" touchChildren="false">
+				<e:Group horizontalCenter="0" verticalCenter="0">
+					<e:Image id="btnSelect_en" source="icon_select_no_png" />
+					<e:Label text="English"  verticalCenter="0" size="32" fontFamily="Microsoft YaHei" textColor="0x7f5844" x="66"/>
+				</e:Group>
+				<e:Rect width="230" height="80" fillAlpha="0"/>
+			</e:Group>
+			<e:layout>
+				<e:HorizontalLayout gap="80"/>
+			</e:layout>
+
+		</e:Group>
+		<ns1:BaseButton id="btnSure" horizontalCenter="200" bottom="42">
+			<e:Skin>
+				<e:Image   source="resource/assets/language/cn/comm/commButton_sure.png"/>
+			</e:Skin>
+		</ns1:BaseButton>
+		<ns1:BaseButton id="btnCancel" horizontalCenter="-200" bottom="42">
+			<e:Skin>
+				<e:Image   source="resource/assets/language/cn/comm/commButton_cancel.png"/>
+			</e:Skin>
+		</ns1:BaseButton>
+	
+	</e:Group>
+</e:Skin>

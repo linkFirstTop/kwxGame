@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="BaseTingCardUISkin" width="186" height="128" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+	<w:Config id="1712046366b" ></w:Config>
+	<e:Group>
+		<e:Image source="gameCommsbg" width="186" height="128"/>
+		<e:Group scaleX="0.8" scaleY="0.8" verticalCenter="-0.5" x="10">
+			<e:Image source="card_down_h1" />
+			<e:Image id="imgValue" horizontalCenter="0.5" verticalCenter="6" source="cardValue1"/>
+		</e:Group>
+		<e:Label id="lbFan" text="0番"  fontFamily="Microsoft YaHei" size="30" x="94" y="25" textAlign="center"/>
+		<e:Label id="lbNum" text="1张"  fontFamily="Microsoft YaHei" size="30" y="75" x="94" anchorOffsetX="0" textAlign="center"/>
+	</e:Group>
+</e:Skin>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="AlertSkin" width="1920" height="1080" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<e:Image source="black_png" width="100%" height="100%" alpha=".3" />
+	<e:Group id="gContent" horizontalCenter="0" verticalCenter="0">
+		<e:Image source="alertbg_png"/>
+		<e:Image id="imgTitle" source="resource/assets/language/cn/comm/commTitle_tip.png"  horizontalCenter="0" y="24"/>
+		<e:Label id="lbMsg" text="2222"  anchorOffsetX="0" width="726" anchorOffsetY="0" height="205" fontFamily="Microsoft YaHei" lineSpacing="10" size="42" verticalAlign="middle" verticalCenter="-19.5" horizontalCenter="-2" textAlign="center" textColor="0x75432c"/>
+		<ns1:BaseButton id="btnClose" right="20" y="16" width="95" height="95">
+			<e:Skin>
+				<e:Image source="button_close_png" scaleX="0.9" scaleY="0.9"/>
+			</e:Skin>
+		</ns1:BaseButton>
+		<ns1:BaseButton id="btnSure" horizontalCenter="0" bottom="28" width="252" height="98">
+			<e:Skin>
+				<e:Image source="resource/assets/language/cn/comm/commButton_sure.png"/>
+			</e:Skin>
+		</ns1:BaseButton>
+	</e:Group>
+</e:Skin>

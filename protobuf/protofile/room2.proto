@@ -1,0 +1,187 @@
+package room2;
+// 心跳
+message HeartBeatReq
+{
+	required int64 time = 1;
+}
+
+// 心跳
+message HeartBeatAck
+{
+	optional int64 time = 1;
+}
+
+//用户的位置信息
+message OGUserPos
+{
+	optional int32 roomID				= 1;	//房间ID
+	optional string tableGuid			= 2;	//桌子ID
+	optional int32 seatID				= 3;	//桌位号
+}
+
+//#define OGID_ROOM_LOGIN		CLIENT_MSG_BASE + 0x01
+message reqLogin
+{
+  optional string ticket         = 1;  //登录的token证书
+}
+
+message ackLogin
+{
+  required int32  result         = 1;  // 0：成功 ，其他：错误码
+  optional string userName       = 2;  // 用户名
+  optional string showName       = 3;  // 显示名
+  optional int64  gameCoin      = 4;  // 当前玩家金币
+  optional OGUserPos userPos      = 5;  // 是否在游戏中如果有值说明玩家在游戏中默认是0
+  optional int32  webState      = 6;  //Web接口错误码
+}
+
+//请求房间列表
+//#define OGID_ROOM_ROOMLIST		CLIENT_MSG_BASE + 0x02
+message RoomListReq
+{
+	required string userName			= 1; //用户名
+}
+
+message RoomItem
+{
+	optional uint32 roomID				= 1;	//房间ID
+	optional string name				= 2;	//房间名
+	optional int32 entry_min			= 3;	//准入下线货币值
+	optional int32 entry_max			= 4;	//准入上线货币值
+	optional int32 kickout_min			= 5;	//踢出额度
+	optional int32 kickout_max			= 6;	//踢出额度
+	optional int32 service_fee			= 7;	//抽水
+	optional int32 base_score			= 8;	//底分
+}
+
+//返回房间列表
+message RoomListAck
+{
+	required int32	result				= 1; //0成功 大于0失败
+	required string userName			= 2; //用户名
+	repeated RoomItem roomInfo			= 3; //房间信息
+}
+
+//玩家基本信息
+message OGUserInfo
+{
+	optional string	 userName			= 1;	//玩家用户名
+	optional string  showName			= 2;	//玩家显示名
+	optional bool	 isRobot			= 3;	//是否是机器人
+	optional int64	 gameCoin			= 4;	//玩家游戏币
+	optional uint32  status				= 5;	//玩家当前状态
+	optional OGUserPos userPos			= 6;	//玩家当前位置
+}
+
+//请求进入房间
+//#define OGID_ROOM_ENTERROOM			CLIENT_MSG_BASE + 0x03
+message OGEnterRoomReq
+{
+	required string		 sUserName		= 1;			//玩家用户名
+	required int32		 RoomID			= 2;			//只传房间ID
+	optional string		 tableGuid		= 3;			//这个可以为空
+}
+//进入房间后，该消息会是一个广播消息，广播到房间里的所有人
+message OGEnterRoomAck
+{
+	required uint32       result		= 1;  //0成功 大于0失败
+	optional string       userName		= 2;  //玩家用户名
+	optional OGUserPos	  userPos		= 3;  //当前位置
+	optional int64        gameCoin		= 4;  //用户的豆子数
+	repeated OGUserInfo	  userInfo		= 5;  //该桌子上所有玩家
+	optional int32        gametype		= 6;	//玩家所在的游戏
+}
+
+//请求离开房间
+//#define OGID_ROOM_LEAVEROOM				CLIENT_MSG_BASE + 0x04
+message OGLeaveRoomReq
+{
+	required string 	 userName		= 1; //玩家用户名
+	required OGUserPos	 userPos		= 2; //当前位置
+	required int32       change			= 3; //是否是游戏内换桌 0:不是 1:是
+}
+//离开房间后，该消息会是一个广播消息,广播到房间的里所有用户
+message OGLeaveRoomAck
+{
+	optional uint32 	 result			= 1; //0成功 大于0失败
+	optional string      userName		= 2; //用户名
+	optional OGUserPos	 userPos		= 3; //用户位置信息
+	optional uint32      userStatus		= 4; //用户当前状态
+	optional int64       gameCoin		= 5; //用户离开房间
+}
+
+
+//请求快速开始游戏
+//#define OGID_ROOM_QUICKGAME			 CLIENT_MSG_BASE + 0x05
+message OGQickGameReq
+{
+	required string 	 userName		= 1; //玩家用户名
+	required OGUserPos	 userPos		= 2; //当前位置
+}
+message OGQickGameAck
+{
+	optional uint32 	 result			= 1; //0成功 大于0失败
+	optional OGUserPos	 userPos		= 2; //当前位置
+}
+
+
+// 其他玩家的信息
+message OGSMPlayerInfo
+{
+    required string   userName = 1;        //角色名
+    required string   showName = 2;        //显示名
+    optional int64 	  gameCoin = 3;        //积分
+    optional int32    sex 	   = 4;        //玩家性别
+    optional string   imageUrl = 5;        //玩家头像地址
+	optional OGUserPos userPos = 6; 		//用户位置信息
+}
+
+//#define OGID_ROOM_STARTGAME			 CLIENT_MSG_BASE + 0x06
+//广播快速开始游戏
+message OGStartGameNtc
+{
+	optional int32 	 	 result			= 1; //0成功 大于0失败
+	optional int32       connentUID		= 2; //游戏连接的唯一标识
+	optional int32       roomID			= 3; //房间ID
+	optional string      tableGUID		= 4; //桌子GUID
+	optional string      gameIP			= 5; //游戏ip
+	optional int32       gamePort		= 6; //游戏端口
+	optional string		 ticket			= 7; //玩家票据认证	
+	repeated OGSMPlayerInfo playerList	= 8; //一桌的玩家列表
+}
+
+//#define OGID_ROOM_SCANROOM			 CLIENT_MSG_BASE + 0x07
+//机器人扫描房间人数
+message OGScanRoomReq
+{
+    required string   userName = 1;        //角色名
+}
+message OGSMRoomInfo
+{
+    required int32   roomID		 = 1;    //角色名
+    optional int64 	 robotNum    = 2;    //机器人个数
+}
+message OGScanRoomAck
+{
+	optional uint32   result			= 1; //0成功 大于0失败
+    optional string   userName			= 2; //角色名
+    repeated OGSMRoomInfo roomList		= 3; //一桌的玩家列表
+}
+
+message UpdateCoinAck
+{
+	optional string username=1;			//用户名
+	required int32 coin=2;		//当前金币
+}
+
+//#define OGID_ROOM_CONTINUE_GAME (CLIENT_MSG_BASE + 0x0009)//客户端请求断线续玩
+message OGContinueGameReq
+{
+	optional string username=1;			//用户名
+}
+
+message OGContinueGameAck
+{
+	optional int32   result			= 1; //0成功 大于0失败
+	optional string  username		= 2; //用户名
+}

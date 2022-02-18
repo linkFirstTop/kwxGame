@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GameHSZUISkin" width="1920" height="1080" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+	<w:Config id="170f1cbe003" ></w:Config>
+	<e:Group width="100%" height="100%" touchEnabled="false" locked="true">
+		<e:Image id="imgTip0" source="gameIcon_xp_cn" verticalCenter="0" x="280"/>
+		<e:Image id="imgTip1" source="gameIcon_xp_en" horizontalCenter="0" y="300"/>
+		<e:Image id="imgTip2" source="gameIcon_xp_en" verticalCenter="0" right="250"/>
+		<e:Image id="imgTip3" source="gameIcon_xp_en" horizontalCenter="0" bottom="50"/>
+	</e:Group>
+	<e:Group width="100%" height="100%" touchEnabled="false" visible="true" locked="true">
+		<e:Image id="imgLose0" source="gameIcon_lose_en" x="175" y="460"/>
+		<e:Image id="imgLose1" source="gameIcon_lose_cn" horizontalCenter="0" y="204"/>
+		<e:Image id="imgLose2" source="gameIcon_lose_cn" x="1560" y="460"/>
+		<e:Image id="imgLose3" source="gameIcon_lose_cn" horizontalCenter="0" y="843"/>
+	</e:Group>
+	<e:Group width="100%" height="100%" touchEnabled="false" locked="true" visible="true">
+		<e:Group id="gCoinAnim0" x="175" y="500" visible="true">
+			<e:BitmapLabel id="lbCoinWinAnim0" font="winCoinFnt_fnt"  textAlign="center" width="380"/>
+			<e:BitmapLabel id="lbCoinLoseAnim0" font="loseCoinFnt_fnt"  width="380" textAlign="center"/>
+		</e:Group>
+		<e:Group id="gCoinAnim1" x="878" y="244">
+			<e:BitmapLabel id="lbCoinWinAnim1" font="winCoinFnt_fnt" />
+			<e:BitmapLabel id="lbCoinLoseAnim1" font="loseCoinFnt_fnt" />
+		</e:Group>
+		<e:Group id="gCoinAnim2" x="1560" y="500">
+			<e:BitmapLabel id="lbCoinWinAnim2" font="winCoinFnt_fnt" />
+			<e:BitmapLabel id="lbCoinLoseAnim2" font="loseCoinFnt_fnt" />
+		</e:Group>
+		<e:Group id="gCoinAnim3" x="878" y="883">
+			<e:BitmapLabel id="lbCoinWinAnim3" font="winCoinFnt_fnt" />
+			<e:BitmapLabel id="lbCoinLoseAnim3" font="loseCoinFnt_fnt" />
+		</e:Group>
+	</e:Group>
+	<e:Group id="gHSZTip" horizontalCenter="0" y="600" visible="true" locked="true">
+			<e:Group>
+				<e:Image source="gameHszTipbg" />
+				<e:Image id="imgHSZTip1" horizontalCenter="0" verticalCenter="0"  source="gameHszTip1_cn"/>
+			</e:Group>
+			<e:Image id="btnSure" source="gameButtonSure_cn"  horizontalCenter="0.5" y="186"/>
+		</e:Group>
+
+		<e:Group id="gDQTip" horizontalCenter="0" y="600" visible="true" locked="true">
+			<e:Group>
+				<e:Image source="gameHszTipbg" />
+				<e:Group id="gSelectBtn" verticalCenter="0" horizontalCenter="0">
+					<e:Image id="btnWan" source="gameButton_wan_cn" />
+					<e:Image id="btnTiao" source="gameButton_tiao_cn" x="200"/>
+					<e:Image id="btnTong" source="gameButton_tong_cn"  x="400"/>
+				</e:Group>
+			</e:Group>
+			<e:Image id="imgHSZTip2" horizontalCenter="0" y="186"  source="gameHszTip2_cn"/>
+		</e:Group>
+	<e:Group id="go_dapiao" width="100%" height="100%" x="0" y="0" locked="true" visible="true">
+		<e:Image id="dapiao1" source="dpz_png" x="277" y="501"/>
+		<e:Image source="dpz_png" x="1335" y="509" id="dapiao2"/>
+	</e:Group>
+	<e:Group id="gp_dapiaoGroup" x="473" y="599" visible="true">
+		<e:Image source="dapiaobg_png" x="0" y="0" scaleX="1" scaleY="1"/>
+		<e:Group id="gp_dapiaoOption" width="972" height="171" x="0" y="0">
+		<e:Image source="0_png" x="197" y="16" scaleX="1" scaleY="1"/>
+		<e:Image x="207" y="26" scaleX="1" scaleY="1" source="1_png"/>
+		<e:Image x="217" y="36" scaleX="1" scaleY="1" source="2_png"/>
+		<e:layout>
+			<e:HorizontalLayout horizontalAlign="center" verticalAlign="middle" gap="65"/>
+		</e:layout>
+		</e:Group>
+		<e:Image source="qxzdpbs_png" x="343" y="190"/>
+	</e:Group>
+</e:Skin>

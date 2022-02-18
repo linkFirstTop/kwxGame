@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="DateUISkin" width="1920" height="1080" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Rect id="bg" width="100%" height="100%" x="0" y="0" alpha="0.3" touchEnabled="true"/>
+	<e:Group y="300" anchorOffsetX="0" width="740" horizontalCenter="0">
+		<e:Rect width="100%" height="100%" fillAlpha="0.5" x="0" y="0"/>
+		<e:Label id="oTitle" text="" y="10" width="100%" textAlign="center" x="0" scaleX="1" scaleY="1"/>
+		<e:Label id="lbTitle" text="日        一        二        三        四        五        六" x="59" y="57" width="618" textAlign="center" scaleX="1" scaleY="1" anchorOffsetX="0" size="30"/>
+		<e:Group width="618" height="311" y="93" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" x="59">
+			<e:Group id="group0" width="100%" height="33" x="0" y="6" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1">
+			<e:layout>
+				<e:HorizontalLayout horizontalAlign="left" gap="46"/>
+			</e:layout>
+			</e:Group>
+			<e:Group id="group1" width="100%" height="33" x="10" y="16" anchorOffsetX="0">
+			<e:layout>
+				<e:HorizontalLayout horizontalAlign="left" gap="46"/>
+			</e:layout>
+			</e:Group>
+			<e:Group id="group2" width="100%" height="33" x="20" y="26" anchorOffsetX="0">
+			<e:layout>
+				<e:HorizontalLayout horizontalAlign="left" gap="46"/>
+			</e:layout>
+			</e:Group>
+			<e:Group id="group3" width="100%" height="33" x="30" y="36" anchorOffsetX="0">
+			<e:layout>
+				<e:HorizontalLayout horizontalAlign="left" gap="46"/>
+			</e:layout>
+			</e:Group>
+			<e:Group id="group4" width="100%" height="33" x="40" y="46" anchorOffsetX="0">
+			<e:layout>
+				<e:HorizontalLayout horizontalAlign="left" gap="46"/>
+			</e:layout>
+			</e:Group>
+			<e:Group id="group5" width="100%" height="33" x="50" y="267" anchorOffsetX="0">
+			<e:layout>
+				<e:HorizontalLayout horizontalAlign="left" gap="46"/>
+			</e:layout>
+			</e:Group>
+			<e:layout>
+			<e:VerticalLayout gap="20"/>
+			</e:layout>
+		</e:Group>
+		<e:Label id="prevM" text="8月份" y="10" textAlign="left" touchEnabled="true" x="59" scaleX="1" scaleY="1" anchorOffsetX="0" width="201"/>
+		<e:Label id="nextM" text="8月份" y="10" textAlign="right" touchEnabled="true" scaleX="1" scaleY="1" anchorOffsetX="0" width="192" x="485"/>
+	</e:Group>
+</e:Skin>

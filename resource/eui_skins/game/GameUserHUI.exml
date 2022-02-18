@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GameUserHUISkin" width="348" height="160" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+	<w:Config id="170cd835a5f" ></w:Config>
+	<e:Image source="gameHeadHBg_png" />
+	<e:Group width="130" height="130" x="15" verticalCenter="0">
+		<e:Group horizontalCenter="0" verticalCenter="0">
+			<e:Image id="imgHead" source="" mask="{imgMask}" width="114" height="114" horizontalCenter="0" verticalCenter="0" smoothing="true"/>
+			<e:Rect id="imgMask" ellipseWidth="114" ellipseHeight="114" width="114" height="114" fillColor="0x000000" horizontalCenter="0" verticalCenter="0"/>
+		</e:Group>
+		<e:Image source="gameHeadKuang_png" />
+	</e:Group>
+	<e:Image id="imgDQ"  y="95" x="95"/>
+	<e:Image id="imgZhuang" source="gameIcon_zhuang_cn"  y="13" x="13"/>
+	<e:Label id="lbName" text=""  size="30" anchorOffsetX="0" width="180" x="150" y="44"/>
+	<e:Group  x="150" y="95">
+		<e:Image source="gameHeadCoinbg_png" width="180" height="35"/>
+		<e:Label id="lbCoin" text="000"  size="30" textColor="0xfeeaa6" textAlign="left" height="100%" verticalAlign="middle" x="2" width="178"/>
+	</e:Group>
+	<!--<e:BitmapLabel id="lbCoinWinAnim"  font="winCoinFnt_fnt" horizontalCenter="60" y="60"  text=""/>
+	<e:BitmapLabel id="lbCoinLoseAnim" font="loseCoinFnt_fnt" horizontalCenter="60" y="60"  />-->
+</e:Skin>

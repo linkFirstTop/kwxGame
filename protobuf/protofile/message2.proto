@@ -1,0 +1,61 @@
+﻿package message2 ;
+//----------------------------------------------------------------------
+// 消息号起始
+//----------------------------------------------------------------------
+// CLIENT_LIST_BASE = 0x00003000;
+//----------------------------------------------------------------------
+// 登录
+//----------------------------------------------------------------------
+//HeartBeatAck = CLIENT_LIST_BASE + 0x000;
+// 心跳
+message HeartBeatReq
+{
+	required int64 time = 1;
+}
+
+// 心跳
+message HeartBeatAck
+{
+	optional int64 time = 1;
+}
+
+//LOGIN = CLIENT_LIST_BASE + 0x0001;
+message reqLogin
+{
+	required string userName	 = 1;	// 用户昵称
+	required string avatarUrl 	 = 2;   // 头像信息
+	required string	channelId 	 = 3;	// 渠道ID
+	optional int32	gameId	 	 = 4;	// 游戏ID
+	required string ticket	 	 = 5;	// 证书
+}
+
+message ackLogin
+{
+	required int32  result   	= 1; // 0：成功 ，其他：错误码
+	optional string userName 	= 2; // 用户名
+	optional string showName 	= 3; // 显示名
+	optional string userIp   	= 4; // 用户IP
+	optional string enterCode 	= 5; // 断线续玩的时候填登录码
+	optional int32  ingame	 	= 6; // 是否在游戏中0不在游戏1在游戏中
+}
+
+//ByUserKickNtc = CLIENT_LIST_BASE + 0x0002;
+//互踢消息
+message ByUserKickNtc
+{
+	optional int32 result		= 1; // 玩家用户名1玩家被踢
+}
+
+//----------------------------------------------------------------------
+// 广播消息
+//----------------------------------------------------------------------
+//GameState = CLIENT_LIST_BASE + 0x0003;
+message NotifyMsgNtc
+{
+	optional int32  type 	 	 = 1;   // 通知类型通知对象0个人1某个游戏2所有
+	optional string	who 	 	 = 2;	// 通知对象个人表示人名 游戏表示游戏ID 所有用ALL表示
+	optional string	title 	 	 = 3;	// 消息标题
+	optional string	content 	 = 4;   // 消息内容
+	optional string	createTime 	 = 5;	// 创建时间
+	optional int32  isLoop		 = 6;	// 是否可以循环
+}

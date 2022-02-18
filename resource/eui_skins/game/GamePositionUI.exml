@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GamePositionUISkin" width="192" height="122" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+	<w:Config id="170e1659f05" ></w:Config>
+	<e:Group>
+		<e:Image source="ps_allbg" />
+		<!--方位底-->
+		<e:Image id="imgLeft" source=""  verticalCenter="0"/>
+		<e:Image id="imgUp" source=""  horizontalCenter="0"/>
+		<e:Image id="imgRight" source=""  verticalCenter="0" right="0"/>
+		<e:Image id="imgDown" source=""  horizontalCenter="0" bottom="0"/>
+		<!--方位-->
+		<e:Image id="imgIconLeft" source=""  verticalCenter="0" x="15"/>
+		<e:Image id="imgIconUp" source=""  y="4" horizontalCenter="0"/>
+		<e:Image id="imgIconRight" source=""  verticalCenter="0" right="15"/>
+		<e:Image id="imgIconDown" source=""  horizontalCenter="0" bottom="4"/>
+
+		<e:BitmapLabel id="lbTime" font="GameTimeFnt_fnt" text="00" horizontalCenter="0" verticalCenter="-2.5"/>
+	</e:Group>
+</e:Skin>

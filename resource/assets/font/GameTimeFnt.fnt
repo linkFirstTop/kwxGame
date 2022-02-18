@@ -1,0 +1,11 @@
+{"file":"GameTimeFnt.png","frames":{
+"5":{"x":48,"y":0,"w":22,"h":28,"offX":0,"offY":0,"sourceW":22,"sourceH":28},
+"6":{"x":23,"y":30,"w":21,"h":28,"offX":0,"offY":0,"sourceW":22,"sourceH":28},
+"7":{"x":69,"y":30,"w":20,"h":28,"offX":2,"offY":0,"sourceW":22,"sourceH":28},
+"8":{"x":0,"y":0,"w":22,"h":28,"offX":0,"offY":0,"sourceW":22,"sourceH":28},
+"9":{"x":72,"y":0,"w":21,"h":28,"offX":1,"offY":0,"sourceW":22,"sourceH":28},
+"0":{"x":24,"y":0,"w":22,"h":28,"offX":0,"offY":0,"sourceW":22,"sourceH":28},
+"1":{"x":91,"y":30,"w":13,"h":28,"offX":5,"offY":0,"sourceW":22,"sourceH":28},
+"2":{"x":46,"y":30,"w":21,"h":28,"offX":1,"offY":0,"sourceW":22,"sourceH":28},
+"3":{"x":0,"y":30,"w":21,"h":28,"offX":1,"offY":0,"sourceW":22,"sourceH":28},
+"4":{"x":95,"y":0,"w":21,"h":28,"offX":1,"offY":0,"sourceW":22,"sourceH":28}}}

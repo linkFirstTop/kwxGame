@@ -1,0 +1,569 @@
+package game;
+//根据GameId，客户端请求游戏服务器进入游戏分配的服务
+message ReqEnterGame
+{
+	required string GameID = 1; // 游戏ID
+  	optional string UserName = 2; // 用户名
+  	optional string ticket = 3; // 加密验证（证书之类的）
+}
+//返回客户端进入GameID服务成功或者失败
+message AckEnterGame
+{
+	required bool Result=1;//返回进入结果
+	required string GameID = 2; // 游戏ID
+  	required int32 ErrorID = 3; // 失败原因
+	optional string game_guid=4;// 游戏的局号
+}
+
+
+
+//进入游戏服务失败的原因
+message ErrorID
+{
+	required int32 PLATER_NOT_ENOUGH = 1;//人数不够，有人退出或者断线
+	required int32 GAMEID_IS_ERROR = 2;//GameID不存在
+	//其他原因.......
+}
+
+
+//请求准备游戏
+message ReqReadyGame
+{
+	required string GameID = 1; // 游戏ID
+  	optional string UserName = 2; // 玩家名称
+}
+
+
+//服务器通知客户端游戏散桌，需要断开游戏服务，客户端根据情况选择是否返回队列
+//可能发送时机：请求进入游戏服务有人离开、请求准备有人离开、等待准备时游戏未开始发牌有人离开
+message AckGameOver
+{
+	required int32 ErrorID = 1; // 失败原因
+}
+//先下发游戏阶段消息AckGameStage后再下发下一条消息
+//下发4个玩家信息
+message AckPlayerList
+{
+	repeated PlayerInfo PlayerList = 1;//玩家列表[x,x,x,x]按照座位号索引排序玩家
+}
+
+//玩家基本信息
+message PlayerInfo
+{
+	optional string UserName = 1;//玩家名称
+	optional string UsershowName = 2;	// 玩家显示名
+	optional string UserImage = 3;//玩家头像
+	optional int32 UserSit = 4;//玩家座位    0东 1南 2西 3北
+	optional int32 Integral = 5;//玩家积分
+	optional int64 Coin = 6;//玩家豆子/金币等货币
+	optional Rank NowLevel = 7;//玩家等级/段位
+	optional Rank HisLevel = 8;	//历史玩家等级/段位
+	optional int32 Stage = 9; // 当前阶段 1.常规赛，2.晋级赛，3.定级赛
+	optional int32 Ranking = 10;	// 排名
+	optional int32 WinIntegral = 11; // 胜利分
+	optional int32 TotalNum = 12;//总盘数
+	optional int32 ReadyNum = 13;//听牌数
+	optional int32 HuNum = 14;//和牌
+	optional int32 GunNum = 15;//点炮
+	optional int32 ZimoNum = 16;//自摸
+	optional int32 Sex = 17;//性别   0女  1男
+	optional bool  IsMember = 18;//是否会员
+	optional Rank HistoryMaxLevel = 19;   // 历史最高等级（目前表示的是上赛季最终的等级）
+	optional int32 Average_Rank = 20;      //平均名次
+	optional int32 Openingrate = 21;     //副露率(副露率+门清=100%)
+	optional int32 Round2_rank1=22;      //2圈的1位率
+	optional int32 Round2_rank2=23;      //2圈的2位率
+	optional int32 Round2_rank3=24;      //2圈的3位率
+	optional int32 Round2_rank4=25;      //2圈的4位率
+	optional int32 Round4_rank1=26;      //4圈的1位率
+	optional int32 Round4_rank2=27;      //4圈的2位率
+	optional int32 Round4_rank3=28;      //4圈的3位率
+	optional int32 Round4_rank4=29;      //4圈的4位率
+	optional int32  SocietyContributionValue=30;    //公会贡献值
+	optional int32  SocietyPracticeType =31;        //公会练习赛模式（1圈，2圈，4圈）
+	optional int32  SocietyPracticeFirstCount=32;   //公会练习赛1圈的总参赛场次
+	optional int32  SocietyPracticeSecondCount=33;  //公会练习赛2圈的总参赛场次
+	optional int32  SocietyPracticeFourCount=34;    //公会练习赛4圈的总参赛场次
+//	optional int32  societyname=35;                 //公会名字
+//	optional int32  tableid=36;                     //开始游戏后玩家所在的桌号				
+}
+//段位
+message Rank
+{
+	required int32 duan = 1;//段位
+	required int32 xing = 2;//星位
+}
+//下发当前游戏规则消息
+message AckGameRule
+{
+	required int32 FirstSit = 1; // 第一个游戏的人
+  	required int32 GameType = 2; // 游戏类型  1：打一副牌结束  2：打一圈牌结束  3：打4圈（一局） 
+	required int32 Is_Next_ChiPengGangTime = 3; // 下家吃碰杠考虑时间
+	required int32 Not_Next_ChiPengGangTime = 4; //非下家吃碰杠考虑时间
+	required int32 HuTime = 5; //胡牌考虑时间
+	required int32 PlayTime = 6; //游戏中打牌时长
+	required int32 DelayTime = 7; //延时时长
+	required int32 DelayRestrictions = 8; //延时限制（几次）
+	required int32 Bureau= 9; //当前第几局
+	required int32 Ring= 10; //当前第几圈
+	required int32 PAIR= 11; //当前第几副
+	required int32 TrustRestrictions= 12; //托管限制次数
+	required int32 FirstSendTime= 13; //第一次出牌时间
+	required int32 ChiPengGangSurplusTime= 14; //吃碰杠后剩余出牌的考虑时间
+	required int32 ArrangementCardsOverTime= 15; //理牌结束超时
+	required int32 GoOnGaneTime= 16; //结算自动开始超时
+	optional int32 HuanSanzhang = 17;	//换三张的时间
+	optional int32 dingque = 18;	//	定缺
+	//其他...
+}
+//服务器下发打色子和发牌
+message AckDiceAndCards
+{
+	required int32 FirstSit = 1;//第一个打色子的人
+	required int32 SecondSit = 2;//第二个打色子的人
+	required string FirstDice = 3;//第一次打的色子 如果是一个2一个4，则数据内容表示为“2+4”
+	required string SecondDice = 4;//第二次打的色子
+	required int32 FirstCardsIndexes = 5;//第一手抓牌的索引 （可无）
+	repeated CardInfo HandCards = 6;//手牌数组
+	repeated CardInfo huan_san_zhang = 7;//换三张的推荐/默认牌
+	//其他...
+}
+
+
+
+//手牌对象
+message CardInfo
+{
+	//牌的信息用0x的十六进制表示，其中第一个数字表示牌类型，第二个数字表示排序号，第三个数字用来区别四张一样的牌
+	//具体牌信息：
+	//万牌              条牌              饼牌
+	//0x001 -- 1万  0x101 -- 1条  0x201 -- 1饼
+	//0x011 -- 2万  0x111 -- 2条  0x211 -- 2饼
+	//0x021 -- 3万  0x121 -- 3条  0x221 -- 3饼
+	//0x031 -- 4万  0x131 -- 4条  0x231 -- 4饼
+	//0x041 -- 5万  0x141 -- 5条  0x241 -- 5饼
+	//0x051 -- 6万  0x151 -- 6条  0x251 -- 6饼
+	//0x061 -- 7万  0x161 -- 7条  0x261 -- 7饼
+	//0x071 -- 8万  0x171 -- 8条  0x271 -- 8饼
+	//0x081 -- 9万  0x181 -- 9条  0x281 -- 9饼
+	//风牌：
+	//  0x301 -- 东风  0x311 -- 南风  0x321 -- 西风  0x331 -- 北风
+	//刻牌：
+	//  0x401 -- 红中  0x411 -- 绿发  0x421 -- 白板
+	//花牌：
+	//  0x501 -- 梅
+	//  0x511 -- 兰
+	//  0x521 -- 竹
+	//  0x531 -- 菊
+	//  0x601 -- 春
+	//  0x611 -- 夏
+	//  0x621 -- 秋
+	//  0x631 -- 冬
+	//牌背0x0
+	required int32 CardID = 1;
+	optional int32 Sit = 2;
+	//其他...
+}
+
+
+
+//客户端通知服务理牌结束
+message ReqHandCardsOver
+{
+	required int32 Sit = 1;//请求者的座位号
+}
+//服务器通知客户端游戏阶段
+message AckGameStage
+{
+	required int32 Stage = 1;//游戏阶段
+	optional string gameguid=2;	//在 continue阶段  会下发本次游戏的局号
+}
+//游戏阶段的类型
+message StageID
+{
+	required int32 STARGAME = 1;//开始游戏阶段，下发玩家列表和规则
+	required int32 BUHUA = 2;//补花阶段开始，客户端显示倒计时并开始第一个玩家补花
+	required int32 PLAYING = 3;//游戏中
+	required int32 GAMEOVER = 4;//游戏结束
+	//其他阶段.......
+}
+
+//*******************k考虑是否拆分打牌广播消息**************
+//客户端游戏中对牌的操作
+message ReqSendCard
+{
+	required CardsGroup Card = 1;//操作的一张牌或者一组牌
+	//其他.......
+}
+//游戏阶段的类型
+message OperationType
+{
+	required int32 CATCH = 1;//抓牌
+	required int32 PLAY = 2;//打牌非摸打
+	required int32 BUHUA = 3;//补花
+	required int32 CHI = 4;//吃牌
+	required int32 PENG = 5;//碰牌
+	required int32 GANG = 6;//明杠牌
+	required int32 ANGANG = 7;//暗杠牌
+	required int32 HU = 8;//胡牌
+	required int32 BUHUAMO = 9;//摸牌补花
+	required int32 KANGMO = 10;//摸牌杠牌
+
+	required int32 NO_OPERATION = 11;//过
+	required int32 HANDCARDS = 12;//手牌
+	
+	required int32 BUGANG = 13;//补杠
+	required int32 MOPLAY = 14;//打牌摸打
+	//其他.......
+}
+//服务器返回客户端对牌的操作 （当玩家选择（不）吃碰杠的时候，返回的操作结果应该只给当前玩家自己广播）
+message AckSendCard
+{
+	required CardsGroup Card = 1;//操作的一张牌或者一组牌
+	repeated int32 gangCoin = 2;//杠牌时四个玩家的收益
+	//其他.......
+}
+//服务器返回客户端可进行吃碰杠的操作
+message AckUserOperation
+{
+	required int32 Sit = 1;//被吃碰杠那个操作者的座位号
+	required bool Chi = 2;//是否能吃
+	repeated CardsGroup ChiCards = 3;//吃牌内容
+	required bool Peng = 4;//是否能碰
+	repeated CardsGroup PengCards = 5;//否牌内容
+	required bool Gang = 6;//是否能杠
+	repeated CardsGroup GangCards = 7;//否牌内容
+	required bool Hu = 8;//是否能胡
+	repeated CardsGroup HuCards = 9;//胡牌内容
+	required bool Call = 10;//听牌
+	repeated MahjongCallInfo CallCards = 11;//听牌内容
+	//其他.......
+}
+
+//牌组类型（一组牌+类型  例如123万+吃  说明这一组是吃的牌  如果是单张出牌1万 则数组中只有1万+正常打牌）
+message CardsGroup
+{
+	required int32 Sit = 1;//操作者的座位号
+	required int32 Type = 2;//类型 
+	repeated CardInfo Cards = 3;//牌组  如果是出牌则数组中只有一张牌
+
+//********************考虑是否拆分
+	//如果是吃、碰、杠、胡则以下值需要读取或者写入
+	optional CardInfo ObtainCard  = 4;//需要吃碰杠胡的那一张牌 
+	optional int32 ObtainCardSit  = 5;//被吃碰杠胡的那个人的座位号
+	//其他.......
+}
+//
+
+
+//番种和番数
+message MahjongFanNumType
+{
+	required int32 FanNum = 1;//番种MahjongFanName
+	required int32 FanType = 2;//番数
+	repeated CardInfo Cards = 3;//牌组 对应番种的牌型数据
+	//其他.......
+}
+//麻将番种名称
+message MahjongFanName
+{
+	required int32 SSSBG = 1;//例如：三色三步高
+	//其他.......
+}
+//客户端请求服务器托管
+message ReqPlayerTrust
+{
+	required int32 sit = 1;//客户端请求服务器托管
+}
+//服务器通知客户端托管
+message AckPlayerTrust
+{
+	required int32 TrustNum = 1;//剩余托管次数  如果是0则不能接触托管 
+	required int32 TrustSit = 2;//托管玩家座位号
+}
+//客户端通知服务器解除托管
+message ReqPlayerRelieveTrust
+{
+	required int32 Sit = 1;//座位号  
+}
+//服务器通知客户端解除托管
+message AckPlayerRelieveTrust
+{
+	required int32 Sit = 1;//座位号  
+	required int32 RelieveTrustSit = 2;//解除托管玩家座位号
+}
+//客户端请求延时操作
+message ReqGameDelay
+{
+	required int32 Sit = 1;//座位号  
+}
+//服务器应答延时请求
+message AckGameDelay
+{
+	required bool Success = 1;//是否成功
+	required int32 Sit = 2;//座位号 
+}
+
+//断线续完同步消息  发完玩家列表和规则下发此消息
+message AckGameContinued
+{
+	required string FirstDice = 1;//第一次打的色子 如果是一个2一个4，则数据内容表示为“2+4”
+	required string SecondDice = 2;//第二次打的色子
+	required int32 BeginCardindex = 3;//牌墙目前抓牌的个数
+	required int32 EndCardindex = 4;//牌墙末尾现在的个数
+	repeated CardPondInfo CardPond = 5;//[x,x,x,x]索引分别代表座位号，索引对应的值代表四个玩家牌池的牌
+	repeated PlayerHandCards HandCards = 6;//[x,x,x,x]索引分别代表座位号，索引对应的值代表四个玩家手牌
+	optional CardsGroup CurrentCard = 7;//最后一摸得牌
+	required int32 CurrentSit = 8;//当前操作的玩家座位号
+	required int32 TrustNum = 9;//剩余托管次数  如果是0则不能接触托管 
+	required int32 DelayTimes = 10;//剩余延时次数 
+	required int32 Stage = 11;//数游戏阶段
+	optional bool IsMoPai = 12;//是否摸牌
+	optional CardInfo Card  = 13;//摸得牌值
+	repeated GameHistoryData HistoryData = 14;//历史数据
+	repeated int32 CuoHuSeat = 15;	// 错胡座位号
+	repeated int32 PlayerState = 16;			// 玩家状态，0：正常状态，1：听牌 2:胡 3：认输
+	repeated int32 dingque_color = 17;			//每家的定缺的花色 -1没有定缺
+	optional int32 huan_san_zhang =18;			//是否已经换三张  0:没有换  1:已经换了
+	repeated int32 hupai0 = 19;					//胡牌列表
+	repeated int32 hupai1 = 20;					//胡牌列表
+	repeated int32 hupai2 = 21;					//胡牌列表
+	repeated int32 hupai3 = 22;					//胡牌列表
+	optional string game_guid=23;				//局号
+	repeated HuSeq hu_player=24;				//胡牌顺序 用来展示几胡
+	//历史
+	repeated MahjongCallInfo CallCards = 25;  //听牌内容
+}
+
+message HuSeq
+{
+	optional int32 self_sit=1;			//自己的座位号
+	optional int32 pao_sit=2;			//点炮玩家的座位号   自摸的话就是自己的座位号
+}
+
+//玩家历史积分
+message GameHistoryData
+{
+	required GameResultCards Cards = 1;//玩家胡牌数组  
+	repeated GameResultIntegralCoin ResultData = 2; //玩家历史积分或者万能豆数据 数组长度为4(四个人) 
+	repeated int32 CuoHuSeat = 3;	// 错胡座位号
+}
+//玩家结果输赢分数数据  一副牌为一个单位
+message GameResultIntegralCoin
+{ 	
+	required string UserName = 1;//玩家姓名
+	required int32 Integral = 2;//输赢分数
+	required int32 Coin = 3;//输赢万能豆 
+	optional string UserShowName = 4;//角色名
+}
+
+//玩家结果输赢分数数据  一副牌为一个单位
+message GameResultCards
+{
+	required int32 Sit = 1;//胡牌人的座位号  
+	repeated CardsGroup Cards = 2;//玩家手牌数组  
+	repeated MahjongFanNumType Type = 3;//胡牌番种  
+	
+	optional CardInfo ObtainCard  = 4;//胡的那一张牌 
+	optional int32 ObtainCardSit  = 6;//胡的那一张牌的座位号
+}
+
+//玩家手牌
+message PlayerHandCards
+{
+	repeated CardsGroup Cards = 1;//玩家手牌数组
+}
+//牌池的牌
+message CardPondInfo
+{
+	repeated CardInfo Cards = 1;//牌组
+}
+// 心跳消息
+message DuxLiveTick
+{
+	required int64 time = 1;	// 客户端发出的时间，服务器原封不动的返回，用来计算网络延迟
+}
+// 初始化手牌请求
+message ReqMahJongSetOpenDoorTile
+{
+	required int32 Sit = 1;	// 座位号
+	repeated int32 CardsColor = 2;//牌的花色数组 
+	repeated int32 CardsValue = 3;//牌的值数组  
+}
+// 打牌过程的发牌请求
+message ReqMahJongSetWallTile
+{
+	required int32 Sit = 1;	// 座位号
+	required int32 CardColor = 2;//牌的花色 
+	required int32 CardValue = 3;//牌的值  
+}
+// 广播诈和
+message AckWrongHu
+{
+	required int32 Sit = 1;	// 座位号
+	repeated CardsGroup Cards = 2;//玩家手牌数组
+}
+// 整圈或整局游戏结果
+message RankResult	
+{
+	required int32 tableId = 1;				// 桌号
+	repeated RankResultPlayer playerResult = 2;		// 玩家信息列表
+	required int32 Type = 3;                                //赛事类型 1：整圈   2：整局
+	required int32 starttime = 4;                           //开始时间
+	required int32 endtime = 5;                             //结束时间
+	required string paipuUrl = 6;                           //牌谱地址
+	optional int32 societyID=7;                            //公会ID，8位英文数字混合随机编码(如果为空表示排位赛，非空表示公会赛)
+	optional int64 roomID    = 8;	 // 房间ID  
+	optional bytes entercodeID  = 9;	 // 房间ID	
+}
+message RankResultPlayer
+{
+	required string userName = 1; // 玩家名称
+	required string showName = 2;	// 显示名
+	required int32	gameCoin = 3;	// 玩家积分
+	optional int32  huPai    = 4;	 // 胡牌次数
+	optional int32  dianPao  = 5;	 // 点炮次数
+	optional int32  ziMo     = 6;	 // 自摸次数
+}
+// 【游戏内发起散桌】
+// OGID_CLIENT_DELETE_TABLE	(OGID_MAHJONG_BASE + 0x14)
+message DeleteTable
+{
+	required string	RoleName	= 1;
+	required string showName	= 2;
+	required string NickName	= 3;
+	required int64	RoomID		= 4;
+	required int32	seat			= 5;
+	optional int64	time			= 6;	// 申请时的时间戳
+	optional int32	Operation	= 7;	// 操作类型默认的0：申请解散拍桌，1：取消申请
+}
+
+//----------------------------------------------------------------------
+// 游戏内散桌投票
+//----------------------------------------------------------------------
+// 【散桌投票】
+//define OGID_CLIENT_DELETE_VOTE		(OGID_MAHJONG_BASE + 0x15)
+message DeleteVote
+{
+	required string RoleName	= 1;
+	required string showName	= 2;
+	required string NickName	= 3;
+	required int64	RoomID		= 4;
+	required int32	seat		= 5;
+	required bool	isAgree		= 6;
+}
+//通知消息
+//define OGID_GBMJ_NTC_MESSAGE		(OGID_MAHJONG_BASE + 0x16)
+message OGNtcMessage
+{
+	required int32 result	= 1; //0成功 大于0失败 
+	required string msg	= 2; //通知内容
+}
+//发送聊天
+//define OGID_GBMJ_CHAT		(OGID_MAHJONG_BASE + 0x17)
+message OGNtcGameChatMessage
+{
+	required int32 sit	= 1; //座位号
+	required int32 type	= 2; //1表情  2 固定的语言  3 自定义语言
+	optional string msg	= 3; //表情相关ID 如果type是3则此id无效
+}
+
+
+//川麻消息
+//客户端请求换三张
+message ReqHuanSanZhang
+{
+	repeated CardInfo huan_san_zhang = 1;//换三张的牌
+	required int32 seat = 2;	//座位号
+}
+message AckHuanSanZhang
+{
+	repeated CardInfo huan_san_zhang =1;//换三张的牌
+	required int32 order = 2;//换三张的顺序 1:顺时针 2:逆时针 3:对家
+	repeated CardInfo req_huan = 3;//被换掉的牌
+}
+message ReqHuanSanZhangEnd
+{
+	required string username =1;
+}
+//请求定缺
+message ReqDingQue
+{
+	required int32 dingque = 1;//定缺花色
+	required int32 seat = 2;	//座位号
+}
+
+message AckDingQue
+{
+	repeated int32 dingque = 1;//定缺花色
+}
+
+message AckGameStatus
+{
+	repeated int32 nstatus = 1;	//0：正常状态，1：听牌 2:胡 3：认输
+}
+
+
+//听牌索引
+message TingCard
+{
+	required int32 FanType		 = 1;						//番型	
+	required int32 CardIndex	 = 2;						//牌AI索引川麻0-27
+}
+
+// 听牌信息
+message MahjongCallInfo
+{
+	required int32			 ObtainCardIndex	 = 1;		// 要打的那张牌AI索引川麻0-27
+	repeated TingCard		 CallCards			 = 2;		// 听的牌 
+}
+
+//服务器通知客户端结果消息(有人胡牌游戏结束)
+message AckGameResult
+{
+	optional string tableGuid				= 1;			//桌子号
+	optional int32  IsOver					= 2;			//是否游戏黄庄1正常结束2黄庄
+	repeated PlayerResultInfo  playerInfo	= 3;			//结算页面展示元素
+	//其他.......
+}
+
+//结算页面的大致信息
+message PlayerResultInfo
+{
+	required string				username		    = 1;	//用户名
+	optional int32				seat			    = 2;	//座位号
+	optional int32				fantype				= 3;	//主番番种
+	optional int32				wintype				= 4;	//0 没胡  1胡了  2自摸
+	optional int32				max_fan				= 5;	//最大番数
+	optional int32				gameCoin		    = 6;	//输赢后的金币总值
+	optional int32				Coin			    = 7;	//当前输赢金币
+	optional int32				feeCoin			    = 8;	//玩家抽水的金币
+	repeated ScoreDescDetail	result_list_detail	= 9;	//详细结算列表
+	repeated CardsGroup			handCards		    = 10;	//玩家手牌数组
+}
+
+//详情
+message ScoreDescDetail
+{
+	optional int32 type		   = 1;			//得分类型	1刮风 2下雨 3自摸 4胡  5花猪  6大叫 7呼叫转移 8补杠 9退税
+	optional int32 fannum	   = 2;			//番数值
+	optional int32 score	   = 3;			//具体得分
+	optional int32 obtainsit   = 4;			//目标座位
+	optional int32 selfseat    = 5;			//自己座位
+	repeated int32 score_change= 6;			//这一次得分中四家的分数变化
+	repeated int32 fan_zhong   = 7;			//如果是胡牌的话 这里面有番种
+	repeated int32 fan_num	   = 8;			//如果是胡牌的话  这里面是和番种对应的番数
+	optional int32 huCardID	   = 9;			//胡的牌的ID号
+}
+//玩家单次胡牌的数据广播
+message HuResultAck
+{
+	repeated HuData	 hulist					=1; //如果是一炮多响的话数组长度大于1
+}
+//单次胡牌数据
+message HuData
+{
+	required string				username		    = 1;	//用户名
+	optional int32				seat			    = 2;	//座位号
+	optional ScoreDescDetail	huInfo				= 3;	//胡牌信息
+}

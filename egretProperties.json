@@ -1,0 +1,58 @@
+{
+	"engineVersion": "5.2.26",
+	"compilerVersion": "5.2.26",
+	"template": {},
+	"target": {
+		"current": "web"
+	},
+	"modules": [
+		{
+			"name": "egret"
+		},
+		{
+			"name": "eui"
+		},
+		{
+			"name": "assetsmanager"
+		},
+		{
+			"name": "dragonBones"
+		},
+		{
+			"name": "game"
+		},
+		{
+			"name": "tween"
+		},
+		{
+			"name": "socket"
+		},
+		{
+			"name": "promise"
+		},
+		{
+			"name": "protobuf-library",
+			"path": "protobuf/library"
+		},
+		{
+			"name": "protobuf-bundles",
+			"path": "protobuf/bundles"
+		},
+		{
+			"name": "protobuf-library",
+			"path": "protobuf/library"
+		},
+		{
+			"name": "protobuf-bundles",
+			"path": "protobuf/bundles"
+		}
+	],
+	"eui": {
+		"exmlRoot": [
+			"resource/eui_skins"
+		]
+	},
+	"urlParams": {
+		"token": "keep2"
+	}
+}

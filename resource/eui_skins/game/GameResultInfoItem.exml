@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GameResultInfoItemSkin" width="900" height="40" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+	<w:Config id="1712a9f1ba8" ></w:Config>
+	<e:Group verticalCenter="0">
+		<e:Label id="lbInfo" text="" textColor="0x83371b" fontFamily="Microsoft YaHei" width="500"/>
+		<e:Label id="lbCoin" text="" textColor="0x83371b" verticalAlign="middle" textAlign="center" width="250"/>
+		<e:Label id="lbSeat" text="" textColor="0x83371b" verticalAlign="middle" textAlign="center" width="150"/>
+		<e:layout>
+			<e:HorizontalLayout gap="0"/>
+		</e:layout>
+	</e:Group>
+</e:Skin>

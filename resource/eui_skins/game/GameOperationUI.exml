@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GameOperationUISkin" width="1920" height="1080" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*" >
+	<w:Config id="170e687466e" ></w:Config>
+	<!--操作按钮-->
+	<e:Group id="gBtns" width="925" height="175" y="754" right="100">
+		<e:Image id="btnPeng" source="gameButton_peng_cn" />
+		<e:Image id="btnGang" source="gameButton_gang_cn" />
+		<e:Image id="btnTing" source="gameButton_ting_cn"/>
+		<e:Image id="btnHu" source="gameButton_hu_cn" />
+		<e:Image id="btnGuo" source="gameButton_guo_cn" />
+	</e:Group>
+	<e:Group id="gCardBg" horizontalCenter="0" width="566" y="750">
+		<e:Image source="gameCommbg_png" width="100%"/>
+		<e:Group id="gPGCards" verticalCenter="0" horizontalCenter="0">
+			
+			<e:layout>
+				<e:HorizontalLayout gap="30"/>
+			</e:layout>
+		</e:Group>
+		<e:Group id="gTingCards" verticalCenter="0" horizontalCenter="0" visible="false">
+			<e:Group height="128">
+				<e:Image id="imgIconHu" source="gameIcon_hu_cn" verticalCenter="0"/>
+			</e:Group>
+			<e:layout>
+				<e:HorizontalLayout gap="30"/>
+			</e:layout>
+		</e:Group>
+		
+	</e:Group>
+</e:Skin>

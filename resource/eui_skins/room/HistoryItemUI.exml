@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="HistoryItemUISkin" width="1575" height="58" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+	<w:Config id="1713fab52cf" ></w:Config>
+	<e:Group verticalCenter="0" horizontalCenter="0">
+		<e:Label id="lbZD" text="111" width="235" fontFamily="Microsoft YaHei" textColor="0x563a2b" textAlign="center" verticalAlign="middle"/>
+		<e:Label id="lbTime" text="111" width="355"  fontFamily="Microsoft YaHei" textColor="0x563a2b" textAlign="center" verticalAlign="middle"/>
+		<e:Label id="lbJu" text="111" width="420"  fontFamily="Microsoft YaHei" textColor="0x563a2b" textAlign="center"  verticalAlign="middle"/>
+		<e:Label id="lbSF" text="111" width="210"  fontFamily="Microsoft YaHei" textColor="0x563a2b" textAlign="center"  verticalAlign="middle"/>
+		<e:Label id="lbResult" text="111" width="340"  fontFamily="Microsoft YaHei" textColor="0x563a2b" textAlign="center"  verticalAlign="middle"/>
+		<e:layout>
+			<e:HorizontalLayout gap="0"/>
+		</e:layout>
+	</e:Group>
+</e:Skin>

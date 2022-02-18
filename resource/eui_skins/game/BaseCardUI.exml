@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="BaseCardUISkin" width="90" height="134" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+	<w:Config id="1711130e9f7" ></w:Config>
+	<e:Group bottom="0">
+		<e:Image source="card_down_h1" />
+		<e:Image id="imgValue" horizontalCenter="0.5" verticalCenter="6" source="cardValue1"/>
+	</e:Group>
+</e:Skin>

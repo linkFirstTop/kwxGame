@@ -1,0 +1,10 @@
+{"file":"gameComm.png","frames":{
+"gameTipDong":{"x":1794,"y":213,"w":64,"h":93,"offX":0,"offY":0,"sourceW":64,"sourceH":93},
+"gameTipNan":{"x":1922,"y":190,"w":64,"h":93,"offX":0,"offY":0,"sourceW":64,"sourceH":93},
+"gameTipXI":{"x":1922,"y":95,"w":64,"h":93,"offX":0,"offY":0,"sourceW":64,"sourceH":93},
+"game_tgbg":{"x":0,"y":0,"w":1920,"h":211,"offX":0,"offY":0,"sourceW":1920,"sourceH":211},
+"gameCommsbg":{"x":1552,"y":213,"w":240,"h":128,"offX":0,"offY":0,"sourceW":240,"sourceH":128},
+"gameHszTipbg":{"x":0,"y":213,"w":972,"h":171,"offX":0,"offY":0,"sourceW":972,"sourceH":171},
+"gameIcon_tip":{"x":1860,"y":285,"w":68,"h":68,"offX":0,"offY":0,"sourceW":68,"sourceH":68},
+"gameTingbg":{"x":974,"y":213,"w":576,"h":248,"offX":0,"offY":0,"sourceW":576,"sourceH":248},
+"gameTipBei":{"x":1922,"y":0,"w":64,"h":93,"offX":0,"offY":0,"sourceW":64,"sourceH":93}}}

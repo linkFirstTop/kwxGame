@@ -1,0 +1,5 @@
+{"file":"changeHeadSheet.png","frames":{
+"icon_chooseHead_png":{"x":1542,"y":0,"w":68,"h":68,"offX":0,"offY":0,"sourceW":68,"sourceH":68},
+"changeHeadbg_png":{"x":0,"y":0,"w":1125,"h":751,"offX":0,"offY":0,"sourceW":1125,"sourceH":752},
+"headBtn_cancel_png":{"x":1335,"y":0,"w":205,"h":90,"offX":1,"offY":1,"sourceW":206,"sourceH":93},
+"headBtn_save_png":{"x":1127,"y":0,"w":206,"h":90,"offX":0,"offY":1,"sourceW":206,"sourceH":93}}}

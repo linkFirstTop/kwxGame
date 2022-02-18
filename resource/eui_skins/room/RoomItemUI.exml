@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="RoomItemUISkin" width="455" height="435" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+	<w:Config id="16e3f56cebc" ></w:Config>
+	<e:Group id="group" width="455" height="435" anchorOffsetX="228" anchorOffsetY="218" x="228" y="218">
+		<e:Image id="imgItem" source="roomItembg1_png"  horizontalCenter="0" verticalCenter="0"/>
+	
+		<e:Label id="lbBase" text="底分:0"  y="285" fontFamily="Microsoft YaHei" anchorOffsetX="0" size="28" verticalAlign="middle" textAlign="center" left="103" right="94"/>
+		<e:Label id="lbEnter" text="准入:0"  fontFamily="Microsoft YaHei" anchorOffsetX="0" textAlign="center" size="28" y="337" left="73" right="70"/>
+	</e:Group>
+	
+</e:Skin>

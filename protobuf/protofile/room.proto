@@ -1,0 +1,480 @@
+package room;
+//心跳请求
+//#define VGID_HEART_BEAT		VGID_CLIENT + 0x00
+message VGHeartBeatReq
+{
+	 optional int64 time = 1;
+}
+
+//心跳应答
+message VGHeartBeatAck
+{
+	 optional int64 time = 1;
+}
+
+//登录请求
+//#define VGID_ROOM_LOGIN		VGID_CLIENT + 0x01
+message VGLoginReq
+{
+	optional  string ticket	 			= 6;	// 证书
+}
+
+//登录应答
+//0:	成功
+//1:	游戏ID不正确
+//2:	调用登录接口失败
+//4:	玩家互踢
+//21:	用户状态异常
+//22:	用户token过期
+//23:	用户频繁登陆
+//24:	用户在其他游戏中
+//25:	渠道未开放
+//26:	转账失败
+message VGLoginAck
+{
+	optional int32  result   			= 1;	// 0：成功 ，其他：错误码
+	optional  VGUserInfo userInfo		= 2;	// 用户信息
+}
+
+//房间列表请求
+//#define VGID_ROOM_ROOMLIST		VGID_CLIENT + 0x02
+message VGRoomListReq
+{
+	optional  string userName			= 1; //用户名
+}
+
+//房间列表应答
+//0:	成功
+message VGRoomListAck
+{
+	optional  int32	result				= 1; //0成功 大于0失败
+	optional  string userName			= 2; //用户名
+	repeated RoomItem roomInfo			= 3; //房间信息
+}
+
+//坐下请求
+//#define VGID_ROOM_SITDOWN			VGID_CLIENT + 0x03
+message VGSitDownReq
+{
+	optional  string		userName		= 1; //玩家用户名
+	optional  VGUserPos		userPos			= 2; //请求坐下的位置
+}
+
+//坐下应答	当坐下成功之后，该消息会是一个广播消息，广播到房间里的所有人
+//0:	成功
+//1:	玩家没有登录
+//2:	玩家非站起状态
+//3:	没有该房间
+//4:	房间临时关闭
+//5:	房间未开放
+//6:	不符合进入房间条件
+//7:	没有合适的游戏桌
+//8:	坐下失败
+message VGSitDownAck
+{
+	optional  uint32		result			= 1;  //0成功 大于0失败
+	optional  VGUserInfo	userInfo		= 2;  //该玩家的信息
+}
+
+//站起请求
+//#define VGID_ROOM_SITUP				VGID_CLIENT + 0x04
+message VGSitUpReq
+{
+	optional  string 	 userName		= 1; //玩家用户名
+	optional  VGUserPos	 userPos		= 2; //当前位置
+}
+
+//站起应答	当站起成功，该消息会是一个广播消息,广播到房间的里所有用户
+//0:	成功
+//1:	玩家没有登录
+//2:	玩家位置不匹配
+//3:	玩家正在游戏中
+message VGSitUpAck
+{
+	optional  uint32		result			= 1; //0成功 大于0失败
+	optional  string		userName		= 2; //用户名
+	optional  VGUserPos		userPos			= 3; //用户位置信息
+	 optional uint32		userStatus		= 4; //用户当前状态
+	optional	uint32		reason			= 5; //站起原因0普通站1断线站起2超出踢出额
+}
+
+// 请求重置玩家状态
+//#define OGID_PROXY_TO_GAME			OGID_PROXY_GAME_BASE + 0x01		//重置玩家状态消息
+message ReqResetUserState
+{
+	optional string userName  = 1;				//用户名
+}
+
+//返回重置玩家状态结果
+//失败码玩家在游戏中result直接返回1其他情况都返回0
+message AckResetUserState
+{
+	required int32  result	  = 1;				//结果 0为游戏开始，其它为失败
+	optional string userName  = 2;				//用户名
+	optional int32  state	  = 3;				//用户状态
+}
+
+//====================================================================
+//							客户端的游戏消息
+//====================================================================
+
+
+//具体牌信息：
+//万牌              条牌              饼牌
+//0  -- 1万		9  -- 1条		18 -- 1饼
+//1  -- 2万		10 -- 2条		19 -- 2饼
+//2  -- 3万		11 -- 3条		20 -- 3饼
+//3  -- 4万		12 -- 4条		21 -- 4饼
+//4  -- 5万		13 -- 5条		22 -- 5饼
+//5  -- 6万		14 -- 6条		23 -- 6饼
+//6  -- 7万		15 -- 7条		24 -- 7饼
+//7  -- 8万		16 -- 8条		25 -- 8饼
+//8  -- 9万		17 -- 9条		26 -- 9饼
+//风牌：
+//27 -- 东风		28 -- 南风		29 -- 西风		30 -- 北风
+//刻牌：
+//31 -- 红中		32 -- 绿发		33 -- 白板
+//花牌：
+//34 -- 梅
+//35 -- 兰
+//36 -- 竹
+//37 -- 菊
+//38 -- 春
+//39 -- 夏
+//40 -- 秋
+//41 -- 冬
+
+//32	三龙七对		由7个对子组成的胡牌，且手上有3组4张一样的牌，不能杠或碰出，不计七对、双龙七对、四归一
+//FAN_3LONG7DUI = 0,
+//32	双龙七对		由7个对子组成的胡牌，且手上有2组4张一样的牌，不能杠或碰出，不计七对、四归一
+//FAN_2LONG7DUI = 1,
+//16	三元七对		七对中包含3个中发白的对子，不计七对、四归一
+//FAN_3YUAN7DUI = 2,
+//8		龙七对		由7个对子组成的胡牌，且手上有1组4张一样的牌，不能杠或碰出，不计七对、四归一
+//FAN_LONG7DUI = 3,
+//8		大三元		包含有中发白3副刻子（或杠）的胡牌
+//FAN_DA3YUAN = 4,
+//4		七对			由7个对子组成的胡牌
+//FAN_7DUI = 5,
+//4		暗四归一		有一个暗刻，并胡该刻子的第4张
+//FAN_AN4GUI1 = 6,
+//4		小三元		手中有中发白其中两个刻子（或杠），另外一个为对子
+//FAN_XIAO3YUAN = 7,
+//4		清一色		全部由条或筒中的某一种花色组成的胡牌
+//FAN_QING1SE = 8,
+//4		手抓一		胡牌时其他牌都被碰牌、杠牌，手牌中只剩下一张牌单吊的胡牌
+//FAN_4ZHUA1 = 9,
+//2		明四归一		有一个明刻，并胡该刻子的第四张牌
+//FAN_MING4GUI1 = 10,
+//2		卡五星		卡五筒或五条胡牌（只要能做出来算卡的都算）
+//FAN_KA5XING = 11,
+//2		碰碰胡		由4个刻子（或杠牌）及将牌组成的胡牌
+//FAN_PENGPENGHU = 12,
+//2		海底炮		摸到牌墙中的最后一1张牌，打出后点炮胡牌
+//FAN_HAIDIPAO = 13,
+//2		海底捞		摸到牌墙中的最后1张牌胡牌
+//FAN_HAIDILAO = 14,
+//2		暗杠			收取其他两个玩家每人2倍底分
+//FAN_ANGANG = 15,
+//2		点杠			只收取放杠者2倍底分
+//FAN_DIANGANG = 16,
+//2		杠上开花		杠牌后，补张自摸
+//FAN_GANGSHANGKAIHUA = 17,
+//2		杠上炮		杠牌后，打出的牌其他玩家可以胡
+//FAN_GANGSHANGPAO = 18,
+//2		抢杠胡		玩家听牌时，其他玩家补杠的牌正好是该玩家能胡的牌
+//FAN_QIANGGANGHU = 19,
+//2		亮倒			玩家亮倒时胡牌
+//FAN_LIANGDAO = 20,
+//1		补杠			收取每位玩家1倍底分
+//FAN_BUGANG = 21,
+//1		自摸			玩家自己抓牌胡牌，收取每个玩家1倍底分
+//FAN_ZIMO = 22,
+//1		屁胡			由4个刻字或顺子组成的胡牌
+//FAN_PIHU = 23,
+
+//enum MJ_TileSetType
+//{
+//	MJ_CGT_HANDCARDS = 0,	//手牌
+//	MJ_CGT_CHOW = 1,	//吃牌
+//	MJ_CGT_PONG = 2,	//碰牌
+//	MJ_CGT_C_KONG = 3,	//暗杠牌
+//	MJ_CGT_E_KONG = 4,	//明杠牌
+//	MJ_CGT_P_KONG = 5,	//补杠牌
+//	MJ_CGT_HU = 6,	//胡牌
+//	MJ_CGT_DISCARD = 7,	//打出的牌
+//	MJ_CGT_DRAW = 8,	//抓的牌
+//	MJ_CGT_DRAW_KONG = 9,	//杠后抓的牌
+//	MJ_CGT_DISCARDED = 10,	//牌池的牌
+//};
+
+//enum MJ_OperationType
+//{
+//	MJ_OT_DRAW = 0,	//摸牌
+//	MJ_OT_H_DISCARD = 1,	//手切，打出的是手中的牌，吃碰之后都是手切
+//	MJ_OT_D_DISCARD = 2,	//摸切，打出的是刚摸到的牌
+//	MJ_OT_L_CHOW = 3,	//左吃，吃的牌是最小点, 例如45吃3
+//	MJ_OT_M_CHOW = 4,	//中吃，吃的牌是中间点，例如24吃3
+//	MJ_OT_R_CHOW = 5,	//右吃，吃的牌是最大点，例如12吃3
+//	MJ_OT_PONG = 6,	//碰
+//	MJ_OT_C_KONG = 7,	//暗杠
+//	MJ_OT_E_KONG = 8,	//直杠
+//	MJ_OT_P_KONG = 9,	//补杠
+//	MJ_OT_TING = 10,	//听
+//	MJ_OT_WIN = 11,	//和
+//	MJ_OT_PASS = 12,	//过
+//};
+
+message MJ_TingTileInfo
+{
+	optional	int32		callTile		= 1;	//听哪张牌
+	optional	int32		callTileCount	= 2;	//听的这张牌还有几张
+	optional	int32		fans			= 3;	//和这张牌有几番
+}
+
+//玩家操作
+message MJ_Operation
+{
+	optional	int32	operationType		= 1;	//操作类型
+	repeated	int32				Tiles				= 2;	//牌组  如果是出牌则数组中只有一张牌
+	//如果是吃、碰、杠、胡则以下值需要读取或者写入
+	optional	int32				ObtainTile			= 3;	//需要吃碰杠胡的那一张牌 
+	optional	int32				ObtainSeat			= 4;	//被吃碰杠胡的那个人的座位号
+	//如果是听，则以下值需要读取或写入
+	repeated	MJ_TingTileInfo		tingTileInfo		= 5;	//和牌信息
+	//如果是胡，则以下值需要读取或写入
+	optional	int32				maxFan				= 6;	//最大番数
+	repeated	MJ_FanInfo			fans				= 7;	//番种列表
+	optional	int32				operationID			= 8;	//操作id
+}
+
+//牌组类型（一组牌+类型  例如123万+吃  说明这一组是吃的牌  如果是单张出牌1万 则数组中只有1万+正常打牌）
+message MJ_TileSet
+{
+	required int32	Type	= 2;//类型 
+	repeated int32	Tiles				= 3;//牌组  如果是出牌则数组中只有一张牌
+
+	//如果是吃、碰、杠、胡则以下值需要读取或者写入
+	optional int32 ObtainTile			= 4;//需要吃碰杠胡的那一张牌 
+	optional int32 ObtainSeat			= 5;//被吃碰杠胡的那个人的座位号
+}
+
+message MJ_FanInfo
+{
+	optional int32			type		= 1;
+	optional int32			value		= 2;
+}
+
+message MJ_SettlementInfo
+{
+	optional int32			type		= 1;
+	repeated int32			coinList	= 2;
+}
+
+//游戏状态
+enum MJ_PLAYERROLE
+{
+	MJ_PR_BANKER			= 0;	//庄家
+	MJ_PR_PLAYER			= 1;	//闲家
+}
+
+//游戏状态
+enum MJ_GAMESTATUS
+{
+	MJ_GS_DF			= 0;	//默认状态什么都不处理
+	MJ_GS_DP			= 1;	//打漂状态
+	MJ_GS_KJ			= 2;	//开局状态
+	MJ_GS_FP			= 3;	//发牌状态
+	MJ_GS_XP			= 4;	//行牌状态
+	MJ_GS_JS			= 5;	//结算状态
+}
+
+//玩家状态
+enum USERSTATUS
+{
+	US_DEFAULT		= 0;	//默认状态
+	US_SITUP		= 1;	//站起状态
+	US_SITDOWN		= 2;	//坐下状态
+	US_GAMEING		= 3;	//游戏状态
+}
+
+
+//====================================================================
+
+//房间信息
+message RoomItem
+{
+	optional	uint32 roomID				= 1;	//房间ID
+	optional	string name					= 2;	//房间名
+	optional	int32 entry_min				= 4;	//准入下线货币值
+	optional	int32 entry_max				= 5;	//准入上线货币值
+	optional	int32 basic_bet				= 6;	//基础额度
+	optional	int32 kickout_min			= 7;	//踢出额度
+	optional	int32 kickout_max			= 8;	//踢出额度
+	optional	int32 service_fee			= 9;	//抽水
+	optional	int32 max_fan				= 10;	//最大番数
+	optional	int32 state					= 11;	//房间状态 0: 开启 1: 临时关闭 2: 未开放
+}
+
+//用户信息
+message VGUserInfo
+{
+optional	string			userName		= 1;	//玩家用户名
+optional	string			showName		= 2;	//玩家显示名
+optional	VGUserPos		userPos			= 3;	//玩家当前位置
+optional	USERSTATUS		status			= 4;	//玩家游戏状态
+optional	int64			gameCoin		= 5;	//用户的豆子数
+optional	int32			isManaged		= 6;	//是否托管
+	//游戏开始信息
+optional	MJ_PLAYERROLE	role			= 7;	//庄闲信息
+	//游戏打漂信息
+optional	int32			dapiao			= 8;	//打漂信息
+	//行牌阶段信息
+repeated	MJ_TileSet		tileSets		= 9;	//牌组信息
+optional	int32			isTing			= 10;	//是否听牌
+repeated	MJ_TingTileInfo	tingTileInfo	= 11;	//听牌信息
+	//结算阶段信息
+repeated	MJ_FanInfo		fan				= 12;	//番型信息
+optional	int64			resultCoin		= 13;	//输赢金币有正负之分
+optional	int32			feeCoin			= 14;	//服务费
+}
+
+//用户的位置信息
+message VGUserPos
+{
+optional	int32 roomID				= 1;	//房间ID
+optional	string tableID				= 2;	//桌子ID
+optional	int32 seatID				= 3;	//桌位号
+}
+
+//====================================================================
+//====================================================================
+
+//游戏状态广播消息
+//#define VGID_GAME_GAMESTATUS		VGID_CLIENT + 0x0080
+message VGGameStatusNtc
+{
+optional	MJ_GAMESTATUS		status			= 1;	//当前游戏状态
+optional	int32				second			= 2;	//倒计时时间（秒）
+optional	int32				roomID			= 3;	//房间ID
+optional	string				tableID			= 4;	//桌子ID
+}
+
+//同步游戏数据
+//#define VGID_GAME_SYNCGAMEDATA		VGID_CLIENT + 0x0084
+message VGSyncGameDataNtc
+{
+optional	int32					roomID			= 1;	//房间id
+optional	string					tableID			= 2;    //桌子ID
+optional	MJ_GAMESTATUS			status			= 3;    //当前游戏状态
+optional	int32					second			= 4;	//倒计时时间（秒）
+repeated	VGUserInfo				userInfos		= 5;	//用户信息
+optional	string					roundGuid		= 6;	//局号
+optional	int32					remainCount		= 7;	//剩余牌张数
+repeated	MJ_SettlementInfo		settlementInfos	= 8;	//结算信息
+}
+
+//开始游戏广播消息
+//#define VGID_GAME_GAMESTART			VGID_CLIENT + 0x0088
+message VGGameStartNtc
+{
+	optional string		roundGuid		= 1;	//局号
+	repeated VGUserInfo	userInfos		= 2;	//玩家信息(基本信息)
+	repeated int32		dicePoint		= 3;	//骰子点数
+}
+
+//发牌广播消息
+//#define VGID_GAME_SENDCARD			VGID_CLIENT + 0x008C
+message VGGameSendCardNtc
+{
+	optional	string			roundGuid		= 1;	//局号
+	repeated	VGUserInfo		userInfos		= 4;	//玩家信息(包含发牌结果)
+	optional	int32			remainCount		= 7;	//剩余牌张数
+}
+
+//行牌单播消息
+//#define VGID_GAME_OPERATION			VGID_CLIENT + 0x0094
+message VGGameOperationNtc
+{
+	optional	string					roundGuid			= 1;	//局号
+	optional	int32					seatid				= 2;	//座位号
+	repeated	MJ_Operation			operation			= 3;	//可选操作
+	optional	int32					second				= 4;	//倒计时时间（秒）
+}
+
+//结算广播消息
+//#define VGID_GAME_GAMERESULT		VGID_CLIENT + 0x0098
+message VGGameResultNtc
+{
+optional	int32					roomID			= 1;	//房间ID
+optional	string					tableID			= 2;	//桌子ID
+optional	string					roundGuid		= 3;	//局号
+repeated	VGUserInfo				userInfos		= 4;	//玩家信息(包含结算结果)
+repeated	MJ_SettlementInfo		settlementInfos	= 5;	//结算信息
+}
+
+//玩家打漂消息
+//#define VGID_USER_DAPIAO			VGID_CLIENT + 0x00C1
+//打漂请求
+message VGUserDapiaoReq
+{
+	optional	int32	dapiao	= 1;	//玩家选择的操作
+}
+//打漂应答
+message VGUserDapiaoAck
+{
+	optional	int32			result			= 1;	//操作结果
+	optional	VGUserInfo		userInfo		= 2;	//玩家信息(包含打漂结果)
+}
+
+//玩家行牌消息
+//#define VGID_USER_OPERATION			VGID_CLIENT + 0x00C0
+//行牌请求
+message VGUserOperationReq
+{
+	optional	MJ_Operation	operation	= 1;	//玩家选择的操作
+}
+//行牌应答
+message VGUserOperationAck
+{
+	optional	int32			result			= 1;	//操作结果
+	optional	int32			seatID			= 2;	//座位号
+	optional	MJ_Operation	operation		= 3;	//玩家选择的操作
+	optional	int32			remainCount		= 4;	//剩余牌张数
+}
+
+//玩家托管消息
+//#define VGID_USER_MANAGED				VGID_CLIENT + 0x00C2
+//托管请求
+message VGUserManagedReq
+{
+	optional	int32			isManaged		= 1;	//是否为托管
+}
+//托管应答
+message VGUserManagedAck
+{
+	optional	int32			result			= 1;	//托管结果
+	optional	int32			isManaged		= 2;	//是否为托管
+}
+
+//玩家聊天消息
+//#define VGID_USER_CHAT				VGID_CLIENT + 0x00C4
+message VGUserChatMsg
+{
+optional	int32			roomID					= 1;
+optional	string			tableID					= 2;
+optional	int32			seatID					= 3;
+optional	string			userName				= 4;
+optional	string			msg						= 5;
+}
+
+//#define VGID_SERVICE_MAGICTILES		VGID_CLIENT + 0x00F0		//发牌器
+message MagicTilesReq
+{
+optional	int32	tile		= 1;	//下一张发的牌
+}
+
+message MagicTilesAck
+{
+repeated	int32	tiles		= 1;	//牌墙的所有牌
+}

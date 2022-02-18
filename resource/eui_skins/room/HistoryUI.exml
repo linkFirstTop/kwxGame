@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="HistoryUISkin" width="1920" height="1080" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" xmlns:room="room.*" >
+	<w:Config id="17139bc974c" ></w:Config>
+	<e:Image id="bg" source="black_png" width="100%" height="100%" alpha="0.4"/>
+	<e:Group id="gContent" horizontalCenter="0" verticalCenter="0" anchorOffsetX="885" anchorOffsetY="520">
+		<e:Image source="historyBg_png" y="0" horizontalCenter="0"/>
+		<e:Image source="historyContent_png" horizontalCenter="0.5"  y="210"/>
+		<e:Image id="imgTitle" source="resource/assets/language/cn/history/title_history.png"  horizontalCenter="0.5" y="30"/>
+		<ns1:BaseButton id="btnClose" width="105" height="105" right="22" y="13">
+			<e:Skin>
+				<e:Image source="button_close_png" />
+			</e:Skin>
+		</ns1:BaseButton>
+		<e:Group y="127" anchorOffsetY="0" anchorOffsetX="0" horizontalCenter="0">
+			<e:Group verticalCenter="0">
+				<e:Image id="imgStart" source="resource/assets/language/cn/history/title_start.png"  verticalCenter="0"/>
+				<e:Image source="historyTimebg_png"  x="150"/>
+				<e:Label id="lbStartTime" text="2019-08-12 00:00:00"  textAlign="center"  x="175" verticalCenter="0.5" textColor="0x7f5844"/>
+			</e:Group>
+			<e:Group verticalCenter="0.5" x="562">
+				<e:Image id="imgEnd" source="resource/assets/language/cn/history/title_end.png"  verticalCenter="0"/>
+				<e:Image source="historyTimebg_png"  x="150"/>
+				<e:Label id="lbEndTime" text="2019-08-12 00:00:00"  textAlign="center"  x="175" verticalCenter="0" textColor="0x7f5844"/>
+			</e:Group>
+			<ns1:BaseButton id="btnQuery" x="1120" width="166" height="70">
+				<e:Skin>
+					<e:Image source="resource/assets/language/cn/history/button_query.png"/>
+				</e:Skin>
+			</ns1:BaseButton>
+			
+		</e:Group>
+		<e:Group height="46" y="226" anchorOffsetY="0" anchorOffsetX="0" horizontalCenter="-1">
+			<e:Group height="100%" x="0" y="0" anchorOffsetX="0" width="235">
+				<e:Image id="imgDan" source="resource/assets/language/cn/history/title_dan.png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Group>
+			<e:Group height="100%" x="0" y="0" anchorOffsetX="0" width="355">
+				<e:Image id="imgCreate" horizontalCenter="0" verticalCenter="0" source="resource/assets/language/cn/history/title_create.png"/>
+			</e:Group>
+			<e:Group height="100%" x="10" y="10" anchorOffsetX="0" width="420">
+				<e:Image id="imgJu" horizontalCenter="0" verticalCenter="0" source="resource/assets/language/cn/history/title_ju.png"/>
+			</e:Group>
+			<e:Group height="100%" x="20" y="20" anchorOffsetX="0" width="210">
+				<e:Image id="imgBank" horizontalCenter="0" verticalCenter="0" source="resource/assets/language/cn/history/title_banker.png" />
+			</e:Group>
+			<e:Group height="100%" x="30" y="30" anchorOffsetX="0" width="340">
+				<e:Image id="imgResult" horizontalCenter="0" verticalCenter="0"  source="resource/assets/language/cn/history/title_coin.png"/>
+			</e:Group>
+			<e:layout>
+				<e:HorizontalLayout gap="0"/>
+			</e:layout>
+		</e:Group>
+		<e:Group id="gItems" width="1575" height="600" y="281" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="1">
+			<e:layout>
+				<e:VerticalLayout gap="0.5"/>
+			</e:layout>
+			
+		</e:Group>
+		
+		<e:Group width="1575" height="76" y="872" anchorOffsetY="0" anchorOffsetX="0" horizontalCenter="1">
+			<e:Group horizontalCenter="0.5" y="12">
+				<ns1:BaseButton id="btnPre" width="146" height="60">
+					<e:Skin>
+						<e:Image source="resource/assets/language/cn/history/button_pre.png"/>
+					</e:Skin>
+				</ns1:BaseButton>
+				<e:Label id="lbPage" text="1" fontFamily="Microsoft YaHei" textAlign="center" verticalAlign="middle" horizontalCenter="0" textColor="0x313131" y="14"/>
+				<ns1:BaseButton id="btnNext" x="280" width="146" height="60">
+					<e:Skin>
+						<e:Image source="resource/assets/language/cn/history/button_next.png"/>
+					</e:Skin>
+				</ns1:BaseButton>
+			</e:Group>
+			
+			
+			<e:Label id="lbTitleTotal" text="总计" x="50" y="44" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x313131"/>
+			<e:Label id="lbTitleSub" text="小计" x="50" y="8" fontFamily="Microsoft YaHei" size="30" scaleX="1" scaleY="1" textColor="0x313131"/>
+			<e:Label id="lbSubtotal" text="共0条" x="170" y="8" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x313131"/>
+			<e:Label id="lbTotal" text="共0条" x="170" y="44" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" anchorOffsetY="0" textAlign="center" verticalAlign="middle" textColor="0x313131"/>
+			
+			<e:Label id="lbSubtotalGold" text="" y="8" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x313131" right="110"/>
+			<e:Label id="lbTotalGold" text="" y="44" fontFamily="Microsoft YaHei" textColor="0x313131" scaleX="1" scaleY="1" anchorOffsetY="0" verticalAlign="middle" right="110"/>
+		</e:Group>
+		
+	</e:Group>
+</e:Skin>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GameResultOtherInfoSkin" width="436" height="150" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+	<w:Config id="1710ac9d18b" ></w:Config>
+	<e:Group  verticalCenter="0" x="15">
+		<e:Image id="imgHead" mask="{imgMask}" width="130" height="130" horizontalCenter="0" verticalCenter="0" smoothing="true"/>
+		<e:Rect id="imgMask" ellipseWidth="130" ellipseHeight="130" fillColor="0x000000" width="130" height="130" horizontalCenter="0" verticalCenter="0"/>
+		<e:Image source="result_win_head" width="130" height="130"/>
+	</e:Group>
+	<e:Group verticalCenter="0" x="160">
+		<e:Label id="lbName" text=""  width="250" verticalAlign="middle" textAlign="left" size="36" textColor="0x883f24"/>
+		<e:BitmapLabel id="lbCoin" font="resultWinFnt_fnt" text="0" verticalCenter="25" x="0" letterSpacing="-2" scaleX="0.5" scaleY="0.5"/>
+	</e:Group>
+	<e:Image id="imgPosition" source="resultPosition_E_cn" right="0" y="20"/>
+	<e:Image id="imgBank" source="result_bank_cn" />
+</e:Skin>
