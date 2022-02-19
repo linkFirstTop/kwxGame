@@ -83,7 +83,10 @@ module room {
 		//发牌广播消息
 		private VGID_ACK_GAME_SENDCARD(byte: egret.ByteArray): void {
 			var body: room.VGGameSendCardNtc = room.VGGameSendCardNtc.decode(byte.bytes);
+			game.GamePlayData.SaveHandCarsd(body.userInfos);
 			game.GameUserList.updateUserListInfo(body.userInfos);
+
+
 			GDGame.Msg.ins.dispatchEventWith(game.GameMessage.SHOW_DAPIAO_INFO);
 			GDGame.Msg.ins.dispatchEventWith(game.GameMessage.START_GET_CARD);
 			console.log('发牌广播消息', body);

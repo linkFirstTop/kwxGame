@@ -44,6 +44,20 @@ module game {
 		public static getCurrentPlayerInfo(): game.GameUserInfo {
 			return game.GameUserList.arrUserList[2]
 		}
+
+		/**
+		 * 根据名称 查询自己的座位
+		 */
+		public static getUserSitByName(name:string) {
+			let sit = -1;
+			game.GameUserList.arrUserList.forEach((e:game.GameUserInfo)=>{
+				if(e.userName == name){
+					sit = e.userSit
+				}
+
+			})
+			return sit;
+		}
 	}
 
 	export enum RoomStatus {

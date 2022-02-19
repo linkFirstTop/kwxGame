@@ -114,7 +114,6 @@ module game {
 						egret.Tween.get(g).wait(j * 800).call(function () {
 							g.getChildAt(n).visible = true;
 						}, this);
-
 					}
 				}
 				len += 4;
@@ -269,6 +268,8 @@ module game {
 			}
 		}
 		private copyHandCard(arrTmp: Array<CardInfo>): Array<CardInfo> {
+			
+			console.log("=arrTmp==",arrTmp)
 			let arr: Array<CardInfo> = [];
 			for (let i: number = 0; i < arrTmp.length; i++) {
 				let card: CardInfo = new CardInfo();
@@ -280,7 +281,11 @@ module game {
 		}
 
 		public updataHandsByPosition(sit: number, state: number, isShow: boolean = true): void {
+			//console.log("===sit",sit)
 			let p: number = Global.getUserPosition(sit);
+
+			// let seatP = Global.getUserPosition(p);
+			 console.log("====***P****===",p)
 			let nQue: number = game.GameUserList.arrUserList[sit].cardType;
 			let ghand: eui.Group = this.findHandGroup(p);
 			this.clearGroup(ghand);
@@ -317,14 +322,14 @@ module game {
 					}
 					ghand.addChildAt(card, 0);
 				}
-				if (p == 1) {
+				if (p == 3) {
 					card.setCard(p, (i + index), cardValue, state, isQue);
 					card.x = i * 44;
 					if (index == 0 && i == 0) {
 						card.x -= 10;
 					}
 				}
-				if (p == 2) {
+				if (p == 1) {
 					card.setCard(p, 13 - i - index, cardValue, state, isQue);
 					if (state == 0) {
 						card.x = this.arrRHP[i + index].x;
@@ -335,7 +340,7 @@ module game {
 					}
 					ghand.addChild(card);
 				}
-				if (p == 3) {
+				if (p == 2) {
 					card.setCard(p, (i + index), cardValue, state, isQue);
 					card.cardInfo = info;
 					if (GameParmes.isHu) {
@@ -722,13 +727,13 @@ module game {
 			if (p == 0) {
 				return this.gHandCardL;
 			}
-			if (p == 1) {
+			if (p == 3) {
 				return this.gHandCardU;
 			}
-			if (p == 2) {
+			if (p == 1) {
 				return this.gHandCardR;
 			}
-			if (p == 3) {
+			if (p == 2) {
 				return this.gHandCardD;
 			}
 		}

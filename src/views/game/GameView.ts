@@ -89,6 +89,10 @@ module game {
 			//显示打漂信息
 			GDGame.Msg.ins.addEventListener(GameMessage.SHOW_DAPIAO_INFO, this.showDapiaoInfo, this);
 
+			//显示手牌信息
+			//GDGame.Msg.ins.addEventListener(GameMessage.START_GET_CARD, this.ACK_GAME_DICEANDCARDS, this);
+
+
 		}
 		/*返回游戏服务登录结果*/
 		private onEnterGame(evt: egret.Event): void {
@@ -126,6 +130,7 @@ module game {
 		*骰子、手牌消息
 		*/
 		private ACK_GAME_DICEANDCARDS(): void {
+		//	console.log("===ACK_GAME_DICEANDCARDS==")
 			this.gameUI.initHandCard();
 		}
 

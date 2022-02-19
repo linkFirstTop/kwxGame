@@ -31,7 +31,7 @@ module game {
 					this.imgCard.skewY = 25;
 				}
 			}
-			if(p == 1){//上
+			if(p == 3){//上
 				if(state == 0){
 					this.imgBack.source = "card_up_h1";
 				}else{
@@ -42,7 +42,7 @@ module game {
 					this.imgCard.verticalCenter = -7;
 				}
 			}
-			if(p == 2){//右
+			if(p == 1){//右
 				if(state == 0){
 					this.imgBack.source = "card_left_h"+(index+1);
 				}else{
@@ -55,7 +55,7 @@ module game {
 				}
 				this.imgBack.scaleX = -1;
 			}
-			if(p == 3){
+			if(p == 2){
 				this.imgCard.source = "cardValue"+value;
 				this.cardIndex = value;
 				if(state == 0){

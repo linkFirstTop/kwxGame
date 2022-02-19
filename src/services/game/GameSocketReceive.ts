@@ -134,7 +134,7 @@ module game {
 		private ON_ACK_DICEANDCARDS(byte: egret.ByteArray): void {
 			var body: game.AckDiceAndCards = game.AckDiceAndCards.decode(byte.bytes);
 			GameController.AckGameDiceAndCards(body);
-			Global.log("接收服务器发送的色子和手牌");
+			Global.log("接收服务器发送的色子和手牌",body);
 		}
 		//接收服务器游戏的操作
 		private ON_ACK_SENDCARDS(byte: egret.ByteArray): void {

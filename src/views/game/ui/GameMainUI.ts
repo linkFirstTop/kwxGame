@@ -173,9 +173,13 @@ module game {
 		public initUser(): void {
 			this.isGaming = true;
 			let len: number = game.GameUserList.arrUserList.length;
+			console.log("***************************************")
+			console.log("=========GameUserList",game.GameUserList.arrUserList)
+			console.log("***************************************")
 			for (let i: number = 0; i < len; i++) {
 				let user: game.GameUserInfo = game.GameUserList.arrUserList[i];
 				let p: number = Global.getUserPosition(user.userSit);
+				//console.log("=====PP",p)
 				this["gameUser" + p].setUserInfo(user);
 				this["gameUser" + p].visible = true;
 			}
@@ -185,6 +189,7 @@ module game {
 
 		public showDapiaoInfo() {
 			let len: number = game.GameUserList.arrUserList.length;
+			//console.log("===showDapiaoInfo===",len)
 			for (let i: number = 0; i < len; i++) {
 				let user: game.GameUserInfo = game.GameUserList.arrUserList[i];
 				let p: number = Global.getUserPosition(user.userSit);

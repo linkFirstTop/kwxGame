@@ -104,25 +104,60 @@ module game {
 		/**
 		 * 根据发牌数据创建手牌
 		 * */
-		public static SaveHandCarsd(arr:Array<CardInfo>):void
+		public static SaveHandCarsd(arr:Array<room.IVGUserInfo>):void
 		{
-			for(let i:number=0;i<4;i++){
-				let arrTmp:Array<CardInfo> = [];
-				if(i==Global.userSit){
-					arrTmp = arr
-				}else{
-					let cardsLength:number = 13;
-					if(i==game.GameParmes.firstSit)cardsLength = 14;
-					for(let j:number = 0;j < cardsLength;j++){
-						let card:CardInfo = new CardInfo();
-						card.CardID = 0;
-						card.Sit = i;
-						arrTmp.push(card);
-					}
-				}
+			//console.log("座位 GLOBAL.USERSIT",Global.userSit)
+
+			arr.forEach((e,i)=>{
+				let arrTmp:Array<CardInfo> =  e.tileSets[0].Tiles.map(o=>{
+					return {CardID:o,Sit:i}
+				})
+
+				// game.GamePlayData.arrHandCards[p] = e.tileSets[0].Tiles;
+	
 				game.GamePlayData.arrHandCards.push(arrTmp);
-			}
+			})
+
+			//console.log("HHHHHHHHAN CARDS", game.GamePlayData.arrHandCards)
+			// for(let i:number=0;i<4;i++){
+			// 	let arrTmp:Array<CardInfo> = [];
+			// 	if(i==Global.userSit){
+			// 		arrTmp = arr;
+			// 	}else{
+			// 		let cardsLength:number = 13;
+			// 		if(i==game.GameParmes.firstSit)cardsLength = 14;
+			// 		for(let j:number = 0;j < cardsLength;j++){
+			// 			let card:CardInfo = new CardInfo();
+			// 			card.CardID = 0;
+			// 			card.Sit = i;
+			// 			arrTmp.push(card);
+			// 		}
+			// 	}
+			// 	game.GamePlayData.arrHandCards.push(arrTmp);
+			// }
 		}
+
+		// public static SaveHandCarsd(arr:Array<CardInfo>):void
+		// {
+		// 	for(let i:number=0;i<4;i++){
+		// 		let arrTmp:Array<CardInfo> = [];
+		// 		if(i==Global.userSit){
+		// 			arrTmp = arr
+		// 		}else{
+		// 			let cardsLength:number = 13;
+		// 			if(i==game.GameParmes.firstSit)cardsLength = 14;
+		// 			for(let j:number = 0;j < cardsLength;j++){
+		// 				let card:CardInfo = new CardInfo();
+		// 				card.CardID = 0;
+		// 				card.Sit = i;
+		// 				arrTmp.push(card);
+		// 			}
+		// 		}
+		// 		game.GamePlayData.arrHandCards.push(arrTmp);
+		// 	}
+		// }
+
+		
 		/*结算重新赋值手牌数据*/
 		public static SaveResultHandCard(arr:Array<any>):void{
 			for(let i:number = 0;i < arr.length;i++){
@@ -150,6 +185,7 @@ module game {
 			* */
 		public static  SetHandCardsValue(arr:Array<any>,cardID:number,sit:number):void
 		{
+			// console.log("====hand ARR",arr)
 			var handCards:Array<CardInfo> = [];
 			var otherCards:Array<CardsGroupInfo> = [];
 			for(var x:number=0;x<arr.length;x++){
@@ -423,6 +459,7 @@ module game {
 			}
 		}
 		public static getHandCards(sit:number):Array<CardInfo>{
+		
 			let arr:Array<CardInfo> = game.GamePlayData.arrHandCards[sit];
 			return arr;
 		}

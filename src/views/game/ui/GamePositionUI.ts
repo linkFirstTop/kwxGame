@@ -49,13 +49,13 @@ module game {
 				if (p == 0) {
 					this.imgLeft.source = "ps_" + str + "_dark_left";
 					this.imgIconLeft.source = "ps_" + str + "_dark" + strLan;
-				} else if (p == 1) {
+				} else if (p == 3) {
 					this.imgUp.source = "ps_" + str + "_dark_up";
 					this.imgIconUp.source = "ps_" + str + "_dark" + strLan;
-				} else if (p == 2) {
+				} else if (p == 1) {
 					this.imgRight.source = "ps_" + str + "_dark_right";
 					this.imgIconRight.source = "ps_" + str + "_dark" + strLan;
-				} else if (p == 3) {
+				} else if (p == 2) {
 					this.imgDown.source = "ps_" + str + "_dark_down";
 					this.imgIconDown.source = "ps_" + str + "_dark" + strLan;
 				}
@@ -75,13 +75,13 @@ module game {
 			if (p == 0) {
 				this.imgLeft.source = "ps_" + str + "_light_left";
 				this.imgIconLeft.source = "ps_" + str + "_light" + strLan;
-			} else if (p == 1) {
+			} else if (p == 3) {
 				this.imgUp.source = "ps_" + str + "_light_up";
 				this.imgIconUp.source = "ps_" + str + "_light" + strLan;
-			} else if (p == 2) {
+			} else if (p == 1) {
 				this.imgRight.source = "ps_" + str + "_light_right";
 				this.imgIconRight.source = "ps_" + str + "_light" + strLan;
-			} else if (p == 3) {
+			} else if (p == 2) {
 				this.imgDown.source = "ps_" + str + "_light_down";
 				this.imgIconDown.source = "ps_" + str + "_light" + strLan;
 			}
