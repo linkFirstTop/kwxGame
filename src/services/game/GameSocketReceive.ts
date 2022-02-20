@@ -99,6 +99,9 @@ module game {
 		private ON_ACK_GAMESTAGE(byte: egret.ByteArray): void {
 			var body: game.AckGameStage = game.AckGameStage.decode(byte.bytes);
 			Global.log("游戏阶段消息:" + body.Stage);
+			console.log("游戏阶段消息*********");
+			console.log("游戏阶段消息:" + body.Stage);
+			console.log("游戏阶段消息*********");
 			GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_GAMESTAGE, true, true, body));
 			GameParmes.gameStage = body.Stage;
 			if (GameParmes.gameStage == GameStageType.STARGAME) {
@@ -106,13 +109,14 @@ module game {
 			} else if (GameParmes.gameStage == GameStageType.PLAYING) {
 				game.GamePlayData.M_C_P_G_sit = GameParmes.firstSit;
 				GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_GAME_STARTPLAYING));
-			} else if (GameParmes.gameStage == GameStageType.CHANGE) {//广播换三张
-				game.GamePlayData.M_C_P_G_sit = GameParmes.firstSit;
-				GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_USER_HSZ_STATE));
-			} else if (GameParmes.gameStage == GameStageType.DINGQUE) {//定缺
-				game.GamePlayData.M_C_P_G_sit = GameParmes.firstSit;
-				GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_USER_DINGQUE_STATE));
 			}
+			//  else if (GameParmes.gameStage == GameStageType.CHANGE) {//广播换三张
+			// 	game.GamePlayData.M_C_P_G_sit = GameParmes.firstSit;
+			// 	GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_USER_HSZ_STATE));
+			// } else if (GameParmes.gameStage == GameStageType.DINGQUE) {//定缺
+			// 	game.GamePlayData.M_C_P_G_sit = GameParmes.firstSit;
+			// 	GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_USER_DINGQUE_STATE));
+			// }
 
 		}
 		//接收服务器发送的用户列表

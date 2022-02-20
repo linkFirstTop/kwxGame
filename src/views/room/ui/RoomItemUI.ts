@@ -21,7 +21,6 @@ module room {
 		protected childrenCreated():void
 		{
 			super.childrenCreated();
-
 			
 			this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.touchBegin, this);
 			this.addEventListener(egret.TouchEvent.TOUCH_CANCEL, this.touchCancel, this);

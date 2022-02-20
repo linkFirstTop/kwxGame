@@ -14,29 +14,49 @@ module game {
 		private imgHead:eui.Image;
 		private imgPosition:eui.Image;
 		private imgBank:eui.Image;
+
+		private imgLiang : eui.Image;
+		private paiInfos : eui.Group;
+
 		protected childrenCreated():void
 		{
 			super.childrenCreated();
 		}
-		public setResult(info:PlayerResultInfo):void{
-			this.lbName.text = GameUtils.getShowName(info.username);
-			if(info.Coin >= 0){
+		public setResult(info:room.VGUserInfo):void{
+			this.lbName.text = GameUtils.getShowName(info.userName);
+			if(info.resultCoin >= 0){
 				this.lbCoin.font = "resultWinFnt_fnt";
-				this.lbCoin.text = "+"+ChipUtils.formatCoin(info.Coin);
+				this.lbCoin.text = "+"+ChipUtils.formatCoin(Number(info.resultCoin) );
 			}else{
 				this.lbCoin.font = "resultLoseFnt_fnt";
-				this.lbCoin.text = "-"+ChipUtils.formatCoin(-info.Coin);
+				this.lbCoin.text = "-"+ChipUtils.formatCoin(Number(-info.resultCoin) );
 			}
 
 			this.imgBank.source = "";
-			if(info.seat == 0){
-				this.imgBank.source = "result_bank_"+Global.language;
+			if(info.userPos.seatID == 1){
+				this.imgBank.source = "resultZhuang_"+Global.language;
 			}
-			
-			this.imgPosition.source = "resultPosition_"+this.getPosition(info.seat)+"_"+Global.language;
 
-			this.imgHead.source = Global.commURL + "head/iconHead"+Global.getHeadByName(info.username)+".png";
+			this.imgLiang.visible = false;
+			
+			this.imgPosition.source = "resultPosition_"+this.getPosition(info.userPos.seatID-1)+"_"+Global.language;
+
+			this.imgHead.source = Global.commURL + "head/iconHead"+Global.getHeadByName(info.userName)+".png";
+
+			//fan
+			this.paiInfos.$children.forEach((e:eui.Label,i)=>{
+				//console.log('=====EEE',e)
+				if(info.fan[i] ){
+					e.text = CardsGroupType.FanTypeString[info.fan[i].type]
+					if( info.fan[i].type == 20 ){
+						this.imgLiang.visible = true;
+					}
+				}else{
+					e.text = "";
+				}
+			})
 		}
+
 		private getPosition(n:number):string{
 			var str:string = "";
 			if(n == game.GameParmes.firstSit){

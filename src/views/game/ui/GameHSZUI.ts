@@ -53,6 +53,7 @@ module game {
 		private onUserSelectedDapiaoEvent(evt: egret.Event) {
 			let target = evt.currentTarget;
 			let option = target['optionData'];
+			//console.log("====OPTION===",option)
 			room.RoomWebSocket.instance().roomSender.REQ_DAPIAOINFO(option)
 			this.showDapiaoPanel(false);
 		}

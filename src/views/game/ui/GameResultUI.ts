@@ -18,6 +18,7 @@ module game {
 		private gInfo:eui.Group;
 		private imgPosition:eui.Image;
 		private imgBank:eui.Image;
+		private userGroup :eui.Group;
 		protected childrenCreated():void
 		{
 			super.childrenCreated();
@@ -37,41 +38,53 @@ module game {
 			this.visible = false;
 			this.dispatchEvent(new egret.Event("OnHideResult"));
 		}
-		public showResult(body:game.AckGameResult):void{
+		public showResult(body:room.VGGameResultNtc):void{
 			this.visible = true;
-			let arr:Array<any> = body.playerInfo;
-			if(body.IsOver == 2){
-				this.imgBg.source = "resultLosebg_png";
-				this.imgTitle.source = "resultTitle_flow_"+Global.language;
-			}
-			for(let i:number = 0;i < 4;i++){
-				let info:PlayerResultInfo = arr[i];
-				let p:number = Global.getUserPosition(info.seat);
-				if(p == 3){//玩家自己
-					this.imgPosition.source = "resultPosition_"+this.getPosition(info.seat)+"_"+Global.language;
-					this.imgBank.source = "";
-					if(info.seat == 0){
-						this.imgBank.source = "result_bank_"+Global.language;
-					}
-					this.lbName.text = GameUtils.ReplaceChar(GameUtils.getShowName(Global.userName),9,3);
-					if(info.Coin >= 0){
-						this.imgTitle.source = "resultTitle_win_"+Global.language;
-						this.lbCoin.font = "resultWinFnt_fnt";
-						this.lbCoin.text = "+"+ChipUtils.formatCoin(info.Coin);
-						if(info.Coin > 0){
-							this.imgBg.source = "resultWinbg_png";
-						}
-					}else{
-						this.imgTitle.source = "resultTitle_lose_"+Global.language;
-						this.lbCoin.font = "resultLoseFnt_fnt";
-						this.lbCoin.text = "-"+ChipUtils.formatCoin(-info.Coin);
-						this.imgBg.source = "resultLosebg_png";
-					}
-					this.showDetailInfo(info.result_list_detail);
-					this.imgHead.source = Global.commURL + "head/iconHead"+Global.userHead+".png";
-				}else{//其他玩家
-					this["user"+p].setResult(info);
-				}
+			let arr:Array<any> = body.userInfos;
+			
+			
+			//let selfData = 
+			// if(body.IsOver == 2){
+			// 	this.imgBg.source = "resultLosebg_png";
+			// 	this.imgTitle.source = "resultTitle_flow_"+Global.language;
+			// }
+			for(let i:number = 0;i < 3;i++){
+				let info:room.VGUserInfo = arr[i];
+				// let data = body.settlementInfos[i];
+				let p:number = Global.getUserPosition(info.userPos.seatID-1);
+				const  User :game.GameResultOtherInfo = <GameResultOtherInfo>this.userGroup.getChildAt(i);
+				User.setResult(info);
+
+
+				//console.log("==USER",User);
+
+
+				// if(p == 2){//玩家自己
+				// 	this.imgPosition.source = "resultPosition_"+this.getPosition(info.userPos.seatID-1)+"_"+Global.language;
+				// 	this.imgBank.source = "";
+				// 	if(info.userPos.seatID-1 == 1){
+				// 		this.imgBank.source = "result_bank_"+Global.language;
+				// 	}
+				// 	this.lbName.text = GameUtils.ReplaceChar(GameUtils.getShowName(Global.userName),9,3);
+				// 	if(info.resultCoin >= 0){
+				// 		this.imgTitle.source = "resultTitle_win_"+Global.language;
+				// 		this.lbCoin.font = "resultWinFnt_fnt";
+				// 		this.lbCoin.text = "+"+ChipUtils.formatCoin(Number(info.resultCoin) );
+				// 		if(info.resultCoin > 0){
+				// 			this.imgBg.source = "resultWinbg_png";
+				// 		}
+				// 	}else{
+				// 		this.imgTitle.source = "resultTitle_lose_"+Global.language;
+				// 		this.lbCoin.font = "resultLoseFnt_fnt";
+				// 		this.lbCoin.text = "-"+ChipUtils.formatCoin(-info.resultCoin);
+				// 		this.imgBg.source = "resultLosebg_png";
+				// 	}
+				// 	//this.showDetailInfo(info.result_list_detail);
+				// 	this.imgHead.source = Global.commURL + "head/iconHead"+Global.userHead+".png";
+				// }
+				// else{//其他玩家
+				// 	this["user"+p].setResult(info);
+				// }
 			}
 		}
 		/*显示详细信息*/

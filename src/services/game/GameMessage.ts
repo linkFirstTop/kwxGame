@@ -169,6 +169,9 @@ module game {
 		/**发牌信息 */
 		public static START_GET_CARD: string = GameMessage.CLIENT_BASE + "START_GET_CARD";
 
+		/**发牌信息 */
+		public static VGID_GAME_OPERATION: string = GameMessage.CLIENT_BASE + "VGID_GAME_OPERATION";
+
 	}
 
 }

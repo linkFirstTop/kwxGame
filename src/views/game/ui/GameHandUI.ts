@@ -125,6 +125,33 @@ module game {
 				this.onShowHSZCards();
 			}, this);
 		}
+
+		/*用于处理开始的发牌*/
+		public showResultCard(body: room.VGGameResultNtc): void {
+			var len: number = 0;
+			for (let j: number = 0; j < 4; j++) {
+				for (let i: number = 0; i < 4; i++) {
+					
+					// body.
+
+					let g: eui.Group = this.findHandGroup(i);
+					let count: number = len + 4 > g.numChildren ? g.numChildren : len + 4;
+					for (let n: number = len; n < count; n++) {
+						egret.Tween.get(g).wait(j * 800).call(function () {
+							g.getChildAt(n).visible = true;
+						}, this);
+					}
+				}
+				len += 4;
+			}
+			egret.Tween.get(this).wait(3000).call(function () {
+				game.GamePlayData.SetHandCardsSorting(Global.userSit);
+				this.updataHandsByPosition(Global.userSit, 0);
+				this.isSortComplete = true;
+				this.onShowHSZCards();
+			}, this);
+		}
+
 		/*显示玩家的胡牌*/
 		public showHuCard(sit: number, cardID: number, type: number): void {
 			let p: number = Global.getUserPosition(sit);
@@ -269,7 +296,7 @@ module game {
 		}
 		private copyHandCard(arrTmp: Array<CardInfo>): Array<CardInfo> {
 			
-			console.log("=arrTmp==",arrTmp)
+			//console.log("=arrTmp==",arrTmp)
 			let arr: Array<CardInfo> = [];
 			for (let i: number = 0; i < arrTmp.length; i++) {
 				let card: CardInfo = new CardInfo();
@@ -285,7 +312,7 @@ module game {
 			let p: number = Global.getUserPosition(sit);
 
 			// let seatP = Global.getUserPosition(p);
-			 console.log("====***P****===",p)
+			 //console.log("====***P****===",p)
 			let nQue: number = game.GameUserList.arrUserList[sit].cardType;
 			let ghand: eui.Group = this.findHandGroup(p);
 			this.clearGroup(ghand);
@@ -544,28 +571,28 @@ module game {
 		/*点击了手牌*/
 		private onClickHandCard(evt: egret.Event): void {
 			let item: BaseHandCardUI = evt.data;
-			if (GameParmes.gameStage == GameStageType.CHANGE) {//换三张阶段
-				let index: number = this.arrHSZCards.indexOf(item);
-				if (index > -1) {
-					if (!item.isSelect) {
-						this.arrHSZCards.splice(index, 1);
-					}
-				} else {
-					if (item.isSelect) {
-						this.arrHSZCards.push(item);
-					}
-				}
+			// if (GameParmes.gameStage == GameStageType.CHANGE) {//换三张阶段
+			// 	let index: number = this.arrHSZCards.indexOf(item);
+			// 	if (index > -1) {
+			// 		if (!item.isSelect) {
+			// 			this.arrHSZCards.splice(index, 1);
+			// 		}
+			// 	} else {
+			// 		if (item.isSelect) {
+			// 			this.arrHSZCards.push(item);
+			// 		}
+			// 	}
 
-				if (this.arrHSZCards.length == 4) {
-					let popItem: BaseHandCardUI = this.arrHSZCards.shift();
-					popItem.onSelectCard();
-				}
+			// 	if (this.arrHSZCards.length == 4) {
+			// 		let popItem: BaseHandCardUI = this.arrHSZCards.shift();
+			// 		popItem.onSelectCard();
+			// 	}
 
-				GamePlayData.HSZUserChoose.length = 0;
-				for (let j: number = 0; j < this.arrHSZCards.length; j++) {
-					GamePlayData.HSZUserChoose.push((this.arrHSZCards[j] as BaseHandCardUI).cardInfo);
-				}
-			}
+			// 	GamePlayData.HSZUserChoose.length = 0;
+			// 	for (let j: number = 0; j < this.arrHSZCards.length; j++) {
+			// 		GamePlayData.HSZUserChoose.push((this.arrHSZCards[j] as BaseHandCardUI).cardInfo);
+			// 	}
+			// }
 			if (GameParmes.gameStage == GameStageType.PLAYING) {//出牌阶段
 				if (this.currentCard == item) {
 					if (game.GamePlayData.M_C_P_G_sit == Global.userSit) {

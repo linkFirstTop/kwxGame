@@ -71,6 +71,7 @@ module room {
 		private VGID_ACK_GAME_GAMESTATUS(byte: egret.ByteArray): void {
 			var body: room.VGGameStatusNtc = room.VGGameStatusNtc.decode(byte.bytes);
 			game.RoomInfo.ins.ChangeStatus(Number(body.status), body.second);
+			
 			console.log('游戏状态广播消息', body);
 		}
 
@@ -94,13 +95,19 @@ module room {
 
 		//行牌单播消息
 		private VGID_ACK_GAME_OPERATION(byte: egret.ByteArray): void {
-			var body: room.VGGameOperationNtc = room.VGGameOperationNtc.decode(byte.bytes);
+			const body: room.VGGameOperationNtc = room.VGGameOperationNtc.decode(byte.bytes);
+
+			GDGame.Msg.ins.dispatchEvent(new egret.Event(game.GameMessage.VGID_GAME_OPERATION, true, true, body));
+	
 			console.log('行牌单播消息', body);
 		}
 
 		//结算广播消息
 		private VGID_ACK_GAME_GAMERESULT(byte: egret.ByteArray): void {
 			var body: room.VGGameResultNtc = room.VGGameResultNtc.decode(byte.bytes);
+			// GDGame.Msg.ins.dispatchEvent();
+			GDGame.Msg.ins.dispatchEvent(new egret.Event(game.GameMessage.ACK_ALLGAMERESULT, true, true, body));
+
 			console.log('结算广播消息', body);
 		}
 

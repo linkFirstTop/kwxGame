@@ -89,11 +89,10 @@ module game {
 			//显示打漂信息
 			GDGame.Msg.ins.addEventListener(GameMessage.SHOW_DAPIAO_INFO, this.showDapiaoInfo, this);
 
-			//显示手牌信息
-			//GDGame.Msg.ins.addEventListener(GameMessage.START_GET_CARD, this.ACK_GAME_DICEANDCARDS, this);
-
-
+			//行牌单播消息
+			GDGame.Msg.ins.addEventListener(GameMessage.VGID_GAME_OPERATION, this.ACK_GAME_OPERATION, this);
 		}
+
 		/*返回游戏服务登录结果*/
 		private onEnterGame(evt: egret.Event): void {
 			var body = evt.data;
@@ -123,7 +122,7 @@ module game {
 		*/
 		private ACK_GAME_RULE(): void {
 			this.gameUI.initPosition();
-			this.gameUI.initHandCard();
+			//this.gameUI.initHandCard();
 
 		}
 		/*
@@ -132,6 +131,86 @@ module game {
 		private ACK_GAME_DICEANDCARDS(): void {
 		//	console.log("===ACK_GAME_DICEANDCARDS==")
 			this.gameUI.initHandCard();
+		}
+
+		private ACK_GAME_OPERATION(evt: egret.Event){
+			const body = evt.data;
+			console.log("===body=",body)
+			
+
+			if( body.operation.length > 0 ){
+
+				//玩家自己操作
+				//if( body.seatid == Global.userSit + 1   ){
+
+					body.operation.forEach( (opt : room.MJ_Operation)=>{
+						//摸牌s
+						if( opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_DRAW ){
+
+						}
+						//手切，打出的是手中的牌，吃碰之后都是手切
+						if( opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_H_DISCARD ){
+
+						}
+						//摸切，打出的是刚摸到的牌s
+						if( opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_D_DISCARD ){
+
+						}
+						//左吃，吃的牌是最小点, 例如45吃3
+						if( opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_L_CHOW ){
+
+						}
+						//中吃，吃的牌是中间点，例如24吃3
+						if( opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_M_CHOW ){
+
+						}
+						//右吃，吃的牌是最大点，例如12吃3
+						if( opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_R_CHOW ){
+
+						}
+						//碰
+						if( opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_PONG ){
+							this.ON_USER_PENGPAI(opt,body.seatID)
+							// let nSit: number = opt.;
+							// let card: CardInfo = evt.data[1];
+							// this.gameUI.playAnim("peng", nSit);
+							// this.gameUI.updataUserCPG(nSit, card);
+							// SoundModel.playEffect(SoundModel.PENG);
+
+						}
+						//暗杠
+						if( opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_C_KONG ){
+
+						}
+						//直杠
+						if( opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_E_KONG ){
+
+						}
+						//补杠
+						if( opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_P_KONG ){
+
+						}
+						//听
+						if( opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_TING ){
+
+						}
+						//和
+						if( opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_WIN ){
+
+						}
+						//过
+						if( opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_PASS ){
+
+						}
+
+					})
+				// }else{
+
+				// }
+			}
+
+			this.gameUI.startTime(body.second);
+
 		}
 
 		/*
@@ -177,6 +256,18 @@ module game {
 			this.gameUI.getOneCard(cardInfo);
 			//SoundModel.playEffect(SoundModel.ZHUA);
 		}
+
+		/** 
+		* @param msg
+		* 服务器通知客户端碰牌
+		*/
+	   private ON_USER_PENGPAI(data: room.MJ_Operation,seat:number): void {
+		   let nSit: number = seat-1;
+		   let card: CardInfo = { CardID:data.ObtainTile,  Sit:data.ObtainSeat  };
+		   this.gameUI.playAnim("peng", nSit);
+		   this.gameUI.updataUserCPG(nSit, card);
+		   SoundModel.playEffect(SoundModel.PENG);
+	   }
 
 		/** 
 		 * @param msg
@@ -290,6 +381,7 @@ module game {
 		 * 服务器通知客户端 全部结束
 		 */
 		private ACK_ALL_GAMERESULT(evt: egret.Event): void {
+			console.log("=!!!!SHOW RESULT=====")
 			let nTime: number = 1200;
 			this.gameUI.playAnim("djjs", -1);
 			if (GameParmes.isGameFlower) {//播放流局动画
@@ -298,34 +390,36 @@ module game {
 				}, this, 1200);
 				nTime = 2400;
 			}
-			let body: game.AckGameResult = evt.data;
+			let body: room.VGGameResultNtc = evt.data;
+		
+
 			let isAnim: boolean = false;
-			for (let i: number = 0; i < body.playerInfo.length; i++) {
-				this.gameUI.updataUserCoin(body.playerInfo[i].seat, body.playerInfo[i].gameCoin);
-				let arr: Array<any> = body.playerInfo[i].result_list_detail;
-				for (let j: number = 0; j < arr.length; j++) {
-					let info: any = arr[j];
-					if (info.type == 5 && info.score < 0) {
-						isAnim = true;
-						egret.setTimeout(function () {
-							this.gameUI.playAnim("hz", info.selfseat);
-						}, this, 1200);
-						break;
-					}
-					if (info.type == 6 && info.score < 0) {
-						isAnim = true;
-						egret.setTimeout(function () {
-							this.gameUI.playAnim("dj", info.selfseat);
-						}, this, 1200);
-						break;
-					}
-				}
-			}
+			// for (let i: number = 0; i < body.userInfos.length; i++) {
+			// 	this.gameUI.updataUserCoin(body.userInfos[i].userPos.seatID, Number(body.userInfos[i].gameCoin) );
+			// 	let arr: Array<any> = body.userInfos[i].result_list_detail;
+			// 	for (let j: number = 0; j < arr.length; j++) {
+			// 		let info: any = arr[j];
+			// 		if (info.type == 5 && info.score < 0) {
+			// 			isAnim = true;
+			// 			egret.setTimeout(function () {
+			// 				this.gameUI.playAnim("hz", info.selfseat);
+			// 			}, this, 1200);
+			// 			break;
+			// 		}
+			// 		if (info.type == 6 && info.score < 0) {
+			// 			isAnim = true;
+			// 			egret.setTimeout(function () {
+			// 				this.gameUI.playAnim("dj", info.selfseat);
+			// 			}, this, 1200);
+			// 			break;
+			// 		}
+			// 	}
+			// }
 			if (isAnim) {
 				nTime = 2400;
 			}
 			egret.setTimeout(function () {
-				this.gameUI.showAllHandCard();
+				this.gameUI.showAllHandCard(body);
 				this.gameResult.showResult(body);
 			}, this, nTime);
 			ViewManager.ins.changeTimer(true);
@@ -391,27 +485,35 @@ module game {
 		}
 
 		private ACK_GAME_STATUS_CHANGED(evt: egret.Event): void {
-			console.log("游戏状态变更");
+		
 			let status = game.RoomInfo.ins.status;
+			console.log("游戏状态变更==============");
+			console.log("游戏状态变更",status);
+			console.log("游戏状态变更==============");
 			let lastStatus = game.RoomInfo.ins.lastStatus;
 			if (status == game.RoomStatus.MJ_GS_DP) {
 				this.gameUI.gameHSZ.showDapiaoPanel(true);
 			}
 			else if (status == game.RoomStatus.MJ_GS_KJ) {
-
+				this.gameUI.initPosition();
 			}
 			else if (status == game.RoomStatus.MJ_GS_FP) {
-				this.gameUI.initPosition();
-				this.gameUI.initHandCard();
+				// 
+				 this.gameUI.initHandCard();
 			}
 			else if (status == game.RoomStatus.MJ_GS_XP) {
 
+
+
 			} else if (status == game.RoomStatus.MJ_GS_JS) {
 				//打开结算UI
+				//this.gameResult.showResult()
+				
+				
 			}
 
 			if (lastStatus == game.RoomStatus.MJ_GS_DP) {
-				this.gameUI.gameHSZ.showDapiaoPanel(false);
+				//this.gameUI.gameHSZ.showDapiaoPanel(false);
 			} else if (lastStatus == game.RoomStatus.MJ_GS_DF) {
 				comm.DragonAnim.ins.playAnimByName("ksyx", -1);
 			}
@@ -424,6 +526,9 @@ module game {
 		}
 
 		private showDapiaoInfo() {
+			// console.log("*********************")
+			// console.log("*********showDapiaoInfo************")
+			// console.log("*********************")
 			this.gameUI.showDapiaoInfo();
 		}
 		private removeMEL(): void {

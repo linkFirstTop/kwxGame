@@ -58,6 +58,7 @@ module game {
 			if(p == 2){
 				this.imgCard.source = "cardValue"+value;
 				this.cardIndex = value;
+				//console.log("===STATE====",state)
 				if(state == 0){
 					this.imgBack.source = "card_down_h1";
 					this.imgCard.verticalCenter = 6;
@@ -77,10 +78,13 @@ module game {
 			
 		}
 		private onCardTap():void{
-			if(GameParmes.gameStage==GameStageType.CHANGE){//换三张阶段
-				this.onSelectCard();
-				this.dispatchEvent(new egret.Event("OnClickHandCard",true,true,this));
-			}
+			console.log("==GameParmes.gameStage==",GameParmes.gameStage)
+			// if(GameParmes.gameStage==GameStageType.CHANGE){//换三张阶段
+			// 	this.onSelectCard();
+			// 	this.dispatchEvent(new egret.Event("OnClickHandCard",true,true,this));
+			// }
+
+
 			if(GameParmes.gameStage==GameStageType.PLAYING){//出牌阶段
 				this.dispatchEvent(new egret.Event("OnClickHandCard",true,true,this));
 			}

@@ -5,26 +5,30 @@ module game {
 		/**
 		 * 游戏开始状态
 		 * **/
-		public static  STARGAME:number = 1;
+		public static STARGAME: number = 0;
 		/**
-		 * 游戏补花状态
+		 * 游戏打漂状态
 		 * **/
-		public static  BUHUA:number = 2;
+		public static DAPIAO: number = 1;
 		/**
 		 * 游戏打牌阶段
 		 * **/
-		public static  PLAYING:number = 3;
+		public static START: number = 2;
 		/**
-		 * 游戏结算阶段
+		 * 游戏发牌阶段
 		 * **/
-		public static  GAMEOVER:number = 4;
+		public static DEALCARD: number = 3;
 		/**
-		 * 游戏换三张状态
+		 * 游戏打牌阶段
 		 * **/
-		public static  CHANGE:number = 6;
+		public static PLAYING: number = 4;
 		/**
-		 * 游戏定缺状态
+		 * 游戏换结算状态
 		 * **/
-		public static  DINGQUE:number = 7;
+		public static GAMEOVER: number = 5;
+		// /**
+		//  * 游戏定缺状态
+		//  * **/
+		// public static DINGQUE: number = 7;
 	}
 }

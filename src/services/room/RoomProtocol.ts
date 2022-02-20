@@ -156,7 +156,7 @@ module room {
 		//行牌单播消息
 		public static VGID_GAME_OPERATION: number = RoomProtocol.OGID_CLIENT_LIST_BASE + 0x94;
 		//结算广播消息
-		public static VGID_GAME_GAMERESULT: number = RoomProtocol.OGID_CLIENT_LIST_BASE + 0x94;
+		public static VGID_GAME_GAMERESULT: number = RoomProtocol.OGID_CLIENT_LIST_BASE + 0x98;
 		//玩家打漂消息
 		public static VGID_USER_DAPIAO: number = RoomProtocol.OGID_CLIENT_LIST_BASE + 0xC1;
 		//玩家行牌消息

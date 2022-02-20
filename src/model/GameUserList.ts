@@ -61,7 +61,9 @@ module game {
 	}
 
 	export enum RoomStatus {
-		//默认状态什么都不处理
+		/*
+		*默认状态什么都不处理
+		*/
 		MJ_GS_DF = 0,
 		//打漂状态
 		MJ_GS_DP = 1,
@@ -102,6 +104,7 @@ module game {
 		private _curStateEndTime: number = 0;
 
 		public ChangeStatus(value: RoomStatus, timer: number) {
+			GameParmes.gameStage = value;
 			if (this._status === value) {
 				return;
 			}
