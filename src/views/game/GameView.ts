@@ -493,7 +493,7 @@ module game {
 			console.log("游戏状态变更==============");
 			let lastStatus = game.RoomInfo.ins.lastStatus;
 			if (status == game.RoomStatus.MJ_GS_DP) {
-				//this.gameUI.gameHSZ.showDapiaoPanel(true);
+				this.gameUI.gameHSZ.showDapiaoPanel(true);
 			}
 			else if (status == game.RoomStatus.MJ_GS_KJ) {
 				this.gameUI.initPosition();

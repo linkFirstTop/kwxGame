@@ -127,7 +127,7 @@ module game {
 				this.isSortComplete = true;
 				this.onShowHSZCards();
 
-				ViewManager.ins.gameView.gameUI.gameHSZ.showDapiaoPanel(true);
+				// ViewManager.ins.gameView.gameUI.gameHSZ.showDapiaoPanel(true);
 				//ViewManagergame.GameHSZUI.
 
 				

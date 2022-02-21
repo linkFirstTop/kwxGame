@@ -33,11 +33,9 @@ module room {
 					this.OGID_ACK_ROOM_UPDATECOIN(byte);
 					break;
 				case RoomProtocol.ACK | RoomProtocol.OGID_CLIENT_LIST_ROOM_CONTINUE_GAME://更新金币
+				    console.log("====继续游戏===")
 					this.OGID_ACK_ROOM_CONTINUE_GAME(byte);
 					break;
-
-
-
 				case RoomProtocol.ACK | RoomProtocol.VGID_GAME_SYNCGAMEDATA://同步游戏
 					this.VGID_ACK_GAME_SYNCGAMEDATA(byte);
 					break;
@@ -56,9 +54,10 @@ module room {
 				case RoomProtocol.ACK | RoomProtocol.VGID_GAME_GAMERESULT://结算广播消息
 					this.VGID_ACK_GAME_GAMERESULT(byte);
 					break;
-				case RoomProtocol.ACK | RoomProtocol.VGID_USER_DAPIAO://结算广播消息
-				console.log("===RoomProtocol.VGID_USER_DAPIAO0=",RoomProtocol.VGID_USER_DAPIAO)
-					// this.VGID_ACK_GAME_GAMERESULT(byte);
+				case RoomProtocol.ACK | RoomProtocol.VGID_USER_DAPIAO://打漂通知
+				
+					this.VGID_ACK_USER_DAPIAP(byte);
+
 					break;
 			}
 		}
@@ -96,6 +95,13 @@ module room {
 			//GDGame.Msg.ins.dispatchEventWith(game.GameMessage.SHOW_DAPIAO_INFO);
 			GDGame.Msg.ins.dispatchEventWith(game.GameMessage.START_GET_CARD);
 			console.log('发牌广播消息', body);
+		}
+
+		//打漂通知
+		private VGID_ACK_USER_DAPIAP(byte: egret.ByteArray){
+			const body: room.VGUserOperationAck = room.VGUserOperationAck.decode(byte.bytes);
+			console.log("===VGID_ACK_USER_DAPIAP=body",body)
+			
 		}
 
 		//行牌单播消息
