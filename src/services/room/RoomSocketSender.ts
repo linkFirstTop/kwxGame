@@ -91,6 +91,7 @@ module room {
 		}
 
 		public REQ_DAPIAOINFO(type: number): void {
+			console.log("==REQ_DAPIAOINFO==")
 			let data = new room.VGUserDapiaoReq();
 			data.dapiao = type;
 			let body = room.VGUserDapiaoReq.encode(data).finish();

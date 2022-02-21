@@ -5,6 +5,7 @@ module room {
 		private gameMatch: game.GameMatchUserUI;
 		private gameReceive: game.GameSocketReceive;
 		public initHandlers(id: number, byte: egret.ByteArray): void {
+			// console.log("===DI--ID",id)
 
 			switch (id) {
 				case RoomProtocol.ACK | RoomProtocol.OGID_CLIENT_LIST_LOGIN://返回进入游戏服务结果
@@ -36,6 +37,7 @@ module room {
 					break;
 
 
+
 				case RoomProtocol.ACK | RoomProtocol.VGID_GAME_SYNCGAMEDATA://同步游戏
 					this.VGID_ACK_GAME_SYNCGAMEDATA(byte);
 					break;
@@ -53,6 +55,10 @@ module room {
 					break;
 				case RoomProtocol.ACK | RoomProtocol.VGID_GAME_GAMERESULT://结算广播消息
 					this.VGID_ACK_GAME_GAMERESULT(byte);
+					break;
+				case RoomProtocol.ACK | RoomProtocol.VGID_USER_DAPIAO://结算广播消息
+				console.log("===RoomProtocol.VGID_USER_DAPIAO0=",RoomProtocol.VGID_USER_DAPIAO)
+					// this.VGID_ACK_GAME_GAMERESULT(byte);
 					break;
 			}
 		}

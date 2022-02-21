@@ -162,9 +162,11 @@ module game {
 		/**房间状态变更广播 */
 		public static NTF_ROOM_STATE: string = GameMessage.CLIENT_BASE + "NTF_ROOM_STATE";
 
+		/**显示打漂应答*/
+		public static VGID_USER_DAPIAP_ACK: string = GameMessage.CLIENT_BASE + "VGUserDapiaoAck";
 
 		/**显示打漂信息*/
-		public static SHOW_DAPIAO_INFO: string = GameMessage.CLIENT_BASE + "SHOW_DAPIAO_INFO";
+		public static SHOW_DAPIAO_ACK: string = GameMessage.CLIENT_BASE + "SHOW_DAPIAO_INFO";
 
 		/**发牌信息 */
 		public static START_GET_CARD: string = GameMessage.CLIENT_BASE + "START_GET_CARD";

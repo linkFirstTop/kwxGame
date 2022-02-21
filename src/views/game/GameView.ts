@@ -87,7 +87,7 @@ module game {
 			GDGame.Msg.ins.addEventListener(GameMessage.NTF_ROOM_STATE, this.ACK_GAME_STATUS_CHANGED, this);
 
 			//显示打漂信息
-			GDGame.Msg.ins.addEventListener(GameMessage.SHOW_DAPIAO_INFO, this.showDapiaoInfo, this);
+			//GDGame.Msg.ins.addEventListener(GameMessage.SHOW_DAPIAO_INFO, this.showDapiaoInfo, this);
 
 			//行牌单播消息
 			GDGame.Msg.ins.addEventListener(GameMessage.VGID_GAME_OPERATION, this.ACK_GAME_OPERATION, this);
@@ -587,7 +587,7 @@ module game {
 			GDGame.Msg.ins.removeEventListener(GameMessage.NTF_ROOM_STATE, this.ACK_GAME_STATUS_CHANGED, this);
 
 			//显示打漂信息
-			GDGame.Msg.ins.removeEventListener(GameMessage.SHOW_DAPIAO_INFO, this.showDapiaoInfo, this);
+		//	GDGame.Msg.ins.removeEventListener(GameMessage.SHOW_DAPIAO_INFO, this.showDapiaoInfo, this);
 
 			//行牌单播消息
 			GDGame.Msg.ins.removeEventListener(GameMessage.VGID_GAME_OPERATION, this.ACK_GAME_OPERATION, this);
