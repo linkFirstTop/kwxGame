@@ -162,6 +162,7 @@ module game {
 		/*移除牌池里的牌*/
 		public removeCardToPool(sit:number):void{
 			let p:number = Global.getUserPosition(sit);
+			console.log("=====p", p, this.arrCard  )
 			let arr:Array<CardInfo> = this.arrCard[p];
 			if(arr.length > 0){
 				let card:CardInfo = arr[arr.length-1];

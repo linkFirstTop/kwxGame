@@ -24,6 +24,7 @@ module game {
 		}
 		public setResult(info:room.VGUserInfo):void{
 			this.lbName.text = GameUtils.getShowName(info.userName);
+			console.log("===GameUtils.getShowName(info.userName)==",GameUtils.getShowName(info.userName))
 			if(info.resultCoin >= 0){
 				this.lbCoin.font = "resultWinFnt_fnt";
 				this.lbCoin.text = "+"+ChipUtils.formatCoin(Number(info.resultCoin) );

@@ -87,8 +87,7 @@ module room {
 			game.GamePlayData.SaveHandCarsd(body.userInfos);
 			game.GameUserList.updateUserListInfo(body.userInfos);
 
-
-			GDGame.Msg.ins.dispatchEventWith(game.GameMessage.SHOW_DAPIAO_INFO);
+			//GDGame.Msg.ins.dispatchEventWith(game.GameMessage.SHOW_DAPIAO_INFO);
 			GDGame.Msg.ins.dispatchEventWith(game.GameMessage.START_GET_CARD);
 			console.log('发牌广播消息', body);
 		}

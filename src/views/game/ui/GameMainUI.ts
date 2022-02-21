@@ -563,7 +563,7 @@ module game {
 			var nCurrent: number = game.GamePlayData.M_C_P_G_sit;//当前操作人的座位号
 			this.gamePosition.setCurrentPosition(nCurrent);
 			let p: number = Global.getUserPosition(nCurrent);
-			for (let i: number = 0; i < 4; i++) {
+			for (let i: number = 0; i < 3; i++) {
 				if (p == i) {
 					this["gameUser" + i].showCurrentAnim(true);
 				} else {

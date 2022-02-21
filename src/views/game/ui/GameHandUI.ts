@@ -98,6 +98,8 @@ module game {
 		public createHandCard(isShow: boolean, state: number): void {
 			for (let j: number = 0; j < 3; j++) {
 				this.updataHandsByPosition(j, state, isShow);
+
+				//this..showDapiaoPanel(true);
 			}
 			if (!isShow) {
 				this.showHandCard();
@@ -105,6 +107,7 @@ module game {
 		}
 		/*用于处理开始的发牌*/
 		private showHandCard(): void {
+		
 			var len: number = 0;
 			for (let j: number = 0; j < 4; j++) {
 				for (let i: number = 0; i < 4; i++) {
@@ -123,6 +126,11 @@ module game {
 				this.updataHandsByPosition(Global.userSit, 0);
 				this.isSortComplete = true;
 				this.onShowHSZCards();
+
+				ViewManager.ins.gameView.gameUI.gameHSZ.showDapiaoPanel(true);
+				//ViewManagergame.GameHSZUI.
+
+				
 			}, this);
 		}
 
@@ -312,7 +320,9 @@ module game {
 			let p: number = Global.getUserPosition(sit);
 
 			// let seatP = Global.getUserPosition(p);
-			 //console.log("====***P****===",p)
+			//  console.log("====***SIT****===",sit)
+			//  console.log("====***SIT****===",game.GameUserList.arrUserList)
+
 			let nQue: number = game.GameUserList.arrUserList[sit].cardType;
 			let ghand: eui.Group = this.findHandGroup(p);
 			this.clearGroup(ghand);

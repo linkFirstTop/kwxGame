@@ -3,7 +3,7 @@ module game {
 		public constructor() {
 			super();
 		}
-		private gameUI: game.GameMainUI;
+		public gameUI: game.GameMainUI;
 		private gameMatch: game.GameMatchUserUI;
 		private gameResult: game.GameResultUI;
 		/*添加view*/
@@ -129,81 +129,81 @@ module game {
 		*骰子、手牌消息
 		*/
 		private ACK_GAME_DICEANDCARDS(): void {
-		//	console.log("===ACK_GAME_DICEANDCARDS==")
-			this.gameUI.initHandCard();
+			//	console.log("===ACK_GAME_DICEANDCARDS==")
+			//this.gameUI.initHandCard();
 		}
 
-		private ACK_GAME_OPERATION(evt: egret.Event){
+		private ACK_GAME_OPERATION(evt: egret.Event) {
 			const body = evt.data;
-			console.log("===body=",body)
-			
+			console.log("===body=", body)
 
-			if( body.operation.length > 0 ){
+
+			if (body.operation.length > 0) {
 
 				//玩家自己操作
 				//if( body.seatid == Global.userSit + 1   ){
 
-					body.operation.forEach( (opt : room.MJ_Operation)=>{
-						//摸牌s
-						if( opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_DRAW ){
+				body.operation.forEach((opt: room.MJ_Operation) => {
+					//摸牌s
+					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_DRAW) {
 
-						}
-						//手切，打出的是手中的牌，吃碰之后都是手切
-						if( opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_H_DISCARD ){
+					}
+					//手切，打出的是手中的牌，吃碰之后都是手切
+					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_H_DISCARD) {
 
-						}
-						//摸切，打出的是刚摸到的牌s
-						if( opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_D_DISCARD ){
+					}
+					//摸切，打出的是刚摸到的牌s
+					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_D_DISCARD) {
 
-						}
-						//左吃，吃的牌是最小点, 例如45吃3
-						if( opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_L_CHOW ){
+					}
+					//左吃，吃的牌是最小点, 例如45吃3
+					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_L_CHOW) {
 
-						}
-						//中吃，吃的牌是中间点，例如24吃3
-						if( opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_M_CHOW ){
+					}
+					//中吃，吃的牌是中间点，例如24吃3
+					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_M_CHOW) {
 
-						}
-						//右吃，吃的牌是最大点，例如12吃3
-						if( opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_R_CHOW ){
+					}
+					//右吃，吃的牌是最大点，例如12吃3
+					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_R_CHOW) {
 
-						}
-						//碰
-						if( opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_PONG ){
-							this.ON_USER_PENGPAI(opt,body.seatID)
-							// let nSit: number = opt.;
-							// let card: CardInfo = evt.data[1];
-							// this.gameUI.playAnim("peng", nSit);
-							// this.gameUI.updataUserCPG(nSit, card);
-							// SoundModel.playEffect(SoundModel.PENG);
+					}
+					//碰
+					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_PONG) {
+						this.ON_USER_PENGPAI(opt, body.seatid)
+						// let nSit: number = opt.;
+						// let card: CardInfo = evt.data[1];
+						// this.gameUI.playAnim("peng", nSit);
+						// this.gameUI.updataUserCPG(nSit, card);
+						// SoundModel.playEffect(SoundModel.PENG);
 
-						}
-						//暗杠
-						if( opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_C_KONG ){
+					}
+					//暗杠
+					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_C_KONG) {
 
-						}
-						//直杠
-						if( opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_E_KONG ){
+					}
+					//直杠
+					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_E_KONG) {
 
-						}
-						//补杠
-						if( opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_P_KONG ){
+					}
+					//补杠
+					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_P_KONG) {
 
-						}
-						//听
-						if( opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_TING ){
+					}
+					//听
+					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_TING) {
 
-						}
-						//和
-						if( opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_WIN ){
+					}
+					//和
+					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_WIN) {
 
-						}
-						//过
-						if( opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_PASS ){
+					}
+					//过
+					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_PASS) {
 
-						}
+					}
 
-					})
+				})
 				// }else{
 
 				// }
@@ -261,13 +261,14 @@ module game {
 		* @param msg
 		* 服务器通知客户端碰牌
 		*/
-	   private ON_USER_PENGPAI(data: room.MJ_Operation,seat:number): void {
-		   let nSit: number = seat-1;
-		   let card: CardInfo = { CardID:data.ObtainTile,  Sit:data.ObtainSeat  };
-		   this.gameUI.playAnim("peng", nSit);
-		   this.gameUI.updataUserCPG(nSit, card);
-		   SoundModel.playEffect(SoundModel.PENG);
-	   }
+		private ON_USER_PENGPAI(data: room.MJ_Operation, seat: number): void {
+			let nSit: number = seat - 1;
+			console.log("====nsit", seat, nSit)
+			let card: CardInfo = { CardID: data.ObtainTile, Sit: data.ObtainSeat };
+			this.gameUI.playAnim("peng", nSit);
+			this.gameUI.updataUserCPG(nSit, card);
+			SoundModel.playEffect(SoundModel.PENG);
+		}
 
 		/** 
 		 * @param msg
@@ -391,7 +392,7 @@ module game {
 				nTime = 2400;
 			}
 			let body: room.VGGameResultNtc = evt.data;
-		
+
 
 			let isAnim: boolean = false;
 			// for (let i: number = 0; i < body.userInfos.length; i++) {
@@ -485,21 +486,21 @@ module game {
 		}
 
 		private ACK_GAME_STATUS_CHANGED(evt: egret.Event): void {
-		
+
 			let status = game.RoomInfo.ins.status;
 			console.log("游戏状态变更==============");
-			console.log("游戏状态变更",status);
+			console.log("游戏状态变更", status);
 			console.log("游戏状态变更==============");
 			let lastStatus = game.RoomInfo.ins.lastStatus;
 			if (status == game.RoomStatus.MJ_GS_DP) {
-				this.gameUI.gameHSZ.showDapiaoPanel(true);
+				//this.gameUI.gameHSZ.showDapiaoPanel(true);
 			}
 			else if (status == game.RoomStatus.MJ_GS_KJ) {
 				this.gameUI.initPosition();
 			}
 			else if (status == game.RoomStatus.MJ_GS_FP) {
 				// 
-				 this.gameUI.initHandCard();
+				this.gameUI.initHandCard();
 			}
 			else if (status == game.RoomStatus.MJ_GS_XP) {
 
@@ -508,8 +509,8 @@ module game {
 			} else if (status == game.RoomStatus.MJ_GS_JS) {
 				//打开结算UI
 				//this.gameResult.showResult()
-				
-				
+
+
 			}
 
 			if (lastStatus == game.RoomStatus.MJ_GS_DP) {
@@ -581,6 +582,15 @@ module game {
 			//服务器通知客户端换三张
 			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_USER_HSZ_STATE, this.ACK_USER_HSZSTATE, this);
 			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_USER_HSZ, this.ACK_GAME_STATUS_CHANGED, this);
+
+			//房间状态变更
+			GDGame.Msg.ins.removeEventListener(GameMessage.NTF_ROOM_STATE, this.ACK_GAME_STATUS_CHANGED, this);
+
+			//显示打漂信息
+			GDGame.Msg.ins.removeEventListener(GameMessage.SHOW_DAPIAO_INFO, this.showDapiaoInfo, this);
+
+			//行牌单播消息
+			GDGame.Msg.ins.removeEventListener(GameMessage.VGID_GAME_OPERATION, this.ACK_GAME_OPERATION, this);
 		}
 		/*移除view的时候必须调用*/
 		public onRemoveView(): void {
