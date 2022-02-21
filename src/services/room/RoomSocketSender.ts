@@ -97,5 +97,14 @@ module room {
 			let body = room.VGUserDapiaoReq.encode(data).finish();
 			room.RoomWebSocket.instance().SendMeseage(RoomProtocol.REQ | RoomProtocol.VGID_USER_DAPIAO, body);
 		}
+		//VGID_USER_OPERATION
+		//VGUserOperationReq
+		public REQ_USEROPERATIONREQ(operation: MJ_Operation): void {
+			console.log("==REQ_USEROPERATIONREQ==")
+			let data = new room.VGUserOperationReq();
+			data.operation = operation;
+			let body = room.VGUserOperationReq.encode(data).finish();
+			room.RoomWebSocket.instance().SendMeseage(RoomProtocol.REQ | RoomProtocol.VGID_USER_DAPIAO, body);
+		}
 	}
 }

@@ -88,14 +88,53 @@ module game {
 		}
 		private onPeng():void{
 			this.initBtns();
-			let arr:Array<CardsGroupInfo> = GamePlayData.GetChiPengGangHuGroup(CardsGroupType.PENG);
-			game.GameWebSocket.instance().gameSender.ReqSendCardsGameFun(GamePlayData.Peng_Groups[0]);
+			// let arr:Array<CardsGroupInfo> = GamePlayData.GetChiPengGangHuGroup(CardsGroupType.PENG);
+			// game.GameWebSocket.instance().gameSender.ReqSendCardsGameFun(GamePlayData.Peng_Groups[0]);
+
+			const opt : room.MJ_Operation = new room.MJ_Operation()
+			opt.operationType  = CardsGroupType.MJ_OperationType.MJ_OT_PONG;//操作类型
+			opt.Tiles = [] //牌组  如果是出牌则数组中只有一张牌
+			//如果是吃、碰、杠、胡则以下值需要读取或者写入
+			opt.ObtainTile = 3 //需要吃碰杠胡的那一张牌 
+			opt.ObtainSeat = 3 //被吃碰杠胡的那个人的座位号 
+			
+			//如果是听，则以下值需要读取或写入
+			opt.tingTileInfo = [] //MJ_TingTileInfo /和牌信息
+		
+			//如果是胡，则以下值需要读取或写入
+			opt.maxFan = 3 //最大番数 
+			//opt.fans = 3 // MJ_FanInfo 被吃碰杠胡的那个人的座位号 
+			opt.operationID = 3 //操作id
+
+	
+			room.RoomWebSocket.instance().roomSender.REQ_USEROPERATIONREQ( opt)
 		}
 		private onGang():void{
 			this.initBtns();
 			var arr:Array<CardsGroupInfo> = GamePlayData.GetChiPengGangHuGroup(CardsGroupType.GANG);
 			if(arr.length == 1){
 				game.GameWebSocket.instance().gameSender.ReqSendCardsGameFun(GamePlayData.Gang_Groups[0]);
+
+				const opt : room.MJ_Operation = new room.MJ_Operation()
+			opt.operationType  = CardsGroupType.MJ_OperationType.MJ_OT_C_KONG;//操作类型
+			opt.Tiles = [] //牌组  如果是出牌则数组中只有一张牌
+			//如果是吃、碰、杠、胡则以下值需要读取或者写入
+			opt.ObtainTile = 3 //需要吃碰杠胡的那一张牌 
+			opt.ObtainSeat = 3 //被吃碰杠胡的那个人的座位号 
+			
+			//如果是听，则以下值需要读取或写入
+			opt.tingTileInfo = [] //MJ_TingTileInfo /和牌信息
+		
+			//如果是胡，则以下值需要读取或写入
+			opt.maxFan = 3 //最大番数 
+			//opt.fans = 3 // MJ_FanInfo 被吃碰杠胡的那个人的座位号 
+			opt.operationID = 3 //操作id
+
+	
+			room.RoomWebSocket.instance().roomSender.REQ_USEROPERATIONREQ( opt)
+
+
+
 				return ;
 			}
 			this.showCardGroups(arr);
@@ -116,10 +155,28 @@ module game {
 			this.sendGameNoOperation();
 		}
 		private sendGameNoOperation():void{
-			var cardsGroup:CardsGroupInfo = new CardsGroupInfo();
-			cardsGroup.cardsit = Global.userSit;
-			cardsGroup.CardsGroupType = CardsGroupType.NO_OPERATION;
-			game.GameWebSocket.instance().gameSender.ReqSendCardsGameFun(cardsGroup);
+			// var cardsGroup:CardsGroupInfo = new CardsGroupInfo();
+			// cardsGroup.cardsit = Global.userSit;
+			// cardsGroup.CardsGroupType = CardsGroupType.NO_OPERATION;
+			// game.GameWebSocket.instance().gameSender.ReqSendCardsGameFun(cardsGroup);
+			const opt : room.MJ_Operation = new room.MJ_Operation()
+			opt.operationType  = CardsGroupType.MJ_OperationType.MJ_OT_PASS;//操作类型
+			opt.Tiles = [] //牌组  如果是出牌则数组中只有一张牌
+			//如果是吃、碰、杠、胡则以下值需要读取或者写入
+			opt.ObtainTile = 3 //需要吃碰杠胡的那一张牌 
+			opt.ObtainSeat = 3 //被吃碰杠胡的那个人的座位号 
+			
+			//如果是听，则以下值需要读取或写入
+			opt.tingTileInfo = [] //MJ_TingTileInfo /和牌信息
+		
+			//如果是胡，则以下值需要读取或写入
+			opt.maxFan = 3 //最大番数 
+			//opt.fans = 3 // MJ_FanInfo 被吃碰杠胡的那个人的座位号 
+			opt.operationID = 3 //操作id
+
+	
+			room.RoomWebSocket.instance().roomSender.REQ_USEROPERATIONREQ( opt)
+			// room.RoomWebSocket.instance(). .REQ_USEROPERATIONREQ(option)
 		}
 		/** 
 		 * @param arrGroup

@@ -495,27 +495,21 @@ module game {
 			if (status == game.RoomStatus.MJ_GS_DP) {
 				this.gameUI.gameHSZ.showDapiaoPanel(true);
 			}
-			else if (status == game.RoomStatus.MJ_GS_KJ) {
+			if (status == game.RoomStatus.MJ_GS_KJ) {
 				this.gameUI.initPosition();
 			}
-			else if (status == game.RoomStatus.MJ_GS_FP) {
+			if (status == game.RoomStatus.MJ_GS_FP) {
 				// 
 				this.gameUI.initHandCard();
 			}
-			else if (status == game.RoomStatus.MJ_GS_XP) {
-
-
-
-			} else if (status == game.RoomStatus.MJ_GS_JS) {
-				//打开结算UI
-				//this.gameResult.showResult()
-
+			if (status == game.RoomStatus.MJ_GS_XP) {
 
 			}
-
-			if (lastStatus == game.RoomStatus.MJ_GS_DP) {
-				//this.gameUI.gameHSZ.showDapiaoPanel(false);
-			} else if (lastStatus == game.RoomStatus.MJ_GS_DF) {
+			if (status == game.RoomStatus.MJ_GS_JS) {
+				//打开结算UI
+				//this.gameResult.showResult()
+			}
+			if (lastStatus == game.RoomStatus.MJ_GS_DF) {
 				comm.DragonAnim.ins.playAnimByName("ksyx", -1);
 			}
 
@@ -587,7 +581,7 @@ module game {
 			GDGame.Msg.ins.removeEventListener(GameMessage.NTF_ROOM_STATE, this.ACK_GAME_STATUS_CHANGED, this);
 
 			//显示打漂信息
-		//	GDGame.Msg.ins.removeEventListener(GameMessage.SHOW_DAPIAO_INFO, this.showDapiaoInfo, this);
+			//	GDGame.Msg.ins.removeEventListener(GameMessage.SHOW_DAPIAO_INFO, this.showDapiaoInfo, this);
 
 			//行牌单播消息
 			GDGame.Msg.ins.removeEventListener(GameMessage.VGID_GAME_OPERATION, this.ACK_GAME_OPERATION, this);

@@ -45,6 +45,10 @@ module game {
 			return tilesedInfo.Tiles;
 		}
 
+		public setUserDapiaoInfo(piao: number){
+			this.origin.dapiao = piao;
+		}
+
 		public getUserDapiaoInfo() {
 			let dapiao = this.origin.dapiao;
 			return dapiao ? dapiao : 0

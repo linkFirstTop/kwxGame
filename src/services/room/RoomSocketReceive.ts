@@ -57,11 +57,12 @@ module room {
 				case RoomProtocol.ACK | RoomProtocol.VGID_USER_DAPIAO://打漂通知
 				
 					this.VGID_ACK_USER_DAPIAP(byte);
-
+					break;
+				case RoomProtocol.ACK | RoomProtocol.VGID_USER_OPERATION://玩家行牌消息
+					this.VGID_USER_OPERATION(byte);
 					break;
 			}
 		}
-
 
 		//同步游戏
 		private VGID_ACK_GAME_SYNCGAMEDATA(byte: egret.ByteArray): void {
@@ -99,7 +100,8 @@ module room {
 
 		//打漂通知
 		private VGID_ACK_USER_DAPIAP(byte: egret.ByteArray){
-			const body: room.VGUserOperationAck = room.VGUserOperationAck.decode(byte.bytes);
+			const body: room.VGUserDapiaoAck = room.VGUserDapiaoAck.decode(byte.bytes);
+			
 			console.log("===VGID_ACK_USER_DAPIAP=body",body)
 			
 		}
@@ -112,6 +114,16 @@ module room {
 	
 			console.log('行牌单播消息', body);
 		}
+
+	    private	VGID_USER_OPERATION(byte: egret.ByteArray): void {
+			const body: room.VGUserOperationAck = room.VGUserOperationAck.decode(byte.bytes);
+			
+			//GDGame.Msg.ins.dispatchEvent(new egret.Event(game.GameMessage.VGID_GAME_OPERATION, true, true, body));
+	
+			console.log('玩家行牌消息', body);
+		}
+
+
 
 		//结算广播消息
 		private VGID_ACK_GAME_GAMERESULT(byte: egret.ByteArray): void {
