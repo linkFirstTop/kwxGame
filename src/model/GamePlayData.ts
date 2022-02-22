@@ -110,11 +110,13 @@ module game {
 
 			arr.forEach((e,i)=>{
 				let arrTmp:Array<CardInfo> =  e.tileSets[0].Tiles.map(o=>{
+	
 					let card:CardInfo = new CardInfo();
 					card.CardID = o;
 			        card.Sit = i;
 					return card;
 				})
+		
 
 				// game.GamePlayData.arrHandCards[p] = e.tileSets[0].Tiles;
 	

@@ -68,7 +68,6 @@ module game {
 		public showDapiaoInfo() {
 			let type = this.user.getUserDapiaoInfo()
 
-			console.log("===PIAO= type==", type)
 			//todo多语言
 			this.piaofen_result.source = `p${type}f_png`;
 			this.piaofen_result.visible = true;

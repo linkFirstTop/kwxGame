@@ -22,7 +22,7 @@ module game {
 				this.imgCard.x = 90;
 				this.imgCard.y = 0;
 			}
-			if(p == 1){//上
+			if(p == 3){//上
 				this.imgBack.source = "DJHP";
 				this.imgCard.source = "cardValue"+value;
 				this.imgCard.scaleX = 0.4;
@@ -31,7 +31,7 @@ module game {
 				this.imgCard.x = 5;
 				this.imgCard.verticalCenter = -11;
 			}
-			if(p == 2){//右
+			if(p == 1){//右
 				this.imgBack.source = "XJHP_"+((index%4)+1);
 				this.imgCard.source = "cardValue"+value;
 				this.imgCard.scaleX = this.imgCard.scaleY = 0.5;
@@ -40,7 +40,7 @@ module game {
 				this.imgCard.x = 26;
 				this.imgCard.y = 40;
 			}
-			if(p == 3){
+			if(p == 2){
 				this.imgBack.source = "BJHP_"+((index%4)+1);
 				this.imgCard.source = "cardValue"+value;
 				this.imgCard.scaleX = this.imgCard.scaleY = 0.7;

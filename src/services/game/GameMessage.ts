@@ -164,11 +164,20 @@ module game {
 		/**显示打漂信息*/
 		public static SHOW_DAPIAO_INFO: string = GameMessage.CLIENT_BASE + "SHOW_DAPIAO_INFO";
 
+
+
+		/**显示打漂信息*/
+		public static VGID_USER_DAPIAO: string = GameMessage.CLIENT_BASE + "VGID_USER_DAPIAO";
+
+
 		/**发牌信息 */
 		public static START_GET_CARD: string = GameMessage.CLIENT_BASE + "START_GET_CARD";
 
-		/**发牌信息 */
+		/**行牌单播消息 */
 		public static VGID_GAME_OPERATION: string = GameMessage.CLIENT_BASE + "VGID_GAME_OPERATION";
+
+		/**行牌 应答 */
+	    public static VGID_USER_OPERATION: string = GameMessage.CLIENT_BASE + "VGID_USER_OPERATION";
 
 	}
 

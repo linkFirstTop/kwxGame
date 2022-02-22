@@ -36,7 +36,7 @@ module game {
 				}
 				this.imgCard.horizontalCenter = -5;
 			}
-			if(p == 1){//上
+			if(p == 3){//上
 				if(isAnGang){
 					if(value > 0){
 						this.imgBack.source = "card_up_a2";
@@ -58,7 +58,7 @@ module game {
 				}
 				this.imgCard.horizontalCenter = 0;
 			}
-			if(p == 2){//右
+			if(p == 1){//右
 				if(isAnGang){
 					this.imgBack.source = "SJAG_right_"+(index+1);
 					this.imgBack.scaleX = -1;
@@ -82,7 +82,7 @@ module game {
 				}
 				this.imgCard.horizontalCenter = 5;
 			}
-			if(p == 3){
+			if(p == 2){
 				if(isAnGang){
 					if(value > 0){
 						this.imgBack.source = "card_down_a2";

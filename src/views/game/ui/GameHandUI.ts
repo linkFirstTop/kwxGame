@@ -337,7 +337,8 @@ module game {
 			for (let i: number = 0; i < len; i++) {
 				let isQue: boolean = false;
 				let info: CardInfo = arr[i];
-				let cardValue: number = game.GameParmes.getCardID(info);
+	
+				let cardValue: number = info.CardID; //game.GameParmes.getCardID(info);
 				if (cardValue > 0) {
 					let nHua: number = game.GameParmes.getHua(info);
 					if (nHua == nQue) {
@@ -603,6 +604,8 @@ module game {
 			// 		GamePlayData.HSZUserChoose.push((this.arrHSZCards[j] as BaseHandCardUI).cardInfo);
 			// 	}
 			// }
+
+			console.log("===CHOOSE ITEM",item)
 			if (GameParmes.gameStage == GameStageType.PLAYING) {//出牌阶段
 				if (this.currentCard == item) {
 					if (game.GamePlayData.M_C_P_G_sit == Global.userSit) {
@@ -619,7 +622,32 @@ module game {
 							info.obtainCard.CardID = item.cardInfo.CardID;
 							game.GameWebSocket.instance().gameSender.ReqSendCardsGameFun(info);
 						} else {
-							GameController.ReqUserSendCard(cardInfo);
+
+							//GameController.ReqUserSendCard(cardInfo);
+
+							//MJ_Operation
+							const opt : room.MJ_Operation = new room.MJ_Operation()
+
+							//手切，打出的是手中的牌，吃碰之后都是手切  摸切，打出的是刚摸到的牌
+							opt.operationType  = CardsGroupType.MJ_OperationType.MJ_OT_PASS;//操作类型
+							opt.Tiles = [item.cardInfo.CardID] //牌组  如果是出牌则数组中只有一张牌
+							//如果是吃、碰、杠、胡则以下值需要读取或者写入
+							// opt.ObtainTile = 3 //需要吃碰杠胡的那一张牌 
+							// opt.ObtainSeat = 3 //被吃碰杠胡的那个人的座位号 
+							
+							//如果是听，则以下值需要读取或写入
+							//opt.tingTileInfo = [] //MJ_TingTileInfo /和牌信息
+						
+							//如果是胡，则以下值需要读取或写入
+							//opt.maxFan = 3 //最大番数 
+							//opt.fans = 3 // MJ_FanInfo 被吃碰杠胡的那个人的座位号 
+							//opt.operationID = 3 //操作id
+				
+					
+							room.RoomWebSocket.instance().roomSender.REQ_USEROPERATIONREQ( opt)
+
+
+
 							if (this.nAutoTime > -1) {
 								egret.clearTimeout(this.nAutoTime);
 								this.nAutoTime = -1;
@@ -778,13 +806,13 @@ module game {
 			if (p == 0) {
 				return this.gOtherCardL;
 			}
-			if (p == 1) {
+			if (p == 3) {
 				return this.gOtherCardU;
 			}
-			if (p == 2) {
+			if (p == 1) {
 				return this.gOtherCardR;
 			}
-			if (p == 3) {
+			if (p == 2) {
 				return this.gOtherCardD;
 			}
 		}
@@ -792,13 +820,13 @@ module game {
 			if (p == 0) {
 				return this.gHuCardL;
 			}
-			if (p == 1) {
+			if (p == 3) {
 				return this.gHuCardU;
 			}
-			if (p == 2) {
+			if (p == 1) {
 				return this.gHuCardR;
 			}
-			if (p == 3) {
+			if (p == 2) {
 				return this.gHuCardD;
 			}
 		}
@@ -849,14 +877,14 @@ module game {
 					}
 					ghand.addChildAt(card, 0);
 				}
-				if (p == 1) {
+				if (p == 3) {
 					card.setCard(p, (i + index), cardValue, state, isQue);
 					card.x = i * 44;
 					if (index == 0 && i == 0) {
 						card.x -= 10;
 					}
 				}
-				if (p == 2) {
+				if (p == 1) {
 					card.setCard(p, 13 - i - index, cardValue, state, isQue);
 					if (state == 0) {
 						card.x = this.arrRHP[i + index].x;
@@ -867,7 +895,7 @@ module game {
 					}
 					ghand.addChild(card);
 				}
-				if (p == 3) {
+				if (p == 2) {
 					card.setCard(p, (i + index), cardValue, state, isQue);
 					if (GameParmes.isHu) {
 						card.setMaskFlag(false);

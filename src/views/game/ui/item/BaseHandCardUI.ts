@@ -56,7 +56,8 @@ module game {
 				this.imgBack.scaleX = -1;
 			}
 			if(p == 2){
-				this.imgCard.source = "cardValue"+value;
+				
+				this.imgCard.source = `cardValue${value+1}`  ;
 				this.cardIndex = value;
 				//console.log("===STATE====",state)
 				if(state == 0){

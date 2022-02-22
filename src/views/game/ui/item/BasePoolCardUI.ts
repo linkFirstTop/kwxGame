@@ -25,7 +25,7 @@ module game {
 				this.imgCard.rotation = 90;
 				this.imgCard.skewY = 10;
 			}
-			if(p == 1){
+			if(p == 3){
 				this.imgBack.source = "card_pool_up_"+(index+1);
 				this.imgCard.source = "cardValue"+value;
 				this.imgCard.scaleX = -0.5;//0.4
@@ -50,7 +50,7 @@ module game {
 					this.imgCard.skewX = 6;
 				}
 			}
-			if(p == 2){
+			if(p == 1){
 				this.imgBack.source = "card_pool_right_"+(index+1);
 				this.imgBack.scaleX = -1;
 				this.imgCard.source = "cardValue"+value;
@@ -63,7 +63,7 @@ module game {
 				this.imgCard.skewY = -10;
 				this.imgCard.verticalCenter = -12;
 			}
-			if(p == 3){
+			if(p == 2){
 				this.imgBack.source = "card_pool_down_"+(index+1);
 				this.imgCard.source = "cardValue"+value;
 				this.imgCard.scaleX = this.imgCard.scaleY = 0.7-(3-Math.floor((index)/6))*0.05;

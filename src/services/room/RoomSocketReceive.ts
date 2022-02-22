@@ -101,7 +101,8 @@ module room {
 		//打漂通知
 		private VGID_ACK_USER_DAPIAP(byte: egret.ByteArray){
 			const body: room.VGUserDapiaoAck = room.VGUserDapiaoAck.decode(byte.bytes);
-			
+			GDGame.Msg.ins.dispatchEvent(new egret.Event(game.GameMessage.VGID_USER_DAPIAO, true, true, body));
+	
 			console.log("===VGID_ACK_USER_DAPIAP=body",body)
 			
 		}
@@ -117,6 +118,8 @@ module room {
 
 	    private	VGID_USER_OPERATION(byte: egret.ByteArray): void {
 			const body: room.VGUserOperationAck = room.VGUserOperationAck.decode(byte.bytes);
+
+
 			
 			//GDGame.Msg.ins.dispatchEvent(new egret.Event(game.GameMessage.VGID_GAME_OPERATION, true, true, body));
 	
