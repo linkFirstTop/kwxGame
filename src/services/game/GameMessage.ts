@@ -164,8 +164,6 @@ module game {
 		/**显示打漂信息*/
 		public static SHOW_DAPIAO_INFO: string = GameMessage.CLIENT_BASE + "SHOW_DAPIAO_INFO";
 
-
-
 		/**显示打漂信息*/
 		public static VGID_USER_DAPIAO: string = GameMessage.CLIENT_BASE + "VGID_USER_DAPIAO";
 
@@ -178,6 +176,11 @@ module game {
 
 		/**行牌 应答 */
 	    public static VGID_USER_OPERATION: string = GameMessage.CLIENT_BASE + "VGID_USER_OPERATION";
+
+		/**发牌器 */
+	    public static VGID_SERVICE_MAGICTILES: string = GameMessage.CLIENT_BASE + "VGID_SERVICE_MAGICTILES";
+
+
 
 	}
 

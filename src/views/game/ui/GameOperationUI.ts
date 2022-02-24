@@ -196,7 +196,7 @@ module game {
 					let card:CardInfo = cardGroup.cards[j] as CardInfo;
 					let item:game.BaseCardUI = new game.BaseCardUI();
 					g.addChild(item);
-					let cardValue:number = game.GameParmes.getCardID(card);
+					let cardValue:number = card.CardID//game.GameParmes.getCardID(card);
 					item.setCard(cardValue);
 					item.x = j*90;
 					g.scaleX = g.scaleY = 0.9;

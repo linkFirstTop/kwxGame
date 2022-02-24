@@ -129,8 +129,6 @@ module game {
 
 				// ViewManager.ins.gameView.gameUI.gameHSZ.showDapiaoPanel(true);
 				//ViewManagergame.GameHSZUI.
-
-				
 			}, this);
 		}
 
@@ -166,7 +164,7 @@ module game {
 			let card: CardInfo = new CardInfo();
 			card.CardID = cardID;
 			card.Sit = sit;
-			let cardValue: number = game.GameParmes.getCardID(card);
+			let cardValue: number =  card.CardID//game.GameParmes.getCardID(card);
 			let gHu: eui.Group = this.findHuGroup(p);
 			let len: number = gHu.numChildren;
 			let item: game.BaseHuCardUI = new game.BaseHuCardUI();
@@ -184,7 +182,7 @@ module game {
 					gHu.addChildAt(item, 4);
 				}
 			}
-			if (p == 1) {
+			if (p == 3) {
 				if (len < 4) {
 					item.x = this.arrHuP[p][0].x + len * 40;
 					item.y = this.arrHuP[p][0].y;
@@ -193,7 +191,7 @@ module game {
 					item.y = this.arrHuP[p][0].y - 10;
 				}
 			}
-			if (p == 2) {
+			if (p == 1) {
 				if (len < 4) {
 					item.x = this.arrHuP[p][len % 4].x;
 					item.y = this.arrHuP[p][len % 4].y;
@@ -202,7 +200,7 @@ module game {
 					item.y = this.arrHuP[p][len % 4].y - 10;
 				}
 			}
-			if (p == 3) {
+			if (p == 2) {
 				if (len < 4) {
 					item.x = this.arrHuP[p][len % 4].x;
 					item.y = this.arrHuP[p][len % 4].y;
@@ -256,8 +254,8 @@ module game {
 			let card: BaseHandCardUI = new BaseHandCardUI();
 			ghand.addChild(card);
 			let isQue: boolean = false;
-			let cardValue: number = game.GameParmes.getCardID(info);
-			if (p == 3) {
+			let cardValue: number = info.CardID; //game.GameParmes.getCardID(info);
+			if (p == 2) {
 				if (cardValue > 0) {
 					let nHua: number = game.GameParmes.getHua(info);
 					if (nHua == nQue) {
@@ -280,16 +278,16 @@ module game {
 				card.y = this.arrLHP[0].y;
 				ghand.addChild(card);
 			}
-			if (p == 1) {
+			if (p == 3) {
 				card.x = -54;
 			}
-			if (p == 2) {
+			if (p == 1) {
 				card.setCard(p, 13, 1, 0, isQue);
 				card.x = this.arrRHP[0].x;
 				card.y = this.arrRHP[0].y;
 				ghand.addChildAt(card, 0);
 			}
-			if (p == 3) {
+			if (p == 2) {
 				card.cardInfo = info;
 				card.x = (ghand.numChildren - 1) * 90;
 				card.x += 10;
@@ -465,7 +463,10 @@ module game {
 			let g: eui.Group = this.findOptGroup(p);
 			this.clearGroup(g);
 			let arrCards: Array<CardsGroupInfo> = game.GamePlayData.getOtherCards(nSit);//this.copyCardGroup(game.GamePlayData.getOtherCards(nSit));
+
+			console.log("===ARRCARDS=====",arrCards)
 			let nOptCount: number = arrCards.length;//玩家吃碰杠数组
+			
 			for (let i: number = 0; i < nOptCount; i++) {
 				this.createCPGItem(p, i, arrCards[i]);
 			}
@@ -506,7 +507,7 @@ module game {
 					}
 
 				}
-				if (p == 1) {//上
+				if (p == 3) {//上
 					if (isAnGang) {
 						item.y = 320;
 						if (i == 3) {
@@ -529,7 +530,7 @@ module game {
 
 					}
 				}
-				if (p == 2) {//右
+				if (p == 1) {//右
 					if (isAnGang) {
 						if (i == 3) {
 							gItem.addChild(item);
@@ -552,7 +553,7 @@ module game {
 
 					}
 				}
-				if (p == 3) {//下
+				if (p == 2) {//下
 					if (isAnGang) {
 						item.y = GameConfig.curHeight() - 120;
 						if (i == 3) {
@@ -622,9 +623,7 @@ module game {
 							info.obtainCard.CardID = item.cardInfo.CardID;
 							game.GameWebSocket.instance().gameSender.ReqSendCardsGameFun(info);
 						} else {
-
 							//GameController.ReqUserSendCard(cardInfo);
-
 							//MJ_Operation
 							const opt : room.MJ_Operation = new room.MJ_Operation()
 

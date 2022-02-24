@@ -109,6 +109,7 @@ class Global {
 	 */
 	public static getCurrentPositionName(n: number): string {
 		var str: string = "";
+		game.GameParmes.firstSit = 0;
 		if (n == game.GameParmes.firstSit) {
 			str = "east";
 		} else if ((game.GameParmes.firstSit + 1) % 3 == n) {
@@ -120,7 +121,7 @@ class Global {
 	}
 	public static getCardName(index: number): string {
 		let str: string = "牌值:" + index;
-		if (index >= 1 && index <= 9) {
+		if (index >= 0 && index <= 9) {
 			str = index + "万"
 		}
 		if (index >= 10 && index <= 18) {

@@ -143,6 +143,8 @@ module room {
 		//单次胡
 		public static OGID_SCMJ_GAME_HU_RESULT: number = RoomProtocol.OGID_CLIENT_LIST_BASE + 0x20
 
+		//发牌器
+		public static VGID_SERVICE_MAGICTILES: number = RoomProtocol.OGID_CLIENT_LIST_BASE + 0xF0
 
 		// 全新socket
 		//同步游戏

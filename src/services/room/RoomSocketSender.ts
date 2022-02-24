@@ -91,7 +91,7 @@ module room {
 		}
 
 		public REQ_DAPIAOINFO(type: number): void {
-			console.log("==REQ_DAPIAOINFO==")
+	
 			let data = new room.VGUserDapiaoReq();
 			data.dapiao = type;
 			let body = room.VGUserDapiaoReq.encode(data).finish();
@@ -104,6 +104,14 @@ module room {
 			let data = new room.VGUserOperationReq();
 			data.operation = operation;
 			let body = room.VGUserOperationReq.encode(data).finish();
+			room.RoomWebSocket.instance().SendMeseage(RoomProtocol.REQ | RoomProtocol.VGID_USER_DAPIAO, body);
+		}
+
+		public REQ_MAGICTILES (): void {
+			//console.log("==REQ_USEROPERATIONREQ==")
+			let data = new room.MagicTilesReq();
+			data.tile = 1;
+			let body = room.MagicTilesReq.encode(data).finish();
 			room.RoomWebSocket.instance().SendMeseage(RoomProtocol.REQ | RoomProtocol.VGID_USER_DAPIAO, body);
 		}
 	}

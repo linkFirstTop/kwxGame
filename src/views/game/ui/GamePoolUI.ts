@@ -65,7 +65,6 @@ module game {
 					this.addCardToPool(cardInfo);
 				}
 			}
-
 		}
 		/*添加牌到牌池  card:CardInfo*/
 		public addCardToPool(card:CardInfo):void{
@@ -90,7 +89,7 @@ module game {
 			this.arrCard[p].push(card);
 			let item:game.BasePoolCardUI = new game.BasePoolCardUI();
 			item.cardInfo = card;
-			let cardValue:number = game.GameParmes.getCardID(card);//Math.floor(Math.random()*27)+1;
+			let cardValue:number = card.CardID//game.GameParmes.getCardID(card);//Math.floor(Math.random()*27)+1;
 			item.setCard(p,len,cardValue);
 			if(p==0){
 				g.addChildAt(item,len%6+nLevel*18);
@@ -102,7 +101,7 @@ module game {
 				this.tipAnim.x = g.x + item.x + 50;
 				this.tipAnim.y = g.y + item.y + 10;
 			}
-			if(p==1){
+			if(p==3){
 				g.addChildAt(item,len%6+nLevel*18);
 				item.x = this.arrUP[len].x;
 				item.y = this.arrUP[len].y;
@@ -115,7 +114,7 @@ module game {
 				this.tipAnim.x = g.x + item.x + 30;
 				this.tipAnim.y = g.y + item.y + 10;
 			}
-			if(p==2){
+			if(p==1){
 				g.addChildAt(item,0+nLevel*18);
 				item.x = this.arrRP[len].x;
 				item.y = this.arrRP[len].y;
@@ -125,7 +124,7 @@ module game {
 				this.tipAnim.x = g.x + item.x + 50;
 				this.tipAnim.y = g.y + item.y + 10;
 			}
-			if(p==3){
+			if(p==2){
 				g.addChild(item);
 				if(len == 5 || len == 11 || len == 17){
 					g.addChildAt(item,len+nLevel*18-5);
@@ -201,13 +200,13 @@ module game {
 			if(p == 0){
 				return this.gLeftPool;
 			}
-			if(p == 1){
+			if(p == 3){
 				return this.gUpPool;
 			}
-			if(p == 2){
+			if(p == 1){
 				return this.gRightPool;
 			}
-			if(p == 3){
+			if(p == 2){
 				return this.gDownPool;
 			}
 		}

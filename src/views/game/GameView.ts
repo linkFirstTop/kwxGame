@@ -139,7 +139,7 @@ module game {
 
 		//打漂应答
 
-		private ACK_USER_DAPIAO(evt: egret.Event){
+		private ACK_USER_DAPIAO(evt: egret.Event) {
 			const body: room.VGUserDapiaoAck = evt.data;
 
 			let seatid = body.userInfo.userPos.seatID;
@@ -154,8 +154,8 @@ module game {
 		 */
 		private ACK_GAME_OPERATION(evt: egret.Event) {
 			const body: room.VGGameOperationNtc = evt.data;
-			
-			game.GamePlayData.M_C_P_G_sit = Global.getUserPosition(body.seatid - 1)
+
+			game.GamePlayData.M_C_P_G_sit = Global.getUserPosition(body["seatid"] - 1)
 			this.gameUI.changeUserRight();
 			if (body.operation.length > 0) {
 
@@ -163,7 +163,7 @@ module game {
 				body.operation.forEach((opt: room.MJ_Operation) => {
 					//摸牌s
 					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_DRAW) {
-						if (body.seatid == Global.userSit + 1) {
+						if (body["seatID"] == Global.userSit + 1) {
 							GameParmes.gameStage = GameStageType.PLAYING;
 						}
 					}
@@ -192,38 +192,62 @@ module game {
 					//碰
 					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_PONG) {
 
-						if (body.seatid == Global.userSit + 1) {
-							if (body.seatid == Global.userSit + 1) {
-								//吃 碰 杠 胡 停
-								const opt = [false, true,false,false,false]
-								this.gameUI.onShowOpt(opt);
-							}
+
+						if (body["seatID"] == Global.userSit + 1) {
+							//吃 碰 杠 胡 停
+							const opt = [false, true, false, false, false]
+							this.gameUI.onShowOpt(opt);
 						}
-						//this.ON_USER_PENGPAI(opt, body.seatid)
-						// let nSit: number = opt.;
-						// let card: CardInfo = evt.data[1];
-						// this.gameUI.playAnim("peng", nSit);
-						// this.gameUI.updataUserCPG(nSit, card);
-						// SoundModel.playEffect(SoundModel.PENG);
+
 					}
 					//暗杠
 					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_C_KONG) {
+
+						if (body["seatID"] == Global.userSit + 1) {
+							//吃 碰 杠 胡 停
+							const opt = [false, true, false, false, false]
+							this.gameUI.onShowOpt(opt);
+						}
 
 					}
 					//直杠
 					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_E_KONG) {
 
+						if (body["seatID"] == Global.userSit + 1) {
+							//吃 碰 杠 胡 停
+							const opt = [false, true, false, false, false]
+							this.gameUI.onShowOpt(opt);
+						}
+
 					}
 					//补杠
 					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_P_KONG) {
+
+						if (body["seatID"] == Global.userSit + 1) {
+							//吃 碰 杠 胡 停
+							const opt = [false, true, false, false, false]
+							this.gameUI.onShowOpt(opt);
+						}
 
 					}
 					//听
 					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_TING) {
 
+						if (body["seatID"] == Global.userSit + 1) {
+							//吃 碰 杠 胡 停
+							const opt = [false, false, false, false, true]
+							this.gameUI.onShowOpt(opt);
+						}
+
 					}
 					//和
 					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_WIN) {
+
+						if (body["seatID"] == Global.userSit + 1) {
+							//吃 碰 杠 胡 停
+							const opt = [false, false, false, true, false]
+							this.gameUI.onShowOpt(opt);
+						}
 
 
 					}
@@ -249,81 +273,107 @@ module game {
 		private ACK_USER_OPERATION(evt: egret.Event) {
 			const body: room.VGGameOperationNtc = evt.data;
 			console.log("=== 行牌应答 这是玩家操作的结果:", body)
+			console.log("=== 行牌应答 这是玩家操作的seat:", body["seatID"] )
+			const nSit = body["seatID"] - 1;
 
+			const opt: room.MJ_Operation = <any>body.operation;
 
-			if (body.operation.length > 0) {
-				body.operation.forEach((opt: room.MJ_Operation) => {
-					//摸牌s
-					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_DRAW) {
+			//摸牌s
+			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_DRAW) {
+				game.GamePlayData.SetCardsWallIndex("Head",1);
+				
+				const cardGroup = {
+	
+					Type: CardsGroupType.PENG,
+		
+					sit:nSit,
+					Cards:[
+						{CardID: opt.Tiles[0]},
+					
+					],
+				}
+				if(nSit == Global.userSit)
+				{
+					game.GamePlayData.SaveCurrentCard(opt.Tiles[0],nSit);
+				}
+				const cardInfo: CardInfo = new CardInfo();
+				cardInfo.CardID = opt.Tiles[0]
+				cardInfo.Sit = nSit;
+				game.GamePlayData.AddHandCards(nSit,cardGroup );
 
-					}
+				game.GamePlayData.SaveOperationSit(nSit);
 
-					//手切，打出的是手中的牌，吃碰之后都是手切
-					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_H_DISCARD) {
-						var card: CardInfo = new CardInfo();
-						card.CardID = 1;
-						card.Sit = 0;
-						var b: boolean = false;
-						this.gameUI.userSendCard(card, b);
-						SoundModel.playEffect(SoundModel.CHU);
+				this.gameUI.getOneCard(cardInfo);
+			}
 
+			//手切，打出的是手中的牌，吃碰之后都是手切
+			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_H_DISCARD) {
+				console.log("=====打出的是手中的牌，吃碰之后都是手切==")
+				const card: CardInfo = new CardInfo();
+				card.CardID = opt.Tiles[0];
+				card.Sit = body["seatID"] - 1;
+				var b: boolean = false;
+				this.gameUI.userSendCard(card, b);
+				SoundModel.playEffect(SoundModel.CHU);
 
-					}
-					//摸切，打出的是刚摸到的牌s
-					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_D_DISCARD) {
-
-					}
-					//左吃，吃的牌是最小点, 例如45吃3
-					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_L_CHOW) {
-
-					}
-					//中吃，吃的牌是中间点，例如24吃3
-					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_M_CHOW) {
-
-					}
-					//右吃，吃的牌是最大点，例如12吃3
-					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_R_CHOW) {
-
-					}
-					//碰
-					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_PONG) {
-						//this.ON_USER_PENGPAI(opt, body.seatid)
-						// let nSit: number = opt.;
-						// let card: CardInfo = evt.data[1];
-						// this.gameUI.playAnim("peng", nSit);
-						// this.gameUI.updataUserCPG(nSit, card);
-						// SoundModel.playEffect(SoundModel.PENG);
-					}
-					//暗杠
-					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_C_KONG) {
-
-					}
-					//直杠
-					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_E_KONG) {
-
-					}
-					//补杠
-					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_P_KONG) {
-
-					}
-					//听
-					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_TING) {
-
-					}
-					//和
-					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_WIN) {
-
-					}
-					//过
-					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_PASS) {
-
-					}
-
-				})
-				// }else{
 
 			}
-			// }
+			//摸切，打出的是刚摸到的牌s
+			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_D_DISCARD) {
+				console.log("=====摸切==")
+				const card: CardInfo = new CardInfo();
+				card.CardID = opt.Tiles[0];
+				card.Sit = body["seatID"] - 1;
+				var b: boolean = false;
+				this.gameUI.userSendCard(card, b);
+				SoundModel.playEffect(SoundModel.CHU);
+			}
+			//左吃，吃的牌是最小点, 例如45吃3
+			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_L_CHOW) {
+
+			}
+			//中吃，吃的牌是中间点，例如24吃3
+			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_M_CHOW) {
+
+			}
+			//右吃，吃的牌是最大点，例如12吃3
+			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_R_CHOW) {
+
+			}
+			//碰
+			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_PONG) {
+				this.ON_USER_PENGPAI(opt, body["seatID"])
+
+			}
+
+			//暗杠
+			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_C_KONG) {
+				this.ON_USER_ANGANGPAI(opt, body["seatID"]);
+			}
+			//直杠
+			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_E_KONG) {
+				this.ON_USER_MINGGANGPAI(opt, body["seatID"]);
+			}
+			//补杠
+			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_P_KONG) {
+				this.ON_USER_BUGANGPAI(opt, body["seatID"]);
+			}
+			//听
+			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_TING) {
+				//this.gameUI.onShowTHFlag();
+
+			}
+			//和
+			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_WIN) {
+
+			}
+			//过
+			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_PASS) {
+				//this.gameUI.changeUserRight();
+
+			}
+
+
 
 			// this.gameUI.startTime(body.second);
 
@@ -352,7 +402,8 @@ module game {
 		private ACK_GAME_NO_OPERATION(evt: egret.Event): void {
 			var nSit: number = evt.data;
 			Global.log("有人选择过====" + nSit + "自己的座位号=" + Global.userSit);
-			this.gameUI.changeUserRight();
+
+			//this.gameUI.changeUserRight();
 		}
 		/** 
 		 * @param msg
@@ -377,20 +428,41 @@ module game {
 		* @param msg
 		* 服务器通知客户端碰牌
 		*/
-		// private ON_USER_PENGPAI(data: room.MJ_Operation, seat: number): void {
-		// 	let nSit: number = seat - 1;
-		// 	console.log("====nsit", seat, nSit)
-		// 	let card: CardInfo = { CardID: data.ObtainTile, Sit: data.ObtainSeat };
-		// 	this.gameUI.playAnim("peng", nSit);
-		// 	this.gameUI.updataUserCPG(nSit, card);
-		// 	SoundModel.playEffect(SoundModel.PENG);
-		// }
+		private ON_USER_PENGPAI(data: room.MJ_Operation, seat: number): void {
+			let nSit: number = seat - 1;
+			console.log("====nsit", seat, nSit)
+			let card: CardInfo = { CardID: data.ObtainTile, Sit: data.ObtainSeat };
+			let dataArray:any[] = [];
+
+			const body = {
+				ObtainCard : card,
+				Type: CardsGroupType.PENG,
+				ObtainCardSit:data.ObtainSeat-1,
+				sit:nSit,
+				Cards:[
+					{CardID: data.ObtainTile},
+					{CardID: data.ObtainTile},
+					{CardID: data.ObtainTile},
+				],
+			}
+
+			// game.GamePlayData.SaveOperationSit(body.Card.Sit);
+			card = game.GamePlayData.AddChiPengGangCards(body, nSit);
+			
+			dataArray.push(nSit);
+			dataArray.push(card);
+
+			this.gameUI.playAnim("peng", nSit);
+			this.gameUI.updataUserCPG(nSit, card);
+			SoundModel.playEffect(SoundModel.PENG);
+		}
 
 		/** 
 		 * @param msg
 		 * 服务器通知客户端碰牌
 		 */
 		private ACK_USER_PENGPAI(evt: egret.Event): void {
+			console.log("===Peng======")
 			let nSit: number = evt.data[0];
 			let card: CardInfo = evt.data[1];
 			this.gameUI.playAnim("peng", nSit);
@@ -411,6 +483,22 @@ module game {
 			this.gameUI.showCoinChange(arrCoin);
 			SoundModel.playEffect(SoundModel.GANG);
 		}
+
+		/** 
+		 * @param msg
+		 * 服务器通知客户端明杠
+		 */
+		private ON_USER_MINGGANGPAI(data: room.MJ_Operation, seat: number): void {
+			const nSit: number = seat - 1;
+			const card: CardInfo = new CardInfo();
+			card.CardID = data.ObtainTile;
+			const obSit: number = data.ObtainSeat - 1;
+			this.gameUI.updataUserCPG(nSit, card);
+			this.gameUI.playAnim("mingGang", nSit, obSit);
+			const arrCoin: Array<number> = data.Tiles;
+			this.gameUI.showCoinChange(arrCoin);
+			SoundModel.playEffect(SoundModel.GANG);
+		}
 		/** 
 		 * @param msg
 		 * 服务器通知客户端暗杠
@@ -424,6 +512,18 @@ module game {
 			this.gameUI.showCoinChange(arrCoin);
 			SoundModel.playEffect(SoundModel.GANG);
 		}
+
+		private ON_USER_ANGANGPAI(data: room.MJ_Operation, seat: number): void {
+			const nSit: number = seat - 1;
+			const card: CardInfo = new CardInfo();
+			card.CardID = data.ObtainTile;
+			const obSit: number = data.ObtainSeat - 1;
+			this.gameUI.updataUserCPG(nSit, card);
+			this.gameUI.playAnim("anGang", nSit);
+			const arrCoin: Array<number> = data.Tiles;
+			this.gameUI.showCoinChange(arrCoin);
+			SoundModel.playEffect(SoundModel.GANG);
+		}
 		/** 
 		 * @param msg
 		 * 服务器通知客户端补杠
@@ -434,6 +534,18 @@ module game {
 			this.gameUI.updataUserCPG(nSit, card);
 			this.gameUI.playAnim("buGang", nSit);
 			var arrCoin: Array<number> = evt.data[3];
+			this.gameUI.showCoinChange(arrCoin);
+			SoundModel.playEffect(SoundModel.GANG);
+		}
+
+		private ON_USER_BUGANGPAI(data: room.MJ_Operation, seat: number): void {
+			const nSit: number = seat - 1;
+			const card: CardInfo = new CardInfo();
+			card.CardID = data.ObtainTile;
+			const obSit: number = data.ObtainSeat - 1;
+			this.gameUI.updataUserCPG(nSit, card);
+			this.gameUI.playAnim("buGang", nSit);
+			const arrCoin: Array<number> = data.Tiles;
 			this.gameUI.showCoinChange(arrCoin);
 			SoundModel.playEffect(SoundModel.GANG);
 		}
@@ -537,7 +649,7 @@ module game {
 			}
 			egret.setTimeout(function () {
 				this.gameUI.showAllHandCard(body);
-				//this.gameResult.showResult(body);
+				this.gameResult.showResult(body);
 			}, this, nTime);
 			ViewManager.ins.changeTimer(true);
 		}
@@ -588,7 +700,7 @@ module game {
 		/*收到定缺消息*/
 		private ACK_USER_DINGQUE(): void {
 			this.gameUI.onUserDingQue();
-			this.gameUI.changeUserRight();
+			//this.gameUI.changeUserRight();
 			this.gameUI.startTime(GameParmes.gamePlayTime);
 		}
 		/*
@@ -619,7 +731,7 @@ module game {
 			}
 			////发牌状态
 			if (status == game.RoomStatus.MJ_GS_FP) {
-			
+
 				this.gameUI.initHandCard();
 			}
 			//行牌状态
@@ -707,7 +819,7 @@ module game {
 			//	GDGame.Msg.ins.removeEventListener(GameMessage.SHOW_DAPIAO_INFO, this.showDapiaoInfo, this);
 
 			//打漂应答
-		   GDGame.Msg.ins.removeEventListener(GameMessage.VGID_USER_DAPIAO, this.ACK_USER_DAPIAO, this);
+			GDGame.Msg.ins.removeEventListener(GameMessage.VGID_USER_DAPIAO, this.ACK_USER_DAPIAO, this);
 
 			//行牌单播消息
 			GDGame.Msg.ins.removeEventListener(GameMessage.VGID_GAME_OPERATION, this.ACK_GAME_OPERATION, this);

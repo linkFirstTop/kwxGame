@@ -236,7 +236,7 @@ module game {
 			for (let i: number = 0; i < len; i++) {
 				let user: game.GameUserInfo = game.GameUserList.arrUserList[i];
 				let p: number = Global.getUserPosition(user.userSit);
-				if (p == 2) {
+				if (p == 0) {
 					this["gameUser" + p].setUserDQ(user.cardType, "left");
 				} else {
 					this["gameUser" + p].setUserDQ(user.cardType, "right");
@@ -278,7 +278,7 @@ module game {
 			this.gamePool.addCardToPool(card);
 			this.gameHand.updataHandsByPosition(card.Sit, 0);
 			game.SoundModel.playCardSound(card);
-			let cardValue: number = game.GameParmes.getCardID(card);
+			let cardValue: number =  card.CardID //game.GameParmes.getCardID(card);
 			if (this.gTingTip.visible) {
 				for (let i: number = 0; i < this.gTingCards.numChildren; i++) {
 					let item: game.BaseTingCardUI = this.gTingCards.getChildAt(i) as game.BaseTingCardUI;
@@ -377,7 +377,7 @@ module game {
 				this.gameHand.getOneCard(card);
 				let p: number = Global.getUserPosition(card.Sit);//刷新剩余牌张数，听牌显示
 				if (this.gTingTip.visible && p == 3) {
-					let cardValue: number = game.GameParmes.getCardID(card);
+					let cardValue: number =  card.CardID//game.GameParmes.getCardID(card);
 					for (let i: number = 0; i < this.gTingCards.numChildren; i++) {
 						let item: game.BaseTingCardUI = this.gTingCards.getChildAt(i) as game.BaseTingCardUI;
 						if (item.cardIndex == cardValue) {
@@ -386,7 +386,7 @@ module game {
 					}
 				}
 			}
-			this.changeUserRight();
+			//this.changeUserRight();
 		}
 		public hideTingFlag(): void {
 			this.gameHand.showTingFlag(false, "");
@@ -407,7 +407,7 @@ module game {
 						let card: CardInfo = new CardInfo();
 						card.CardID = huCardID;
 						card.Sit = sit;
-						let cardValue: number = game.GameParmes.getCardID(card);
+						let cardValue: number = card.CardID//(card);
 						for (let i: number = 0; i < this.arrCallCards.length; i++) {//如果出牌在数组中，显示听牌提示
 							let info: any = this.arrCallCards[i];
 							if (info.ObtainCardIndex + 1 == cardValue) {
@@ -431,14 +431,15 @@ module game {
 		 */
 		public updataUserCPG(nSit: number, card: CardInfo): void {
 			this.gameHand.updataHandsByPosition(nSit, 0);
+			let p: number = Global.getUserPosition(nSit);
 			this.gameHand.createCPGCard(nSit);
-			if (card.Sit != nSit) {//吃碰杠的牌的座位号和吃碰的人的座位号不等，牌池的牌消失
+			if (card.Sit != p) {//吃碰杠的牌的座位号和吃碰的人的座位号不等，牌池的牌消失
 				this.gamePool.removeCardToPool(card.Sit);
 			}
 			this.gamePosition.stopTime();
 			this.gamePosition.startTime(GameParmes.chiPengGangSurplusTime);
 			this.gameOpt.visible = false;
-			this.changeUserRight();
+			//this.changeUserRight();
 		}
 		public onGameContinue(arr: Array<any>, card: game.CardInfo): void {
 			this.gameHand.createHandCard(true, 0);//还原手牌
@@ -470,7 +471,7 @@ module game {
 					this.showHuCard(i, arr[j], 4);
 				}
 			}
-			this.changeUserRight();
+			//this.changeUserRight();
 			if (arr && arr.length > 0) {
 				this.imgTingTip.visible = true;
 				this.addChild(this.imgTingTip);
@@ -560,7 +561,8 @@ module game {
 			}
 		}
 		public changeUserRight(): void {
-			var nCurrent: number = game.GamePlayData.M_C_P_G_sit;//当前操作人的座位号
+			const nCurrent: number = game.GamePlayData.M_C_P_G_sit;//当前操作人的座位号
+			console.log("====cCurrent",nCurrent)
 			this.gamePosition.setCurrentPosition(nCurrent);
 			let p: number = Global.getUserPosition(nCurrent);
 			for (let i: number = 0; i < 3; i++) {

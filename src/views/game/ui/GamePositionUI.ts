@@ -65,6 +65,7 @@ module game {
 			this.setPosition();
 			let p: number = Global.getUserPosition(n);
 			let str: string = Global.getCurrentPositionName(n);
+		
 			let strLan: string = "";
 			if (Global.language == "en") {
 				strLan = "_en";
