@@ -104,7 +104,7 @@ module room {
 			let data = new room.VGUserOperationReq();
 			data.operation = operation;
 			let body = room.VGUserOperationReq.encode(data).finish();
-			room.RoomWebSocket.instance().SendMeseage(RoomProtocol.REQ | RoomProtocol.VGID_USER_DAPIAO, body);
+			room.RoomWebSocket.instance().SendMeseage(RoomProtocol.REQ | RoomProtocol.VGID_USER_OPERATION, body);
 		}
 
 		public REQ_MAGICTILES (): void {
@@ -112,7 +112,7 @@ module room {
 			let data = new room.MagicTilesReq();
 			data.tile = 1;
 			let body = room.MagicTilesReq.encode(data).finish();
-			room.RoomWebSocket.instance().SendMeseage(RoomProtocol.REQ | RoomProtocol.VGID_USER_DAPIAO, body);
+			room.RoomWebSocket.instance().SendMeseage(RoomProtocol.REQ | RoomProtocol.VGID_SERVICE_MAGICTILES, body);
 		}
 	}
 }

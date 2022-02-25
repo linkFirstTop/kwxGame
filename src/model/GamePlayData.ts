@@ -232,7 +232,7 @@ module game {
 		 * */
 		public static AddChiPengGangCards(body: any, sit: number): CardInfo {
 			const group: CardsGroupInfo = this.CopyCardsGroup(new CardsGroupInfo(), body);
-			console.group("==CopyCardsGroup==", group)
+			//console.group("==CopyCardsGroup==", group)
 			const handCards: Array<CardInfo> = this.getHandCards(sit);
 			const otherCards: Array<CardsGroupInfo> = this.getOtherCards(sit);
 			switch (body.Type) {
@@ -243,7 +243,7 @@ module game {
 					otherCards.push(group);
 					break;
 				case CardsGroupType.PENG://碰牌
-					console.log("==group.obtainCard.Sit==", group.obtainCard.Sit)
+					//console.log("==group.obtainCard.Sit==", group.obtainCard.Sit)
 					this.DelectCardPool(this.getCardsPool(group.obtainCard.Sit));
 					//处理手牌
 					this.ClearHandCards(handCards, group.cards, sit);
@@ -286,7 +286,7 @@ module game {
 		 * 1  CardsGroup.Cards
 		 * */
 		public static ClearHandCards(handcards: Array<CardInfo>, cards: Array<CardInfo>, sit: number): void {
-			console.log("====HANDS== Pai", handcards)
+			//console.log("====HANDS== Pai", handcards)
 			// for(var x:number=0;x<cards.length;x++){
 			// 	for(var y:number=0;y<handcards.length;y++){
 			// 		if(handcards[y].CardID==0&&sit==cards[x].Sit){

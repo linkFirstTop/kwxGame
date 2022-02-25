@@ -155,7 +155,7 @@ module game {
 		private ACK_GAME_OPERATION(evt: egret.Event) {
 			const body: room.VGGameOperationNtc = evt.data;
 
-			game.GamePlayData.M_C_P_G_sit = Global.getUserPosition(body["seatid"] - 1)
+			game.GamePlayData.M_C_P_G_sit = body["seatid"] - 1
 			this.gameUI.changeUserRight();
 			if (body.operation.length > 0) {
 
@@ -599,7 +599,7 @@ module game {
 		*/
 		private ON_USER_PENGPAI(data: room.MJ_Operation, seat: number): void {
 			let nSit: number = seat - 1;
-			console.log("====nsit", seat, nSit)
+	
 			let card: CardInfo = { CardID: data.ObtainTile, Sit: data.ObtainSeat-1 };
 	
 			const body = {

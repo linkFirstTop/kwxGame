@@ -603,7 +603,7 @@ module game {
 			// 	}
 			// }
 
-			console.log("===CHOOSE ITEM",item)
+			console.log("===CHOOSE ITEM",item ,game.GamePlayData.M_C_P_G_sit,Global.userSit) 
 			if (GameParmes.gameStage == GameStageType.PLAYING) {//出牌阶段
 				if (this.currentCard == item) {
 					if (game.GamePlayData.M_C_P_G_sit == Global.userSit) {
@@ -625,23 +625,12 @@ module game {
 							const opt : room.MJ_Operation = new room.MJ_Operation()
 
 							//手切，打出的是手中的牌，吃碰之后都是手切  摸切，打出的是刚摸到的牌
-							opt.operationType  = CardsGroupType.MJ_OperationType.MJ_OT_PASS;//操作类型
+							opt.operationType  = CardsGroupType.MJ_OperationType.MJ_OT_D_DISCARD;//操作类型
 							opt.Tiles = [item.cardInfo.CardID] //牌组  如果是出牌则数组中只有一张牌
-							//如果是吃、碰、杠、胡则以下值需要读取或者写入
-							// opt.ObtainTile = 3 //需要吃碰杠胡的那一张牌 
-							// opt.ObtainSeat = 3 //被吃碰杠胡的那个人的座位号 
-							
-							//如果是听，则以下值需要读取或写入
-							//opt.tingTileInfo = [] //MJ_TingTileInfo /和牌信息
-						
-							//如果是胡，则以下值需要读取或写入
-							//opt.maxFan = 3 //最大番数 
-							//opt.fans = 3 // MJ_FanInfo 被吃碰杠胡的那个人的座位号 
-							//opt.operationID = 3 //操作id
-				
+							console.log("=====SEND CARD====")
+		
 					
 							room.RoomWebSocket.instance().roomSender.REQ_USEROPERATIONREQ( opt)
-
 
 
 							if (this.nAutoTime > -1) {
