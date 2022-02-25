@@ -11,7 +11,7 @@ module game {
 		private lbInfo: eui.Label;
 		private duyi: eui.Label;
 		private lbLeftCard: eui.Label;
-		private gameHand: game.GameHandUI;
+		public gameHand: game.GameHandUI;
 		private gamePool: game.GamePoolUI;
 		private gamePosition: game.GamePositionUI;
 		private gameOpt: game.GameOperationUI;
@@ -32,7 +32,7 @@ module game {
 		private gTingTip: eui.Group;
 		private gTingCards: eui.Group;
 		private arrTingCards: Array<any> = [];
-		private arrCallCards: Array<any> = [];
+		public arrCallCards: Array<any> = [];
 		private btnContinue: eui.Image;
 		private imgTHIcon: eui.Image;
 		private imgTGTip: eui.Image;
@@ -343,7 +343,7 @@ module game {
 			}
 		}
 
-		private checkLPCards(): void {//需要同时调用，顺序固定，先手牌在牌池
+		public checkLPCards(): void {//需要同时调用，顺序固定，先手牌在牌池
 			this.gameHand.checkLPCards();
 			this.gamePool.checkLPCards();
 		}

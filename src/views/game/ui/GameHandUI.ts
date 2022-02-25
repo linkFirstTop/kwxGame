@@ -317,9 +317,6 @@ module game {
 			//console.log("===sit",sit)
 			let p: number = Global.getUserPosition(sit);
 
-			// let seatP = Global.getUserPosition(p);
-			//  console.log("====***SIT****===",sit)
-			//  console.log("====***SIT****===",game.GameUserList.arrUserList)
 
 			let nQue: number = game.GameUserList.arrUserList[sit].cardType;
 			let ghand: eui.Group = this.findHandGroup(p);
@@ -487,7 +484,7 @@ module game {
 			let gItem: eui.Group = new eui.Group();
 			g.addChild(gItem);
 			for (let i: number = 0; i < info.cards.length; i++) {
-				let cardValue: number = game.GameParmes.getCardID(info.cards[i]);
+				let cardValue: number =  info.cards[0].CardID //game.GameParmes.getCardID(info.cards[i]);
 				let item: BaseOtherCardUI = new BaseOtherCardUI();
 				item.cardInfo = info.cards[i];
 				gItem.addChild(item);
@@ -616,7 +613,7 @@ module game {
 							this.dispatchEvent(new egret.Event("ShowTingTip", true, true, { "isShowTing": item.isTingFlag, "index": item.cardIndex }));
 						}
 
-						var cardInfo: CardInfo = new CardInfo();
+						const cardInfo: CardInfo = new CardInfo();
 						cardInfo.CardID = item.cardInfo.CardID;
 						if (GameParmes.nHuType == 16 && item.isHuFlag) {//天胡处理
 							let info: CardsGroupInfo = GamePlayData.Hu_Groups[0];

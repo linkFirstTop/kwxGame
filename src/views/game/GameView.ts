@@ -232,24 +232,28 @@ module game {
 					}
 					//听
 					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_TING) {
-
+						console.log("==========*******=========")
+						//game.GamePlayData.SaveChiPengGangHu(body);
 						if (body["seatID"] == Global.userSit + 1) {
 							//吃 碰 杠 胡 停
-							const opt = [false, false, false, false, true]
-							this.gameUI.onShowOpt(opt);
-						}
+							if (GameParmes.isHu == false) {
+								this.gameUI.gameHand.showTingFlag(true, "ting");
+							}
 
+							this.gameUI.checkLPCards();
+							let arr: Array<any> = GamePlayData.GetChiPengGangHuGroup(CardsGroupType.CALL);
+							for (let i: number = 0; i < arr.length; i++) {
+								this.gameUI.arrCallCards.push(arr[i]);
+							}
+						}
 					}
 					//和
 					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_WIN) {
-
 						if (body["seatID"] == Global.userSit + 1) {
 							//吃 碰 杠 胡 停
 							const opt = [false, false, false, true, false]
 							this.gameUI.onShowOpt(opt);
 						}
-
-
 					}
 					//过
 					if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_PASS) {
@@ -273,35 +277,30 @@ module game {
 		private ACK_USER_OPERATION(evt: egret.Event) {
 			const body: room.VGGameOperationNtc = evt.data;
 			console.log("=== 行牌应答 这是玩家操作的结果:", body)
-			console.log("=== 行牌应答 这是玩家操作的seat:", body["seatID"] )
-			const nSit = body["seatID"] - 1;
+			console.log("=== 行牌应答 这是玩家操作的seat:", body["seatID"])
+			const nSit =   body["seatID"] - 1;
 
 			const opt: room.MJ_Operation = <any>body.operation;
 
 			//摸牌s
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_DRAW) {
-				game.GamePlayData.SetCardsWallIndex("Head",1);
-				
+				game.GamePlayData.SetCardsWallIndex("Head", 1);
+
 				const cardGroup = {
-	
-					Type: CardsGroupType.PENG,
-		
-					sit:nSit,
-					Cards:[
-						{CardID: opt.Tiles[0]},
-					
+					sit: nSit,
+					Cards: [
+						{ CardID: opt.Tiles[0],Sit:nSit },
 					],
 				}
-				if(nSit == Global.userSit)
-				{
-					game.GamePlayData.SaveCurrentCard(opt.Tiles[0],nSit);
+				if (nSit == Global.userSit) {
+					game.GamePlayData.SaveCurrentCard(opt.Tiles[0], nSit);
 				}
 				const cardInfo: CardInfo = new CardInfo();
 				cardInfo.CardID = opt.Tiles[0]
-				cardInfo.Sit = nSit;
-				game.GamePlayData.AddHandCards(nSit,cardGroup );
+				cardInfo.Sit =  nSit;
+				game.GamePlayData.AddHandCards(nSit, cardGroup);
 
-				game.GamePlayData.SaveOperationSit(nSit);
+				//game.GamePlayData.SaveOperationSit(nSit);
 
 				this.gameUI.getOneCard(cardInfo);
 			}
@@ -311,7 +310,30 @@ module game {
 				console.log("=====打出的是手中的牌，吃碰之后都是手切==")
 				const card: CardInfo = new CardInfo();
 				card.CardID = opt.Tiles[0];
-				card.Sit = body["seatID"] - 1;
+				card.Sit = nSit;
+
+				const body = {
+					ObtainCard: card,
+					Type: CardsGroupType.PENG,
+					ObtainCardSit: opt.ObtainSeat - 1,
+					sit: nSit,
+					Cards: [
+						{ CardID: opt.Tiles[0], Sit:nSit },
+					],
+				}
+				game.GamePlayData.ClearHandCards(game.GamePlayData.getHandCards(nSit), [card], nSit);
+				game.GamePlayData.AddCardPool(body.Cards, nSit);
+				if (nSit == Global.userSit) {
+					game.GamePlayData.SaveCurrentCard(0, -1);
+				}
+
+				let dataArray: any[] = [];
+				dataArray.push(card);
+				dataArray.push(false);
+				//GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_USER_SENDCARD, true, true, dataArray));
+
+
+
 				var b: boolean = false;
 				this.gameUI.userSendCard(card, b);
 				SoundModel.playEffect(SoundModel.CHU);
@@ -321,41 +343,188 @@ module game {
 			//摸切，打出的是刚摸到的牌s
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_D_DISCARD) {
 				console.log("=====摸切==")
+
 				const card: CardInfo = new CardInfo();
 				card.CardID = opt.Tiles[0];
-				card.Sit = body["seatID"] - 1;
+				card.Sit = nSit;
+				//*************容错断线回来  服务器发送该出牌的人的牌是13张   但是又发送该他出牌的消息   故容错***************
+				var handcardsNum: number = game.GamePlayData.getHandCards(nSit).length;
+				if (handcardsNum % 3 != 1) {
+					game.GamePlayData.ClearHandCards(game.GamePlayData.getHandCards(nSit), [card], nSit);
+				}
+
+				const body = {
+					ObtainCard: card,
+					Type: CardsGroupType.PENG,
+					ObtainCardSit: opt.ObtainSeat - 1,
+					sit: nSit,
+					Cards: [
+						{ CardID: opt.Tiles[0],Sit:nSit },
+					],
+				}
+				game.GamePlayData.AddCardPool(body.Cards, nSit);
+				if (nSit == Global.userSit) {
+					game.GamePlayData.SaveCurrentCard(0, -1);
+				}
+				let dataArray: any[] = [];
+				dataArray.push(card);
+				dataArray.push(true);
+				GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_USER_SENDCARD, true, true, dataArray));
+
 				var b: boolean = false;
 				this.gameUI.userSendCard(card, b);
 				SoundModel.playEffect(SoundModel.CHU);
 			}
 			//左吃，吃的牌是最小点, 例如45吃3
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_L_CHOW) {
+				//game.GamePlayData.SaveOperationSit(body.Card.Sit);
+				let card: CardInfo = { CardID: opt.ObtainTile, Sit: opt.ObtainSeat };
+				const body = {
+					ObtainCard: card,
+					Type: CardsGroupType.PENG,
+					ObtainCardSit: opt.ObtainSeat - 1,
+					sit: nSit,
+					Cards: [
+						{ CardID: opt.ObtainTile },
+						{ CardID: opt.ObtainTile },
+						{ CardID: opt.ObtainTile },
+					],
+				}
+				card = game.GamePlayData.AddChiPengGangCards(body, nSit);
+				// let dataArray:any[] = [];
+				// dataArray.push(nSit);
+				// dataArray.push(card);
+				// GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_USER_CHIPAI,true,true,dataArray));
 
 			}
 			//中吃，吃的牌是中间点，例如24吃3
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_M_CHOW) {
+				let card: CardInfo = { CardID: opt.ObtainTile, Sit: opt.ObtainSeat };
+				const body = {
+					ObtainCard: card,
+					Type: CardsGroupType.PENG,
+					ObtainCardSit: opt.ObtainSeat - 1,
+					sit: nSit,
+					Cards: [
+						{ CardID: opt.ObtainTile },
+						{ CardID: opt.ObtainTile },
+						{ CardID: opt.ObtainTile },
+					],
+				}
+				card = game.GamePlayData.AddChiPengGangCards(body, nSit);
+				// let dataArray:any[] = [];
+				// dataArray.push(nSit);
+				// dataArray.push(card);
 
 			}
 			//右吃，吃的牌是最大点，例如12吃3
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_R_CHOW) {
+				let card: CardInfo = { CardID: opt.ObtainTile, Sit: opt.ObtainSeat };
+				const body = {
+					ObtainCard: card,
+					Type: CardsGroupType.PENG,
+					ObtainCardSit: opt.ObtainSeat - 1,
+					sit: nSit,
+					Cards: [
+						{ CardID: opt.ObtainTile },
+						{ CardID: opt.ObtainTile },
+						{ CardID: opt.ObtainTile },
+					],
+				}
+				card = game.GamePlayData.AddChiPengGangCards(body, nSit);
+				// let dataArray:any[] = [];
+				// dataArray.push(nSit);
+				// dataArray.push(card);
 
 			}
 			//碰
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_PONG) {
+				console.log("=====碰一下==")
 				this.ON_USER_PENGPAI(opt, body["seatID"])
 
 			}
 
 			//暗杠
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_C_KONG) {
+				//	game.GamePlayData.SaveOperationSit(body.Card.Sit);
+				let card: CardInfo = { CardID: opt.ObtainTile, Sit: opt.ObtainSeat };
+				const body = {
+					ObtainCard: card,
+					Type: CardsGroupType.PENG,
+					ObtainCardSit: opt.ObtainSeat - 1,
+					sit: nSit,
+					Cards: [
+						{ CardID: opt.ObtainTile },
+						{ CardID: opt.ObtainTile },
+						{ CardID: opt.ObtainTile },
+						{ CardID: opt.ObtainTile },
+					],
+				}
+				game.GamePlayData.SaveCurrentCard(0, -1);
+				//game.GamePlayData.SaveOperationSit(b);
+				card = game.GamePlayData.AddChiPengGangCards(body, nSit);
+				let dataArray: any[] = [];
+				dataArray.push(nSit);
+				dataArray.push(card);
+				dataArray.push(opt.ObtainSeat - 1);
+				// dataArray.push(body.gangCoin);
+
+
+				//	dataArray.push(body.gangCoin);
+
 				this.ON_USER_ANGANGPAI(opt, body["seatID"]);
 			}
 			//直杠
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_E_KONG) {
+				let card: CardInfo = { CardID: opt.ObtainTile, Sit: opt.ObtainSeat };
+				const body = {
+					ObtainCard: card,
+					Type: CardsGroupType.PENG,
+					ObtainCardSit: opt.ObtainSeat - 1,
+					sit: nSit,
+					Cards: [
+						{ CardID: opt.ObtainTile },
+						{ CardID: opt.ObtainTile },
+						{ CardID: opt.ObtainTile },
+						{ CardID: opt.ObtainTile },
+					],
+				}
+
+				card = game.GamePlayData.AddChiPengGangCards(body, nSit);
+				let dataArray: any[] = [];
+				dataArray.push(nSit);
+				dataArray.push(card);
+				dataArray.push(opt.ObtainSeat - 1);
+
 				this.ON_USER_MINGGANGPAI(opt, body["seatID"]);
 			}
 			//补杠
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_P_KONG) {
+
+				//∂ 	game.GamePlayData.SaveOperationSit(body.Card.Sit);
+				let card: CardInfo = { CardID: opt.ObtainTile, Sit: opt.ObtainSeat };
+				const body = {
+					ObtainCard: card,
+					Type: CardsGroupType.PENG,
+					ObtainCardSit: opt.ObtainSeat - 1,
+					sit: nSit,
+					Cards: [
+						{ CardID: opt.ObtainTile },
+						{ CardID: opt.ObtainTile },
+						{ CardID: opt.ObtainTile },
+						{ CardID: opt.ObtainTile },
+					],
+				}
+				card = game.GamePlayData.AddChiPengGangCards(body, nSit);
+				game.GamePlayData.SaveCurrentCard(0, -1);
+				let dataArray: any[] = [];
+				dataArray.push(nSit);
+				dataArray.push(card);
+				dataArray.push(card);
+				dataArray.push(opt.ObtainSeat - 1);
+				//dataArray.push(body.gangCoin);
+				//GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_USER_BUGANGPAI,true,true,dataArray))
+
 				this.ON_USER_BUGANGPAI(opt, body["seatID"]);
 			}
 			//听
@@ -431,26 +600,22 @@ module game {
 		private ON_USER_PENGPAI(data: room.MJ_Operation, seat: number): void {
 			let nSit: number = seat - 1;
 			console.log("====nsit", seat, nSit)
-			let card: CardInfo = { CardID: data.ObtainTile, Sit: data.ObtainSeat };
-			let dataArray:any[] = [];
-
+			let card: CardInfo = { CardID: data.ObtainTile, Sit: data.ObtainSeat-1 };
+	
 			const body = {
-				ObtainCard : card,
+				ObtainCard: card,
 				Type: CardsGroupType.PENG,
-				ObtainCardSit:data.ObtainSeat-1,
-				sit:nSit,
-				Cards:[
-					{CardID: data.ObtainTile},
-					{CardID: data.ObtainTile},
-					{CardID: data.ObtainTile},
+				ObtainCardSit: data.ObtainSeat - 1,
+				sit: nSit,
+				Cards: [
+					{ CardID: data.ObtainTile,Sit:nSit },
+					{ CardID: data.ObtainTile,Sit:nSit },
+					{ CardID: data.ObtainTile,Sit:nSit },
 				],
 			}
 
 			// game.GamePlayData.SaveOperationSit(body.Card.Sit);
 			card = game.GamePlayData.AddChiPengGangCards(body, nSit);
-			
-			dataArray.push(nSit);
-			dataArray.push(card);
 
 			this.gameUI.playAnim("peng", nSit);
 			this.gameUI.updataUserCPG(nSit, card);
