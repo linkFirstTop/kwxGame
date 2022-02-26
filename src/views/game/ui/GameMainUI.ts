@@ -489,7 +489,7 @@ module game {
 			this.gameTrust.visible = false;
 			this.gameOpt.visible = false;
 			this.isGaming = false;
-			//this.gameHand.createHandCard(true, 1);//全部亮开手牌
+			this.gameHand.createHandCard(true, 1);//全部亮开手牌
 
 			this.gameHand.showResultCard(body);
 			for (let i: number = 0; i < 3; i++) {
@@ -562,7 +562,7 @@ module game {
 		}
 		public changeUserRight(): void {
 			const nCurrent: number = game.GamePlayData.M_C_P_G_sit;//当前操作人的座位号
-			console.log("====cCurrent",nCurrent)
+	
 			this.gamePosition.setCurrentPosition(nCurrent);
 			let p: number = Global.getUserPosition(nCurrent);
 			for (let i: number = 0; i < 3; i++) {

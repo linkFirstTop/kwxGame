@@ -52,6 +52,8 @@ module game {
 
 		public static arrLPCards: Array<Array<number>> = [];//亮牌数组 用于听牌张数判断
 
+		public static MJ_Operation: Array<room.MJ_Operation>  = [];
+
 		/*初始化数据*/
 		public static initData(): void {
 			console.log('初始化数据');
@@ -98,12 +100,29 @@ module game {
 			this.Current_Card.Sit = sit;
 			return this.Current_Card;
 		}
+
 		/**
+		 * 保存 玩家 当前可以进行操作
+		 */
+
+		public static SaveMJ_Operation(operation:any){
+			this.MJ_Operation = operation;
+		}
+
+		public static GetMJ_Operation(){
+			return this.MJ_Operation || [];
+		}
+
+
+
+
+		/**∂
 		 * 根据发牌数据创建手牌
 		 * */
 		public static SaveHandCarsd(arr: Array<room.IVGUserInfo>): void {
 			//console.log("座位 GLOBAL.USERSIT",Global.userSit)
 			arr.forEach((e, i) => {
+				//∂console.log("根据发牌数据创建手牌",e)
 
 				let arrTmp: Array<CardInfo> = e.tileSets[0].Tiles.map(o => {
 					let card: CardInfo = new CardInfo();
@@ -111,14 +130,11 @@ module game {
 					card.Sit = i;
 					return card;
 				})
-
-
 				// game.GamePlayData.arrHandCards[p] = e.tileSets[0].Tiles;
-
 				game.GamePlayData.arrHandCards.push(arrTmp);
 			})
 
-			console.log("======SAVE HAND CARD :", game.GamePlayData.arrHandCards)
+	
 
 			//console.log("HHHHHHHHAN CARDS", game.GamePlayData.arrHandCards)
 			// for(let i:number=0;i<4;i++){
@@ -232,7 +248,7 @@ module game {
 		 * */
 		public static AddChiPengGangCards(body: any, sit: number): CardInfo {
 			const group: CardsGroupInfo = this.CopyCardsGroup(new CardsGroupInfo(), body);
-			//console.group("==CopyCardsGroup==", group)
+			console.group("==CopyCardsGroup==", group)
 			const handCards: Array<CardInfo> = this.getHandCards(sit);
 			const otherCards: Array<CardsGroupInfo> = this.getOtherCards(sit);
 			switch (body.Type) {
@@ -300,7 +316,6 @@ module game {
 			// 		}
 			// 	}	
 			// }
-
 
 			if (sit == Global.userSit) {
 				this.Chi_Groups.length = 0;

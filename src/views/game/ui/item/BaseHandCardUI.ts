@@ -76,7 +76,62 @@ module game {
 					this.imgCard.verticalCenter = -10;
 				}
 			}
+		}
+
+		public updateCard( value:number){
+			console.log("======UPDATE CARD====")
+			//if(p == 0){//左
 			
+			this.imgCard.source = "cardValue"+value;
+
+			// 	}
+			// }
+			// if(p == 3){//上
+			// 	if(state == 0){
+			// 		this.imgBack.source = "card_up_h1";
+			// 	}else{
+			// 		this.imgBack.source = "card_up_m1";
+			// 		this.imgCard.source = "cardValue"+value;
+			// 		this.imgCard.scaleX = 0.5;
+			// 		this.imgCard.scaleY = -0.4;
+			// 		this.imgCard.verticalCenter = -7;
+			// 	}
+			// }
+			// if(p == 1){//右
+			// 	if(state == 0){
+			// 		this.imgBack.source = "card_left_h"+(index+1);
+			// 	}else{
+			// 		this.imgBack.source = "card_left_hl"+(index+1);
+			// 		this.imgCard.source = "cardValue"+value;
+			// 		this.imgCard.scaleX = this.imgCard.scaleY = 0.6-0.01*index;
+			// 		this.imgCard.rotation = -90;
+			// 		this.imgCard.skewY = -25;
+			// 		this.imgCard.verticalCenter = -8;
+			// 	}
+			// 	this.imgBack.scaleX = -1;
+			// }
+			// if(p == 2){
+				
+			// 	this.imgCard.source = `cardValue${value+1}`  ;
+			// 	this.cardIndex = value;
+			// 	//console.log("===STATE====",state)
+			// 	if(state == 0){
+			// 		this.imgBack.source = "card_down_h1";
+			// 		this.imgCard.verticalCenter = 6;
+			// 		this.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onCardTap,this);
+			// 		this.isSelect = false;
+			// 		this.isTingFlag = false;
+			// 		this.isHuFlag = false;
+			// 		if(isDQ){
+			// 			this.setMaskFlag();
+			// 		}
+			// 	}else{
+			// 		this.imgBack.source = "card_down_m1";
+			// 		this.imgCard.scaleX = this.imgCard.scaleY = 0.9;
+			// 		this.imgCard.verticalCenter = -10;
+			// 	}
+			// }
+
 		}
 		private onCardTap():void{
 			console.log("==GameParmes.gameStage==",GameParmes.gameStage)

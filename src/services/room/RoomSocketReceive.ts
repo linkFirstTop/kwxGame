@@ -63,10 +63,8 @@ module room {
 					break;
 
 				case RoomProtocol.ACK | RoomProtocol.VGID_SERVICE_MAGICTILES://玩家行牌消息
-					this.VGID_USER_OPERATION(byte);
+					this.VGID_SERVICE_MAGICTILES(byte);
 					break;
-					
-
 			}
 		}
 
@@ -93,8 +91,6 @@ module room {
 		private VGID_ACK_GAME_GAMESTART(byte: egret.ByteArray): void {
 			var body: room.VGGameStartNtc = room.VGGameStartNtc.decode(byte.bytes);
 
-
-
 			console.log('开始游戏广播消息', body);
 		}
 
@@ -120,10 +116,10 @@ module room {
 
 		//单张发牌器
 		private VGID_SERVICE_MAGICTILES(byte: egret.ByteArray){
-			const body: room.VGUserDapiaoAck = room.VGUserDapiaoAck.decode(byte.bytes);
-			GDGame.Msg.ins.dispatchEvent(new egret.Event(game.GameMessage.VGID_USER_DAPIAO, true, true, body));
+			const body: room.MagicTilesAck = room.MagicTilesAck.decode(byte.bytes);
+			GDGame.Msg.ins.dispatchEvent(new egret.Event(game.GameMessage.VGID_SERVICE_MAGICTILES, true, true, body));
 	
-			console.log("===VGID_ACK_USER_DAPIAP=body",body)
+			// console.log("===VGID_ACK_USER_DAPIAP=body",body)
 			
 		}
 
@@ -133,7 +129,7 @@ module room {
 
 			GDGame.Msg.ins.dispatchEvent(new egret.Event(game.GameMessage.VGID_GAME_OPERATION, true, true, body));
 	
-			console.log('行牌单播消息', body);
+			// console.log('行牌单播消息', body);
 		}
 
 	    private	VGID_USER_OPERATION(byte: egret.ByteArray): void {

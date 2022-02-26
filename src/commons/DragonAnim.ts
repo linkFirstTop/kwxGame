@@ -57,6 +57,7 @@ module comm {
 			ar.animation.play(str,1);
 			ar.x = pos.x;
 			ar.y = pos.y;
+		
 			ar.armature.addEventListener( dragonBones.EgretEvent.COMPLETE, this.onPlayCompletedAnimation, this );
 		}
 		
@@ -78,9 +79,9 @@ module comm {
 					 || str == "qgh" || str == "ypdx" || str == "gskh" || str == "hjzy" || str == "dj" || str == "hz"){
 					if(p == 0){
 						return {"x":400,"y":GameConfig.curHeight()/2}
-					}else if(p == 1){
+					}else if(p == 3){
 						return {"x":GameConfig.curWidth()/2,"y":300}
-					}else if(p == 2){
+					}else if(p == 1){
 						return {"x":GameConfig.curWidth()-400,"y":GameConfig.curHeight()/2}
 					}else{
 						return {"x":GameConfig.curWidth()/2,"y":950}
@@ -89,9 +90,9 @@ module comm {
 				if(str == "zmbd"){
 					if(p == 0){
 						return {"x":400,"y":700}
-					}else if(p == 1){
+					}else if(p == 3){
 						return {"x":500,"y":300}
-					}else if(p == 2){
+					}else if(p == 1){
 						return {"x":GameConfig.curWidth()-400,"y":400}
 					}else{
 						return {"x":GameConfig.curWidth() - 300,"y":950}

@@ -8,6 +8,7 @@ module game {
 		{
 			super.partAdded(partName,instance);
 		}
+		
 		private lbInfo:eui.Label;
 		private jhinfo:eui.Label;
 		private lbCoin:eui.Label;

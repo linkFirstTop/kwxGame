@@ -98,8 +98,6 @@ module game {
 		public createHandCard(isShow: boolean, state: number): void {
 			for (let j: number = 0; j < 3; j++) {
 				this.updataHandsByPosition(j, state, isShow);
-
-				//this..showDapiaoPanel(true);
 			}
 			if (!isShow) {
 				this.showHandCard();
@@ -107,10 +105,10 @@ module game {
 		}
 		/*用于处理开始的发牌*/
 		private showHandCard(): void {
-		
+
 			var len: number = 0;
-			for (let j: number = 0; j < 4; j++) {
-				for (let i: number = 0; i < 4; i++) {
+			for (let j: number = 0; j < 3; j++) {
+				for (let i: number = 0; i < 3; i++) {
 					let g: eui.Group = this.findHandGroup(i);
 					let count: number = len + 4 > g.numChildren ? g.numChildren : len + 4;
 					for (let n: number = len; n < count; n++) {
@@ -134,17 +132,41 @@ module game {
 
 		/*用于处理开始的发牌*/
 		public showResultCard(body: room.VGGameResultNtc): void {
+			console.log("====showResultCard=====", body.userInfos)
+
+
+			//
+			body.userInfos.forEach((e, i) => {
+				//∂console.log("根据发牌数据创建手牌",e)
+				const tiles = e.tileSets[0].Tiles;
+				let nSit = e.userPos.seatID - 1;
+				let p: number = Global.getUserPosition(nSit);
+
+				console.log("====TILES",tiles,p,Global.userSit);
+
+				if( nSit != Global.userSit ){
+
+					let g = this.findHandGroup(p);
+					for (let n: number = 0; n < tiles.length; n++) {
+						const c: any = g.getChildAt(n);
+						console.log("=======n", n , c );
+						
+						c.updateCard(tiles[n])
+					}
+				}
+			
+			})
+
 			var len: number = 0;
 			for (let j: number = 0; j < 4; j++) {
 				for (let i: number = 0; i < 4; i++) {
-					
-					// body.
-
 					let g: eui.Group = this.findHandGroup(i);
 					let count: number = len + 4 > g.numChildren ? g.numChildren : len + 4;
 					for (let n: number = len; n < count; n++) {
 						egret.Tween.get(g).wait(j * 800).call(function () {
 							g.getChildAt(n).visible = true;
+							const p: any = g.getChildAt(n)
+			
 						}, this);
 					}
 				}
@@ -164,7 +186,7 @@ module game {
 			let card: CardInfo = new CardInfo();
 			card.CardID = cardID;
 			card.Sit = sit;
-			let cardValue: number =  card.CardID//game.GameParmes.getCardID(card);
+			let cardValue: number = card.CardID//game.GameParmes.getCardID(card);
 			let gHu: eui.Group = this.findHuGroup(p);
 			let len: number = gHu.numChildren;
 			let item: game.BaseHuCardUI = new game.BaseHuCardUI();
@@ -301,7 +323,7 @@ module game {
 			}
 		}
 		private copyHandCard(arrTmp: Array<CardInfo>): Array<CardInfo> {
-			
+
 			//console.log("=arrTmp==",arrTmp)
 			let arr: Array<CardInfo> = [];
 			for (let i: number = 0; i < arrTmp.length; i++) {
@@ -318,7 +340,7 @@ module game {
 			let p: number = Global.getUserPosition(sit);
 
 
-			let nQue: number = game.GameUserList.arrUserList[sit].cardType;
+			//let nQue: number = game.GameUserList.arrUserList[sit].cardType;
 			let ghand: eui.Group = this.findHandGroup(p);
 			this.clearGroup(ghand);
 			let arr: Array<CardInfo> = this.copyHandCard(game.GamePlayData.getHandCards(sit));
@@ -332,13 +354,13 @@ module game {
 			for (let i: number = 0; i < len; i++) {
 				let isQue: boolean = false;
 				let info: CardInfo = arr[i];
-	
+
 				let cardValue: number = info.CardID; //game.GameParmes.getCardID(info);
 				if (cardValue > 0) {
 					let nHua: number = game.GameParmes.getHua(info);
-					if (nHua == nQue) {
-						isQue = true;
-					}
+					// if (nHua == nQue) {
+					// 	isQue = true;
+					// }
 				}
 				let card: BaseHandCardUI = new BaseHandCardUI();
 				ghand.addChild(card);
@@ -364,6 +386,7 @@ module game {
 				}
 				if (p == 1) {
 					card.setCard(p, 13 - i - index, cardValue, state, isQue);
+					console.log("=====393 index",index, i)
 					if (state == 0) {
 						card.x = this.arrRHP[i + index].x;
 						card.y = this.arrRHP[i + index].y;
@@ -461,9 +484,9 @@ module game {
 			this.clearGroup(g);
 			let arrCards: Array<CardsGroupInfo> = game.GamePlayData.getOtherCards(nSit);//this.copyCardGroup(game.GamePlayData.getOtherCards(nSit));
 
-			console.log("===ARRCARDS=====",arrCards)
+			// console.log("===ARRCARDS=====",arrCards)
 			let nOptCount: number = arrCards.length;//玩家吃碰杠数组
-			
+
 			for (let i: number = 0; i < nOptCount; i++) {
 				this.createCPGItem(p, i, arrCards[i]);
 			}
@@ -484,7 +507,7 @@ module game {
 			let gItem: eui.Group = new eui.Group();
 			g.addChild(gItem);
 			for (let i: number = 0; i < info.cards.length; i++) {
-				let cardValue: number =  info.cards[0].CardID //game.GameParmes.getCardID(info.cards[i]);
+				let cardValue: number = info.cards[0].CardID //game.GameParmes.getCardID(info.cards[i]);
 				let item: BaseOtherCardUI = new BaseOtherCardUI();
 				item.cardInfo = info.cards[i];
 				gItem.addChild(item);
@@ -603,7 +626,7 @@ module game {
 			// 	}
 			// }
 
-			console.log("===CHOOSE ITEM",item ,game.GamePlayData.M_C_P_G_sit,Global.userSit) 
+			console.log("===CHOOSE ITEM", item, game.GamePlayData.M_C_P_G_sit, Global.userSit)
 			if (GameParmes.gameStage == GameStageType.PLAYING) {//出牌阶段
 				if (this.currentCard == item) {
 					if (game.GamePlayData.M_C_P_G_sit == Global.userSit) {
@@ -622,15 +645,15 @@ module game {
 						} else {
 							//GameController.ReqUserSendCard(cardInfo);
 							//MJ_Operation
-							const opt : room.MJ_Operation = new room.MJ_Operation()
+							const opt: room.MJ_Operation = new room.MJ_Operation()
 
 							//手切，打出的是手中的牌，吃碰之后都是手切  摸切，打出的是刚摸到的牌
-							opt.operationType  = CardsGroupType.MJ_OperationType.MJ_OT_D_DISCARD;//操作类型
+							opt.operationType = CardsGroupType.MJ_OperationType.MJ_OT_D_DISCARD;//操作类型
 							opt.Tiles = [item.cardInfo.CardID] //牌组  如果是出牌则数组中只有一张牌
 							console.log("=====SEND CARD====")
-		
-					
-							room.RoomWebSocket.instance().roomSender.REQ_USEROPERATIONREQ( opt)
+
+
+							room.RoomWebSocket.instance().roomSender.REQ_USEROPERATIONREQ(opt)
 
 
 							if (this.nAutoTime > -1) {
@@ -767,6 +790,7 @@ module game {
 
 		}
 		private clearGroup(g: eui.Group): void {
+			console.log("====CLEAR GROUP",g)
 			while (g.numChildren > 0) {
 				let item = g.removeChildAt(0);
 				item = null;
