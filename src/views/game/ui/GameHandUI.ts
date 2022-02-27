@@ -80,8 +80,6 @@ module game {
 			this.addChild(this.gOtherCardU);
 			this.addChild(this.gOtherCardR);
 			this.addChild(this.gOtherCardD);
-
-
 			this.clearAllGroup();
 
 			/*for(let i:number = 0;i < 4;i++){
@@ -133,8 +131,6 @@ module game {
 		/*用于处理开始的发牌*/
 		public showResultCard(body: room.VGGameResultNtc): void {
 			console.log("====showResultCard=====", body.userInfos)
-
-
 			//
 			body.userInfos.forEach((e, i) => {
 				//∂console.log("根据发牌数据创建手牌",e)
@@ -142,19 +138,17 @@ module game {
 				let nSit = e.userPos.seatID - 1;
 				let p: number = Global.getUserPosition(nSit);
 
-				console.log("====TILES",tiles,p,Global.userSit);
+				console.log("====nSit",nSit,"P:", p,"Global.userSit:", Global.userSit);
 
 				if( nSit != Global.userSit ){
 
 					let g = this.findHandGroup(p);
 					for (let n: number = 0; n < tiles.length; n++) {
 						const c: any = g.getChildAt(n);
-						console.log("=======n", n , c );
 						
 						c.updateCard(tiles[n])
 					}
 				}
-			
 			})
 
 			var len: number = 0;
@@ -338,9 +332,8 @@ module game {
 		public updataHandsByPosition(sit: number, state: number, isShow: boolean = true): void {
 			//console.log("===sit",sit)
 			let p: number = Global.getUserPosition(sit);
-
-
 			//let nQue: number = game.GameUserList.arrUserList[sit].cardType;
+			//console.log("====P===",p)
 			let ghand: eui.Group = this.findHandGroup(p);
 			this.clearGroup(ghand);
 			let arr: Array<CardInfo> = this.copyHandCard(game.GamePlayData.getHandCards(sit));
@@ -386,11 +379,12 @@ module game {
 				}
 				if (p == 1) {
 					card.setCard(p, 13 - i - index, cardValue, state, isQue);
-					console.log("=====393 index",index, i)
+					//console.log("=====393 index",index, i)
 					if (state == 0) {
 						card.x = this.arrRHP[i + index].x;
 						card.y = this.arrRHP[i + index].y;
 					} else {
+						console.log("==this.arrRLP[i + index]=",this.arrRLP[i + index])
 						card.x = this.arrRLP[i + index].x;
 						card.y = this.arrRLP[i + index].y;
 					}
@@ -626,7 +620,7 @@ module game {
 			// 	}
 			// }
 
-			console.log("===CHOOSE ITEM", item, game.GamePlayData.M_C_P_G_sit, Global.userSit)
+
 			if (GameParmes.gameStage == GameStageType.PLAYING) {//出牌阶段
 				if (this.currentCard == item) {
 					if (game.GamePlayData.M_C_P_G_sit == Global.userSit) {
@@ -646,16 +640,18 @@ module game {
 							//GameController.ReqUserSendCard(cardInfo);
 							//MJ_Operation
 							const opt: room.MJ_Operation = new room.MJ_Operation()
-
 							//手切，打出的是手中的牌，吃碰之后都是手切  摸切，打出的是刚摸到的牌
-							opt.operationType = CardsGroupType.MJ_OperationType.MJ_OT_D_DISCARD;//操作类型
+
+							console.log("=======item.isMocard",item.isMoCard)
+							console.log("=======item.isMocard ID",item.cardInfo.CardID)
+							if( item.isMoCard ){
+								opt.operationType = CardsGroupType.MJ_OperationType.MJ_OT_D_DISCARD;//摸切
+							}else{
+								opt.operationType = CardsGroupType.MJ_OperationType.MJ_OT_H_DISCARD;//操作类型
+							}
+						
 							opt.Tiles = [item.cardInfo.CardID] //牌组  如果是出牌则数组中只有一张牌
-							console.log("=====SEND CARD====")
-
-
 							room.RoomWebSocket.instance().roomSender.REQ_USEROPERATIONREQ(opt)
-
-
 							if (this.nAutoTime > -1) {
 								egret.clearTimeout(this.nAutoTime);
 								this.nAutoTime = -1;
@@ -674,7 +670,7 @@ module game {
 					this.currentCard = item;
 					item.onSelectCard();
 					if (item.isTingFlag) {//显示要听的牌
-						this.dispatchEvent(new egret.Event("ShowTingGroup", true, true, item.cardIndex));
+						this.dispatchEvent(new egret.Event("ShowTingGroup", true, true, item.cardInfo.CardID));
 					}
 				}
 			}
@@ -790,7 +786,10 @@ module game {
 
 		}
 		private clearGroup(g: eui.Group): void {
-			console.log("====CLEAR GROUP",g)
+			//console.log("====CLEAR GROUP",g)
+			if(!g){
+				return;
+			}
 			while (g.numChildren > 0) {
 				let item = g.removeChildAt(0);
 				item = null;

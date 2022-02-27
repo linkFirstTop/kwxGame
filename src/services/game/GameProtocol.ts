@@ -68,12 +68,12 @@ module game {
 		// S => C : OGID_ACK | OGID_CLIENT_GANE_RESULT
 
 		// 服务器通知客户端托管
-		public static  OGID_CLIENT_PLAYER_TRUST:number = GameProtocol.OGID_MAHJONG_BASE + 0x0c; 
+		public static  VGID_USER_MANAGED:number = GameProtocol.OGID_MAHJONG_BASE + 0xC2; 
 		// 对应的message: AckPlayerTrust
 		// S => C : OGID_ACK | OGID_CLIENT_PLAYER_TRUST
 
 		// 客户端通知服务器解除托管
-		public static  OGID_CLIENT_PLAYER_RELIEVE_TRUST:number = GameProtocol.OGID_MAHJONG_BASE + 0x0d; 
+		//public static  OGID_CLIENT_PLAYER_RELIEVE_TRUST:number = GameProtocol.OGID_MAHJONG_BASE + 0xC2; 
 		// 对应的message：ReqPlayerRelieveTrust
 		// C => S : OGID_REQ | OGID_CLIENT_PLAYER_RELIEVE_TRUST
 

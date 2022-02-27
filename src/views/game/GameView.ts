@@ -149,6 +149,9 @@ module game {
 
 		// 发牌器
 		private ACK_MAGIC_TILES(evt: egret.Event) {
+			const body: room.MagicTilesAck = evt.data;
+			console.log("==获得了 发牌")
+			console.log("==获得了 发牌:",body)
 			console.log("==获得了 发牌")
 		}
 
@@ -182,6 +185,8 @@ module game {
 				//摸牌s
 				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_DRAW) {
 					console.log("=====摸牌=======")
+					console.log("=====摸牌=======")
+					console.log("=====摸牌=======")
 					GameParmes.gameStage = GameStageType.PLAYING;
 					room.RoomWebSocket.instance().roomSender.REQ_MAGICTILES()
 				}
@@ -189,6 +194,7 @@ module game {
 				//手切，打出的是手中的牌，吃碰之后都是手切
 				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_H_DISCARD) {
 					GameParmes.gameStage = GameStageType.PLAYING;
+
 				}
 				//摸切，打出的是刚摸到的牌s
 				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_D_DISCARD) {
@@ -197,19 +203,22 @@ module game {
 				//左吃，吃的牌是最小点, 例如45吃3
 				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_L_CHOW) {
 					optArr[0] = true;
+					console.log("==左吃=====")
 				}
 				//中吃，吃的牌是中间点，例如24吃3
 				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_M_CHOW) {
 					optArr[0] = true;
+					console.log("==中吃=====")
 				}
 				//右吃，吃的牌是最大点，例如12吃3
 				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_R_CHOW) {
 					optArr[0] = true;
+					console.log("==右吃=====")
 				}
 
 				//碰
 				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_PONG) {
-					console.log("====Xianshi 碰的按钮===")
+					
 					//吃 碰 杠 胡 停
 					optArr[1] = true;
 				}
@@ -265,9 +274,6 @@ module game {
 			if (isShow) {
 				this.gameUI.onShowOpt(optArr)
 			}
-
-
-
 		}
 		/**
 		 * 行牌应答 这是玩家操作的结果
@@ -287,24 +293,24 @@ module game {
 	
 			//摸牌s
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_DRAW) {
-				game.GamePlayData.SetCardsWallIndex("Head", 1);
+				// game.GamePlayData.SetCardsWallIndex("Head", 1);
 
-				const cardGroup = {
-					sit: nSit,
-					Cards: [
-						{ CardID: opt.Tiles[0], Sit: nSit },
-					],
-				}
-				if (nSit == Global.userSit) {
-					game.GamePlayData.SaveCurrentCard(opt.Tiles[0], nSit);
-				}
-				const cardInfo: CardInfo = new CardInfo();
-				cardInfo.CardID = opt.Tiles[0]
-				cardInfo.Sit = nSit;
-				game.GamePlayData.AddHandCards(nSit, cardGroup);
+				// const cardGroup = {
+				// 	sit: nSit,
+				// 	Cards: [
+				// 		{ CardID: opt.Tiles[0], Sit: nSit },
+				// 	],
+				// }
+				// if (nSit == Global.userSit) {
+				// 	game.GamePlayData.SaveCurrentCard(opt.Tiles[0], nSit);
+				// }
+				// const cardInfo: CardInfo = new CardInfo();
+				// cardInfo.CardID = opt.Tiles[0]
+				// cardInfo.Sit = nSit;
+				// game.GamePlayData.AddHandCards(nSit, cardGroup);
 
-				//game.GamePlayData.SaveOperationSit(nSit);
-				this.gameUI.getOneCard(cardInfo);
+				// //game.GamePlayData.SaveOperationSit(nSit);
+				// this.gameUI.getOneCard(cardInfo);
 			}
 
 			//手切，打出的是手中的牌，吃碰之后都是手切
@@ -329,17 +335,14 @@ module game {
 					game.GamePlayData.SaveCurrentCard(0, -1);
 				}
 
-
-				var b: boolean = false;
+				const b: boolean = false;
 				this.gameUI.userSendCard(card, b);
 				SoundModel.playEffect(SoundModel.CHU);
-
-
 			}
+
 			//摸切，打出的是刚摸到的牌s
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_D_DISCARD) {
 				//console.log("=====摸切==")
-
 				const card: CardInfo = new CardInfo();
 				card.CardID = opt.Tiles[0];
 				card.Sit = nSit;
@@ -362,10 +365,10 @@ module game {
 				if (nSit == Global.userSit) {
 					game.GamePlayData.SaveCurrentCard(0, -1);
 				}
-				let dataArray: any[] = [];
-				dataArray.push(card);
-				dataArray.push(true);
-				GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_USER_SENDCARD, true, true, dataArray));
+				// let dataArray: any[] = [];
+				// dataArray.push(card);
+				// dataArray.push(true);
+				// GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_USER_SENDCARD, true, true, dataArray));
 
 				var b: boolean = false;
 				this.gameUI.userSendCard(card, b);
@@ -458,10 +461,9 @@ module game {
 				}
 				game.GamePlayData.SaveCurrentCard(0, -1);
 				//game.GamePlayData.SaveOperationSit(b);
-				card = game.GamePlayData.AddChiPengGangCards(body, nSit);
+			    game.GamePlayData.AddChiPengGangCards(body, nSit);
 
-			
-				this.ON_USER_ANGANGPAI(body, body["seatID"]);
+				this.ON_USER_ANGANGPAI(card, nSit);
 			}
 			//直杠
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_E_KONG) {
@@ -479,9 +481,9 @@ module game {
 					],
 				}
 
-				card = game.GamePlayData.AddChiPengGangCards(body, nSit);
+				game.GamePlayData.AddChiPengGangCards(body, nSit);
 		
-				this.ON_USER_MINGGANGPAI(body, body["seatID"]);
+				this.ON_USER_MINGGANGPAI(card, nSit,opt.ObtainSeat-1 );
 			}
 			//补杠
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_P_KONG) {
@@ -500,12 +502,12 @@ module game {
 						{ CardID: opt.ObtainTile },
 					],
 				}
-				card = game.GamePlayData.AddChiPengGangCards(body, nSit);
+				game.GamePlayData.AddChiPengGangCards(body, nSit);
 				game.GamePlayData.SaveCurrentCard(0, -1);
 	
 				//dataArray.push(body.gangCoin);
 				//GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_USER_BUGANGPAI,true,true,dataArray))
-				this.ON_USER_BUGANGPAI(body, body["seatID"]);
+				this.ON_USER_BUGANGPAI(card, nSit);
 			}
 
 			//听
@@ -630,10 +632,10 @@ module game {
 		 * @param msg
 		 * 服务器通知客户端明杠
 		 */
-		private ON_USER_MINGGANGPAI(body, seat: number): void {
+		private ON_USER_MINGGANGPAI(card, seat: number,obSit): void {
 			const nSit: number = seat ;
-			const obSit: number = body.ObtainCardSit;
-			this.gameUI.updataUserCPG(nSit, body.Cards);
+		
+			this.gameUI.updataUserCPG(nSit, card);
 			this.gameUI.playAnim("mingGang", nSit, obSit);
 			//const arrCoin: Array<number> = data.Tiles;
 			//this.gameUI.showCoinChange(arrCoin);
@@ -653,10 +655,10 @@ module game {
 			SoundModel.playEffect(SoundModel.GANG);
 		}
 
-		private ON_USER_ANGANGPAI(body, seat: number): void {
+		private ON_USER_ANGANGPAI(card, seat: number): void {
 			const nSit: number = seat ;
-			const obSit: number = body.ObtainCardSit ;
-			this.gameUI.updataUserCPG(nSit, body.Cards);
+
+			this.gameUI.updataUserCPG(nSit, card);
 
 			this.gameUI.playAnim("anGang", nSit);
 			// const arrCoin: Array<number> = data.Tiles;
@@ -677,10 +679,10 @@ module game {
 			SoundModel.playEffect(SoundModel.GANG);
 		}
 
-		private ON_USER_BUGANGPAI(body, seat: number): void {
+		private ON_USER_BUGANGPAI(card, seat: number): void {
 			const nSit: number = seat ;
-			const obSit: number = body.ObtainCardSit ;
-			this.gameUI.updataUserCPG(nSit, body.Cards);
+
+			this.gameUI.updataUserCPG(nSit, card);
 			this.gameUI.playAnim("buGang", nSit);
 			// const arrCoin: Array<number> = data.Tiles;
 			// this.gameUI.showCoinChange(arrCoin);
@@ -786,7 +788,7 @@ module game {
 			}
 			egret.setTimeout(function () {
 				this.gameUI.showAllHandCard(body);
-				this.gameResult.showResult(body);
+				//this.gameResult.showResult(body);
 			}, this, nTime);
 			ViewManager.ins.changeTimer(true);
 		}

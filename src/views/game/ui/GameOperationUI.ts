@@ -255,27 +255,27 @@ module game {
 			game.GameWebSocket.instance().gameSender.ReqSendCardsGameFun(GamePlayData.Gang_Groups[index]);
 		}
 		/*显示待胡牌*/
-		public showTingGroup(nIndex: number): void {
+		public showTingGroup(nCardID: number): void {
 			this.clearTingGroup();
 			this.visible = this.gCardBg.visible = this.gTingCards.visible = true;
 			let arr: Array<any> = GamePlayData.GetChiPengGangHuGroup(CardsGroupType.CALL);
 			for (let i: number = 0; i < arr.length; i++) {
 				let info: any = arr[i];
-				if (info.ObtainCardIndex + 1 == nIndex) {
-					this.createHuCards(info.CallCards);
+				if (info.callTile == nCardID) {
+					this.createHuCards(info);
 					break;
 				}
 			}
 			this.gCardBg.width = this.gTingCards.width + 58;
 		}
-		private createHuCards(arr: Array<any>): void {
-			for (let i: number = 0; i < arr.length; i++) {
+		private createHuCards(info: any): void {
+			//for (let i: number = 0; i < arr.length; i++) {
 				let item: game.BaseTingCardUI = new game.BaseTingCardUI();
 				this.gTingCards.addChild(item);
-				let cardNum: number = 4 - GamePlayData.arrLPCards[arr[i].CardIndex + 1].length;
+				let cardNum: number = info.callTileCount //4 - GamePlayData.arrLPCards[arr[i].CardIndex + 1].length;
 				cardNum = cardNum > -1 ? cardNum : 0;
-				item.setInfo(arr[i].CardIndex + 1, arr[i].FanType, cardNum);
-			}
+				item.setInfo(info.callTile + 1, info.fans, cardNum);
+			//}
 		}
 		private clearTingGroup(): void {
 			while (this.gTingCards.numChildren > 1) {

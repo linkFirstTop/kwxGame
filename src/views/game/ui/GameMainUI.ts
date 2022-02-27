@@ -289,17 +289,17 @@ module game {
 			}
 			//处理托管出牌，没有显示听牌提示的问题
 			let p: number = Global.getUserPosition(card.Sit);
-			if (p == 3) {
+			if (p == 2) {
 				if (this.arrCallCards.length > 0) {//有听牌数组，托管
 					for (let i: number = 0; i < this.arrCallCards.length; i++) {//如果出牌在数组中，显示听牌提示
-						let info: any = this.arrCallCards[i];
-						if (info.ObtainCardIndex + 1 == cardValue) {
-							this.imgTingTip.visible = true;
-							this.addChild(this.imgTingTip);
-							this.copyTingCards(info.CallCards);
-							this.createHuCards(info.CallCards);
-							return;
-						}
+						// let info: any = this.arrCallCards[i];
+						// if (info.ObtainCardIndex + 1 == cardValue) {
+						// 	this.imgTingTip.visible = true;
+						// 	this.addChild(this.imgTingTip);
+						// 	this.copyTingCards(info.callTile);
+						// 	this.createHuCards(info.CallCards);
+						// 	return;
+						// }
 					}
 					//走到这里说明出的牌破坏了听牌状态
 					this.imgTingTip.visible = false;
@@ -353,8 +353,8 @@ module game {
 			this.imgTHTip.visible = true;
 		}
 		private onShowTingGroup(evt: egret.Event): void {
-			let nCardIndex: number = evt.data;
-			this.gameOpt.showTingGroup(nCardIndex);
+			let nCardID: number = evt.data;
+			this.gameOpt.showTingGroup(nCardID);
 		}
 
 		/*显示托管界面*/

@@ -39,12 +39,12 @@ module game {
 				case GameProtocol.ACK | GameProtocol.OGID_CLIENT_GANE_RESULT://服务器通知客户端结果消息
 					this.ON_ACK_GAMERESULT(byte);
 					break;
-				case GameProtocol.ACK | GameProtocol.OGID_CLIENT_PLAYER_TRUST://服务器通知客户端托管
+				case GameProtocol.ACK | GameProtocol.VGID_USER_MANAGED://服务器通知客户端托管
 					this.ON_ACK_GAMEPLAYERTRUST(byte);
 					break;
-				case GameProtocol.ACK | GameProtocol.OGID_CLIENT_PLAYER_RELIEVE_TRUST://服务器通知客户端解除托管
-					this.ON_ACK_GAMEPLAYERRELIEVETRUST(byte);
-					break;
+				// case GameProtocol.ACK | GameProtocol.VGID_USER_MANAGED://服务器通知客户端解除托管
+				// 	this.ON_ACK_GAMEPLAYERRELIEVETRUST(byte);
+				// 	break;
 				case GameProtocol.ACK | GameProtocol.OGID_CLIENT_GAME_CONTINUED://断线续完同步消息 发完玩家列表和规则后下发此消息 
 					this.ON_ACK_GAMECONTINUED(byte);
 					break;
@@ -189,16 +189,16 @@ module game {
 		//服务器通知客户端托管
 		private ON_ACK_GAMEPLAYERTRUST(byte: egret.ByteArray): void {
 			Global.log("服务器通知客户端托管");
-			var body: game.AckPlayerTrust = game.AckPlayerTrust.decode(byte.bytes);
-			console.log("托管玩家座位号:" + body.TrustSit, "我的座位号:" + Global.userSit);
+			var body: room.VGUserManagedAck = room.VGUserManagedAck.decode(byte.bytes);
+		//	console.log("托管玩家座位号:" + body.TrustSit, "我的座位号:" + Global.userSit);
 			GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_GAMEPLAYERTRUST));
 		}
 		//服务器通知客户端解除托管
-		private ON_ACK_GAMEPLAYERRELIEVETRUST(byte: egret.ByteArray): void {
-			Global.log("服务器通知客户端解除托管");
-			var body: game.AckPlayerRelieveTrust = game.AckPlayerRelieveTrust.decode(byte.bytes);
-			GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_GAMEPLAYERRELIEVETRUST));
-		}
+		// private ON_ACK_GAMEPLAYERRELIEVETRUST(byte: egret.ByteArray): void {
+		// 	Global.log("服务器通知客户端解除托管");
+		// 	var body: game.AckPlayerRelieveTrust = game.AckPlayerRelieveTrust.decode(byte.bytes);
+		// 	GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_GAMEPLAYERRELIEVETRUST));
+		// }
 
 		private OGID_GBMJ_NTC_MESSAGE(byte: egret.ByteArray): void {
 			var body: game.OGNtcMessage = game.OGNtcMessage.decode(byte.bytes);

@@ -63,7 +63,7 @@ module game {
 				cardsArray.push(cardInfobody);
 			}
 
-			var cardsGroupbody = new game.CardsGroup();
+			const cardsGroupbody = new game.CardsGroup();
 			cardsGroupbody.Sit = Global.userSit;
 			cardsGroupbody.Type = cardsGroup.CardsGroupType;
 			cardsGroupbody.Cards = cardsArray;
@@ -76,22 +76,23 @@ module game {
 			Global.log("请求游戏的操作");
 			game.GameWebSocket.instance().SendMeseage(GameProtocol.REQ | GameProtocol.OGID_CLIENT_SEND_CARD,body);
 		}
+
 		//请求托管
 		public ReqPlayerTrustFun():void
 		{
-			let data = new game.ReqPlayerTrust();
-			data.sit = Global.userSit;
-			let body = game.ReqPlayerTrust.encode(data).finish();
+			let data = new room.VGUserManagedReq();
+			data.isManaged = 1;
+			let body = room.VGUserManagedReq.encode(data).finish();
 			Global.log("请求托管:"+body);
-			game.GameWebSocket.instance().SendMeseage(GameProtocol.REQ | GameProtocol.OGID_CLIENT_PLAYER_TRUST,body);
+			game.GameWebSocket.instance().SendMeseage(GameProtocol.REQ | GameProtocol.VGID_USER_MANAGED,body);
 		}
 		//请求解除托管
 		public ReqGamePlayerReleveTrustFun():void
 		{
-			let data = new game.ReqPlayerRelieveTrust();
-			data.Sit = Global.userSit;
-			let body = game.ReqPlayerRelieveTrust.encode(data).finish();
-			game.GameWebSocket.instance().SendMeseage(GameProtocol.REQ | GameProtocol.OGID_CLIENT_PLAYER_RELIEVE_TRUST,body);
+			let data = new room.VGUserManagedReq();
+			data.isManaged = 0;
+			let body = room.VGUserManagedReq.encode(data).finish();
+			game.GameWebSocket.instance().SendMeseage(GameProtocol.REQ | GameProtocol.VGID_USER_MANAGED,body);
 		}
 		//请求延时
 		public ReqGameDelayFun():void

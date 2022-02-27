@@ -52,7 +52,7 @@ module game {
 
 		public static arrLPCards: Array<Array<number>> = [];//亮牌数组 用于听牌张数判断
 
-		public static MJ_Operation: Array<room.MJ_Operation>  = [];
+		public static MJ_Operation: Array<room.MJ_Operation> = [];
 
 		/*初始化数据*/
 		public static initData(): void {
@@ -105,11 +105,11 @@ module game {
 		 * 保存 玩家 当前可以进行操作
 		 */
 
-		public static SaveMJ_Operation(operation:any){
+		public static SaveMJ_Operation(operation: any) {
 			this.MJ_Operation = operation;
 		}
 
-		public static GetMJ_Operation(){
+		public static GetMJ_Operation() {
 			return this.MJ_Operation || [];
 		}
 
@@ -134,7 +134,7 @@ module game {
 				game.GamePlayData.arrHandCards.push(arrTmp);
 			})
 
-	
+
 
 			//console.log("HHHHHHHHAN CARDS", game.GamePlayData.arrHandCards)
 			// for(let i:number=0;i<4;i++){
@@ -248,7 +248,7 @@ module game {
 		 * */
 		public static AddChiPengGangCards(body: any, sit: number): CardInfo {
 			const group: CardsGroupInfo = this.CopyCardsGroup(new CardsGroupInfo(), body);
-			console.group("==CopyCardsGroup==", group)
+			// console.group("==CopyCardsGroup==", group)
 			const handCards: Array<CardInfo> = this.getHandCards(sit);
 			const otherCards: Array<CardsGroupInfo> = this.getOtherCards(sit);
 			switch (body.Type) {
@@ -366,28 +366,86 @@ module game {
 		/**
 		 * 保存吃碰杠胡  AckUserOperation
 		 * */
-		public static SaveChiPengGangHu(body: game.AckUserOperation): void {
-			if (body.Chi) {
-				this.Chi_Groups = this.CopyChiPengGangHu(this.Chi_Groups, body.ChiCards);
+		public static SaveChiPengGangHu(body: room.VGGameOperationNtc): void {
+
+			const nSit = body.seatid;
+			if (body.operation.length == 0) {
+				// 其他人的操作通知
+				return;
 			}
-			if (body.Peng) {
-				this.Peng_Groups = this.CopyChiPengGangHu(this.Peng_Groups, body.PengCards);
+
+			if (nSit != Global.userSit + 1) {
+				//座位号 不是 自己
+				return;
 			}
-			if (body.Gang) {
-				this.Gang_Groups = this.CopyChiPengGangHu(this.Gang_Groups, body.GangCards);
-			}
-			if (body.Hu) {
-				this.Hu_Groups = this.CopyChiPengGangHu(this.Hu_Groups, body.HuCards);
-				if (body.HuCards.length > 0) {
-					GameParmes.nHuType = body.HuCards[0].Type;//8普通胡 16天胡
-					console.log("胡牌张数:" + body.HuCards.length, "type=" + GameParmes.nHuType);
+
+			body.operation.forEach((opt: room.MJ_Operation) => {
+				//左吃，吃的牌是最小点, 例如45吃3
+				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_L_CHOW) {
+					//this.Chi_Groups = this.CopyChiPengGangHu(this.Chi_Groups, body.ChiCards);
 				}
-			}
-			this.Call_Groups.length = 0;
-			for (var i: number = 0; i < body.CallCards.length; i++) {
-				var cardgroup: any = body.CallCards[i];
-				this.Call_Groups.push(cardgroup);
-			}
+				//中吃，吃的牌是中间点，例如24吃3
+				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_M_CHOW) {
+					//this.Chi_Groups = this.CopyChiPengGangHu(this.Chi_Groups, body.ChiCards);
+				}
+				//右吃，吃的牌是最大点，例如12吃3
+				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_R_CHOW) {
+					//this.Chi_Groups = this.CopyChiPengGangHu(this.Chi_Groups, body.ChiCards);
+				}
+
+				//碰
+				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_PONG) {
+					//this.Peng_Groups = this.CopyChiPengGangHu(this.Peng_Groups, body.PengCards);
+					//吃 碰 杠 胡 停
+
+				}
+
+				//暗杠
+				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_C_KONG) {
+					//this.Gang_Groups = this.CopyChiPengGangHu(this.Gang_Groups, body.GangCards);
+
+				}
+
+				//直杠
+				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_E_KONG) {
+					//this.Gang_Groups = this.CopyChiPengGangHu(this.Gang_Groups, body.GangCards);
+
+				}
+
+				//补杠
+				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_P_KONG) {
+
+					//this.Gang_Groups = this.CopyChiPengGangHu(this.Gang_Groups, body.GangCards);
+
+				}
+
+				//听
+				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_TING) {
+					console.log("==**===BAOCUN TING==**===")
+					//game.GamePlayData.SaveChiPengGangHu(body);
+					this.Call_Groups.length = 0;
+					for (var i: number = 0; i < opt.tingTileInfo.length; i++) {
+						const cardgroup: any = opt.tingTileInfo[i];
+						this.Call_Groups.push(cardgroup);
+					}
+				}
+				//和
+				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_WIN) {
+					//吃 碰 杠 胡 停
+					// this.Hu_Groups = this.CopyChiPengGangHu(this.Hu_Groups, body.HuCards);
+					// if (body.HuCards.length > 0) {
+					// 	GameParmes.nHuType = body.HuCards[0].Type;//8普通胡 16天胡
+					// 	console.log("胡牌张数:" + body.HuCards.length, "type=" + GameParmes.nHuType);
+					// }
+				}
+				//过
+				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_PASS) {
+
+				}
+			})
+
+
+
 		}
 		private static CopyChiPengGangHu(arr_A: Array<any>, arr_B: Array<any>): Array<any> {
 			arr_A.length = 0;

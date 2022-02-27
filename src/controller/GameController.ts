@@ -192,7 +192,7 @@ module game {
 		 * */
 		public static  AckGameUserOperation(body:game.AckUserOperation):void
 		{
-			game.GamePlayData.SaveChiPengGangHu(body);
+			// game.GamePlayData.SaveChiPengGangHu(body);
 			var dataArray:any[] = [];
 			dataArray.push(body.Chi);
 			dataArray.push(body.Peng);
