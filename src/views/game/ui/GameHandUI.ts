@@ -138,15 +138,16 @@ module game {
 				let nSit = e.userPos.seatID - 1;
 				let p: number = Global.getUserPosition(nSit);
 
-				console.log("====nSit",nSit,"P:", p,"Global.userSit:", Global.userSit);
+				console.log("====nSit",nSit,"P:", p,"Global.userSit:", Global.userSit,e.tileSets);
 
 				if( nSit != Global.userSit ){
 
 					let g = this.findHandGroup(p);
 					for (let n: number = 0; n < tiles.length; n++) {
-						const c: any = g.getChildAt(n);
-						
-						c.updateCard(tiles[n])
+						if(n < g.$children.length){
+							const c: any = g.getChildAt(n);
+							c.updateCard(tiles[n])
+						}		
 					}
 				}
 			})

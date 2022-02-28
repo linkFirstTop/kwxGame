@@ -178,7 +178,7 @@ module game {
 			game.GamePlayData.SaveMJ_Operation(body.operation);
 			console.log("====SELF 根据这个显示操作按钮 ====", body)
 
-			const optArr = [false, false, false, false, false]
+			const optArr = [false, false, false, false, false];
 
 			//玩家自己操作
 			body.operation.forEach((opt: room.MJ_Operation) => {
@@ -788,7 +788,7 @@ module game {
 			}
 			egret.setTimeout(function () {
 				this.gameUI.showAllHandCard(body);
-				//this.gameResult.showResult(body);
+				this.gameResult.showResult(body);
 			}, this, nTime);
 			ViewManager.ins.changeTimer(true);
 		}
@@ -839,7 +839,7 @@ module game {
 		/*收到定缺消息*/
 		private ACK_USER_DINGQUE(): void {
 			this.gameUI.onUserDingQue();
-			//this.gameUI.changeUserRight();
+			this.gameUI.changeUserRight();
 			this.gameUI.startTime(GameParmes.gamePlayTime);
 		}
 		/*
@@ -949,7 +949,7 @@ module game {
 			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_USER_DINGQUE, this.ACK_USER_DINGQUE, this);
 			//服务器通知客户端换三张
 			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_USER_HSZ_STATE, this.ACK_USER_HSZSTATE, this);
-			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_USER_HSZ, this.ACK_GAME_STATUS_CHANGED, this);
+			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_USER_HSZ, this.ACK_USER_HSZ, this);
 
 			//房间状态变更
 			GDGame.Msg.ins.removeEventListener(GameMessage.NTF_ROOM_STATE, this.ACK_GAME_STATUS_CHANGED, this);
@@ -963,6 +963,9 @@ module game {
 			//行牌单播消息
 			GDGame.Msg.ins.removeEventListener(GameMessage.VGID_GAME_OPERATION, this.ACK_GAME_OPERATION, this);
 			GDGame.Msg.ins.removeEventListener(GameMessage.VGID_USER_OPERATION, this.ACK_USER_OPERATION, this);
+
+			GDGame.Msg.ins.removeEventListener(GameMessage.VGID_SERVICE_MAGICTILES, this.ACK_MAGIC_TILES, this);
+
 		}
 		/*移除view的时候必须调用*/
 		public onRemoveView(): void {

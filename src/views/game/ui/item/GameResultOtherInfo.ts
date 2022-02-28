@@ -11,9 +11,11 @@ module game {
 
 		private lbName:eui.Label;
 		private lbCoin:eui.BitmapLabel;
+		private lbPiao:eui.Label;
 		private imgHead:eui.Image;
 		private imgPosition:eui.Image;
 		private imgBank:eui.Image;
+
 
 		private imgLiang : eui.Image;
 		private paiInfos : eui.Group;
@@ -34,9 +36,12 @@ module game {
 			}
 
 			this.imgBank.source = "";
-			if(info.userPos.seatID == 1){
+			if(info.role == 0){
 				this.imgBank.source = "resultZhuang_"+Global.language;
 			}
+
+			this.lbPiao.text = `飘${info.dapiao}分`
+			//this.img
 
 			this.imgLiang.visible = false;
 			

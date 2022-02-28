@@ -114,5 +114,24 @@ module room {
 			let body = room.MagicTilesReq.encode(data).finish();
 			room.RoomWebSocket.instance().SendMeseage(RoomProtocol.REQ | RoomProtocol.VGID_SERVICE_MAGICTILES, body);
 		}
+
+
+		//请求托管
+		public ReqPlayerTrustFun():void
+		{
+			let data = new room.VGUserManagedReq();
+			data.isManaged = 1;
+			let body = room.VGUserManagedReq.encode(data).finish();
+			Global.log("请求托管:"+body);
+			game.GameWebSocket.instance().SendMeseage(RoomProtocol.REQ | RoomProtocol.VGID_USER_MANAGED,body);
+		}
+		//请求解除托管
+		public ReqGamePlayerReleveTrustFun():void
+		{
+			let data = new room.VGUserManagedReq();
+			data.isManaged = 0;
+			let body = room.VGUserManagedReq.encode(data).finish();
+			game.GameWebSocket.instance().SendMeseage(RoomProtocol.REQ | RoomProtocol.VGID_USER_MANAGED,body);
+		}
 	}
 }

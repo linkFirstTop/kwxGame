@@ -26,6 +26,9 @@ module room {
 				case RoomProtocol.ACK | RoomProtocol.OGID_CLIENT_LIST_ROOM_QUICKGAME://请求快速开始游戏
 					this.ON_ACK_QUICKGAME(byte);
 					break;
+				case RoomProtocol.ACK | RoomProtocol.VGID_USER_MANAGED://服务器通知客户端托管
+					this.ON_ACK_GAMEPLAYERTRUST(byte);
+					break;
 				// case RoomProtocol.ACK | RoomProtocol.OGID_CLIENT_LIST_ROOM_STARTGAME://广播快速开始游戏
 				// 	this.ON_ACK_START_GAME(byte);
 				// 	break;
@@ -137,7 +140,13 @@ module room {
 	
 		}
 
-
+		//服务器通知客户端托管
+		private ON_ACK_GAMEPLAYERTRUST(byte: egret.ByteArray): void {
+			Global.log("服务器通知客户端托管");
+			var body: room.VGUserManagedAck = room.VGUserManagedAck.decode(byte.bytes);
+		//	console.log("托管玩家座位号:" + body.TrustSit, "我的座位号:" + Global.userSit);
+			GDGame.Msg.ins.dispatchEvent(new egret.Event(game.GameMessage.ACK_GAMEPLAYERTRUST));
+		}
 
 		//结算广播消息
 		private VGID_ACK_GAME_GAMERESULT(byte: egret.ByteArray): void {
