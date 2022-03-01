@@ -80,9 +80,7 @@ module game {
 		}
 
 		public updateCard( value:number){
-			console.log("======UPDATE CARD====")
-
-			
+	
 			this.imgCard.source = "cardValue"+value;
 		}
 
