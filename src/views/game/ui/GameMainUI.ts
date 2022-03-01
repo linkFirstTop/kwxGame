@@ -363,7 +363,9 @@ module game {
 		}
 		/*取消托管*/
 		private onCancelTrust(): void {
-			game.GameWebSocket.instance().gameSender.ReqGamePlayerReleveTrustFun();
+			console.log("===onCancelTrust====")
+			room.RoomWebSocket.instance().roomSender.ReqGamePlayerReleveTrustFun()
+			// room.RoomSocketSender.ins().gameSender.ReqGamePlayerReleveTrustFun();
 		}
 		/**
 		 * @param card 得到的牌的信息
@@ -447,7 +449,7 @@ module game {
 
 			this.gamePool.reductionCardsPool();//还原牌池
 			this.showGameInfo();
-			GameWebSocket.instance().gameSender.ReqGamePlayerReleveTrustFun();//解除托管
+			room.RoomWebSocket.instance().roomSender.ReqGamePlayerReleveTrustFun();//解除托管
 			if (GameParmes.gameStage == GameStageType.PLAYING) {
 				this.onUserDingQue();
 			}

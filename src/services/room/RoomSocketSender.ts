@@ -100,7 +100,7 @@ module room {
 		//VGID_USER_OPERATION
 		//VGUserOperationReq
 		public REQ_USEROPERATIONREQ(operation: MJ_Operation): void {
-			console.log("==REQ_USEROPERATIONREQ==")
+			console.log("==REQ_USEROPERATIONREQ==",operation)
 			let data = new room.VGUserOperationReq();
 			data.operation = operation;
 			let body = room.VGUserOperationReq.encode(data).finish();
@@ -123,7 +123,7 @@ module room {
 			data.isManaged = 1;
 			let body = room.VGUserManagedReq.encode(data).finish();
 			Global.log("请求托管:"+body);
-			game.GameWebSocket.instance().SendMeseage(RoomProtocol.REQ | RoomProtocol.VGID_USER_MANAGED,body);
+			room.RoomWebSocket.instance().SendMeseage(RoomProtocol.REQ | RoomProtocol.VGID_USER_MANAGED,body);
 		}
 		//请求解除托管
 		public ReqGamePlayerReleveTrustFun():void
@@ -131,7 +131,7 @@ module room {
 			let data = new room.VGUserManagedReq();
 			data.isManaged = 0;
 			let body = room.VGUserManagedReq.encode(data).finish();
-			game.GameWebSocket.instance().SendMeseage(RoomProtocol.REQ | RoomProtocol.VGID_USER_MANAGED,body);
+			room.RoomWebSocket.instance().SendMeseage(RoomProtocol.REQ | RoomProtocol.VGID_USER_MANAGED,body);
 		}
 	}
 }

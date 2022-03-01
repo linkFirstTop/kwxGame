@@ -171,6 +171,17 @@ module game {
 				return;
 			}
 
+			body.operation.forEach((opt: room.MJ_Operation) => {
+				//摸牌s
+				console.log("=====摸牌=======", opt.operationType, opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_DRAW)
+				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_DRAW) {
+					console.log("=====摸牌=======")
+					console.log("=====摸牌=======")
+					// GameParmes.gameStage = GameStageType.PLAYING;
+					// room.RoomWebSocket.instance().roomSender.REQ_MAGICTILES()
+				}
+			})
+
 			if (nSit != Global.userSit + 1) {
 				//座位号 不是 自己
 				return;
@@ -802,15 +813,22 @@ module game {
 		 * @param msg
 		 * 托管消息
 		 */
-		private ACK_USER_PLAYERTRUST(): void {
-			this.gameUI.showTrust(true);
+		private ACK_USER_PLAYERTRUST(evt: egret.Event): void {
+			let body: room.VGUserManagedAck = evt.data;
+
+			if(body.isManaged == 1){
+				this.gameUI.showTrust(true);
+			}else{
+				this.gameUI.showTrust(false);
+			}
+			 
 		}
 		/** 
 		 * @param msg
 		 * 解除托管消息
 		 */
 		private ACK_USER_PLAYERRELIEVETRUST(): void {
-			this.gameUI.showTrust(false);
+			
 		}
 		/*庄家开始出牌*/
 		private ACK_GAME_STARTPLAYING(): void {

@@ -12,6 +12,7 @@ module game {
 		public static updateUserListInfo(arr: Array<room.IVGUserInfo>) {
 			for (let i: number = 0; i < arr.length; i++) {
 				let info = arr[i];
+				// console.log("====info",info)
 				let user: game.GameUserInfo = this.arrUserList[i];
 				if (!user) {
 					user = new game.GameUserInfo();
@@ -20,12 +21,14 @@ module game {
 				}
 				user.userName = info.userName;
 				user.userShowName = info.showName;
-				user.userSit = i;
+				user.userSit = info.userPos.seatID;
 				user.userCoin = Number(info.gameCoin);
 				user.userImage = "";
-				user.origin = info
+				user.origin = info;
+
 				if (user.userName == Global.userName) {
-					Global.userSit = user.userSit;
+					Global.userSit = user.userSit - 1;
+					console.log("===在这个地方 给角色 座位 副职",Global.userSit)
 				}
 				user.init();
 			}
