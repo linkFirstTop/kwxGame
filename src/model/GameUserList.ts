@@ -28,7 +28,7 @@ module game {
 
 				if (user.userName == Global.userName) {
 					Global.userSit = user.userSit;
-					console.log("===在这个地方 给角色 座位 副职",Global.userSit)
+					console.log("===在这个地方 给角色 座位 ID",Global.userSit)
 				}
 				user.init();
 			}

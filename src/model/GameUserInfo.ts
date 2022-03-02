@@ -25,7 +25,7 @@ module game {
 		/**
 		 * 定缺
 		 * **/
-		public cardType: number = -1;//万条并 012
+		public CardID: number = -1;//万条并 012
 
 		public origin: room.IVGUserInfo;
 

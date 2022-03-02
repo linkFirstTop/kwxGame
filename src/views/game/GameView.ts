@@ -161,11 +161,15 @@ module game {
 		 */
 		private ACK_GAME_OPERATION(evt: egret.Event) {
 			const body: room.VGGameOperationNtc = evt.data;
-
+			console.log(">>行牌单播消息  根据这个显示操作按钮=",body)
 			const nSit = body.seatid;
+
+			console.log(`>>需要操作的玩家的座位=${nSit}, 自己座位${Global.userSit}`,)
+			
 			this.gameUI.startTime(body.second);
 			game.GamePlayData.M_C_P_G_sit = nSit;
 			this.gameUI.changeUserRight();
+
 			if (body.operation.length == 0) {
 				// 其他人的操作通知
 				return;
@@ -200,17 +204,14 @@ module game {
 				//左吃，吃的牌是最小点, 例如45吃3
 				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_L_CHOW) {
 					optArr[0] = true;
-					console.log("==左吃=====")
 				}
 				//中吃，吃的牌是中间点，例如24吃3
 				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_M_CHOW) {
 					optArr[0] = true;
-					console.log("==中吃=====")
 				}
 				//右吃，吃的牌是最大点，例如12吃3
 				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_R_CHOW) {
 					optArr[0] = true;
-					console.log("==右吃=====")
 				}
 
 				//碰
@@ -263,7 +264,7 @@ module game {
 			})
 
 			const isShow = optArr.some((e) => (e))
-			console.log("====操作按钮 数组===", isShow,optArr)
+			console.log(">>>>操作按钮 数组<<<<", isShow,optArr)
 			if (isShow) {
 				this.gameUI.onShowOpt(optArr)
 			}
@@ -275,10 +276,12 @@ module game {
 
 		private ACK_USER_OPERATION(evt: egret.Event) {
 			const body: room.VGGameOperationNtc = evt.data;
-			console.log("=== 行牌应答 这是玩家操作的结果:", body)
+			console.log("**** 行牌应答 这是玩家操作的结果:", body)
 			//console.log("=== 行牌应答 这是玩家操作的seat:", body["seatID"])
 			const nSit = body["seatID"] ;
+	
 			let p = Global.getUserPosition(nSit)
+			console.log(`****操作的本地座位号:${nSit}，和局部座位号:${p},玩家座位号：${Global.userSit}`)
 			const opt: room.MJ_Operation = <any>body.operation;
 
 			if( !opt ){
@@ -289,7 +292,17 @@ module game {
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_DRAW) {
 				// game.GamePlayData.SetCardsWallIndex("Head", 1);
 				console.log("====MOPAI=====")
-				room.RoomWebSocket.instance().roomSender.REQ_MAGICTILES()
+				if( nSit == Global.userSit   ){
+					GameParmes.gameStage == GameStageType.PLAYING
+				}
+				const card: CardInfo = new CardInfo();
+				card.CardID = opt.Tiles[0];
+				card.Sit = nSit;
+			
+
+
+		        this.gameUI.getOneCard(card);
+				//room.RoomWebSocket.instance().roomSender.REQ_MAGICTILES()
 			}
 
 			//手切，打出的是手中的牌，吃碰之后都是手切
@@ -356,68 +369,19 @@ module game {
 			}
 			//左吃，吃的牌是最小点, 例如45吃3
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_L_CHOW) {
-				console.log("=====左吃==")
-				//game.GamePlayData.SaveOperationSit(body.Card.Sit);
-				let card: CardInfo = { CardID: opt.ObtainTile, Sit: opt.ObtainSeat };
-				const body = {
-					ObtainCard: card,
-					Type: CardsGroupType.CHI,
-					ObtainCardSit: opt.ObtainSeat ,
-					sit: nSit,
-					Cards: [
-						{ CardID: opt.ObtainTile },
-						{ CardID: opt.ObtainTile },
-						{ CardID: opt.ObtainTile },
-					],
-				}
-				card = game.GamePlayData.AddChiPengGangCards(body, nSit);
-				// let dataArray:any[] = [];
-				// dataArray.push(nSit);
-				// dataArray.push(card);
-				// GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_USER_CHIPAI,true,true,dataArray));
-
+				//console.log("=====左吃==")
 			}
+
 			//中吃，吃的牌是中间点，例如24吃3
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_M_CHOW) {
-				console.log("=====中吃，吃的牌是中间点，例如24吃3==")
-				let card: CardInfo = { CardID: opt.ObtainTile, Sit: opt.ObtainSeat };
-				const body = {
-					ObtainCard: card,
-					Type: CardsGroupType.CHI,
-					ObtainCardSit: opt.ObtainSeat ,
-					sit: nSit,
-					Cards: [
-						{ CardID: opt.ObtainTile },
-						{ CardID: opt.ObtainTile },
-						{ CardID: opt.ObtainTile },
-					],
-				}
-				card = game.GamePlayData.AddChiPengGangCards(body, nSit);
-				// let dataArray:any[] = [];
-				// dataArray.push(nSit);
-				// dataArray.push(card);
+				//console.log("=====中吃，吃的牌是中间点，例如24吃3==")
 			}
 
 			//右吃，吃的牌是最大点，例如12吃3
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_R_CHOW) {
-				console.log("=====右吃，吃的牌是最大点，例如12吃3==")
-				let card: CardInfo = { CardID: opt.ObtainTile, Sit: opt.ObtainSeat };
-				const body = {
-					ObtainCard: card,
-					Type: CardsGroupType.CHI,
-					ObtainCardSit: opt.ObtainSeat ,
-					sit: nSit,
-					Cards: [
-						{ CardID: opt.ObtainTile },
-						{ CardID: opt.ObtainTile },
-						{ CardID: opt.ObtainTile },
-					],
-				}
-				card = game.GamePlayData.AddChiPengGangCards(body, nSit);
-				// let dataArray:any[] = [];
-				// dataArray.push(nSit);
-				// dataArray.push(card);
+				//console.log("=====右吃，吃的牌是最大点，例如12吃3==")
 			}
+
 			//碰
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_PONG) {
 				this.ON_USER_PENGPAI(opt, body["seatID"])
@@ -842,9 +806,9 @@ module game {
 		private ACK_GAME_STATUS_CHANGED(evt: egret.Event): void {
 
 			let status = game.RoomInfo.ins.status;
-			console.log("游戏状态变更==============");
-			console.log("游戏状态变更", status);
-			console.log("游戏状态变更==============");
+			// console.log("游戏状态变更==============");
+			// console.log("游戏状态变更", status);
+			// console.log("游戏状态变更==============");
 			let lastStatus = game.RoomInfo.ins.lastStatus;
 
 			//打漂状态

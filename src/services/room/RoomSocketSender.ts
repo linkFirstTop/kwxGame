@@ -100,7 +100,7 @@ module room {
 		//VGID_USER_OPERATION
 		//VGUserOperationReq
 		public REQ_USEROPERATIONREQ(operation: MJ_Operation): void {
-			console.log("==REQ_USEROPERATIONREQ==",operation)
+			console.log("玩家操作请求 ==REQ_USEROPERATIONREQ==",operation)
 			let data = new room.VGUserOperationReq();
 			data.operation = operation;
 			let body = room.VGUserOperationReq.encode(data).finish();

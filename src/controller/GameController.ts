@@ -32,12 +32,12 @@ module game {
 		 * */
 		public static AckGameDiceAndCards(body:any):void
 		{
-			game.GamePlayData.SaveDice(body.FirstDice,body.SecondDice,body.FirstSit,body.SecondSit,body.FirstCardsIndexes);
-			game.GamePlayData.SetCardsWallIndex("Head",53);
-			game.GamePlayData.SaveHandCarsd(body.HandCards);
-			game.GamePlayData.SetHandCardsSorting(Global.userSit);//理牌
-			game.GamePlayData.HSZRecommend = body.huan_san_zhang;
-			GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_GAMEDICEANDCARDS));
+			// game.GamePlayData.SaveDice(body.FirstDice,body.SecondDice,body.FirstSit,body.SecondSit,body.FirstCardsIndexes);
+			// game.GamePlayData.SetCardsWallIndex("Head",53);
+			// game.GamePlayData.SaveHandCarsd(body.HandCards);
+			// game.GamePlayData.SetHandCardsSorting(Global.userSit);//理牌
+			// game.GamePlayData.HSZRecommend = body.huan_san_zhang;
+			// GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_GAMEDICEANDCARDS));
 		}
 		/**
 		 * 客户端通知服务器打牌
@@ -45,14 +45,14 @@ module game {
 		 * */
 		public static ReqUserSendCard(card:CardInfo=null):void{
 			
-			var cardsGroup:CardsGroupInfo = new CardsGroupInfo();
-			cardsGroup.cardsit = Global.userSit;
-			cardsGroup.CardsGroupType = CardsGroupType.PLAY;
+			// var cardsGroup:CardsGroupInfo = new CardsGroupInfo();
+			// cardsGroup.cardsit = Global.userSit;
+			// cardsGroup.CardsGroupType = CardsGroupType.PLAY;
 			/*if(card.CardID==GamePlayData.Current_Card.CardID){
 				cardsGroup.CardsGroupType = CardsGroupType.MOPLAY;
 			}*/
-			cardsGroup.cards.push(card);
-			game.GameWebSocket.instance().gameSender.ReqSendCardsGameFun(cardsGroup);
+			// cardsGroup.cards.push(card);
+			// game.GameWebSocket.instance().gameSender.ReqSendCardsGameFun(cardsGroup);
 		}
 		/** 
 		 * @param e
@@ -240,7 +240,8 @@ module game {
 			GameParmes.onBreakPlayerState = body.PlayerState;//玩家状态
 			GameParmes.hu_player = body.hu_player;
 			GameParmes.onBreakPlayerHuCards = [body.hupai0,body.hupai1,body.hupai2,body.hupai3];
-			if(GameParmes.onBreakPlayerHuCards[Global.userSit].length > 0){
+			let p = Global.getUserPosition(Global.userSit)
+			if(GameParmes.onBreakPlayerHuCards[p].length > 0){
 				GameParmes.isHu = true;
 			}
 			for(let n:number = 0;n < GameParmes.onBreakPlayerHuCards.length;n++){
@@ -298,7 +299,7 @@ module game {
 			
 			//处理玩家定缺
 			for(i=0;i<body.dingque_color.length;i++){
-				game.GameUserList.getPlayerformSit(i).cardType = body.dingque_color[i];
+				game.GameUserList.getPlayerformSit(i).CardID = body.dingque_color[i];
 			}
 			if(body.IsMoPai){
 				GDGame.Msg.ins.dispatchEvent(new egret.Event(game.GameMessage.ACK_GAMECONTINUED,true,true,[body.CallCards,is_Card]));
@@ -328,7 +329,7 @@ module game {
 		public static AckDingQue(body:game.AckDingQue):void
 		{
 			for(var i:number=0;i<body.dingque.length;i++){
-				game.GameUserList.getPlayerformSit(i).cardType = body.dingque[i];
+				game.GameUserList.getPlayerformSit(i).CardID = body.dingque[i];
 			}
 			GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_USER_DINGQUE));
 		}

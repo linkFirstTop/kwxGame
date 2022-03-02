@@ -89,9 +89,8 @@ module game {
 			/*for(let j:number = 0;j < 4;j++){
 				this.testHand(j,0);
 			}*/
-
-
 		}
+		
 		/*创建手牌  state 0暗牌状态 1亮牌状态*/
 		public createHandCard(isShow: boolean, state: number): void {
 			for (let j: number = 0; j < 3; j++) {
@@ -118,8 +117,9 @@ module game {
 				len += 4;
 			}
 			egret.Tween.get(this).wait(3000).call(function () {
-				game.GamePlayData.SetHandCardsSorting(Global.userSit);
-				this.updataHandsByPosition(Global.userSit, 0);
+				let p =  Global.getUserPosition(Global.userSit); 
+				game.GamePlayData.SetHandCardsSorting(p);
+				this.updataHandsByPosition(p, 0);
 				this.isSortComplete = true;
 				this.onShowHSZCards();
 
@@ -168,8 +168,9 @@ module game {
 				len += 4;
 			}
 			egret.Tween.get(this).wait(3000).call(function () {
-				game.GamePlayData.SetHandCardsSorting(Global.userSit);
-				this.updataHandsByPosition(Global.userSit, 0);
+				let p = Global.getUserPosition(Global.userSit)
+				game.GamePlayData.SetHandCardsSorting(p);
+				this.updataHandsByPosition(p, 0);
 				this.isSortComplete = true;
 				this.onShowHSZCards();
 			}, this);
@@ -227,7 +228,7 @@ module game {
 				}
 			}
 			if (type == 3) {//自摸
-				
+
 				game.GamePlayData.ClearHandCards(game.GamePlayData.getHandCards(sit), [card], sit);
 				if (p == 3 && GameParmes.nHuType == 16) {//天胡自摸的时候需要删除手牌中的胡牌
 					this.updataHandsByPosition(Global.userSit, 0);
@@ -267,7 +268,7 @@ module game {
 		}
 		public getOneCard(info: CardInfo): void {
 			let p: number = Global.getUserPosition(info.Sit);
-			let nQue: number = game.GameUserList.arrUserList[info.Sit].cardType;
+			// let nQue: number = game.GameUserList.arrUserList[p].CardID;
 			let ghand: eui.Group = this.findHandGroup(p);
 			let card: BaseHandCardUI = new BaseHandCardUI();
 			ghand.addChild(card);
@@ -276,9 +277,9 @@ module game {
 			if (p == 2) {
 				if (cardValue > 0) {
 					let nHua: number = game.GameParmes.getHua(info);
-					if (nHua == nQue) {
-						isQue = true;
-					}
+					// if (nHua == nQue) {
+					// 	isQue = true;
+					// }
 				}
 				//自动打牌
 				if (GameParmes.isHu || isQue) {
@@ -331,11 +332,12 @@ module game {
 			return arr;
 		}
 
+		/***
+		 * sit 是本地座位
+		 */
 		public updataHandsByPosition(sit: number, state: number, isShow: boolean = true): void {
 			//console.log("===sit",sit)
-			let p: number = sit; // Global.getUserPosition(sit);
-			//let nQue: number = game.GameUserList.arrUserList[sit].cardType;
-			//console.log("====P===",p)
+			let p: number = sit; //
 			let ghand: eui.Group = this.findHandGroup(p);
 			this.clearGroup(ghand);
 			let arr: Array<CardInfo> = this.copyHandCard(game.GamePlayData.getHandCards(sit));
@@ -478,7 +480,7 @@ module game {
 			let p: number = Global.getUserPosition(nSit);
 			let g: eui.Group = this.findOptGroup(p);
 			this.clearGroup(g);
-			let arrCards: Array<CardsGroupInfo> = game.GamePlayData.getOtherCards(nSit);//this.copyCardGroup(game.GamePlayData.getOtherCards(nSit));
+			let arrCards: Array<CardsGroupInfo> = game.GamePlayData.getOtherCards(p);//this.copyCardGroup(game.GamePlayData.getOtherCards(nSit));
 
 			// console.log("===ARRCARDS=====",arrCards)
 			let nOptCount: number = arrCards.length;//玩家吃碰杠数组

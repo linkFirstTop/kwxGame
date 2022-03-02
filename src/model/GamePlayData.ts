@@ -121,9 +121,6 @@ module game {
 		 * 根据发牌数据创建手牌
 		 * */
 		public static SaveHandCarsd(arr: Array<room.IVGUserInfo>): void {
-			//console.log("座位 GLOBAL.USERSIT",Global.userSit)
-			game.GamePlayData.arrHandCards = null;
-			game.GamePlayData.arrHandCards = [];
 
 			const array = [[], [], []];
 			arr.forEach((e, i) => {
@@ -140,12 +137,11 @@ module game {
 
 				let p = Global.getUserPosition(e.userPos.seatID)
 				array[p] = arrTmp
-	
 			})
 			game.GamePlayData.handCardsArr = array;
-			console.log("根据发牌数据创建手牌&&&&&&&&&&&&")
-			console.log("根据发牌数据创建手牌", game.GamePlayData.handCardsArr)
-			console.log("根据发牌数据创建手牌&&&&&&&&&&&&")
+			// console.log("根据发牌数据创建手牌&&&&&&&&&&&&")
+			// console.log("根据发牌数据创建手牌", game.GamePlayData.handCardsArr)
+			// console.log("根据发牌数据创建手牌&&&&&&&&&&&&")
 
 		}
 
@@ -256,7 +252,6 @@ module game {
 					otherCards.push(group);
 					break;
 				case CardsGroupType.PENG://碰牌
-					//console.log("==group.obtainCard.Sit==", group.obtainCard.Sit)
 					this.DelectCardPool(this.getCardsPool(op));
 					//处理手牌
 					this.ClearHandCards(handCards, group.cards, p);
@@ -469,7 +464,7 @@ module game {
 			}
 			if (sit == Global.userSit) {//根据定缺要排序
 				handcards = this.SortCards(handcards);
-				let type: number = game.GameUserList.arrUserList[sit].cardType;
+				let type: number = game.GameUserList.arrUserList[sit].CardID;
 				if (type > -1) {
 					GamePlayData.SortHandCardQue(type);
 				}
@@ -558,6 +553,7 @@ module game {
 		 * 排序手牌（必须是自己的手牌）
 		 * */
 		public static SetHandCardsSorting(sit: number): void {
+			// console.log("=====SetHandCardsSorting==",sit)
 			let arrCards: Array<CardInfo> = this.getHandCards(sit);
 			arrCards = this.SortCards(arrCards);
 		}

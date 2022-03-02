@@ -14,7 +14,7 @@ module game {
 			g.addChild(this.imgCard);
 			this.imgBack.horizontalCenter = this.imgBack.verticalCenter = 0;
 			
-			if(p == 0){//左
+			if(p == 2){//左
 				if(isAnGang){
 					this.imgBack.source = "SJAG_left_"+(index+1);
 					if(value > 0){
@@ -82,7 +82,7 @@ module game {
 				}
 				this.imgCard.horizontalCenter = 5;
 			}
-			if(p == 2){
+			if(p == 0){
 				if(isAnGang){
 					if(value > 0){
 						this.imgBack.source = "card_down_a2";

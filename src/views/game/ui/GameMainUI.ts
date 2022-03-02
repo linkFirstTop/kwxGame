@@ -238,14 +238,15 @@ module game {
 				let user: game.GameUserInfo = game.GameUserList.arrUserList[i];
 				let p: number = Global.getUserPosition(user.userSit);
 				if (p == 1) {
-					this["gameUser" + p].setUserDQ(user.cardType, "left");
+					this["gameUser" + p].setUserDQ(user.CardID, "left");
 				} else {
-					this["gameUser" + p].setUserDQ(user.cardType, "right");
+					this["gameUser" + p].setUserDQ(user.CardID, "right");
 				}
 				if (Global.userSit == user.userSit) {
 					//重新排序自己的手牌
-					GamePlayData.SortHandCardQue(user.cardType);
-					this.gameHand.updataHandsByPosition(Global.userSit, 0, true);
+					GamePlayData.SortHandCardQue(user.CardID);
+				
+					this.gameHand.updataHandsByPosition(p, 0, true);
 				}
 			}
 			this.gameHSZ.initHSZ();
@@ -377,7 +378,7 @@ module game {
 			this.showWallCount();
 			//在打牌阶段得倒的牌不用刷新，把牌放在最右边
 			if (GameParmes.gameStage == GameStageType.PLAYING) {
-				this.gamePosition.startTime(GameParmes.gamePlayTime);
+				//this.gamePosition.startTime(GameParmes.gamePlayTime);
 				this.gameHand.getOneCard(card);
 				let p: number = Global.getUserPosition(card.Sit);//刷新剩余牌张数，听牌显示
 				if (this.gTingTip.visible && p == 3) {
@@ -434,10 +435,11 @@ module game {
 		 * 有玩家进行了吃碰杠操作ch
 		 */
 		public updataUserCPG(nSit: number, card: CardInfo): void {
-			this.gameHand.updataHandsByPosition(nSit, 0);
+
 			let p: number = Global.getUserPosition(nSit);
+			this.gameHand.updataHandsByPosition(p, 0);
 			this.gameHand.createCPGCard(nSit);
-			if (card.Sit != p) {//吃碰杠的牌的座位号和吃碰的人的座位号不等，牌池的牌消失
+			if (card.Sit != nSit) {//吃碰杠的牌的座位号和吃碰的人的座位号不等，牌池的牌消失
 				this.gamePool.removeCardToPool(card.Sit);
 			}
 			this.gamePosition.stopTime();

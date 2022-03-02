@@ -97,8 +97,7 @@ class Global {
 	 * 根据玩家座位号判断玩家位置 （玩家游戏界面中的方位 0-左边，1-上边，2下边）
 	 */
 	public static getUserPosition(nSeat: number): number {
-		var mySeat: number = Global.userSit;//跟据我自己的座位号确定其他玩家方位，自己永远在下方
-
+		const mySeat: number = Global.userSit;//跟据我自己的座位号确定其他玩家方位，自己永远在下方
 		return nSeat - mySeat >= 0 ? nSeat -  mySeat : (3 +  ( nSeat - mySeat) )
 
 	}
