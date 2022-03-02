@@ -1,49 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="GameResultUISkin" width="1920" height="1080" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*" xmlns:ns1="*" >
 	<w:Config id="1710ac54d9b" ></w:Config>
-	<e:Image id="imgBg" source="resultWinbg_png" width="100%" height="100%"/>
-	<e:Image id="imgTitle" source="resultTitle_win_cn" horizontalCenter="1"  y="54"/>
+	<e:Image source="black_png" horizontalCenter="0" bottom="0" right="0" left="0" height="1074.23" alpha="0.35"/>
+	<e:Image id="imgBg" source="resultWinbg_png" width="90%" height="90%" anchorOffsetX="0.5" anchorOffsetY="0.5" horizontalCenter="0" y="44.688"/>
+	<e:Image id="imgTitle" source="resultTitle_win_cn" horizontalCenter="-20"  y="-30.075"/>
 
 
 	<!--自己结算-->
-	<e:Group y="248" x="300">
-		<e:Group  verticalCenter="0" x="0">
-			<e:Image id="imgHead" mask="{imgMask}" width="150" height="150" horizontalCenter="0" verticalCenter="0" smoothing="true"/>
-			<e:Rect id="imgMask" ellipseWidth="150" ellipseHeight="150" fillColor="0x000000" width="150" height="150" horizontalCenter="0" verticalCenter="0"/>
-			<e:Image source="result_win_head" />
-		</e:Group>
-		<e:Image id="imgBank" source="result_bank_cn" />
-		<e:Group verticalCenter="0" x="160">
-			<e:Label id="lbName" text="122222222222"  width="350" verticalAlign="middle" textAlign="left" size="42" textColor="0x883f24" x="15"/>
-		</e:Group>
-		<e:Image id="imgPosition" source="resultPosition_E_cn" right="0" y="20"/>
-	</e:Group>
-	<e:BitmapLabel id="lbCoin" font="resultWinFnt_fnt" text="0" letterSpacing="-2" x="310" y="490"/>
 	<!--其他玩家结算-->
-	<e:Group y="694" horizontalCenter="0">
-		<game:GameResultOtherInfo id="user0" />
+	<e:Group id="userGroup" y="230.93" horizontalCenter="16.5" height="677.69" width="1314.515">
+		<game:GameResultOtherInfo id="user0" x="345" y="243"/>
 		<game:GameResultOtherInfo id="user1" />
 		<game:GameResultOtherInfo id="user2" />
 		<e:layout>
-			<e:HorizontalLayout gap="40"/>
+			<e:VerticalLayout gap="75" horizontalAlign="left"/>
 		</e:layout>
 	</e:Group>
 	<!--详细信息-->
-	<e:Scroller width="900" height="350"  horizontalCenter="379" y="250">
-		<e:Group id="gInfo" width="100%"  x="10" y="-24">
+	<e:Scroller width="900" height="350"  horizontalCenter="843" y="1175.926">
+		<e:Group id="gInfo" width="100%"  x="327.635" y="754.986">
 			<e:layout>
 				<e:VerticalLayout gap="6"/>
 			</e:layout>
 		</e:Group>
 	</e:Scroller>
 	
-	<ns1:BaseButton id="btnContinue"   horizontalCenter="0" y="916" width="238" height="102">
+	<ns1:BaseButton id="btnContinue"   horizontalCenter="0" y="956.29" width="238" height="102">
 		<e:Skin>
 			<e:Image source="resultButtonContinue_cn"/>
 		</e:Skin>
 	</ns1:BaseButton>
 
-	<ns1:BaseButton id="btnClose"  y="130" x="1635" width="100" height="100">
+	<ns1:BaseButton id="btnClose"  y="206.068" x="1735.097" width="52.704" height="44.129" rotation="0.334" anchorOffsetX="0.06" anchorOffsetY="0.221">
 		<e:Skin>
 			<e:Image source="result_win_close"/>
 		</e:Skin>

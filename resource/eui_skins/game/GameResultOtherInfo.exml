@@ -1,15 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="GameResultOtherInfoSkin" width="436" height="150" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
 	<w:Config id="1710ac9d18b" ></w:Config>
-	<e:Group  verticalCenter="0" x="15">
-		<e:Image id="imgHead" mask="{imgMask}" width="130" height="130" horizontalCenter="0" verticalCenter="0" smoothing="true"/>
-		<e:Rect id="imgMask" ellipseWidth="130" ellipseHeight="130" fillColor="0x000000" width="130" height="130" horizontalCenter="0" verticalCenter="0"/>
-		<e:Image source="result_win_head" width="130" height="130"/>
+	<e:Group id="paiInfos" verticalCenter="23" x="160" width="1157.351" height="204.213">
+		<e:Label id="lbName0" text="清一色X99" width="170" verticalAlign="middle" textAlign="left" size="28" textColor="0x883F24" x="296" y="94.186"/>
+		<e:Label id="lbName1" text="自摸X2" width="170" verticalAlign="middle" textAlign="left" size="28" textColor="0x883F24" x="296" y="137.07"/>
+		<e:Label id="lbName2" text="暗杠X2" width="170" verticalAlign="middle" textAlign="left" size="28" textColor="0x883F24" x="296" y="179.126"/>
+		<e:Label id="lbName3" text="三龙七对X99" width="165" verticalAlign="middle" textAlign="left" size="28" textColor="0x883F24" x="509.6666666666667" y="95.186" height="25"/>
+		<e:Label id="lbName4" text="飘风(上家)X4" width="184" verticalAlign="middle" textAlign="left" size="28" textColor="0x883F24" x="509.6666666666667" y="140.07" height="25"/>
+		<e:Label id="lbName5" text="暗杠-9999" width="165" verticalAlign="middle" textAlign="left" size="28" textColor="0x883F24" x="509.6666666666667" y="182.126" height="25"/>
+		<e:Label id="lbName6" text="清一色X99" width="152" verticalAlign="middle" textAlign="left" size="28" textColor="0x883F24" x="718.5883333333334" y="97.186"/>
+		<e:Label id="lbName7" text="自摸X2" width="152" verticalAlign="middle" textAlign="left" size="28" textColor="0x883F24" x="718.5883333333334" y="137.07"/>
+		<e:Label id="lbName8" text="暗杠X2" width="152" verticalAlign="middle" textAlign="left" size="28" textColor="0x883F24" x="718.5883333333334" y="179.126"/>
+		<e:Label id="lbName9" text="胜利的玩法" width="158" verticalAlign="middle" textAlign="left" size="28" textColor="0x883F24" x="914" y="97.186"/>
+		<e:Label id="lbName10" text="胜利的玩法" width="155" verticalAlign="middle" textAlign="left" size="28" textColor="0x883F24" x="914" y="137.07"/>
+		<e:Label id="lbName11" text="胜利的玩法" width="154" verticalAlign="middle" textAlign="left" size="28" textColor="0x883F24" x="914" y="179.126"/>
 	</e:Group>
-	<e:Group verticalCenter="0" x="160">
-		<e:Label id="lbName" text=""  width="250" verticalAlign="middle" textAlign="left" size="36" textColor="0x883f24"/>
-		<e:BitmapLabel id="lbCoin" font="resultWinFnt_fnt" text="0" verticalCenter="25" x="0" letterSpacing="-2" scaleX="0.5" scaleY="0.5"/>
+	<e:Group  verticalCenter="0" x="15" width="1301.359">
+		<e:Image id="imgHead" mask="{imgMask}" width="130" height="130" horizontalCenter="-587.6795" verticalCenter="14.5" smoothing="true" visible="true"/>
+		<e:Rect id="imgMask" ellipseWidth="130" ellipseHeight="130" fillColor="0x000000" width="130" height="130" horizontalCenter="-587.6795" verticalCenter="15.5" visible="true"/>
+		<e:Image width="140" height="140" source="gameHeadKuang_png" y="44.992" visible="true"/>
+		<e:Image id="imgBank" x="87.031" y="39.898" source="resultSheet_json.resultZhuang_cn"/>
+		<e:Image id="imgPosition" y="43.992" x="-4" source="resultSheet_json.resultWest_cn"/>
+		<e:Label id="lbName" text="胜利的玩法" width="212" verticalAlign="middle" textAlign="left" size="34" x="218.181" y="57.181" textColor="0x813109"/>
+		<e:Label id="lbPiao" width="212" verticalAlign="middle" textAlign="left" size="34" x="217.094" y="174.252" textColor="0x813109" text="飘0分"/>
+		<e:Image id="imgLiang" source="resultSheet_json.resultLiang_cn" x="218.093" y="111.248"/>
+		<e:BitmapLabel id="lbCoin" font="resultWinFnt_fnt" text="1232" letterSpacing="-2" scaleX="1" scaleY="1" y="52.607" anchorOffsetX="13.235" anchorOffsetY="1.927" width="594.059" includeInLayout="false" textAlign="right" x="631.489" height="44.32"/>
+		<e:Image id="imgPao" source="resultSheet_json.resultPao_cn" x="87" y="145"/>
 	</e:Group>
-	<e:Image id="imgPosition" source="resultPosition_E_cn" right="0" y="20"/>
-	<e:Image id="imgBank" source="result_bank_cn" />
 </e:Skin>
