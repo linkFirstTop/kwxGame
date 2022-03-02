@@ -44,8 +44,12 @@ module game {
 			//this.img
 
 			this.imgLiang.visible = false;
+			let p = Global.getUserPosition(info.userPos.seatID)
+
+			const ImgSource = `result${this.getPosition(p)}_${Global.language}`
+			console.log("---ImgSource--",ImgSource);
 			
-			this.imgPosition.source = "resultPosition_"+this.getPosition(info.userPos.seatID)+"_"+Global.language;
+			this.imgPosition.source = ImgSource;
 			this.imgHead.source = Global.commURL + "head/iconHead"+Global.getHeadByName(info.userName)+".png";
 
 			//fan
@@ -64,14 +68,12 @@ module game {
 
 		private getPosition(n:number):string{
 			var str:string = "";
-			if(n == game.GameParmes.firstSit){
-				str = "E";
-			}else if((game.GameParmes.firstSit+1) % 4 == n){
-				str = "S";
-			}else if((game.GameParmes.firstSit+2) % 4 == n){
-				str = "W";
-			}else if((game.GameParmes.firstSit+3) % 4 == n){
-				str = "N";
+			if(n == 0){
+				str = "East";
+			}else if(1 == n){
+				str = "Nonth";
+			}else if(2 == n){
+				str = "North";
 			}
 			return str ;
 		}
