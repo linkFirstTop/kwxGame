@@ -1349,7 +1349,7 @@
 			"url": "assets/game/resultSheet.json",
 			"type": "sheet",
 			"name": "resultSheet_json",
-			"subkeys": "resultButtonContinue_cn,resultButtonContinue_en,resultButtonContinue_tc,resultPosition_E_cn,resultPosition_E_en,resultPosition_E_tc,resultPosition_N_cn,resultPosition_N_en,resultPosition_N_tc,resultPosition_S_cn,resultPosition_S_en,resultPosition_S_tc,resultPosition_W_cn,resultPosition_W_en,resultPosition_W_tc,resultTitle_flow_cn,resultTitle_flow_en,resultTitle_flow_tc,resultTitle_lose_cn,resultTitle_lose_en,resultTitle_lose_tc,resultTitle_win_cn,resultTitle_win_en,resultTitle_win_tc,result_bank_cn,result_bank_en,result_bank_tc,result_lose_close,result_lose_head,result_win_close,result_win_head"
+			"subkeys": "resultButtonContinue_cn,resultButtonContinue_en,resultButtonContinue_tc,resultEast_cn,resultEast_en,resultEast_tc,resultLiang_cn,resultLiang_en,resultLiang_tc,resultNonth_cn,resultNonth_en,resultNonth_tc,resultNorth_cn,resultNorth_en,resultNorth_tc,resultPao_cn,resultPao_en,resultPao_tc,resultTitle_flow_cn,resultTitle_flow_en,resultTitle_lose_cn,resultTitle_lose_en,resultTitle_lose_tc,resultTitle_win_cn,resultTitle_win_en,resultTitle_win_tc,resultWest_cn,resultWest_en,resultWest_tc,resultZhuang_cn,resultZhuang_en,resultZhuang_tc,result_win_close"
 		},
 		{
 			"url": "assets/game/resultLosebg.png",
