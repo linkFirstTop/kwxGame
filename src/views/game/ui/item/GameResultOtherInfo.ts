@@ -45,7 +45,7 @@ module game {
 
 			this.imgLiang.visible = false;
 			
-			this.imgPosition.source = "resultPosition_"+this.getPosition(info.userPos.seatID-1)+"_"+Global.language;
+			this.imgPosition.source = "resultPosition_"+this.getPosition(info.userPos.seatID)+"_"+Global.language;
 			this.imgHead.source = Global.commURL + "head/iconHead"+Global.getHeadByName(info.userName)+".png";
 
 			//fan

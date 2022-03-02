@@ -140,11 +140,13 @@ module game {
 		//打漂应答
 		private ACK_USER_DAPIAO(evt: egret.Event) {
 			const body: room.VGUserDapiaoAck = evt.data;
-
-			let seatid = body.userInfo.userPos.seatID;
-			let p = Global.getUserPosition(seatid);
-			this.gameUI["gameUser" + p].user.setUserDapiaoInfo(body.userInfo.dapiao);
-			this.gameUI["gameUser" + p].showDapiaoInfo();
+			console.log("===ACK_USER_DAPIAO=body",body)
+			if(body.userInfo){
+				let seatid = body.userInfo.userPos.seatID;
+				let p = Global.getUserPosition(seatid);
+				this.gameUI["gameUser" + p].user.setUserDapiaoInfo(body.userInfo.dapiao);
+				this.gameUI["gameUser" + p].showDapiaoInfo();
+			}
 		}
 
 		// 发牌器
