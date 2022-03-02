@@ -178,8 +178,9 @@ module game {
 			console.log("***************************************")
 			for (let i: number = 0; i < len; i++) {
 				let user: game.GameUserInfo = game.GameUserList.arrUserList[i];
-				let p: number = Global.getUserPosition(user.userSit);
-				//console.log("=====PP",p)
+				console.log(user.userName, user.userSit,Global.userSit)
+				let p: number = Global.getUserPosition(user.userSit) ;
+				console.log("=====PP", p)
 				this["gameUser" + p].setUserInfo(user);
 				this["gameUser" + p].visible = true;
 			}
@@ -236,7 +237,7 @@ module game {
 			for (let i: number = 0; i < len; i++) {
 				let user: game.GameUserInfo = game.GameUserList.arrUserList[i];
 				let p: number = Global.getUserPosition(user.userSit);
-				if (p == 0) {
+				if (p == 1) {
 					this["gameUser" + p].setUserDQ(user.cardType, "left");
 				} else {
 					this["gameUser" + p].setUserDQ(user.cardType, "right");
@@ -276,7 +277,8 @@ module game {
 		public userSendCard(card: CardInfo, b: boolean): void {
 			this.gameOpt.visible = false;
 			this.gamePool.addCardToPool(card);
-			this.gameHand.updataHandsByPosition(card.Sit, 0);
+			let p: number = Global.getUserPosition(card.Sit);
+			this.gameHand.updataHandsByPosition(p, 0);
 			game.SoundModel.playCardSound(card);
 			let cardValue: number =  card.CardID //game.GameParmes.getCardID(card);
 			if (this.gTingTip.visible) {
@@ -288,7 +290,7 @@ module game {
 				}
 			}
 			//处理托管出牌，没有显示听牌提示的问题
-			let p: number = Global.getUserPosition(card.Sit);
+		
 			if (p == 2) {
 				if (this.arrCallCards.length > 0) {//有听牌数组，托管
 					for (let i: number = 0; i < this.arrCallCards.length; i++) {//如果出牌在数组中，显示听牌提示

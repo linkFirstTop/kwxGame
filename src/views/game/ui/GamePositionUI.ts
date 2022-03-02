@@ -37,7 +37,7 @@ module game {
 		public setPosition(): void {
 			this.visible = true;
 			for (var i: number = 0; i < 3; i++) {
-				let p: number = Global.getUserPosition(i);
+				let p: number = i;//Global.getUserPosition(i);
 				let str: string = Global.getCurrentPositionName(i);
 				let strLan: string = "";
 				if (Global.language == "en") {
@@ -46,21 +46,25 @@ module game {
 				if (str == "east" && Global.language == "tc") {
 					strLan = "_tc";
 				}
-				if (p == 0) {
+				if (p == 2) {
+					//str = "south"
 					this.imgLeft.source = "ps_" + str + "_dark_left";
 					this.imgIconLeft.source = "ps_" + str + "_dark" + strLan;
 				} else if (p == 3) {
 					this.imgUp.source = "ps_" + str + "_dark_up";
 					this.imgIconUp.source = "ps_" + str + "_dark" + strLan;
 				} else if (p == 1) {
+					//str = "north"
 					this.imgRight.source = "ps_" + str + "_dark_right";
 					this.imgIconRight.source = "ps_" + str + "_dark" + strLan;
-				} else if (p == 2) {
+				} else if (p == 0) {
+					//str = "east"
 					this.imgDown.source = "ps_" + str + "_dark_down";
 					this.imgIconDown.source = "ps_" + str + "_dark" + strLan;
 				}
 			}
 		}
+		
 		public setCurrentPosition(n: number): void {
 			this.setPosition();
 			let p: number = Global.getUserPosition(n);
@@ -73,16 +77,19 @@ module game {
 			if (str == "east" && Global.language == "tc") {
 				strLan = "_tc";
 			}
-			if (p == 0) {
+			if (p == 2) {
+				str = "north"
 				this.imgLeft.source = "ps_" + str + "_light_left";
 				this.imgIconLeft.source = "ps_" + str + "_light" + strLan;
 			} else if (p == 3) {
+				str = "south"
 				this.imgUp.source = "ps_" + str + "_light_up";
 				this.imgIconUp.source = "ps_" + str + "_light" + strLan;
 			} else if (p == 1) {
 				this.imgRight.source = "ps_" + str + "_light_right";
 				this.imgIconRight.source = "ps_" + str + "_light" + strLan;
-			} else if (p == 2) {
+			} else if (p == 0) {
+				str = "east"
 				this.imgDown.source = "ps_" + str + "_light_down";
 				this.imgIconDown.source = "ps_" + str + "_light" + strLan;
 			}

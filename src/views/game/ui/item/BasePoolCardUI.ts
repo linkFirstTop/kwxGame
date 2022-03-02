@@ -14,7 +14,7 @@ module game {
 			g.addChild(this.imgCard);
 			this.imgBack.horizontalCenter = this.imgBack.verticalCenter = 0;
 			this.imgCard.horizontalCenter = 0;
-			if(p == 0){
+			if(p == 2){
 				this.imgBack.source = "card_pool_left_"+(index+1);
 				this.imgCard.source = "cardValue"+value;
 				this.imgCard.scaleX = this.imgCard.scaleY = 0.5;
@@ -63,7 +63,7 @@ module game {
 				this.imgCard.skewY = -10;
 				this.imgCard.verticalCenter = -12;
 			}
-			if(p == 2){
+			if(p == 0){
 				this.imgBack.source = "card_pool_down_"+(index+1);
 				this.imgCard.source = "cardValue"+value;
 				this.imgCard.scaleX = this.imgCard.scaleY = 0.7-(3-Math.floor((index)/6))*0.05;

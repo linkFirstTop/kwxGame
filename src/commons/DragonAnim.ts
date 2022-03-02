@@ -83,7 +83,7 @@ module comm {
 						return {"x":GameConfig.curWidth()/2,"y":300}
 					}else if(p == 1){
 						return {"x":GameConfig.curWidth()-400,"y":GameConfig.curHeight()/2}
-					}else{
+					}else {
 						return {"x":GameConfig.curWidth()/2,"y":950}
 					}
 				}

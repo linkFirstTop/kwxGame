@@ -21,7 +21,7 @@ module game {
 			g.addChild(this.imgCard);
 			this.imgBack.horizontalCenter = this.imgBack.verticalCenter = 0;
 			this.imgCard.horizontalCenter = 0;
-			if(p == 0){//左
+			if(p == 2){//左
 				if(state == 0){
 					this.imgBack.source = "card_left_h"+(index+1);
 				}else{
@@ -56,7 +56,7 @@ module game {
 				}
 				this.imgBack.scaleX = -1;
 			}
-			if(p == 2){
+			if(p == 0){
 				
 				this.imgCard.source = `cardValue${value+1}`  ;
 				this.cardIndex = value;

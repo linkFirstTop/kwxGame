@@ -98,11 +98,9 @@ class Global {
 	 */
 	public static getUserPosition(nSeat: number): number {
 		var mySeat: number = Global.userSit;//跟据我自己的座位号确定其他玩家方位，自己永远在下方
-		if (mySeat > -1) {
-			var nSide: number = (2 + mySeat - nSeat) % 3;
-			return nSide;
-		}
-		return -1;
+
+		return nSeat - mySeat >= 0 ? nSeat -  mySeat : (3 +  ( nSeat - mySeat) )
+
 	}
 	/**
 	 * 当前出牌玩家的方位永远是东   0-东，1-西，2-北
@@ -110,24 +108,24 @@ class Global {
 	public static getCurrentPositionName(n: number): string {
 		var str: string = "";
 		game.GameParmes.firstSit = 0;
-		if (n == game.GameParmes.firstSit) {
+		if (n == 0) {
 			str = "east";
-		} else if ((game.GameParmes.firstSit + 1) % 3 == n) {
+		} else if (n == 1) {
 			str = "south";
-		} else if ((game.GameParmes.firstSit + 2) % 3 == n) {
+		} else if (n == 2) {
 			str = "north";
 		}
 		return str;
 	}
 	public static getCardName(index: number): string {
 		let str: string = "牌值:" + index;
-		if (index >= 0 && index <= 9) {
+		if (index >= 0 && index <= 8) {
 			str = index + "万"
 		}
-		if (index >= 10 && index <= 18) {
+		if (index >= 9 && index <= 17) {
 			str = (index - 9) + "条"
 		}
-		if (index >= 19 && index <= 27) {
+		if (index >= 18 && index <= 26) {
 			str = (index - 18) + "饼"
 		}
 		return str;

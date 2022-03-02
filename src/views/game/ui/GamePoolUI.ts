@@ -92,7 +92,7 @@ module game {
 			let cardValue:number = card.CardID//game.GameParmes.getCardID(card);//Math.floor(Math.random()*27)+1;
 			console.log("========cardVAlue:",cardValue)
 			item.setCard(p,len,cardValue);
-			if(p==0){
+			if(p==2){
 				g.addChildAt(item,len%6+nLevel*18);
 				item.x = this.arrLP[len].x;
 				item.y = this.arrLP[len].y;
@@ -125,7 +125,7 @@ module game {
 				this.tipAnim.x = g.x + item.x + 50;
 				this.tipAnim.y = g.y + item.y + 10;
 			}
-			if(p==2){
+			if(p==0){
 				g.addChild(item);
 				if(len == 5 || len == 11 || len == 17){
 					g.addChildAt(item,len+nLevel*18-5);

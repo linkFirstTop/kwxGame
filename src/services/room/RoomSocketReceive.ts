@@ -121,7 +121,7 @@ module room {
 			const body: room.MagicTilesAck = room.MagicTilesAck.decode(byte.bytes);
 			GDGame.Msg.ins.dispatchEvent(new egret.Event(game.GameMessage.VGID_SERVICE_MAGICTILES, true, true, body));
 	
-			// console.log("===VGID_ACK_USER_DAPIAP=body",body)
+			 console.log("===单张发牌器=======",body)
 		}
 
 		//行牌单播消息

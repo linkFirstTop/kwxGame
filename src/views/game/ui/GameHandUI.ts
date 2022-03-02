@@ -188,7 +188,7 @@ module game {
 			item.setCard(p, len, cardValue);
 			item.cardInfo = card;
 			gHu.addChild(item);
-			if (p == 0) {
+			if (p == 2) {
 				if (len < 4) {
 					item.x = this.arrHuP[p][len % 4].x;
 					item.y = this.arrHuP[p][len % 4].y;
@@ -217,7 +217,7 @@ module game {
 					item.y = this.arrHuP[p][len % 4].y - 10;
 				}
 			}
-			if (p == 2) {
+			if (p == 0) {
 				if (len < 4) {
 					item.x = this.arrHuP[p][len % 4].x;
 					item.y = this.arrHuP[p][len % 4].y;
@@ -227,6 +227,7 @@ module game {
 				}
 			}
 			if (type == 3) {//自摸
+				
 				game.GamePlayData.ClearHandCards(game.GamePlayData.getHandCards(sit), [card], sit);
 				if (p == 3 && GameParmes.nHuType == 16) {//天胡自摸的时候需要删除手牌中的胡牌
 					this.updataHandsByPosition(Global.userSit, 0);
@@ -290,7 +291,7 @@ module game {
 
 			}
 			card.setCard(p, 0, cardValue, 0, isQue);
-			if (p == 0) {
+			if (p == 2) {
 				card.x = this.arrLHP[0].x;
 				card.y = this.arrLHP[0].y;
 				ghand.addChild(card);
@@ -304,7 +305,7 @@ module game {
 				card.y = this.arrRHP[0].y;
 				ghand.addChildAt(card, 0);
 			}
-			if (p == 2) {
+			if (p == 0) {
 				card.cardInfo = info;
 				card.x = (ghand.numChildren - 1) * 90;
 				card.x += 10;
@@ -332,7 +333,7 @@ module game {
 
 		public updataHandsByPosition(sit: number, state: number, isShow: boolean = true): void {
 			//console.log("===sit",sit)
-			let p: number = Global.getUserPosition(sit);
+			let p: number = sit; // Global.getUserPosition(sit);
 			//let nQue: number = game.GameUserList.arrUserList[sit].cardType;
 			//console.log("====P===",p)
 			let ghand: eui.Group = this.findHandGroup(p);
@@ -360,7 +361,7 @@ module game {
 				ghand.addChild(card);
 				card.visible = isShow;
 
-				if (p == 0) {
+				if (p == 2) {
 					card.setCard(p, (i + index), cardValue, state, isQue);
 					if (state == 0) {//暗牌
 						card.x = this.arrLHP[i + index].x;
@@ -385,13 +386,13 @@ module game {
 						card.x = this.arrRHP[i + index].x;
 						card.y = this.arrRHP[i + index].y;
 					} else {
-						console.log("==this.arrRLP[i + index]=",this.arrRLP[i + index])
+						//console.log("==this.arrRLP[i + index]=",this.arrRLP[i + index])
 						card.x = this.arrRLP[i + index].x;
 						card.y = this.arrRLP[i + index].y;
 					}
 					ghand.addChild(card);
 				}
-				if (p == 2) {
+				if (p == 0) {
 					card.setCard(p, (i + index), cardValue, state, isQue);
 					card.cardInfo = info;
 					if (GameParmes.isHu) {
@@ -506,7 +507,7 @@ module game {
 				let item: BaseOtherCardUI = new BaseOtherCardUI();
 				item.cardInfo = info.cards[i];
 				gItem.addChild(item);
-				if (p == 0) {//左
+				if (p == 2) {//左
 					if (isAnGang) {
 						if (i == 3) {
 							item.setCard(p, (index * 4 + i), cardValue, isAnGang);
@@ -568,7 +569,7 @@ module game {
 
 					}
 				}
-				if (p == 2) {//下
+				if (p == 0) {//下
 					if (isAnGang) {
 						item.y = GameConfig.curHeight() - 120;
 						if (i == 3) {
@@ -799,7 +800,8 @@ module game {
 
 		private findHandGroup(p: number): eui.Group {
 			if (p == 0) {
-				return this.gHandCardL;
+				return this.gHandCardD;
+				
 			}
 			if (p == 3) {
 				return this.gHandCardU;
@@ -808,12 +810,13 @@ module game {
 				return this.gHandCardR;
 			}
 			if (p == 2) {
-				return this.gHandCardD;
+				return this.gHandCardL;
+				
 			}
 		}
 		private findOptGroup(p: number): eui.Group {
 			if (p == 0) {
-				return this.gOtherCardL;
+				return this.gOtherCardD;
 			}
 			if (p == 3) {
 				return this.gOtherCardU;
@@ -822,12 +825,12 @@ module game {
 				return this.gOtherCardR;
 			}
 			if (p == 2) {
-				return this.gOtherCardD;
+				return this.gOtherCardL;
 			}
 		}
 		private findHuGroup(p: number): eui.Group {
 			if (p == 0) {
-				return this.gHuCardL;
+				return this.gHuCardD;
 			}
 			if (p == 3) {
 				return this.gHuCardU;
@@ -836,7 +839,7 @@ module game {
 				return this.gHuCardR;
 			}
 			if (p == 2) {
-				return this.gHuCardD;
+				return this.gHuCardL;
 			}
 		}
 		private clearAllGroup(): void {
@@ -875,7 +878,7 @@ module game {
 				let card: BaseHandCardUI = new BaseHandCardUI();
 				ghand.addChild(card);
 
-				if (p == 0) {
+				if (p == 2) {
 					card.setCard(p, (i + index), cardValue, state, isQue);
 					if (state == 0) {//暗牌
 						card.x = this.arrLHP[i + index].x;
@@ -904,7 +907,7 @@ module game {
 					}
 					ghand.addChild(card);
 				}
-				if (p == 2) {
+				if (p == 0) {
 					card.setCard(p, (i + index), cardValue, state, isQue);
 					if (GameParmes.isHu) {
 						card.setMaskFlag(false);

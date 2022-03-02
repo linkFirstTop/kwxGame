@@ -108,7 +108,7 @@ module room {
 		}
 
 		public REQ_MAGICTILES (): void {
-			//console.log("==REQ_USEROPERATIONREQ==")
+			console.log("==REQ_USEROPERATIONREQ==")
 			let data = new room.MagicTilesReq();
 			data.tile = 1;
 			let body = room.MagicTilesReq.encode(data).finish();

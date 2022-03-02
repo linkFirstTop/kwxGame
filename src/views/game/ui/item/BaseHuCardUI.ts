@@ -13,7 +13,7 @@ module game {
 			g.addChild(this.imgBack);
 			g.addChild(this.imgCard);
 			this.imgBack.horizontalCenter = this.imgBack.verticalCenter = 0;
-			if(p == 0){//左
+			if(p == 2){//左
 				this.imgBack.source = "SJHP";
 				this.imgCard.source = "cardValue"+value;
 				this.imgCard.scaleX = this.imgCard.scaleY = 0.6;
@@ -40,7 +40,7 @@ module game {
 				this.imgCard.x = 26;
 				this.imgCard.y = 40;
 			}
-			if(p == 2){
+			if(p == 0){
 				this.imgBack.source = "BJHP_"+((index%4)+1);
 				this.imgCard.source = "cardValue"+value;
 				this.imgCard.scaleX = this.imgCard.scaleY = 0.7;
