@@ -70,7 +70,7 @@
 			"url": "assets/game/cardValueSheet.json",
 			"type": "sheet",
 			"name": "cardValueSheet_json",
-			"subkeys": "cardValue1,cardValue10,cardValue11,cardValue12,cardValue13,cardValue14,cardValue15,cardValue16,cardValue17,cardValue18,cardValue19,cardValue2,cardValue20,cardValue21,cardValue22,cardValue23,cardValue24,cardValue25,cardValue26,cardValue27,cardValue3,cardValue4,cardValue5,cardValue6,cardValue7,cardValue8,cardValue9"
+			"subkeys": "cardValue0,cardValue1,cardValue10,cardValue11,cardValue12,cardValue13,cardValue14,cardValue15,cardValue16,cardValue17,cardValue18,cardValue19,cardValue2,cardValue20,cardValue21,cardValue22,cardValue23,cardValue24,cardValue25,cardValue26,cardValue27,cardValue28,cardValue29,cardValue3,cardValue30,cardValue31,cardValue32,cardValue33,cardValue34,cardValue35,cardValue36,cardValue37,cardValue38,cardValue39,cardValue4,cardValue40,cardValue41,cardValue5,cardValue6,cardValue7,cardValue8,cardValue9"
 		},
 		{
 			"url": "assets/game/cardBackSheet.json",
