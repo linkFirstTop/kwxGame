@@ -377,7 +377,7 @@ module game {
 			this.gameOpt.visible = false;
 			this.showWallCount();
 			//在打牌阶段得倒的牌不用刷新，把牌放在最右边
-			if (GameParmes.gameStage == GameStageType.PLAYING) {
+			//if (GameParmes.gameStage == GameStageType.PLAYING) {
 				//this.gamePosition.startTime(GameParmes.gamePlayTime);
 				this.gameHand.getOneCard(card);
 				let p: number = Global.getUserPosition(card.Sit);//刷新剩余牌张数，听牌显示
@@ -390,7 +390,7 @@ module game {
 						}
 					}
 				}
-			}
+			//}
 			//this.changeUserRight();
 		}
 		public hideTingFlag(): void {
@@ -447,6 +447,7 @@ module game {
 			this.gameOpt.visible = false;
 			//this.changeUserRight();
 		}
+
 		public onGameContinue(arr: Array<any>, card: game.CardInfo): void {
 			this.gameHand.createHandCard(true, 0);//还原手牌
 			this.gameHand.createAllCPG();//还原吃碰杠牌

@@ -49,9 +49,9 @@ module game {
 			//断线续玩
 			GDGame.Msg.ins.addEventListener(GameMessage.ACK_GAMECONTINUED, this.ACK_USER_CONTINUED, this);
 			//玩家出牌
-			GDGame.Msg.ins.addEventListener(GameMessage.ACK_USER_SENDCARD, this.ACK_USER_SENDCARD, this);
+			//GDGame.Msg.ins.addEventListener(GameMessage.ACK_USER_SENDCARD, this.ACK_USER_SENDCARD, this);
 			//吃碰杠权限
-			GDGame.Msg.ins.addEventListener(GameMessage.ACK_GAME_USEROPERATION, this.ACK_GAME_USEROPERATION, this);
+			//GDGame.Msg.ins.addEventListener(GameMessage.ACK_GAME_USEROPERATION, this.ACK_GAME_USEROPERATION, this);
 			//服务器通知客户端 单次胡牌消息
 			GDGame.Msg.ins.addEventListener(GameMessage.ACK_GAMERESULT, this.ACK_GAME_RESULT, this);
 			//游戏全部结束
@@ -140,7 +140,7 @@ module game {
 		//打漂应答
 		private ACK_USER_DAPIAO(evt: egret.Event) {
 			const body: room.VGUserDapiaoAck = evt.data;
-			console.log("===ACK_USER_DAPIAO=body",body)
+		
 			if(body.userInfo){
 				let seatid = body.userInfo.userPos.seatID;
 				let p = Global.getUserPosition(seatid);
@@ -734,7 +734,7 @@ module game {
 			}
 			egret.setTimeout(function () {
 				this.gameUI.showAllHandCard(body);
-				this.gameResult.showResult(body);
+				//this.gameResult.showResult(body);
 			}, this, nTime);
 			ViewManager.ins.changeTimer(true);
 		}
@@ -870,9 +870,9 @@ module game {
 			//断线续玩
 			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_GAMECONTINUED, this.ACK_USER_CONTINUED, this);
 			//玩家出牌
-			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_USER_SENDCARD, this.ACK_USER_SENDCARD, this);
+			//GDGame.Msg.ins.removeEventListener(GameMessage.ACK_USER_SENDCARD, this.ACK_USER_SENDCARD, this);
 			//吃碰杠权限
-			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_GAME_USEROPERATION, this.ACK_GAME_USEROPERATION, this);
+			//GDGame.Msg.ins.removeEventListener(GameMessage.ACK_GAME_USEROPERATION, this.ACK_GAME_USEROPERATION, this);
 			//服务器通知客户端 单次胡牌消息
 			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_GAMERESULT, this.ACK_GAME_RESULT, this);
 			//游戏全部结束
@@ -918,8 +918,8 @@ module game {
 			GDGame.Msg.ins.removeEventListener(GameMessage.VGID_USER_OPERATION, this.ACK_USER_OPERATION, this);
 
 			GDGame.Msg.ins.removeEventListener(GameMessage.VGID_SERVICE_MAGICTILES, this.ACK_MAGIC_TILES, this);
-
 		}
+
 		/*移除view的时候必须调用*/
 		public onRemoveView(): void {
 			this.removeMEL();

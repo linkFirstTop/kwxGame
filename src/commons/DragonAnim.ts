@@ -77,7 +77,7 @@ module comm {
 			}else{//qgh 抢杠胡 ypdx一炮多响 gskh杠上开花 hjzy呼叫转移
 				if(str == "gf" || str == "ljf" || str == "xyz" || str == "peng" || str == "hu" || str == "zm"
 					 || str == "qgh" || str == "ypdx" || str == "gskh" || str == "hjzy" || str == "dj" || str == "hz"){
-					if(p == 0){
+					if(p == 2){
 						return {"x":400,"y":GameConfig.curHeight()/2}
 					}else if(p == 3){
 						return {"x":GameConfig.curWidth()/2,"y":300}
@@ -88,7 +88,7 @@ module comm {
 					}
 				}
 				if(str == "zmbd"){
-					if(p == 0){
+					if(p == 2){
 						return {"x":400,"y":700}
 					}else if(p == 3){
 						return {"x":500,"y":300}

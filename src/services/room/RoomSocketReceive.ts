@@ -113,7 +113,7 @@ module room {
 			const body: room.VGUserDapiaoAck = room.VGUserDapiaoAck.decode(byte.bytes);
 			GDGame.Msg.ins.dispatchEvent(new egret.Event(game.GameMessage.VGID_USER_DAPIAO, true, true, body));
 	
-			console.log("===VGID_ACK_USER_DAPIAP=body",body)	
+			//console.log("===VGID_ACK_USER_DAPIAP=body",body)	
 		}
 
 		//单张发牌器
