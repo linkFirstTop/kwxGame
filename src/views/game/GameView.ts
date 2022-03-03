@@ -301,8 +301,6 @@ module game {
 				card.CardID = opt.Tiles[0];
 				card.Sit = nSit;
 			
-
-
 		        this.gameUI.getOneCard(card);
 				//room.RoomWebSocket.instance().roomSender.REQ_MAGICTILES()
 			}
