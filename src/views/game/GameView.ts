@@ -47,7 +47,7 @@ module game {
 			//骰子、手牌消息
 			GDGame.Msg.ins.addEventListener(GameMessage.ACK_GAMEDICEANDCARDS, this.ACK_GAME_DICEANDCARDS, this);
 			//庄家准备开始出牌
-			GDGame.Msg.ins.addEventListener(GameMessage.ACK_GAME_STARTPLAYING, this.ACK_GAME_STARTPLAYING, this);
+			//GDGame.Msg.ins.addEventListener(GameMessage.ACK_GAME_STARTPLAYING, this.ACK_GAME_STARTPLAYING, this);
 			//断线续玩
 			GDGame.Msg.ins.addEventListener(GameMessage.ACK_GAMECONTINUED, this.ACK_USER_CONTINUED, this);
 			//玩家出牌
@@ -84,8 +84,10 @@ module game {
 			GDGame.Msg.ins.addEventListener(GameMessage.ACK_USER_HSZ_STATE, this.ACK_USER_HSZSTATE, this);
 			GDGame.Msg.ins.addEventListener(GameMessage.ACK_USER_HSZ, this.ACK_USER_HSZ, this);
 
-			//房间状态变更
 			GDGame.Msg.ins.addEventListener(GameMessage.NTF_ROOM_STATE, this.ACK_GAME_STATUS_CHANGED, this);
+
+			//开始发牌
+			GDGame.Msg.ins.addEventListener(game.GameMessage.START_GET_CARD, this.startDealCard, this);
 
 			//牌器
 			GDGame.Msg.ins.addEventListener(GameMessage.VGID_SERVICE_MAGICTILES, this.ACK_MAGIC_TILES, this);
@@ -115,6 +117,12 @@ module game {
 		/*返回游戏阶段信息*/
 		private onGameStage(evt: egret.Event): void {
 
+		}
+
+		private startDealCard(evt: egret.Event){
+			const body: any = evt.data;
+
+			this.gameUI.showWallCount( body["remainCount"])//
 		}
 
 		/*
@@ -169,6 +177,8 @@ module game {
 			console.log(">>行牌单播消息  根据这个显示操作按钮", body)
 			const nSit = body.seatid;
 			console.log(`>>需要操作的玩家的座位=${nSit}, 自己座位${Global.userSit}`,)
+
+		//	body.remainCount
 
 			this.gameUI.startTime(body.second);
 			game.GamePlayData.M_C_P_G_sit = nSit;
@@ -294,6 +304,7 @@ module game {
 			//console.log("=== 行牌应答 这是玩家操作的seat:", body["seatID"])
 			const nSit = body["seatID"];
 			GameParmes.gameStage = GameStageType.PLAYING;
+			this.gameUI.showWallCount( body["remainCount"])//
 
 			let p = Global.getUserPosition(nSit)
 			console.log(`****当前操作玩家座位号:${nSit}，和局部座位号:${p},玩家座位号：${Global.userSit}`)
@@ -310,7 +321,7 @@ module game {
 				const card: CardInfo = new CardInfo();
 				card.CardID = opt.Tiles[0];
 				card.Sit = nSit;
-				console.log("====MOPAI=====",card)
+				//console.log("====MOPAI=====",card)
 				game.GamePlayData.AddHandCards(nSit,card);
 				this.gameUI.getOneCard(card);
 				//room.RoomWebSocket.instance().roomSender.REQ_MAGICTILES()
@@ -771,13 +782,13 @@ module game {
 
 		}
 		/*庄家开始出牌*/
-		private ACK_GAME_STARTPLAYING(): void {
-			this.gameUI.showWallCount();
-			if (Global.userSit == GameParmes.firstSit && Global.userSit == game.GamePlayData.M_C_P_G_sit) {
-				//我是庄的时候，第一次出牌的倒计时时间为15S
-				this.gameUI.startTime(GameParmes.gameFirstSendTime);
-			}
-		}
+		// private ACK_GAME_STARTPLAYING(): void {
+		// 	//this.gameUI.showWallCount();
+		// 	if (Global.userSit == GameParmes.firstSit && Global.userSit == game.GamePlayData.M_C_P_G_sit) {
+		// 		//我是庄的时候，第一次出牌的倒计时时间为15S
+		// 		this.gameUI.startTime(GameParmes.gameFirstSendTime);
+		// 	}
+		// }
 
 		/*服务通知客户端开始换三张*/
 		private ACK_USER_HSZSTATE(): void {
@@ -871,7 +882,7 @@ module game {
 			//骰子、手牌消息
 			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_GAMEDICEANDCARDS, this.ACK_GAME_DICEANDCARDS, this);
 			//庄家准备开始出牌
-			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_GAME_STARTPLAYING, this.ACK_GAME_STARTPLAYING, this);
+			//GDGame.Msg.ins.removeEventListener(GameMessage.ACK_GAME_STARTPLAYING, this.ACK_GAME_STARTPLAYING, this);
 			//断线续玩
 			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_GAMECONTINUED, this.ACK_USER_CONTINUED, this);
 			//玩家出牌
@@ -922,6 +933,9 @@ module game {
 			GDGame.Msg.ins.removeEventListener(GameMessage.VGID_USER_OPERATION, this.ACK_USER_OPERATION, this);
 
 			GDGame.Msg.ins.removeEventListener(GameMessage.VGID_SERVICE_MAGICTILES, this.ACK_MAGIC_TILES, this);
+
+			GDGame.Msg.ins.removeEventListener(game.GameMessage.START_GET_CARD, this.startDealCard, this);
+
 		}
 
 		/*移除view的时候必须调用*/

@@ -173,9 +173,9 @@ module game {
 		public initUser(): void {
 			this.isGaming = true;
 			let len: number = game.GameUserList.arrUserList.length;
-			console.log("***************************************")
-			console.log("=========GameUserList",game.GameUserList.arrUserList)
-			console.log("***************************************")
+			// console.log("***************************************")
+			// console.log("=========GameUserList",game.GameUserList.arrUserList)
+			// console.log("***************************************")
 			for (let i: number = 0; i < len; i++) {
 				let user: game.GameUserInfo = game.GameUserList.arrUserList[i];
 				console.log(user.userName, user.userSit,Global.userSit)
@@ -209,25 +209,25 @@ module game {
 		public initHandCard(): void {
 			this.gameHand.createHandCard(false, 0);
 		}
-		public showWallCount(): void {
+		public showWallCount(count : number  ): void {
 			if (Global.language == "en") {
-				if (108 - GamePlayData.CardsWall_Head_Index - GamePlayData.CardsWall_Tail_Index > 0) {
-					this.lbLeftCard.text = "Rest " + (108 - GamePlayData.CardsWall_Head_Index - GamePlayData.CardsWall_Tail_Index);
-				} else {
-					this.lbLeftCard.text = "Rest 0";
-				}
+				//if (108 - GamePlayData.CardsWall_Head_Index - GamePlayData.CardsWall_Tail_Index > 0) {
+					this.lbLeftCard.text = "Rest " + (count);
+				//} else {
+				//	this.lbLeftCard.text = "Rest 0";
+				//}
 			} else if (Global.language == "tc") {
-				if (108 - GamePlayData.CardsWall_Head_Index - GamePlayData.CardsWall_Tail_Index > 0) {
-					this.lbLeftCard.text = "餘牌:" + (108 - GamePlayData.CardsWall_Head_Index - GamePlayData.CardsWall_Tail_Index) + "张";
-				} else {
-					this.lbLeftCard.text = "餘牌:0" + "张";
-				}
+				//if (108 - GamePlayData.CardsWall_Head_Index - GamePlayData.CardsWall_Tail_Index > 0) {
+					this.lbLeftCard.text = "餘牌:" + (count) + "张";
+				//} else {
+					//this.lbLeftCard.text = "餘牌:0" + "张";
+				//}
 			} else {
-				if (108 - GamePlayData.CardsWall_Head_Index - GamePlayData.CardsWall_Tail_Index > 0) {
-					this.lbLeftCard.text = "余牌:" + (108 - GamePlayData.CardsWall_Head_Index - GamePlayData.CardsWall_Tail_Index) + "张";
-				} else {
-					this.lbLeftCard.text = "余牌:0" + "张";
-				}
+				//if (108 - GamePlayData.CardsWall_Head_Index - GamePlayData.CardsWall_Tail_Index > 0) {
+					this.lbLeftCard.text = "余牌:" + (count) + "张";
+				// } else {
+				// 	this.lbLeftCard.text = "余牌:0" + "张";
+				// }
 			}
 
 		}
@@ -375,7 +375,7 @@ module game {
 		 */
 		public getOneCard(card: CardInfo): void {
 			this.gameOpt.visible = false;
-			this.showWallCount();
+			//this.showWallCount();
 		
 			this.gameHand.getOneCard(card);
 	

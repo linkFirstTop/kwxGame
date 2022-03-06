@@ -104,7 +104,8 @@ module room {
 			game.GameUserList.updateUserListInfo(body.userInfos);
 
 			//GDGame.Msg.ins.dispatchEventWith(game.GameMessage.SHOW_DAPIAO_INFO);
-			GDGame.Msg.ins.dispatchEventWith(game.GameMessage.START_GET_CARD);
+		
+			GDGame.Msg.ins.dispatchEvent(new egret.Event(game.GameMessage.START_GET_CARD, true, true, body));
 			console.log('发牌广播消息', body);
 		}
 

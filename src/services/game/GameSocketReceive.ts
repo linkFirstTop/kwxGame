@@ -175,7 +175,6 @@ module game {
 			if (body.Stage == GameStageType.GAMEOVER) {
 				game.GameWebSocket.instance().gameSender.ReqReadyGameFun();
 			}
-
 		}
 
 		//心跳返回
