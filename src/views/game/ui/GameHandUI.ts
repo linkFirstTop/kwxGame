@@ -135,10 +135,10 @@ module game {
 			body.userInfos.forEach((e, i) => {
 				//∂console.log("根据发牌数据创建手牌",e)
 				const tiles = e.tileSets[0].Tiles;
-				let nSit = e.userPos.seatID - 1;
+				let nSit = e.userPos.seatID ;
 				let p: number = Global.getUserPosition(nSit);
 
-				console.log("====nSit",nSit,"P:", p,"Global.userSit:", Global.userSit,e.tileSets);
+				//",nSit,"P:", p,"Global.userSit:", Global.userSit,e.tileSets);
 
 				if( nSit != Global.userSit ){
 
@@ -274,7 +274,7 @@ module game {
 			ghand.addChild(card);
 			let isQue: boolean = false;
 			let cardValue: number = info.CardID; //game.GameParmes.getCardID(info);
-			if (p == 2) {
+			if (p == 0) {
 				if (cardValue > 0) {
 					let nHua: number = game.GameParmes.getHua(info);
 					// if (nHua == nQue) {
@@ -289,8 +289,8 @@ module game {
 						GameController.ReqUserSendCard(info);
 					}, this, 1500);
 				}
-
 			}
+
 			card.setCard(p, 0, cardValue, 0, isQue);
 			if (p == 2) {
 				card.x = this.arrLHP[0].x;
@@ -304,7 +304,7 @@ module game {
 				card.setCard(p, 13, 1, 0, isQue);
 				card.x = this.arrRHP[0].x;
 				card.y = this.arrRHP[0].y;
-				ghand.addChildAt(card, 0);
+				ghand.addChild(card);
 			}
 			if (p == 0) {
 				card.cardInfo = info;
@@ -312,6 +312,7 @@ module game {
 				card.x += 10;
 			}
 		}
+
 		/*停止自动出牌*/
 		public stopAutoSendCard(): void {
 			if (this.nAutoTime > -1) {
@@ -337,9 +338,13 @@ module game {
 		 */
 		public updataHandsByPosition(sit: number, state: number, isShow: boolean = true): void {
 			//console.log("===sit",sit)
+
 			let p: number = sit; //
 			let ghand: eui.Group = this.findHandGroup(p);
+
 			this.clearGroup(ghand);
+			console.log("---clear===")
+
 			let arr: Array<CardInfo> = this.copyHandCard(game.GamePlayData.getHandCards(sit));
 			let index: number = 0;
 			let len: number = arr.length;
@@ -366,9 +371,11 @@ module game {
 				if (p == 2) {
 					card.setCard(p, (i + index), cardValue, state, isQue);
 					if (state == 0) {//暗牌
+						//console.log("==i + index===",i + index,i)
 						card.x = this.arrLHP[i + index].x;
 						card.y = this.arrLHP[i + index].y;
 					} else {//亮牌
+
 						card.x = this.arrLLP[i + index].x;
 						card.y = this.arrLLP[i + index].y;
 					}
@@ -383,7 +390,7 @@ module game {
 				}
 				if (p == 1) {
 					card.setCard(p, 13 - i - index, cardValue, state, isQue);
-					//console.log("=====393 index",index, i)
+					// console.log("=====393 index",index, i)
 					if (state == 0) {
 						card.x = this.arrRHP[i + index].x;
 						card.y = this.arrRHP[i + index].y;
@@ -624,8 +631,11 @@ module game {
 			// 	}
 			// }
 
+			if(GameParmes.gameTurn == GameTurnType.SELFTURN ){//出牌阶段
+			// 	this.dispatchEvent(new egret.Event("OnClickHandCard",true,true,this));
+			// }
 
-			if (GameParmes.gameStage == GameStageType.PLAYING) {//出牌阶段
+			// if (GameParmes.gameStage == GameStageType.PLAYING) {//出牌阶段
 				if (this.currentCard == item) {
 					if (game.GamePlayData.M_C_P_G_sit == Global.userSit) {
 						if (item.isHuFlag) {
@@ -795,6 +805,7 @@ module game {
 				return;
 			}
 			while (g.numChildren > 0) {
+				
 				let item = g.removeChildAt(0);
 				item = null;
 			}
@@ -803,7 +814,6 @@ module game {
 		private findHandGroup(p: number): eui.Group {
 			if (p == 0) {
 				return this.gHandCardD;
-				
 			}
 			if (p == 3) {
 				return this.gHandCardU;

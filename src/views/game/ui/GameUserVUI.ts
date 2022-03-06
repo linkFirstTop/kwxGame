@@ -21,6 +21,7 @@ module game {
 		protected childrenCreated(): void {
 			super.childrenCreated();
 		}
+
 		public setUserInfo(user: game.GameUserInfo): void {
 			this.user = user;
 			this.piaofen_result.visible = false;
@@ -51,10 +52,11 @@ module game {
 				this.imgHead.source = Global.commURL + "head/iconHead" + Global.getHeadByName(user.userName) + ".png";
 			}
 			let p: number = Global.getUserPosition(user.userSit);
-			if (p == 2) {
+			if (p == 1) {
 				this.imgHead.scaleX = -1;
 			}
 		}
+
 		public showResultCoin(coin: number): void {
 			if (Global.userName == this.strUserName) {
 				this.lbCoin.text = ChipUtils.formatCoin(coin);
@@ -94,6 +96,7 @@ module game {
 				}
 			}
 		}
+		
 		public updataCoin(coin: number): void {
 			this.nCoin += coin;
 			if (this.nCoin <= 0) {

@@ -28,7 +28,7 @@ module game {
 					this.ON_ACK_DICEANDCARDS(byte);
 					break;
 				case GameProtocol.ACK | GameProtocol.OGID_CLIENT_SEND_CARD://接收服务器游戏的操作
-					this.ON_ACK_SENDCARDS(byte);
+					//this.ON_ACK_SENDCARDS(byte);
 					break;
 				case GameProtocol.ACK | GameProtocol.OGID_CLIENT_USER_OPERATION://接收服务器客户端能够操作的权限   比如能否吃碰杠胡
 					this.ON_ACK_USEROPERATION(byte);
@@ -143,7 +143,7 @@ module game {
 		//接收服务器游戏的操作
 		private ON_ACK_SENDCARDS(byte: egret.ByteArray): void {
 			var body: game.AckSendCard = game.AckSendCard.decode(byte.bytes);
-			GameController.AckGameSendCards(body);
+			//GameController.AckGameSendCards(body);
 		}
 
 		//接收服务器客户端能够操作的权限   比如能否吃碰杠胡

@@ -180,7 +180,7 @@ module game {
 				let user: game.GameUserInfo = game.GameUserList.arrUserList[i];
 				console.log(user.userName, user.userSit,Global.userSit)
 				let p: number = Global.getUserPosition(user.userSit) ;
-				console.log("=====PP", p)
+				//console.log("=====PP", p)
 				this["gameUser" + p].setUserInfo(user);
 				this["gameUser" + p].visible = true;
 			}
@@ -292,17 +292,17 @@ module game {
 			}
 			//处理托管出牌，没有显示听牌提示的问题
 		
-			if (p == 2) {
+			if (p == 0) {
 				if (this.arrCallCards.length > 0) {//有听牌数组，托管
 					for (let i: number = 0; i < this.arrCallCards.length; i++) {//如果出牌在数组中，显示听牌提示
-						// let info: any = this.arrCallCards[i];
-						// if (info.ObtainCardIndex + 1 == cardValue) {
-						// 	this.imgTingTip.visible = true;
-						// 	this.addChild(this.imgTingTip);
-						// 	this.copyTingCards(info.callTile);
-						// 	this.createHuCards(info.CallCards);
-						// 	return;
-						// }
+						let info: any = this.arrCallCards[i];
+						if (info.ObtainCardIndex  == cardValue) {
+							this.imgTingTip.visible = true;
+							this.addChild(this.imgTingTip);
+							this.copyTingCards(info.callTile);
+							this.createHuCards(info.CallCards);
+							return;
+						}
 					}
 					//走到这里说明出的牌破坏了听牌状态
 					this.imgTingTip.visible = false;
@@ -376,21 +376,9 @@ module game {
 		public getOneCard(card: CardInfo): void {
 			this.gameOpt.visible = false;
 			this.showWallCount();
-			//在打牌阶段得倒的牌不用刷新，把牌放在最右边
-			//if (GameParmes.gameStage == GameStageType.PLAYING) {
-				//this.gamePosition.startTime(GameParmes.gamePlayTime);
-				this.gameHand.getOneCard(card);
-				let p: number = Global.getUserPosition(card.Sit);//刷新剩余牌张数，听牌显示
-				if (this.gTingTip.visible && p == 3) {
-					let cardValue: number =  card.CardID//game.GameParmes.getCardID(card);
-					for (let i: number = 0; i < this.gTingCards.numChildren; i++) {
-						let item: game.BaseTingCardUI = this.gTingCards.getChildAt(i) as game.BaseTingCardUI;
-						if (item.cardIndex == cardValue) {
-							item.updataLeftCard();
-						}
-					}
-				}
-			//}
+		
+			this.gameHand.getOneCard(card);
+	
 			//this.changeUserRight();
 		}
 		public hideTingFlag(): void {
@@ -415,7 +403,7 @@ module game {
 						let cardValue: number = card.CardID//(card);
 						for (let i: number = 0; i < this.arrCallCards.length; i++) {//如果出牌在数组中，显示听牌提示
 							let info: any = this.arrCallCards[i];
-							if (info.ObtainCardIndex + 1 == cardValue) {
+							if (info.ObtainCardIndex == cardValue) {
 								this.imgTingTip.visible = true;
 								this.addChild(this.imgTingTip);
 								this.copyTingCards(info.CallCards);
@@ -440,7 +428,8 @@ module game {
 			this.gameHand.updataHandsByPosition(p, 0);
 			this.gameHand.createCPGCard(nSit);
 			if (card.Sit != nSit) {//吃碰杠的牌的座位号和吃碰的人的座位号不等，牌池的牌消失
-				this.gamePool.removeCardToPool(card.Sit);
+				console.log("=====吃碰杠的牌的座位号和吃碰的人的座位号不等，牌池的牌消失",card.Sit)
+				this.gamePool.removeCardToPool(card.Sit,card );
 			}
 			this.gamePosition.stopTime();
 			this.gamePosition.startTime(GameParmes.chiPengGangSurplusTime);
@@ -498,7 +487,7 @@ module game {
 			this.isGaming = false;
 			this.gameHand.createHandCard(true, 1);//全部亮开手牌
 
-			this.gameHand.showResultCard(body);
+			// this.gameHand.showResultCard(body);
 			for (let i: number = 0; i < 3; i++) {
 				this["gameUser" + i].showCurrentAnim(false);
 			}

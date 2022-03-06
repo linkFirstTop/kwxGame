@@ -23,12 +23,12 @@ module game {
 		protected childrenCreated(): void {
 			super.childrenCreated();
 
-			this.btnPeng.source = "gameButton_peng_" + Global.language;
-			this.btnGang.source = "gameButton_gang_" + Global.language;
-			this.btnHu.source = "gameButton_hu_" + Global.language;
+			this.btnPeng.source = "gameBtns_json.btnPeng_" + Global.language;
+			this.btnGang.source = "gameBtns_json.btnKong_" + Global.language;
+			this.btnHu.source = "gameBtns_json.btnLiang_" + Global.language;
 			this.btnTing.source = "gameButton_ting_" + Global.language;
-			this.btnGuo.source = "gameButton_guo_" + Global.language;
-			this.imgIconHu.source = "gameIcon_hu_" + Global.language;
+			this.btnGuo.source = "gameBtns_json.btnPass_" + Global.language;
+			this.imgIconHu.source = "gameBtns_json.btnHu_" + Global.language;
 
 			this.initBtns();
 			this.btnPeng.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onPeng, this);
@@ -159,7 +159,10 @@ module game {
 			// this.showCardGroups(arr);
 		}
 		private onTing(): void {
-
+			if(GameParmes.isHu == false){
+			
+				ViewManager.ins.gameView.gameUI.gameHand.showTingFlag(true,"ting");
+			}
 		}
 		private onHu(): void {
 			if (GameParmes.nHuType == 16) {//此时是天胡情况

@@ -26,6 +26,38 @@ module game {
 		 * 游戏换结算状态
 		 * **/
 		public static GAMEOVER: number = 5;
+
+		/**
+		 * 玩家出牌
+		 */
+		 public static SELFTURN : number = 5;
+
+		/**
+		 * 其他玩家出牌
+		 */
+		 public static OTHERTURN : number = 5;
+
+		// /**
+		//  * 游戏定缺状态
+		//  * **/
+		// public static DINGQUE: number = 7;
+	}
+
+	export class GameTurnType {
+		public constructor() {
+		}
+		
+
+		/**
+		 * 玩家出牌
+		 */
+		 public static SELFTURN : number = 0;
+
+		/**
+		 * 其他玩家出牌
+		 */
+		 public static OTHERTURN : number = 1;
+
 		// /**
 		//  * 游戏定缺状态
 		//  * **/

@@ -45,7 +45,7 @@ module room {
 			this.dispatchEvent(new egret.Event("OnItemClick",true,true,this.nRoomID));
 		}
 		public setItem(data:any):void{
-			console.log('setItem',data);
+			//console.log('setItem',data);
 			this.info = data;
 			this.lbBase.text = Global.dic["底注"]+" " + ChipUtils.formatCoin(data.basic_bet,true);
 			this.lbEnter.text = Global.dic["准入"]+" " + ChipUtils.formatCoin(data.entry_min,true);

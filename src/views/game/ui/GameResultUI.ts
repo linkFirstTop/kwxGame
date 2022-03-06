@@ -40,51 +40,41 @@ module game {
 		}
 		public showResult(body:room.VGGameResultNtc):void{
 			this.visible = true;
+
+
 			let arr:Array<any> = body.userInfos;
-			
+
 			
 			//let selfData = 
-			// if(body.IsOver == 2){
-			// 	this.imgBg.source = "resultLosebg_png";
-			// 	this.imgTitle.source = "resultTitle_flow_"+Global.language;
-			// }
+			if(GameParmes.isGameFlower ){
+				//this.imgBg.source = "resultLosebg_png";
+				this.imgTitle.source = "resultTitle_flow_"+Global.language;
+			}
+
+			let isWin = false;
+			for(let i:number = 0;i < body.userInfos.length;i++){
+				const user =body.userInfos[i]
+				if(user.userPos.seatID == Global.userSit && user.resultCoin > 0){//自己胡做下标记
+					isWin = true;
+					break;
+				}
+			}
+
+			if(isWin){
+				this.imgTitle.source = "resultTitle_win_"+Global.language;
+			}else{
+				this.imgTitle.source = "resultTitle_lose_"+Global.language;
+			}
+
 			for(let i:number = 0;i < 3;i++){
 				let info:room.VGUserInfo = arr[i];
 				// let data = body.settlementInfos[i];
-				let p:number = Global.getUserPosition(info.userPos.seatID-1);
+				//let p:number = Global.getUserPosition(info.userPos.seatID);
 				const  User :game.GameResultOtherInfo = <GameResultOtherInfo>this.userGroup.getChildAt(i);
 				User.setResult(info);
 
 
-				//console.log("==USER",User);
 
-
-				// if(p == 2){//玩家自己
-				// 	this.imgPosition.source = "resultPosition_"+this.getPosition(info.userPos.seatID-1)+"_"+Global.language;
-				// 	this.imgBank.source = "";
-				// 	if(info.userPos.seatID-1 == 1){
-				// 		this.imgBank.source = "result_bank_"+Global.language;
-				// 	}
-				// 	this.lbName.text = GameUtils.ReplaceChar(GameUtils.getShowName(Global.userName),9,3);
-				// 	if(info.resultCoin >= 0){
-				// 		this.imgTitle.source = "resultTitle_win_"+Global.language;
-				// 		this.lbCoin.font = "resultWinFnt_fnt";
-				// 		this.lbCoin.text = "+"+ChipUtils.formatCoin(Number(info.resultCoin) );
-				// 		if(info.resultCoin > 0){
-				// 			this.imgBg.source = "resultWinbg_png";
-				// 		}
-				// 	}else{
-				// 		this.imgTitle.source = "resultTitle_lose_"+Global.language;
-				// 		this.lbCoin.font = "resultLoseFnt_fnt";
-				// 		this.lbCoin.text = "-"+ChipUtils.formatCoin(-info.resultCoin);
-				// 		this.imgBg.source = "resultLosebg_png";
-				// 	}
-				// 	//this.showDetailInfo(info.result_list_detail);
-				// 	this.imgHead.source = Global.commURL + "head/iconHead"+Global.userHead+".png";
-				// }
-				// else{//其他玩家
-				// 	this["user"+p].setResult(info);
-				// }
 			}
 		}
 		/*显示详细信息*/

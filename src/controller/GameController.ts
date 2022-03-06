@@ -66,128 +66,9 @@ module game {
 			cardsGroup.cards.push(card);
 			game.GameWebSocket.instance().gameSender.ReqSendCardsGameFun(cardsGroup);
 		}
-		/**
-		 * 服务器返回补花吃碰杠胡的操作
-		 * */
-		public static AckGameSendCards(body:game.AckSendCard):void
-		{
-			let card:game.CardInfo;
-			let dataArray:any[] = [];
-			switch(body.Card.Type)
-			{
-				// case CardsGroupType.CATCH://抓牌
-				// 	game.GamePlayData.SetCardsWallIndex("Head",1);
-				// 	game.GamePlayData.AddHandCards(body.Card.Sit,body.Card);
-				// 	game.GamePlayData.SaveOperationSit(body.Card.Sit);
-				// 	//玩家自己抓的牌
-				// 	card =  body.Card.Cards[0] as CardInfo;
-				// 	card.Sit = body.Card.Sit;
-				// 	if(body.Card.Sit==Global.userSit)
-				// 	{
-				// 		game.GamePlayData.SaveCurrentCard(body.Card.Cards[0].CardID,body.Card.Sit);
-				// 	}
-				// 	dataArray.push(card);
-				// 	GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_USER_ZHUAPAI,true,true,dataArray));
-				// 	break;
-				// case CardsGroupType.PLAY://正常打牌(非摸打)
-				// 	card =  body.Card.Cards[0] as CardInfo;
-				// 	card.Sit = body.Card.Sit;
-
-				// 	game.GamePlayData.ClearHandCards(game.GamePlayData.getHandCards(body.Card.Sit),[card],body.Card.Sit);
-				// 	game.GamePlayData.AddCardPool(body.Card.Cards,body.Card.Sit);
-				// 	if(body.Card.Sit==Global.userSit)
-				// 	{
-				// 		game.GamePlayData.SaveCurrentCard(0,-1);
-				// 	}
-				// 	dataArray.push(card);
-				// 	dataArray.push(false);
-				// 	GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_USER_SENDCARD,true,true,dataArray));
-				// 	break;
-				// case CardsGroupType.MOPLAY://正常打牌（摸打）
-				// 	card =  body.Card.Cards[0] as game.CardInfo;
-				// 	card.Sit = body.Card.Sit;
-				// 	//*************容错断线回来  服务器发送该出牌的人的牌是13张   但是又发送该他出牌的消息   故容错***************
-				// 	var handcardsNum:number = game.GamePlayData.getHandCards(body.Card.Sit).length;
-				// 	if(handcardsNum%3!=1)
-				// 	{
-				// 		game.GamePlayData.ClearHandCards(game.GamePlayData.getHandCards(body.Card.Sit),[card],body.Card.Sit);
-				// 	}
-					
-				// 	game.GamePlayData.AddCardPool(body.Card.Cards,body.Card.Sit);
-				// 	if(body.Card.Sit==Global.userSit)
-				// 	{
-				// 		game.GamePlayData.SaveCurrentCard(0,-1);
-				// 	}
-				// 	dataArray.push(card);
-				// 	dataArray.push(true);
-				// 	GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_USER_SENDCARD,true,true,dataArray));
-				// 	break;
-				// case CardsGroupType.CHI://吃牌
-				// 	game.GamePlayData.SaveOperationSit(body.Card.Sit);
-				// 	card = game.GamePlayData.AddChiPengGangCards(body.Card,body.Card.Sit);
-					
-				// 	dataArray.push(body.Card.Sit);
-				// 	dataArray.push(card);
-				// 	GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_USER_CHIPAI,true,true,dataArray));
-				// 	break;
-				// case CardsGroupType.PENG://碰牌
-				// 	game.GamePlayData.SaveOperationSit(body.Card.Sit);
-				// 	card = game.GamePlayData.AddChiPengGangCards(body.Card,body.Card.Sit);
-					
-				// 	dataArray.push(body.Card.Sit);
-				// 	dataArray.push(card);
-				// 	GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_USER_PENGPAI,true,true,dataArray));
-				// 	break;
-				// case CardsGroupType.MINGGANG://明杠牌
-				// 	game.GamePlayData.SaveOperationSit(body.Card.Sit);
-				// 	card = game.GamePlayData.AddChiPengGangCards(body.Card,body.Card.Sit);
-					
-				// 	dataArray.push(body.Card.Sit);
-				// 	dataArray.push(card);
-				// 	dataArray.push(body.Card.ObtainCardSit);
-				// 	dataArray.push(body.gangCoin);
-				// 	GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_USER_MINGGANGPAI,true,true,dataArray));
-				// 	break;
-				// case CardsGroupType.ANGANG://暗杠牌
-				// 	game.GamePlayData.SaveCurrentCard(0,-1);
-				// 	game.GamePlayData.SaveOperationSit(body.Card.Sit);
-				// 	card = game.GamePlayData.AddChiPengGangCards(body.Card,body.Card.Sit);
-					
-				// 	dataArray.push(body.Card.Sit);
-				// 	dataArray.push(card);
-				// 	dataArray.push(body.Card.ObtainCardSit);
-				// 	dataArray.push(body.gangCoin);
-				// 	GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_USER_ANGANGPAI,true,true,dataArray));
-				// 	break;
-				// case CardsGroupType.BUGANG://补杠牌  先碰再杠
-				// 	game.GamePlayData.SaveOperationSit(body.Card.Sit);
-				// 	card = game.GamePlayData.AddChiPengGangCards(body.Card,body.Card.Sit);
-				// 	game.GamePlayData.SaveCurrentCard(0,-1);
-
-				// 	dataArray.push(body.Card.Sit);
-				// 	dataArray.push(card);
-				// 	dataArray.push(body.Card.ObtainCardSit);
-				// 	dataArray.push(body.gangCoin);
-				// 	GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_USER_BUGANGPAI,true,true,dataArray));
-				// 	break;
-				// case CardsGroupType.GANGMO://杠牌牌尾摸牌
-				// 	game.GamePlayData.SetCardsWallIndex("Tail",1);
-				// 	game.GamePlayData.AddHandCards(body.Card.Sit,body.Card);
-				// 	card =  body.Card.Cards[0] as game.CardInfo;
-				// 	card.Sit = body.Card.Sit;
-				// 	if(body.Card.Sit==Global.userSit){
-				// 		game.GamePlayData.SaveCurrentCard(card.CardID,card.Sit);
-				// 	}
-				// 	dataArray.push(card);
-				// 	GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_USER_PAIWEIMOPAI,true,true,dataArray));
-				// 	break;
-				// case CardsGroupType.NO_OPERATION://过    
-				// 	game.GamePlayData.M_C_P_G_sit = (game.GamePlayData.M_C_P_G_sit+1)%4;
-				// 	GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_GAME_NO_OPERATION,true,true,body.Card.Sit));
-				// 	break;
+	
 				
-			}
-		}
+
 		/**
 		 * 服务器通知客户端能够吃碰杠胡的显示权限 AckUserOperation
 		 * */
@@ -201,7 +82,7 @@ module game {
 			dataArray.push(body.Hu);
 			dataArray.push(body.Call);
 			console.log("chi="+body.Chi,"peng="+body.Peng,"gang="+body.Gang,"hu="+body.Hu,"call="+body.Call);
-			GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_GAME_USEROPERATION,true,true,dataArray));
+			//GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_GAME_USEROPERATION,true,true,dataArray));
 		}
 		/**
 		 * 服务器通知客户端单次胡牌
@@ -221,8 +102,8 @@ module game {
 		 * 服务器通知客户端结果消息
 		 * */
 		public static AckGameResult(body:game.AckGameResult):void{
-			game.GamePlayData.SaveResultHandCard(body.playerInfo);
-			GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_ALLGAMERESULT,true,true,body));
+			// game.GamePlayData.SaveResultHandCard(body.playerInfo);
+			// GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_ALLGAMERESULT,true,true,body));
 		}
 		
 		

@@ -14,14 +14,14 @@ module game {
 		public static TIME:string = "time_mp3";
 		public static playCardSound(card:CardInfo):void{
 			let index:number = GameParmes.getCardID(card);
-			if(index >= 1 && index <= 9){
-				sound.SoundManager.getInstance().playEffect(index+"w_mp3");
+			if(index >= 0 && index <= 8){
+				sound.SoundManager.getInstance().playEffect(`${index+1}w_mp3`);
 			}
-			if(index >= 10 && index <= 18){
-				sound.SoundManager.getInstance().playEffect((index-9)+"t_mp3");
+			if(index >= 9 && index <= 17){
+				sound.SoundManager.getInstance().playEffect(`${index-8}t_mp3`);
 			}
-			if(index >= 19 && index <= 27){
-				sound.SoundManager.getInstance().playEffect((index-18)+"b_mp3");
+			if(index >= 18 && index <= 26){
+				sound.SoundManager.getInstance().playEffect(`${index-17}b_mp3`);
 			}
 		}
 		public static playEffect(str:string):void{

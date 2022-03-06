@@ -15,6 +15,11 @@ module game {
 		 * 游戏阶段
 		 * **/
 		public static  gameStage:number = 0;
+
+		/**
+		 * 游戏轮
+		 * **/
+		 public static  gameTurn:number = 0;
 		/**
 		 * 第一个操作的玩家座位号
 		 * **/

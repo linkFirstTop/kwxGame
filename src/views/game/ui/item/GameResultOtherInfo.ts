@@ -26,17 +26,18 @@ module game {
 		}
 		public setResult(info:room.VGUserInfo):void{
 			this.lbName.text = GameUtils.getShowName(info.userName);
-			console.log("===GameUtils.getShowName(info.userName)==",GameUtils.getShowName(info.userName))
+			//console.log("===GameUtils.getShowName(info.userName)==",GameUtils.getShowName(info.userName))
 			if(info.resultCoin >= 0){
 				this.lbCoin.font = "resultWinFnt_fnt";
-				this.lbCoin.text = "+"+ChipUtils.formatCoin(Number(info.resultCoin) );
+				this.lbCoin.text =   `+${info.resultCoin}` //"+"+ChipUtils.formatCoin(Number(info.resultCoin) );
 			}else{
 				this.lbCoin.font = "resultLoseFnt_fnt";
-				this.lbCoin.text = "-"+ChipUtils.formatCoin(Number(-info.resultCoin) );
+				console.log("info.resultCoin",Math.abs(Number( info.resultCoin)))
+				this.lbCoin.text =  `${info.resultCoin}`  //`-${ChipUtils.formatCoin(Math.abs(Number( info.resultCoin))  )}`;
 			}
 
 			this.imgBank.source = "";
-			if(info.role == 0){
+			if(info.isManaged == 0){
 				this.imgBank.source = "resultZhuang_"+Global.language;
 			}
 
