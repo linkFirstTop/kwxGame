@@ -1471,6 +1471,12 @@
 			"url": "assets/language/cn/game/p2f.png",
 			"type": "image",
 			"name": "p2f_png"
+		},
+		{
+			"url": "assets/game/gameBtns.json",
+			"type": "sheet",
+			"name": "gameBtns_json",
+			"subkeys": "btnHu_cn,btnHu_en,btnHu_tc,btnKong_cn,btnKong_en,btnKong_tn,btnLiang_cn,btnLiang_en,btnLiang_tc,btnPass_cn,btnPass_en,btnPass_tc,btnPeng_cn,btnPeng_en,btnPeng_tc"
 		}
 	]
 }
