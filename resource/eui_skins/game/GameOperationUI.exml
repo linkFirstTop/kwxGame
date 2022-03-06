@@ -3,11 +3,11 @@
 	<w:Config id="170e687466e" ></w:Config>
 	<!--操作按钮-->
 	<e:Group id="gBtns" width="925" height="175" y="754" right="100">
-		<e:Image id="btnPeng" source="gameButton_peng_cn" />
-		<e:Image id="btnGang" source="gameButton_gang_cn" />
-		<e:Image id="btnTing" source="gameButton_ting_cn"/>
-		<e:Image id="btnHu" source="gameButton_hu_cn" />
-		<e:Image id="btnGuo" source="gameButton_guo_cn" />
+		<e:Image id="btnPeng"  source="gameBtns_json.btnPeng_cn" visible="true"/>
+		<e:Image id="btnGang"  source="gameBtns_json.btnKong_cn"/>
+		<e:Image id="btnTing" source="gameBtns_json.btnLiang_cn"/>
+		<e:Image id="btnHu"  source="gameBtns_json.btnHu_cn"/>
+		<e:Image id="btnGuo"  source="gameBtns_json.btnPass_cn"/>
 	</e:Group>
 	<e:Group id="gCardBg" horizontalCenter="0" width="566" y="750">
 		<e:Image source="gameCommbg_png" width="100%"/>
