@@ -1,0 +1,16 @@
+{"file":"gameBtns.png","frames":{
+"btnHu_cn":{"x":328,"y":328,"w":164,"h":164,"offX":0,"offY":0,"sourceW":164,"sourceH":164},
+"btnHu_en":{"x":164,"y":328,"w":164,"h":164,"offX":0,"offY":0,"sourceW":164,"sourceH":164},
+"btnHu_tc":{"x":0,"y":328,"w":164,"h":164,"offX":0,"offY":0,"sourceW":164,"sourceH":164},
+"btnKong_cn":{"x":820,"y":164,"w":164,"h":164,"offX":0,"offY":0,"sourceW":164,"sourceH":164},
+"btnKong_en":{"x":167,"y":0,"w":167,"h":164,"offX":0,"offY":0,"sourceW":167,"sourceH":164},
+"btnKong_tn":{"x":492,"y":164,"w":164,"h":164,"offX":0,"offY":0,"sourceW":164,"sourceH":164},
+"btnLiang_cn":{"x":328,"y":164,"w":164,"h":164,"offX":0,"offY":0,"sourceW":164,"sourceH":164},
+"btnLiang_en":{"x":164,"y":164,"w":164,"h":164,"offX":0,"offY":0,"sourceW":164,"sourceH":164},
+"btnLiang_tc":{"x":0,"y":164,"w":164,"h":164,"offX":0,"offY":0,"sourceW":164,"sourceH":164},
+"btnPass_cn":{"x":828,"y":0,"w":164,"h":164,"offX":0,"offY":0,"sourceW":164,"sourceH":164},
+"btnPass_en":{"x":334,"y":0,"w":166,"h":164,"offX":0,"offY":0,"sourceW":166,"sourceH":164},
+"btnPass_tc":{"x":500,"y":0,"w":164,"h":164,"offX":0,"offY":0,"sourceW":164,"sourceH":164},
+"btnPeng_cn":{"x":656,"y":164,"w":164,"h":164,"offX":0,"offY":0,"sourceW":164,"sourceH":164},
+"btnPeng_en":{"x":0,"y":0,"w":167,"h":164,"offX":0,"offY":0,"sourceW":167,"sourceH":164},
+"btnPeng_tc":{"x":664,"y":0,"w":164,"h":164,"offX":0,"offY":0,"sourceW":164,"sourceH":164}}}
