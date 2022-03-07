@@ -13,13 +13,13 @@
 		<!--局号信息-->
 		<e:Group x="10" y="10">
 			<e:Image source="gameCommbg_png"  width="500" height="60" alpha="0.6"  scale9Grid="166,80,72,13"/>
-			<e:Label id="lbInfo" text="入门管"  fontFamily="Microsoft YaHei" verticalCenter="0" x="15"/>
-			<e:Label id="duyi" text="1111" verticalCenter="0" right="15"/>
+			<e:Label id="lbInfo" text="入门管"  fontFamily="Microsoft YaHei" verticalCenter="-1" x="395.446"/>
+			<e:Label id="duyi" text="1111" verticalCenter="0" right="418"/>
 		</e:Group>
 		<!--剩余牌-->
 		<e:Group x="10" y="74">
-			<e:Image source="gameCommbg_png"  width="150" height="61" alpha="0.6"  scale9Grid="166,80,72,13"/>
-			<e:Label id="lbLeftCard" text="余牌:0"  verticalCenter="0" horizontalCenter="0" fontFamily="Microsoft YaHei"/>
+			<e:Image source="gameCommbg_png"  width="209.905" height="61" alpha="0.6"  scale9Grid="166,80,72,13"/>
+			<e:Label id="lbLeftCard" text="余牌:0"  verticalCenter="0.5" horizontalCenter="28" fontFamily="Microsoft YaHei"/>
 		</e:Group>
 	</e:Group>	
 	
