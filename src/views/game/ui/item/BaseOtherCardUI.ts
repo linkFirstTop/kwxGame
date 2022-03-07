@@ -17,18 +17,18 @@ module game {
 			if (p == 2) {//左
 				if (isAnGang) {
 					this.imgBack.source = "SJAG_left_" + (index + 1);
-					if (value > 0) {
-						this.imgCard.source = "cardValue" + value;
-					}
+
+					this.imgCard.source = "cardValue" + value;
+
 					this.imgCard.scaleX = this.imgCard.scaleY = 0.6 - 0.01 * (3 - index);
 					this.imgCard.verticalCenter = -8;
 					this.imgCard.rotation = 90;
 					this.imgCard.skewY = 25;
 				} else {
 					this.imgBack.source = "SJPP_left_" + (index + 1);
-					if (value > 0) {
-						this.imgCard.source = "cardValue" + value;
-					}
+
+					this.imgCard.source = "cardValue" + value;
+
 					this.imgCard.scaleX = this.imgCard.scaleY = 0.6 - 0.01 * (15 - index);
 					this.imgCard.verticalCenter = -8;
 					this.imgCard.rotation = 90;
@@ -38,7 +38,7 @@ module game {
 			}
 			if (p == 3) {//上
 				if (isAnGang) {
-					if (value > 0) {
+					if (value >= 0) {
 						this.imgBack.source = "card_up_a2";
 						this.imgCard.source = "cardValue" + value;
 						this.imgCard.scaleX = -0.5;

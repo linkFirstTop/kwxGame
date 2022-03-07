@@ -343,16 +343,17 @@ module game {
 			let ghand: eui.Group = this.findHandGroup(p);
 
 			this.clearGroup(ghand);
-			console.log("---clear===")
-
+			
 			let arr: Array<CardInfo> = this.copyHandCard(game.GamePlayData.getHandCards(sit));
 			let index: number = 0;
 			let len: number = arr.length;
-			if (arr.length % 3 == 2) {//玩家有摸牌牌权
+			console.log("---clear===",len)
+			if (arr.length  == 14) {//玩家有摸牌牌权
 				index = 0;
 			} else {
 				index = 1;
 			}
+
 			for (let i: number = 0; i < len; i++) {
 				let isQue: boolean = false;
 				let info: CardInfo = arr[i];

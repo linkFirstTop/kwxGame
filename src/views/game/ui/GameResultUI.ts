@@ -71,10 +71,10 @@ module game {
 				// let data = body.settlementInfos[i];
 				//let p:number = Global.getUserPosition(info.userPos.seatID);
 				const  User :game.GameResultOtherInfo = <GameResultOtherInfo>this.userGroup.getChildAt(i);
+				if( info.userPos.seatID == Global.userSit ){
+					User.showPao(body.settlementInfos, Number(info.resultCoin));
+				}
 				User.setResult(info);
-
-
-
 			}
 		}
 		/*显示详细信息*/

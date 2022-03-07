@@ -54,6 +54,7 @@ module game {
 		public static arrLPCards: Array<Array<number>> = [];//亮牌数组 用于听牌张数判断
 
 		public static MJ_Operation: Array<room.MJ_Operation> = [];
+		public static MJ_Mopai : boolean = false;
 
 		/*初始化数据*/
 		public static initData(): void {

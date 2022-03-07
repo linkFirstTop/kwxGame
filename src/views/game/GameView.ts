@@ -79,7 +79,7 @@ module game {
 			//GDGame.Msg.ins.addEventListener(GameMessage.ACK_USER_BUGANGPAI, this.ACK_USER_BUGANGPAI, this);
 			//服务器通知客户端定缺
 			GDGame.Msg.ins.addEventListener(GameMessage.ACK_USER_DINGQUE_STATE, this.ACK_USER_DINGQUESTATE, this);
-			GDGame.Msg.ins.addEventListener(GameMessage.ACK_USER_DINGQUE, this.ACK_USER_DINGQUE, this);
+			//GDGame.Msg.ins.addEventListener(GameMessage.ACK_USER_DINGQUE, this.ACK_USER_DINGQUE, this);
 			//服务器通知客户端换三张
 			GDGame.Msg.ins.addEventListener(GameMessage.ACK_USER_HSZ_STATE, this.ACK_USER_HSZSTATE, this);
 			GDGame.Msg.ins.addEventListener(GameMessage.ACK_USER_HSZ, this.ACK_USER_HSZ, this);
@@ -323,6 +323,7 @@ module game {
 				card.CardID = opt.Tiles[0];
 				card.Sit = nSit;
 				//console.log("====MOPAI=====",card)
+				game.GamePlayData.MJ_Mopai = true;
 				game.GamePlayData.AddHandCards(nSit,card);
 				this.gameUI.getOneCard(card);
 				//room.RoomWebSocket.instance().roomSender.REQ_MAGICTILES()
@@ -463,16 +464,6 @@ module game {
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_TING) {
 				//this.gameUI.onShowTHFlag();
 				console.log("=====收到了 停的  操作通知 ==")
-
-			}
-
-			//和
-			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_WIN) {
-
-			}
-			//过
-			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_PASS) {
-				//this.gameUI.changeUserRight();
 				const card: CardInfo = new CardInfo();
 				card.CardID = opt.Tiles[0];
 				card.Sit = nSit;
@@ -487,6 +478,18 @@ module game {
 				const b: boolean = false;
 				this.gameUI.userSendCard(card, b);
 				SoundModel.playEffect(SoundModel.CHU);
+
+			}
+
+			//和
+			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_WIN) {
+				console.log("===玩家 胡牌 了 =====")
+
+			}
+			//过
+			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_PASS) {
+				//this.gameUI.changeUserRight();
+
 			}
 			// this.gameUI.startTime(body.second);
 		}
@@ -553,7 +556,6 @@ module game {
 				body.DelCards.push({ CardID: data.ObtainTile, Sit: nSit })
 			}
 
-	
 			card = game.GamePlayData.AddChiPengGangCards(body, nSit);
 
 			this.gameUI.playAnim("peng", nSit);
@@ -808,11 +810,11 @@ module game {
 			this.gameUI.startTime(GameParmes.dqTime);
 		}
 		/*收到定缺消息*/
-		private ACK_USER_DINGQUE(): void {
-			this.gameUI.onUserDingQue();
-			this.gameUI.changeUserRight();
-			this.gameUI.startTime(GameParmes.gamePlayTime);
-		}
+		// private ACK_USER_DINGQUE(): void {
+		// 	this.gameUI.onUserDingQue();
+		// 	this.gameUI.changeUserRight();
+		// 	this.gameUI.startTime(GameParmes.gamePlayTime);
+		// }
 		/*
 		*断线续玩
 		*/
@@ -916,7 +918,7 @@ module game {
 			//GDGame.Msg.ins.removeEventListener(GameMessage.ACK_USER_BUGANGPAI, this.ACK_USER_BUGANGPAI, this);
 			//服务器通知客户端定缺
 			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_USER_DINGQUE_STATE, this.ACK_USER_DINGQUESTATE, this);
-			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_USER_DINGQUE, this.ACK_USER_DINGQUE, this);
+			//GDGame.Msg.ins.removeEventListener(GameMessage.ACK_USER_DINGQUE, this.ACK_USER_DINGQUE, this);
 			//服务器通知客户端换三张
 			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_USER_HSZ_STATE, this.ACK_USER_HSZSTATE, this);
 			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_USER_HSZ, this.ACK_USER_HSZ, this);
@@ -958,6 +960,5 @@ module game {
 				this.gameMatch = null;
 			}
 		}
-
 	}
 }

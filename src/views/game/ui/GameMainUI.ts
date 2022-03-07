@@ -237,25 +237,25 @@ module game {
 
 		}
 		/*显示玩家的定缺*/
-		public onUserDingQue(): void {
-			let len: number = game.GameUserList.arrUserList.length;
-			for (let i: number = 0; i < len; i++) {
-				let user: game.GameUserInfo = game.GameUserList.arrUserList[i];
-				let p: number = Global.getUserPosition(user.userSit);
-				if (p == 1) {
-					this["gameUser" + p].setUserDQ(user.CardID, "left");
-				} else {
-					this["gameUser" + p].setUserDQ(user.CardID, "right");
-				}
-				if (Global.userSit == user.userSit) {
-					//重新排序自己的手牌
-					GamePlayData.SortHandCardQue(user.CardID);
+		// public onUserDingQue(): void {
+		// 	let len: number = game.GameUserList.arrUserList.length;
+		// 	for (let i: number = 0; i < len; i++) {
+		// 		let user: game.GameUserInfo = game.GameUserList.arrUserList[i];
+		// 		let p: number = Global.getUserPosition(user.userSit);
+		// 		if (p == 1) {
+		// 			this["gameUser" + p].setUserDQ(user.CardID, "left");
+		// 		} else {
+		// 			this["gameUser" + p].setUserDQ(user.CardID, "right");
+		// 		}
+		// 		if (Global.userSit == user.userSit) {
+		// 			//重新排序自己的手牌
+		// 			GamePlayData.SortHandCardQue(user.CardID);
 				
-					this.gameHand.updataHandsByPosition(p, 0, true);
-				}
-			}
-			this.gameHSZ.initHSZ();
-		}
+		// 			this.gameHand.updataHandsByPosition(p, 0, true);
+		// 		}
+		// 	}
+		// 	this.gameHSZ.initHSZ();
+		// }
 		public startHSZAndDQ(state: number): void {
 			if (state == 1) {//换三张提示
 				this.gameHSZ.showHSZTips();
@@ -430,7 +430,9 @@ module game {
 		public updataUserCPG(nSit: number, card: CardInfo): void {
 
 			let p: number = Global.getUserPosition(nSit);
-			this.gameHand.updataHandsByPosition(p, 0);
+		
+
+			this.gameHand.updataHandsByPosition(p, 0,true);
 			this.gameHand.createCPGCard(nSit);
 			if (card.Sit != nSit) {//吃碰杠的牌的座位号和吃碰的人的座位号不等，牌池的牌消失
 				console.log("=====吃碰杠的牌的座位号和吃碰的人的座位号不等，牌池的牌消失",card.Sit)
@@ -450,7 +452,7 @@ module game {
 			this.showGameInfo();
 			room.RoomWebSocket.instance().roomSender.ReqGamePlayerReleveTrustFun();//解除托管
 			if (GameParmes.gameStage == GameStageType.PLAYING) {
-				this.onUserDingQue();
+				//this.onUserDingQue();
 			}
 			//  else if (GameParmes.gameStage == GameStageType.CHANGE) {//换三张阶段
 			// 	if (GameParmes.nHSZComplete == 1) {//0:没有换  1:已经换了
