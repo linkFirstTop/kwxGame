@@ -297,7 +297,7 @@ module game {
 		 * */
 		public static ClearHandCards(handcards: Array<CardInfo>, cards: Array<CardInfo>, sit: number): void {
 			// console.log("====ClearHandCardsS== ", handcards);
-			console.log("====MAX BEFORE",  handcards.length);
+		
 			if (sit == Global.userSit) {
 				this.Chi_Groups.length = 0;
 				this.Peng_Groups.length = 0;

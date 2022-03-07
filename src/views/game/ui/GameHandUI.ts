@@ -304,7 +304,7 @@ module game {
 				card.setCard(p, 13, 1, 0, isQue);
 				card.x = this.arrRHP[0].x;
 				card.y = this.arrRHP[0].y;
-				ghand.addChild(card);
+				ghand.addChildAt(card,0);
 			}
 			if (p == 0) {
 				card.cardInfo = info;

@@ -107,6 +107,7 @@ module game {
 			this.gameUI.initGame();
 			ViewManager.ins.changeTimer(false);
 		}
+
 		/** 
 		 * @param msg
 		 * 返回游戏未开时突然结束的广播消息
@@ -121,7 +122,7 @@ module game {
 
 		private startDealCard(evt: egret.Event){
 			const body: any = evt.data;
-
+			this.gameUI.showRoomGUID(body.roundGuid);
 			this.gameUI.showWallCount( body["remainCount"])//
 		}
 
@@ -259,7 +260,7 @@ module game {
 
 				//听
 				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_TING) {
-					//console.log("=====收到了 停的  操作 ==")
+					console.log("=====收到了 停的  操作请求 ==")
 					opt[4] = true;
 				    game.GamePlayData.SaveChiPengGangHu(body);
 					GameParmes.gameTurn = GameTurnType.OTHERTURN;
@@ -461,6 +462,7 @@ module game {
 			//听
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_TING) {
 				//this.gameUI.onShowTHFlag();
+				console.log("=====收到了 停的  操作通知 ==")
 
 			}
 

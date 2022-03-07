@@ -15,7 +15,7 @@ module game {
 		private imgHead:eui.Image;
 		private imgPosition:eui.Image;
 		private imgBank:eui.Image;
-
+		private imgPao:eui.Image;
 
 		private imgLiang : eui.Image;
 		private paiInfos : eui.Group;
@@ -37,12 +37,12 @@ module game {
 			}
 
 			this.imgBank.source = "";
-			if(info.isManaged == 0){
+			if(info.role == 0){
 				this.imgBank.source = "resultZhuang_"+Global.language;
 			}
 
 			this.lbPiao.text = `飘${info.dapiao}分`
-			//this.img
+			this.imgPao.visible = false;
 
 			this.imgLiang.visible = false;
 			let p = Global.getUserPosition(info.userPos.seatID)
@@ -52,15 +52,18 @@ module game {
 			
 			this.imgPosition.source = ImgSource;
 			this.imgHead.source = Global.commURL + "head/iconHead"+Global.getHeadByName(info.userName)+".png";
+		//	this.im
+
+			this.imgLiang.visible = info.isTing == 1;
 
 			//fan
 			this.paiInfos.$children.forEach((e:eui.Label,i)=>{
 				//console.log('=====EEE',e)
 				if(info.fan[i] ){
 					e.text = CardsGroupType.FanTypeString[info.fan[i].type]
-					if( info.fan[i].type == 20 ){
-						this.imgLiang.visible = true;
-					}
+					// if( info.fan[i].type == 20 ){
+					// 	this.imgLiang.visible = true;
+					// }
 				}else{
 					e.text = "";
 				}

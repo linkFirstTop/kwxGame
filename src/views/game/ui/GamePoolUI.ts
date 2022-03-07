@@ -94,7 +94,7 @@ module game {
 			let item: game.BasePoolCardUI = new game.BasePoolCardUI();
 			item.cardInfo = card;
 			let cardValue: number = card.CardID//game.GameParmes.getCardID(card);//Math.floor(Math.random()*27)+1;
-			console.log("========cardVAlue:", cardValue)
+		
 			item.setCard(p, len, cardValue);
 			if (p == 2) {
 				g.addChildAt(item, len % 6 + nLevel * 18);
@@ -172,8 +172,9 @@ module game {
 				let g: eui.Group = this.findGroupByPosition(p);
 
 				const idx = g.numChildren - 1;
+				console.log("======REMOVE CARD IDX",idx,"group:",p)
 
-				let item: game.BasePoolCardUI = g.getChildAt(g.numChildren - 1) as game.BasePoolCardUI;
+				let item: game.BasePoolCardUI = g.getChildAt(idx) as game.BasePoolCardUI;
 				if (item.cardInfo.CardID == card.CardID) {
 					g.removeChildAt(idx);
 					item = null;

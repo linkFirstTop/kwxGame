@@ -84,7 +84,7 @@ module game {
 
 			this.addEventListener("UserLoseGame", this.onUserLoseGame, this);
 			this.gamePosition.addEventListener("OnTimeComplete", this.onTimeComplete, this);
-
+			this.duyi.text = `房间号:${0}`;
 			this.initGame();
 			this.initBtns();
 		}
@@ -200,8 +200,13 @@ module game {
 		private showGameInfo(): void {
 			this.gGameInfo.visible = true;
 			this.lbInfo.text = this.findRoomName() + " " + Global.strGameGUID;
-			this.duyi.text = '888';
+			
 		}
+		public showRoomGUID(guid:number){
+
+			this.duyi.text = `房间号:${guid}`;
+		}
+
 		public initPosition(): void {
 			this.gamePosition.setPosition();
 		}

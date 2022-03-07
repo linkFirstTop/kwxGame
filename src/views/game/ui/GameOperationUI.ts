@@ -159,9 +159,9 @@ module game {
 			// this.showCardGroups(arr);
 		}
 		private onTing(): void {
-			if(GameParmes.isHu == false){
-			
-				ViewManager.ins.gameView.gameUI.gameHand.showTingFlag(true,"ting");
+			if (GameParmes.isHu == false) {
+
+				ViewManager.ins.gameView.gameUI.gameHand.showTingFlag(true, "ting");
 			}
 		}
 		private onHu(): void {
@@ -169,31 +169,31 @@ module game {
 				this.dispatchEvent(new egret.Event("ShowTianHuFlag"));
 			} else {
 				const mj_opts = game.GamePlayData.GetMJ_Operation();
-			let mj_opt: room.MJ_Operation
-			mj_opts.forEach(e => {
-				if (e.operationType == CardsGroupType.MJ_OperationType.MJ_OT_WIN) {
-					mj_opt = e;
+				let mj_opt: room.MJ_Operation
+				mj_opts.forEach(e => {
+					if (e.operationType == CardsGroupType.MJ_OperationType.MJ_OT_WIN) {
+						mj_opt = e;
+					}
+				})
+
+				if (!mj_opt) {
+					return;
 				}
-			})
+				const opt: room.MJ_Operation = new room.MJ_Operation()
+				opt.operationType = mj_opt.operationType;//操作类型
+				opt.Tiles = [] //牌组  如果是出牌则数组中只有一张牌
+				//如果是吃、碰、杠、胡则以下值需要读取或者写入
+				opt.ObtainTile = mj_opt.ObtainTile //需要吃碰杠胡的那一张牌 
+				opt.ObtainSeat = mj_opt.ObtainSeat //被吃碰杠胡的那个人的座位号 
 
-			if (!mj_opt) {
-				return;
-			}
-			const opt: room.MJ_Operation = new room.MJ_Operation()
-			opt.operationType = mj_opt.operationType;//操作类型
-			opt.Tiles = [] //牌组  如果是出牌则数组中只有一张牌
-			//如果是吃、碰、杠、胡则以下值需要读取或者写入
-			opt.ObtainTile = mj_opt.ObtainTile //需要吃碰杠胡的那一张牌 
-			opt.ObtainSeat = mj_opt.ObtainSeat //被吃碰杠胡的那个人的座位号 
+				//如果是听，则以下值需要读取或写入
+				opt.tingTileInfo = [] //MJ_TingTileInfo /和牌信息
 
-			//如果是听，则以下值需要读取或写入
-			opt.tingTileInfo = [] //MJ_TingTileInfo /和牌信息
-
-			//如果是胡，则以下值需要读取或写入
-			opt.maxFan = 3 //最大番数 
-			//opt.fans = 3 // MJ_FanInfo 被吃碰杠胡的那个人的座位号 
-			opt.operationID = 3 //操作id
-			room.RoomWebSocket.instance().roomSender.REQ_USEROPERATIONREQ(opt)
+				//如果是胡，则以下值需要读取或写入
+				opt.maxFan = 3 //最大番数 
+				//opt.fans = 3 // MJ_FanInfo 被吃碰杠胡的那个人的座位号 
+				opt.operationID = 3 //操作id
+				room.RoomWebSocket.instance().roomSender.REQ_USEROPERATIONREQ(opt)
 
 				//game.GameWebSocket.instance().gameSender.ReqSendCardsGameFun(GamePlayData.Hu_Groups[0]);
 			}
@@ -273,11 +273,11 @@ module game {
 		}
 		private createHuCards(info: any): void {
 			//for (let i: number = 0; i < arr.length; i++) {
-				let item: game.BaseTingCardUI = new game.BaseTingCardUI();
-				this.gTingCards.addChild(item);
-				let cardNum: number = info.callTileCount //4 - GamePlayData.arrLPCards[arr[i].CardIndex + 1].length;
-				cardNum = cardNum > -1 ? cardNum : 0;
-				item.setInfo(info.callTile + 1, info.fans, cardNum);
+			let item: game.BaseTingCardUI = new game.BaseTingCardUI();
+			this.gTingCards.addChild(item);
+			let cardNum: number = info.callTileCount //4 - GamePlayData.arrLPCards[arr[i].CardIndex + 1].length;
+			cardNum = cardNum > -1 ? cardNum : 0;
+			item.setInfo(info.callTile + 1, info.fans, cardNum);
 			//}
 		}
 		private clearTingGroup(): void {
