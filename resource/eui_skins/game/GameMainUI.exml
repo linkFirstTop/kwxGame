@@ -19,6 +19,7 @@
 		<!--剩余牌-->
 		<e:Group x="10" y="74">
 			<e:Image source="gameCommbg_png"  width="209.905" height="61" alpha="0.6"  scale9Grid="166,80,72,13"/>
+			<e:Image source="cardLeft_png" x="1.644" y="-14.573"/>
 			<e:Label id="lbLeftCard" text="余牌:0"  verticalCenter="0.5" horizontalCenter="28" fontFamily="Microsoft YaHei"/>
 		</e:Group>
 	</e:Group>	

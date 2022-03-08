@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="GameResultOtherInfoSkin" width="436" height="150" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
 	<w:Config id="1710ac9d18b" ></w:Config>
-	<e:Group id="paiInfos" verticalCenter="23" x="160" width="1157.351" height="204.213">
+	<e:Group id="paiInfos" verticalCenter="23" x="160" width="1157.351" height="204.213" visible="true" locked="true">
 		<e:Label id="lbName0" text="清一色X99" width="170" verticalAlign="middle" textAlign="left" size="28" textColor="0x883F24" x="296" y="94.186"/>
 		<e:Label id="lbName1" text="自摸X2" width="170" verticalAlign="middle" textAlign="left" size="28" textColor="0x883F24" x="296" y="137.07"/>
 		<e:Label id="lbName2" text="暗杠X2" width="170" verticalAlign="middle" textAlign="left" size="28" textColor="0x883F24" x="296" y="179.126"/>
@@ -16,9 +16,9 @@
 		<e:Label id="lbName11" text="胜利的玩法" width="154" verticalAlign="middle" textAlign="left" size="28" textColor="0x883F24" x="914" y="179.126"/>
 	</e:Group>
 	<e:Group  verticalCenter="0" x="15" width="1301.359">
-		<e:Image id="imgHead" mask="{imgMask}" width="130" height="130" horizontalCenter="-587.6795" verticalCenter="14.5" smoothing="true" visible="true"/>
-		<e:Rect id="imgMask" ellipseWidth="130" ellipseHeight="130" fillColor="0x000000" width="130" height="130" horizontalCenter="-587.6795" verticalCenter="15.5" visible="true"/>
-		<e:Image width="140" height="140" source="gameHeadKuang_png" y="44.992" visible="true"/>
+		<e:Image id="imgHead" mask="{imgMask}" width="130" height="130" horizontalCenter="-577.6795" verticalCenter="4.5" smoothing="true" visible="true"/>
+		<e:Rect id="imgMask" ellipseWidth="130" ellipseHeight="130" fillColor="0x000000" width="130" height="130" horizontalCenter="-582.6795" verticalCenter="10.5" visible="true"/>
+		<e:Image width="140" height="140" source="gameHeadKuang_png" y="44.992" visible="true" x="-2"/>
 		<e:Image id="imgBank" x="87.031" y="39.898" source="resultSheet_json.resultZhuang_cn"/>
 		<e:Image id="imgPosition" y="43.992" x="-4" source="resultSheet_json.resultWest_cn"/>
 		<e:Label id="lbName" text="胜利的玩法" width="212" verticalAlign="middle" textAlign="left" size="34" x="218.181" y="57.181" textColor="0x813109"/>
