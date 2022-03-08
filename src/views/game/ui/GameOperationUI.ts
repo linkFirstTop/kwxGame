@@ -38,6 +38,7 @@ module game {
 			this.btnGuo.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onGuo, this);
 			this.gPGCards.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onPGGroupTap, this);
 		}
+
 		public initBtns(): void {
 			this.arrTmp = [];
 			this.btnPeng.visible = false;
@@ -49,6 +50,7 @@ module game {
 			this.gPGCards.visible = false;
 			this.gTingCards.visible = false;
 		}
+		
 		public showOpt(arr: Array<any>): void {
 			this.initBtns();
 			var isChi: boolean = arr[0];

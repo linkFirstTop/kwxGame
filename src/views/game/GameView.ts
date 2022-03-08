@@ -265,12 +265,7 @@ module game {
 				    game.GamePlayData.SaveChiPengGangHu(body);
 					GameParmes.gameTurn = GameTurnType.OTHERTURN;
 
-					//吃 碰 杠 胡 停
-					// if (GameParmes.isHu == false) {
-					// 	this.gameUI.gameHand.showTingFlag(true, "ting");
-					// }
-
-					this.gameUI.checkLPCards();
+					//this.gameUI.checkLPCards();
 					let arr: Array<any> = GamePlayData.GetChiPengGangHuGroup(CardsGroupType.CALL);
 					for (let i: number = 0; i < arr.length; i++) {
 						this.gameUI.arrCallCards.push(arr[i]);
@@ -402,9 +397,9 @@ module game {
 					ObtainCardSit: opt.ObtainSeat,
 					sit: nSit,
 					Cards: [
-						{ CardID: opt.ObtainTile ,Sit:nSit},
 						{ CardID: opt.ObtainTile, Sit:nSit},
-						{ CardID: opt.ObtainTile,Sit:nSit },
+						{ CardID: opt.ObtainTile, Sit:nSit},
+						{ CardID: opt.ObtainTile, Sit:nSit },
 						{ CardID: opt.ObtainTile ,Sit:nSit},
 					],
 				}
@@ -755,7 +750,7 @@ module game {
 			}
 			egret.setTimeout(function () {
 				this.gameUI.showAllHandCard(body);
-				this.gameResult.showResult(body);
+				//this.gameResult.showResult(body);
 			}, this, nTime);
 			ViewManager.ins.changeTimer(true);
 		}

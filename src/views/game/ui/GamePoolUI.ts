@@ -192,7 +192,7 @@ module game {
 					let item: BasePoolCardUI = g.getChildAt(j) as BasePoolCardUI;
 					if (item.cardInfo) {
 						let cardValue: number = GameParmes.getCardID(item.cardInfo);
-						if (cardValue > 0) {
+						if (cardValue >= 0) {
 							if (GamePlayData.arrLPCards[cardValue].indexOf(item.cardInfo.CardID) == -1) {
 								GamePlayData.arrLPCards[cardValue].push(item.cardInfo.CardID);
 							}

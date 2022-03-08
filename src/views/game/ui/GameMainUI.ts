@@ -430,7 +430,6 @@ module game {
 		public updataUserCPG(nSit: number, card: CardInfo): void {
 
 			let p: number = Global.getUserPosition(nSit);
-		
 
 			this.gameHand.updataHandsByPosition(p, 0,true);
 			this.gameHand.createCPGCard(nSit);

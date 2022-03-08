@@ -522,7 +522,7 @@ module game {
 						if (i == 3) {
 							item.setCard(p, (index * 4 + i), cardValue, isAnGang);
 						} else {
-							item.setCard(p, (index * 4 + i), 0, isAnGang);
+							item.setCard(p, (index * 4 + i), -1, isAnGang);
 						}
 						item.x = this.arrLAP[index][i].x;
 						item.y = this.arrLAP[index][i].y;
@@ -541,7 +541,7 @@ module game {
 							item.x = GameConfig.curWidth() - index * 140 - (i - 2) * 40 - 650;
 							item.y = 300;
 						} else {
-							item.setCard(p, index, 0, isAnGang);
+							item.setCard(p, index, -1, isAnGang);
 							item.x = GameConfig.curWidth() - index * 140 - i * 40 - 650;
 						}
 					} else {
@@ -563,7 +563,7 @@ module game {
 							item.setCard(p, (index * 4 + i), cardValue, isAnGang);
 						} else {
 							gItem.addChildAt(item, 0);
-							item.setCard(p, (index * 4 + i), 0, isAnGang);
+							item.setCard(p, (index * 4 + i), -1, isAnGang);
 						}
 						item.x = this.arrRAP[index][i].x;
 						item.y = this.arrRAP[index][i].y + 10;
@@ -587,7 +587,7 @@ module game {
 							item.x = 300 + index * 260 + (i - 2) * 70;
 							item.y = GameConfig.curHeight() - 120 - 20;
 						} else {
-							item.setCard(p, index, 0, isAnGang);
+							item.setCard(p, index, -1, isAnGang);
 							item.x = 300 + index * 260 + i * 70;
 						}
 					} else {
@@ -732,7 +732,7 @@ module game {
 				for (let i: number = 0; i < len; i++) {
 					let item: game.BaseHandCardUI = this.gHandCardD.getChildAt(i) as game.BaseHandCardUI;
 					for (let j: number = 0; j < arr.length; j++) {
-						if (item.cardIndex == arr[j].ObtainCardIndex + 1) {
+						if (item.cardIndex == arr[j].callTile ) {
 							item.setTingFlag(true, str);
 							break;
 						}

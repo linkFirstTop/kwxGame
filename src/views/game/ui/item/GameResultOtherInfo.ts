@@ -42,13 +42,11 @@ module game {
 			this.lbPiao.text = `飘${info.dapiao}分`
 			this.imgPao.visible = false;
 
-
-
 			this.imgLiang.visible = false;
 			let p = Global.getUserPosition(info.userPos.seatID)
 
 			const ImgSource = `result${this.getPosition(p)}_${Global.language}`
-			console.log("---ImgSource--", ImgSource);
+			//console.log("---ImgSource--", ImgSource);
 
 			this.imgPosition.source = ImgSource;
 			this.imgHead.source = Global.commURL + "head/iconHead" + Global.getHeadByName(info.userName) + ".png";
@@ -60,6 +58,11 @@ module game {
 			this.paiInfos.$children.forEach((e: eui.Label, i) => {
 				//console.log('=====EEE',e)
 				if (info.fan[i]) {
+					//飘分和杠是加或者减 其他的都是乘
+                    //
+					// if(info.fan[i].type == 20){
+
+					// }
 					e.text = CardsGroupType.FanTypeString[info.fan[i].type]
 					// if( info.fan[i].type == 20 ){
 					// 	this.imgLiang.visible = true;

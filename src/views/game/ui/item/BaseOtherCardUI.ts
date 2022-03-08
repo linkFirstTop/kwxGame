@@ -17,8 +17,10 @@ module game {
 			if (p == 2) {//左
 				if (isAnGang) {
 					this.imgBack.source = "SJAG_left_" + (index + 1);
+					if (value >= 0) {
+						this.imgCard.source = "cardValue" + value;
+					}
 
-					this.imgCard.source = "cardValue" + value;
 
 					this.imgCard.scaleX = this.imgCard.scaleY = 0.6 - 0.01 * (3 - index);
 					this.imgCard.verticalCenter = -8;
@@ -26,8 +28,10 @@ module game {
 					this.imgCard.skewY = 25;
 				} else {
 					this.imgBack.source = "SJPP_left_" + (index + 1);
+					if (value >= 0) {
+						this.imgCard.source = "cardValue" + value;
+					}
 
-					this.imgCard.source = "cardValue" + value;
 
 					this.imgCard.scaleX = this.imgCard.scaleY = 0.6 - 0.01 * (15 - index);
 					this.imgCard.verticalCenter = -8;
@@ -50,7 +54,10 @@ module game {
 				} else {
 					this.imgBack.source = "card_up_m1";
 
-					this.imgCard.source = "cardValue" + value;
+					if(value >= 0){
+						this.imgCard.source = "cardValue" + value; 
+					}
+					
 
 					this.imgCard.scaleX = -0.5;
 					this.imgCard.scaleY = -0.4;
@@ -63,7 +70,10 @@ module game {
 					this.imgBack.source = "SJAG_right_" + (index + 1);
 					this.imgBack.scaleX = -1;
 
-					this.imgCard.source = "cardValue" + value;
+					if(value >=0){
+						this.imgCard.source = "cardValue" + value;
+					}
+					
 
 					this.imgCard.scaleX = this.imgCard.scaleY = 0.6 - 0.01 * index;
 					this.imgCard.rotation = -90;
@@ -71,8 +81,9 @@ module game {
 					this.imgCard.verticalCenter = -8;
 				} else {
 					this.imgBack.source = "SJPP_right_" + (index + 1);
-
-					this.imgCard.source = "cardValue" + value;
+					if(value >= 0){
+						this.imgCard.source = "cardValue" + value;
+					}
 
 					this.imgCard.scaleX = this.imgCard.scaleY = 0.6 - 0.01 * index;
 					this.imgCard.rotation = -90;
@@ -95,7 +106,9 @@ module game {
 				} else {
 					this.imgBack.source = "card_down_a2";
 
-					this.imgCard.source = "cardValue" + value;
+					if(value >= 0){
+						this.imgCard.source = "cardValue" + value;
+					}
 
 					this.imgCard.scaleX = this.imgCard.scaleY = 0.8;
 					this.imgCard.verticalCenter = -12;
