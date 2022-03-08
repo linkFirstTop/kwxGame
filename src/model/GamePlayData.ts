@@ -55,6 +55,7 @@ module game {
 
 		public static MJ_Operation: Array<room.MJ_Operation> = [];
 		public static MJ_Mopai : boolean = false;
+		public static MJ_LiangArr : Array<number> = [] ;
 
 		/*初始化数据*/
 		public static initData(): void {
@@ -76,6 +77,7 @@ module game {
 			GamePlayData.arrLPCards = [];
 			GamePlayData.isAddHuanSanZhang = false;
 			GameParmes.nHuType = 0;
+			GamePlayData.MJ_LiangArr = [];
 		}
 
 		/**

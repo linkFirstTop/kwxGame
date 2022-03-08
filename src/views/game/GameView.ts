@@ -29,7 +29,7 @@ module game {
 				let gamezhuapai: GameZhuaPaiQiUI = new GameZhuaPaiQiUI();
 				this.addChild(gamezhuapai);
 			}
-			
+
 			GameParmes.gameTurn = GameTurnType.OTHERTURN;
 
 			this.addMEL();
@@ -44,15 +44,15 @@ module game {
 			GDGame.Msg.ins.addEventListener(GameMessage.ACK_GAMEPLAYERLIST, this.ACK_GAME_PLAYERLIST, this);
 			//游戏规则
 			GDGame.Msg.ins.addEventListener(GameMessage.ACK_GAMERULE, this.ACK_GAME_RULE, this);
-			//骰子、手牌消息
-			GDGame.Msg.ins.addEventListener(GameMessage.ACK_GAMEDICEANDCARDS, this.ACK_GAME_DICEANDCARDS, this);
+			// //骰子、手牌消息
+			// GDGame.Msg.ins.addEventListener(GameMessage.ACK_GAMEDICEANDCARDS, this.ACK_GAME_DICEANDCARDS, this);
 			//庄家准备开始出牌
 			//GDGame.Msg.ins.addEventListener(GameMessage.ACK_GAME_STARTPLAYING, this.ACK_GAME_STARTPLAYING, this);
 			//断线续玩
-			GDGame.Msg.ins.addEventListener(GameMessage.ACK_GAMECONTINUED, this.ACK_USER_CONTINUED, this);
+			//GDGame.Msg.ins.addEventListener(GameMessage.ACK_GAMECONTINUED, this.ACK_USER_CONTINUED, this);
 			//玩家出牌
 			//GDGame.Msg.ins.addEventListener(GameMessage.ACK_USER_SENDCARD, this.ACK_USER_SENDCARD, this);
-		
+
 			//服务器通知客户端 单次胡牌消息
 			//GDGame.Msg.ins.addEventListener(GameMessage.ACK_GAMERESULT, this.ACK_GAME_RESULT, this);
 			//游戏全部结束
@@ -120,10 +120,10 @@ module game {
 
 		}
 
-		private startDealCard(evt: egret.Event){
+		private startDealCard(evt: egret.Event) {
 			const body: any = evt.data;
 			this.gameUI.showRoomGUID(body.roundGuid);
-			this.gameUI.showWallCount( body["remainCount"])//
+			this.gameUI.showWallCount(body["remainCount"])//
 		}
 
 		/*
@@ -141,13 +141,6 @@ module game {
 			//this.gameUI.initHandCard();
 		}
 
-		/*
-		*骰子、手牌消息
-		*/
-		private ACK_GAME_DICEANDCARDS(): void {
-			console.log("===ACK_GAME_DICEANDCARDS==")
-			//this.gameUI.initHandCard();
-		}
 
 		//打漂应答
 		private ACK_USER_DAPIAO(evt: egret.Event) {
@@ -179,7 +172,7 @@ module game {
 			const nSit = body.seatid;
 			console.log(`>>需要操作的玩家的座位=${nSit}, 自己座位${Global.userSit}`,)
 
-		//	body.remainCount
+			//	body.remainCount
 
 			this.gameUI.startTime(body.second);
 			game.GamePlayData.M_C_P_G_sit = nSit;
@@ -189,7 +182,7 @@ module game {
 				// 其他人的操作通知
 				return;
 			}
-
+			GameParmes.isCurTing = false;
 			if (nSit != Global.userSit) {
 				//座位号 不是 自己
 				GameParmes.gameTurn = GameTurnType.OTHERTURN;
@@ -261,9 +254,10 @@ module game {
 				//听
 				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_TING) {
 					console.log("=====收到了 停的  操作请求 ==")
-					opt[4] = true;
-				    game.GamePlayData.SaveChiPengGangHu(body);
+					optArr[4] = true;
+					game.GamePlayData.SaveChiPengGangHu(body);
 					GameParmes.gameTurn = GameTurnType.OTHERTURN;
+					GameParmes.isCurTing = true;
 
 					//this.gameUI.checkLPCards();
 					let arr: Array<any> = GamePlayData.GetChiPengGangHuGroup(CardsGroupType.CALL);
@@ -300,7 +294,7 @@ module game {
 			//console.log("=== 行牌应答 这是玩家操作的seat:", body["seatID"])
 			const nSit = body["seatID"];
 			GameParmes.gameStage = GameStageType.PLAYING;
-			this.gameUI.showWallCount( body["remainCount"])//
+			this.gameUI.showWallCount(body["remainCount"])//
 
 			let p = Global.getUserPosition(nSit)
 			console.log(`****当前操作玩家座位号:${nSit}，和局部座位号:${p},玩家座位号：${Global.userSit}`)
@@ -313,13 +307,13 @@ module game {
 			//摸牌s
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_DRAW) {
 				// game.GamePlayData.SetCardsWallIndex("Head", 1);
-				
+
 				const card: CardInfo = new CardInfo();
 				card.CardID = opt.Tiles[0];
 				card.Sit = nSit;
 				//console.log("====MOPAI=====",card)
 				game.GamePlayData.MJ_Mopai = true;
-				game.GamePlayData.AddHandCards(nSit,card);
+				game.GamePlayData.AddHandCards(nSit, card);
 				this.gameUI.getOneCard(card);
 				//room.RoomWebSocket.instance().roomSender.REQ_MAGICTILES()
 			}
@@ -354,7 +348,7 @@ module game {
 				// if (handcardsNum % 3 != 1) {
 				// 	game.GamePlayData.ClearHandCards(game.GamePlayData.getHandCards(p), [card], nSit);
 				// }
-				
+
 				game.GamePlayData.ClearHandCards(game.GamePlayData.getHandCards(p), [card], nSit);
 				const Cards = [card];
 				game.GamePlayData.AddCardPool(Cards, nSit);
@@ -397,10 +391,10 @@ module game {
 					ObtainCardSit: opt.ObtainSeat,
 					sit: nSit,
 					Cards: [
-						{ CardID: opt.ObtainTile, Sit:nSit},
-						{ CardID: opt.ObtainTile, Sit:nSit},
-						{ CardID: opt.ObtainTile, Sit:nSit },
-						{ CardID: opt.ObtainTile ,Sit:nSit},
+						{ CardID: opt.ObtainTile, Sit: nSit },
+						{ CardID: opt.ObtainTile, Sit: nSit },
+						{ CardID: opt.ObtainTile, Sit: nSit },
+						{ CardID: opt.ObtainTile, Sit: nSit },
 					],
 				}
 				game.GamePlayData.SaveCurrentCard(0, -1);
@@ -419,13 +413,13 @@ module game {
 					ObtainCardSit: opt.ObtainSeat,
 					sit: nSit,
 					Cards: [
-						{ CardID: opt.ObtainTile ,Sit:nSit},
-						{ CardID: opt.ObtainTile, Sit:nSit},
-						{ CardID: opt.ObtainTile, Sit:nSit },
-						{ CardID: opt.ObtainTile ,Sit:nSit},
+						{ CardID: opt.ObtainTile, Sit: nSit },
+						{ CardID: opt.ObtainTile, Sit: nSit },
+						{ CardID: opt.ObtainTile, Sit: nSit },
+						{ CardID: opt.ObtainTile, Sit: nSit },
 					],
 				}
-				
+
 				game.GamePlayData.AddChiPengGangCards(body, nSit);
 
 				this.ON_USER_MINGGANGPAI(card, nSit, opt.ObtainSeat);
@@ -441,10 +435,10 @@ module game {
 					ObtainCardSit: opt.ObtainSeat,
 					sit: nSit,
 					Cards: [
-						{ CardID: opt.ObtainTile ,Sit:nSit},
-						{ CardID: opt.ObtainTile, Sit:nSit},
-						{ CardID: opt.ObtainTile, Sit:nSit },
-						{ CardID: opt.ObtainTile, Sit:nSit},
+						{ CardID: opt.ObtainTile, Sit: nSit },
+						{ CardID: opt.ObtainTile, Sit: nSit },
+						{ CardID: opt.ObtainTile, Sit: nSit },
+						{ CardID: opt.ObtainTile, Sit: nSit },
 					],
 				}
 				game.GamePlayData.AddChiPengGangCards(body, nSit);
@@ -474,17 +468,21 @@ module game {
 				this.gameUI.userSendCard(card, b);
 				SoundModel.playEffect(SoundModel.CHU);
 
+
+			//	GamePlayData.MJ_LiangArr.push(nSit);
+
+				//this.gameUI.gameHand.createLiangPai(nSit)
 			}
 
 			//和
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_WIN) {
 				console.log("===玩家 胡牌 了 =====")
-
+				this.checkHuInfo(opt, nSit);
 			}
+
 			//过
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_PASS) {
 				//this.gameUI.changeUserRight();
-
 			}
 			// this.gameUI.startTime(body.second);
 		}
@@ -540,13 +538,13 @@ module game {
 					{ CardID: data.ObtainTile, Sit: nSit },
 					{ CardID: data.ObtainTile, Sit: nSit },
 				],
-				DelCards:[
+				DelCards: [
 					{ CardID: data.ObtainTile, Sit: nSit },
 					{ CardID: data.ObtainTile, Sit: nSit },
 				]
 			}
 
-			if( nSit == data.ObtainSeat  ){
+			if (nSit == data.ObtainSeat) {
 				console.log("=====ADD DEL")
 				body.DelCards.push({ CardID: data.ObtainTile, Sit: nSit })
 			}
@@ -644,7 +642,7 @@ module game {
 			let body: game.HuResultAck = evt.data;
 			let arrScore: Array<number> = [0, 0, 0, 0];
 			for (let i: number = 0; i < body.hulist.length; i++) {
-				this.checkHuInfo(body.hulist[i]);
+				//this.checkHuInfo(body.hulist[i]);
 				for (let j: number = 0; j < body.hulist[i].huInfo.score_change.length; j++) {
 					arrScore[j] += body.hulist[i].huInfo.score_change[j];
 				}
@@ -654,42 +652,49 @@ module game {
 			}
 			this.gameUI.showCoinChange(arrScore);
 		}
-		private checkHuInfo(info: any): void {
+		private checkHuInfo(info: room.MJ_Operation, nSit: number): void {
+			//return ;
+			//info.
 			let str: string = "";
-			let arrFan: Array<number> = info.huInfo.fan_zhong;
-			if (arrFan && arrFan.length > 0) {//12杠上开花 13杠上炮(呼叫转移) 14抢杠胡
-				if (arrFan.indexOf(12) > -1) {
-					str = "gskh";
-				}
-				if (arrFan.indexOf(13) > -1) {
-					str = "hjzy";
-				}
-				if (arrFan.indexOf(14) > -1) {
-					str = "qgh";
-				}
-				if (str != "") {
-					this.gameUI.playAnim(str, info.seat);
-				}
+			const fan = info.fans[0]
+			//杠上开花		杠牌后，补张自摸
+			if (fan.type == 17) {
+				str = "gskh";
 			}
-			if (info.huInfo.type == 3) {//1刮风 2下雨 3自摸 4胡  5花猪  6大叫 7呼叫转移 8补杠 9退税
-				if (str == "") {
-					this.gameUI.playAnim("zm", info.seat);
-				}
+			//2		杠上炮		杠牌后，打出的牌其他玩家可以胡
+			if (fan.type == 18) {
+				str = "hjzy";
+			}
+	//2		抢杠胡		玩家听牌时，其他玩家补杠的牌正好是该玩家能胡的牌
+			if (fan.type == 18) {
+				str = "qgh";
+			}
+
+
+
+
+	//2		自摸
+			if (fan.type == 22) {
+				str = "sm";
 				SoundModel.playEffect(SoundModel.ZIMO);
 			}
-			if (info.huInfo.type == 4) {
+
+			this.gameUI.playAnim(str, nSit);
+
+			if (fan.type == 23) {
 				if (str == "") {
-					this.gameUI.playAnim("hu", info.seat);
+					this.gameUI.playAnim("hu", nSit);
 				}
-				this.gameUI.delPoolCard(info.huInfo.obtainsit);
+				this.gameUI.delPoolCard(info.ObtainSeat);
 				SoundModel.playEffect(SoundModel.HU);
 			}
-			if (info.seat == Global.userSit) {//自己胡牌
+
+			if (nSit == Global.userSit) {//自己胡牌
 				GameParmes.isHu = true;
 				this.gameUI.hideTingFlag();
 			}
 
-			this.gameUI.showHuCard(info.seat, info.huInfo.huCardID, info.huInfo.type);
+			this.gameUI.showHuCard(nSit, info.Tiles[0], fan.type);
 			GameParmes.nHuType = 0;//把天胡的标记重置，胡了一次后就没用了
 		}
 		/** 
@@ -697,14 +702,14 @@ module game {
 		 * 服务器通知客户端 全部结束
 		 */
 		private ACK_ALL_GAMERESULT(evt: egret.Event): void {
-			
+
 			let nTime: number = 1200;
 			let body: room.VGGameResultNtc = evt.data;
-			console.log("=!!!!SHOW RESULT=====",body)
+			console.log("=!!!!SHOW RESULT=====", body)
 			GameParmes.isGameFlower = false;
-			for(let i:number = 0;i < body.userInfos.length;i++){
-				const user =body.userInfos[i]
-				if(user.resultCoin > 0){//自己胡做下标记
+			for (let i: number = 0; i < body.userInfos.length; i++) {
+				const user = body.userInfos[i]
+				if (user.resultCoin > 0) {//自己胡做下标记
 					GameParmes.isGameFlower = false;
 					break;
 				}
@@ -718,14 +723,14 @@ module game {
 				}, this, 1200);
 				nTime = 2400;
 			}
-		
+
 
 			game.GamePlayData.SaveHandCarsd(body.userInfos);
 			GameParmes.gameTurn = GameTurnType.OTHERTURN;
 
 			let isAnim: boolean = false;
 			for (let i: number = 0; i < body.userInfos.length; i++) {
-				this.gameUI.updataUserCoin(body.userInfos[i].userPos.seatID, Number(body.userInfos[i].gameCoin) );
+				this.gameUI.updataUserCoin(body.userInfos[i].userPos.seatID, Number(body.userInfos[i].gameCoin));
 				// let arr: Array<any> = body.userInfos[i].result_list_detail;
 				// for (let j: number = 0; j < arr.length; j++) {
 				// 	let info: any = arr[j];
@@ -879,14 +884,14 @@ module game {
 			//游戏规则
 			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_GAMERULE, this.ACK_GAME_RULE, this);
 			//骰子、手牌消息
-			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_GAMEDICEANDCARDS, this.ACK_GAME_DICEANDCARDS, this);
+			//GDGame.Msg.ins.removeEventListener(GameMessage.ACK_GAMEDICEANDCARDS, this.ACK_GAME_DICEANDCARDS, this);
 			//庄家准备开始出牌
 			//GDGame.Msg.ins.removeEventListener(GameMessage.ACK_GAME_STARTPLAYING, this.ACK_GAME_STARTPLAYING, this);
 			//断线续玩
 			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_GAMECONTINUED, this.ACK_USER_CONTINUED, this);
 			//玩家出牌
 			//GDGame.Msg.ins.removeEventListener(GameMessage.ACK_USER_SENDCARD, this.ACK_USER_SENDCARD, this);
-			
+
 			//服务器通知客户端 单次胡牌消息
 			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_GAMERESULT, this.ACK_GAME_RESULT, this);
 			//游戏全部结束
@@ -906,7 +911,7 @@ module game {
 			//服务器通知客户端  碰牌
 			//GDGame.Msg.ins.removeEventListener(GameMessage.ACK_USER_PENGPAI, this.ACK_USER_PENGPAI, this);
 			//服务器通知客户端  明杠
-		//	GDGame.Msg.ins.removeEventListener(GameMessage.ACK_USER_MINGGANGPAI, this.ACK_USER_MINGGANGPAI, this);
+			//	GDGame.Msg.ins.removeEventListener(GameMessage.ACK_USER_MINGGANGPAI, this.ACK_USER_MINGGANGPAI, this);
 			//服务器通知客户端  暗杠
 			//GDGame.Msg.ins.removeEventListener(GameMessage.ACK_USER_ANGANGPAI, this.ACK_USER_ANGANGPAI, this);
 			//服务器通知客户端  补杠

@@ -56,17 +56,19 @@ module game {
 
 			//fan
 			this.paiInfos.$children.forEach((e: eui.Label, i) => {
-				//console.log('=====EEE',e)
+				//console.log('=====EEE',e)+
+			
 				if (info.fan[i]) {
+					const type = info.fan[i].type
 					//飘分和杠是加或者减 其他的都是乘
-                    //
-					// if(info.fan[i].type == 20){
+					const typs:any = [15,16,17,18,19,20];
 
-					// }
-					e.text = CardsGroupType.FanTypeString[info.fan[i].type]
-					// if( info.fan[i].type == 20 ){
-					// 	this.imgLiang.visible = true;
-					// }
+					let pre = "x"
+					if(typs.includes(type)){
+						pre = "+"
+					}
+					e.text = `${CardsGroupType.FanTypeString[type]}${pre}${info.fan[i].value}`
+			
 				} else {
 					e.text = "";
 				}

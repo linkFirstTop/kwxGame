@@ -339,15 +339,15 @@ module game {
 				this.gTingTip.visible = false;
 			}
 			if (arr[4]) {
-				if (GameParmes.isHu == false) {
-					this.gameHand.showTingFlag(true, "ting");
-				}
+				// if (GameParmes.isHu == false) {
+				// 	this.gameHand.showTingFlag(true, "ting");
+				// }
 
-				this.checkLPCards();
-				let arr: Array<any> = GamePlayData.GetChiPengGangHuGroup(CardsGroupType.CALL);
-				for (let i: number = 0; i < arr.length; i++) {
-					this.arrCallCards.push(arr[i]);
-				}
+				// this.checkLPCards();
+				// let arr: Array<any> = GamePlayData.GetChiPengGangHuGroup(CardsGroupType.CALL);
+				// for (let i: number = 0; i < arr.length; i++) {
+				// 	this.arrCallCards.push(arr[i]);
+				// }
 			}
 		}
 

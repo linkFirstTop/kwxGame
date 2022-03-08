@@ -20,6 +20,8 @@ module game {
 		 * 游戏轮
 		 * **/
 		 public static  gameTurn:number = 0;
+
+		 public static isCurTing : boolean = false;
 		/**
 		 * 第一个操作的玩家座位号
 		 * **/

@@ -50,7 +50,7 @@ module game {
 			this.gPGCards.visible = false;
 			this.gTingCards.visible = false;
 		}
-		
+
 		public showOpt(arr: Array<any>): void {
 			this.initBtns();
 			var isChi: boolean = arr[0];
@@ -72,8 +72,8 @@ module game {
 				this.btnPeng.visible = true;
 			}
 			if (isTing) {
-				//this.arrTmp.unshift(this.btnTing);
-				//this.btnTing.visible = true;
+				this.arrTmp.unshift(this.btnTing);
+				this.btnTing.visible = true;
 			}
 
 			if (this.arrTmp.length > 0) {
@@ -161,11 +161,17 @@ module game {
 			// this.showCardGroups(arr);
 		}
 		private onTing(): void {
+			// if(GameParmes.isCurTing ){
+			// 	this.btnTing.visible = false;
+			// }
+			console.log("GameParmes.isHu:", GameParmes.isHu)
 			if (GameParmes.isHu == false) {
 
 				ViewManager.ins.gameView.gameUI.gameHand.showTingFlag(true, "ting");
 			}
+			this.btnTing.visible = false;
 		}
+
 		private onHu(): void {
 			if (GameParmes.nHuType == 16) {//此时是天胡情况
 				this.dispatchEvent(new egret.Event("ShowTianHuFlag"));
@@ -202,9 +208,26 @@ module game {
 			this.initBtns();
 		}
 		private onGuo(): void {
+			if (this.btnTing.visible = true && GameParmes.isCurTing) {
+				this.initBtns();
+				this.sendGameNoOperation();
+				ViewManager.ins.gameView.gameUI.gameHand.showTingFlag(false, "ting");
+				return
+
+			}
+
+			if (GameParmes.isCurTing && this.btnTing.visible == false) {
+				this.btnTing.visible = true;
+				ViewManager.ins.gameView.gameUI.gameHand.showTingFlag(false, "ting");
+				return;
+			}
+
 			this.initBtns();
 			this.sendGameNoOperation();
+			ViewManager.ins.gameView.gameUI.gameHand.showTingFlag(false, "ting");
+
 		}
+
 		private sendGameNoOperation(): void {
 			// var cardsGroup:CardsGroupInfo = new CardsGroupInfo();
 			// cardsGroup.cardsit = Global.userSit;

@@ -12,9 +12,7 @@ module game {
 		private imgTitle:eui.Image;
 		private btnClose:BaseButton;
 		private btnContinue:BaseButton;
-		private lbName:eui.Label;
-		private lbCoin:eui.BitmapLabel;
-		private imgHead:eui.Image;
+
 		private gInfo:eui.Group;
 		private imgPosition:eui.Image;
 		private imgBank:eui.Image;
