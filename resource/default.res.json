@@ -9,7 +9,7 @@
 			"name": "room"
 		},
 		{
-			"keys": "gamebuttontap_mp3,8b_mp3,9b_mp3,blank_mp3,chi_mp3,cpgEffect_mp3,dice_mp3,gang_mp3,hu_mp3,lose_mp3,mjBgm_mp3,peng_mp3,sendCard_mp3,time_mp3,win_mp3,zhuapai_mp3,zimo_mp3,p9_mp3,p8_mp3,p7_mp3,p6_mp3,p5_mp3,p4_mp3,p3_mp3,p24_mp3,p23_mp3,p22_mp3,p21_mp3,p20_mp3,p2_mp3,p19_mp3,p18_mp3,p17_mp3,p16_mp3,p15_mp3,p14_mp3,p13_mp3,p12_mp3,p11_mp3,p10_mp3,p1_mp3,p0_mp3,p26_mp3,p25_mp3",
+			"keys": "gamebuttontap_mp3,blank_mp3,chi_mp3,cpgEffect_mp3,dice_mp3,gang_mp3,hu_mp3,lose_mp3,mjBgm_mp3,peng_mp3,sendCard_mp3,time_mp3,win_mp3,zhuapai_mp3,zimo_mp3,p9_mp3,p8_mp3,p7_mp3,p6_mp3,p5_mp3,p4_mp3,p3_mp3,p24_mp3,p23_mp3,p22_mp3,p21_mp3,p20_mp3,p2_mp3,p19_mp3,p18_mp3,p17_mp3,p16_mp3,p15_mp3,p14_mp3,p13_mp3,p12_mp3,p11_mp3,p10_mp3,p1_mp3,p0_mp3,p26_mp3,p25_mp3",
 			"name": "sound"
 		},
 		{
@@ -305,16 +305,6 @@
 			"url": "assets/font/loseCoinFnt.png",
 			"type": "image",
 			"name": "loseCoinFnt_png"
-		},
-		{
-			"url": "assets/sound/8b.mp3",
-			"type": "sound",
-			"name": "8b_mp3"
-		},
-		{
-			"url": "assets/sound/9b.mp3",
-			"type": "sound",
-			"name": "9b_mp3"
 		},
 		{
 			"url": "assets/sound/blank.mp3",
@@ -1487,6 +1477,11 @@
 			"url": "assets/sound/p26.mp3",
 			"type": "sound",
 			"name": "p26_mp3"
+		},
+		{
+			"url": "assets/game/cardLeft.png",
+			"type": "image",
+			"name": "cardLeft_png"
 		}
 	]
 }
