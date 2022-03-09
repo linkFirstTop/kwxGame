@@ -25,8 +25,8 @@ module game {
 
 			this.btnPeng.source = "gameBtns_json.btnPeng_" + Global.language;
 			this.btnGang.source = "gameBtns_json.btnKong_" + Global.language;
-			this.btnHu.source = "gameBtns_json.btnLiang_" + Global.language;
-			this.btnTing.source = "gameButton_ting_" + Global.language;
+			this.btnHu.source = "gameBtns_json.btnHu_" + Global.language;
+			this.btnTing.source = "gameBtns_json.btnLiang_" + Global.language;
 			this.btnGuo.source = "gameBtns_json.btnPass_" + Global.language;
 			this.imgIconHu.source = "gameBtns_json.btnHu_" + Global.language;
 
