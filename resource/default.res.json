@@ -426,19 +426,19 @@
 			"url": "assets/language/cn/game/gameSheet_cn.json",
 			"type": "sheet",
 			"name": "gameSheet_cn_json",
-			"subkeys": "gameButtonSure_cn,gameButton_cancelTrust_cn,gameButton_chi_cn,gameButton_gang_cn,gameButton_guo_cn,gameButton_hu_cn,gameButton_peng_cn,gameButton_tiao_cn,gameButton_ting_cn,gameButton_tong_cn,gameButton_wan_cn,gameHszTip1_cn,gameHszTip2_cn,gameIcon_continue_cn,gameIcon_dq_cn,gameIcon_hu_cn,gameIcon_lose_cn,gameIcon_th_cn,gameIcon_tianhu_cn,gameIcon_tiao_cn,gameIcon_ting_cn,gameIcon_tong_cn,gameIcon_tuoguan_cn,gameIcon_wait1_cn,gameIcon_wait_cn,gameIcon_wan_cn,gameIcon_xp_cn,gameIcon_zhuang_cn"
+			"subkeys": "gameButtonSure_cn,gameButton_cancelTrust_cn,gameButton_chi_cn,gameButton_gang_cn,gameButton_guo_cn,gameButton_hu_cn,gameButton_peng_cn,gameButton_tiao_cn,gameButton_ting_cn,gameButton_tong_cn,gameButton_wan_cn,gameHszTip1_cn,gameHszTip2_cn,gameIcon_continue_cn,gameIcon_dq_cn,gameIcon_hu_cn,gameIcon_lose_cn,gameIcon_th_cn,gameIcon_tianhu_cn,gameIcon_tiao_cn,gameIcon_ting_cn,gameIcon_tong_cn,gameIcon_tuoguan_cn,gameIcon_wait1_cn,gameIcon_wait_cn,gameIcon_wan_cn,gameIcon_xp_cn,gameIcon_zhuang_cn,imgPao_cn"
 		},
 		{
 			"url": "assets/language/en/game/gameSheet_en.json",
 			"type": "sheet",
 			"name": "gameSheet_en_json",
-			"subkeys": "gameButtonSure_en,gameButton_cancelTrust_en,gameButton_chi_en,gameButton_gang_en,gameButton_guo_en,gameButton_hu_en,gameButton_peng_en,gameButton_tiao_en,gameButton_ting_en,gameButton_tong_en,gameButton_wan_en,gameHszTip1_en,gameHszTip2_en,gameIcon_continue_en,gameIcon_dq_en,gameIcon_hu_en,gameIcon_lose_en,gameIcon_th_en,gameIcon_tianhu_en,gameIcon_tiao_en,gameIcon_ting_en,gameIcon_tong_en,gameIcon_tuoguan_en,gameIcon_wait1_en,gameIcon_wait_en,gameIcon_wan_en,gameIcon_xp_en,gameIcon_zhuang_en"
+			"subkeys": "gameButtonSure_en,gameButton_cancelTrust_en,gameButton_chi_en,gameButton_gang_en,gameButton_guo_en,gameButton_hu_en,gameButton_peng_en,gameButton_tiao_en,gameButton_ting_en,gameButton_tong_en,gameButton_wan_en,gameHszTip1_en,gameHszTip2_en,gameIcon_continue_en,gameIcon_dq_en,gameIcon_hu_en,gameIcon_lose_en,gameIcon_th_en,gameIcon_tianhu_en,gameIcon_tiao_en,gameIcon_ting_en,gameIcon_tong_en,gameIcon_tuoguan_en,gameIcon_wait1_en,gameIcon_wait_en,gameIcon_wan_en,gameIcon_xp_en,gameIcon_zhuang_en,imgPao_en"
 		},
 		{
 			"url": "assets/language/tc/game/gameSheet_tc.json",
 			"type": "sheet",
 			"name": "gameSheet_tc_json",
-			"subkeys": "gameButtonSure_tc,gameButton_cancelTrust_tc,gameButton_chi_tc,gameButton_gang_tc,gameButton_guo_tc,gameButton_hu_tc,gameButton_peng_tc,gameButton_tiao_tc,gameButton_ting_tc,gameButton_tong_tc,gameButton_wan_tc,gameHszTip1_tc,gameHszTip2_tc,gameIcon_continue_tc,gameIcon_dq_tc,gameIcon_hu_tc,gameIcon_lose_tc,gameIcon_th_tc,gameIcon_tianhu_tc,gameIcon_tiao_tc,gameIcon_ting_tc,gameIcon_tong_tc,gameIcon_tuoguan_tc,gameIcon_wait1_tc,gameIcon_wait_tc,gameIcon_wan_tc,gameIcon_xp_tc,gameIcon_zhuang_tc"
+			"subkeys": "gameButtonSure_tc,gameButton_cancelTrust_tc,gameButton_chi_tc,gameButton_gang_tc,gameButton_guo_tc,gameButton_hu_tc,gameButton_peng_tc,gameButton_tiao_tc,gameButton_ting_tc,gameButton_tong_tc,gameButton_wan_tc,gameHszTip1_tc,gameHszTip2_tc,gameIcon_continue_tc,gameIcon_dq_tc,gameIcon_hu_tc,gameIcon_lose_tc,gameIcon_th_tc,gameIcon_tianhu_tc,gameIcon_tiao_tc,gameIcon_ting_tc,gameIcon_tong_tc,gameIcon_tuoguan_tc,gameIcon_wait1_tc,gameIcon_wait_tc,gameIcon_wan_tc,gameIcon_xp_tc,gameIcon_zhuang_tc,imgPao_tc"
 		},
 		{
 			"url": "assets/language/cn/gameAnim/dj_cn_tex.png",
