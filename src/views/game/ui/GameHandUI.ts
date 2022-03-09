@@ -98,14 +98,10 @@ module game {
 		 */
 
 		public createLiangPai(nSit: number) {
+			console.log("=====")
 			//	this.updataHandsByPosition(nSit, state, isShow);
 			for (let j: number = 0; j < 3; j++) {
-				const show = GamePlayData.MJ_LiangArr.some((e => {
-					const p = Global.getUserPosition(e)
-					return p == j;
-				}))
-				let state = show ? 1 : 0;
-				this.updataHandsByPosition(j, state);
+				this.updataHandsByPosition(j, 0);
 			}
 		}
 
@@ -292,25 +288,10 @@ module game {
 			ghand.addChild(card);
 			let isQue: boolean = false;
 			let cardValue: number = info.CardID; //game.GameParmes.getCardID(info);
-			if (p == 0) {
-				if (cardValue > 0) {
-					let nHua: number = game.GameParmes.getHua(info);
-					// if (nHua == nQue) {
-					// 	isQue = true;
-					// }
-				}
-				//自动打牌
-				if (GameParmes.isHu || isQue) {
-					this.nAutoTime = egret.setTimeout(function () {
-						egret.clearTimeout(this.nAutoTime);
-						this.nAutoTime = -1;
-						GameController.ReqUserSendCard(info);
-					}, this, 1500);
-				}
-			}
 
 			card.setCard(p, 0, cardValue, 0, isQue);
 			if (p == 2) {
+				console.log("=====ONE CARD",this.arrLHP[0])
 				card.x = this.arrLHP[0].x;
 				card.y = this.arrLHP[0].y;
 				ghand.addChild(card);
@@ -328,6 +309,11 @@ module game {
 				card.cardInfo = info;
 				card.x = (ghand.numChildren - 1) * 90;
 				card.x += 10;
+
+				const isPao = GamePlayData.MJ_LiangOtherPais.some((e => {
+					return e.callTile == cardValue;
+				}))
+				card.setPaoFlag(isPao)
 			}
 		}
 
@@ -357,6 +343,14 @@ module game {
 		 */
 		public updataHandsByPosition(sit: number, state: number, isShow: boolean = true): void {
 			//console.log("===sit",sit)
+			if (state == 0) {
+				const show = GamePlayData.MJ_LiangSitArr.some((e => {
+					const p = Global.getUserPosition(e)
+					return p == sit;
+				}))
+				state = show ? 1 : 0;
+			}
+
 
 			let p: number = sit; //
 			let ghand: eui.Group = this.findHandGroup(p);
@@ -378,12 +372,7 @@ module game {
 				let info: CardInfo = arr[i];
 
 				let cardValue: number = info.CardID; //game.GameParmes.getCardID(info);
-				if (cardValue > 0) {
-					let nHua: number = game.GameParmes.getHua(info);
-					// if (nHua == nQue) {
-					// 	isQue = true;
-					// }
-				}
+		
 				let card: BaseHandCardUI = new BaseHandCardUI();
 				ghand.addChild(card);
 				card.visible = isShow;
@@ -391,6 +380,7 @@ module game {
 				if (p == 2) {
 					card.setCard(p, (i + index), cardValue, state, isQue);
 					if (state == 0) {//暗牌
+						// if(  )
 						//console.log("==i + index===",i + index,i)
 						card.x = this.arrLHP[i + index].x;
 						card.y = this.arrLHP[i + index].y;
@@ -422,7 +412,11 @@ module game {
 					ghand.addChild(card);
 				}
 				if (p == 0) {
-					card.setCard(p, (i + index), cardValue, state, isQue);
+					const isPao = GamePlayData.MJ_LiangOtherPais.some((e => {
+						return e.callTile == cardValue;
+					}))
+					card.setPaoFlag(isPao)
+					card.setCard(p, (i + index), cardValue, state, isPao);
 					card.cardInfo = info;
 					if (GameParmes.isHu) {
 						card.setMaskFlag(false);
@@ -430,6 +424,8 @@ module game {
 							card.setMaskFlag(true);
 						}
 					}
+
+		
 					card.x = i * 90;
 					if (i == len - 1 && index == 0) {
 						card.x += 10;
@@ -454,25 +450,7 @@ module game {
 				}
 			}
 		}
-		/*调整自己手牌位置 换三张后的显示*/
-		public adjustMyHandCard(): void {
-			for (let j: number = 0; j < GamePlayData.HSZUserChoose.length; j++) {
-				for (let i: number = 0; i < this.gHandCardD.numChildren; i++) {
-					let item: BaseHandCardUI = this.gHandCardD.getChildAt(i) as BaseHandCardUI;
-					if (GamePlayData.HSZUserChoose[j].CardID == item.cardInfo.CardID) {
-						this.gHandCardD.removeChild(item);
-						break;
-					}
-				}
-			}
-			for (let i: number = 0; i < this.gHandCardD.numChildren; i++) {
-				let item: BaseHandCardUI = this.gHandCardD.getChildAt(i) as BaseHandCardUI;
-				item.x = i * 90;
-				item.y = 0;
-			}
-			this.gHandCardD.y = GameConfig.curHeight() - this.gHandCardD.height;
-			this.gHandCardD.x = (GameConfig.curWidth() - this.gHandCardD.width) / 2;
-		}
+
 		/*创建全部玩家的吃碰杠数据*/
 		public createAllCPG(): void {
 			for (let i: number = 0; i < 4; i++) {
@@ -520,7 +498,11 @@ module game {
 				this.createCPGItem(nSit,i,null);
 			}*/
 		}
-		/*p 玩家位置 index 牌组索引*/
+
+		/** 
+		 * 这是吃 碰 杠后的牌
+		*p 玩家位置 index 牌组索引
+		*/
 		private createCPGItem(p: number, index: number, info: CardsGroupInfo): void {
 			let g: eui.Group = this.findOptGroup(p);
 			let isAnGang: boolean = false;
@@ -610,6 +592,7 @@ module game {
 							item.x = 300 + index * 260 + i * 70;
 						}
 					} else {
+
 						item.setCard(p, index, cardValue, isAnGang);
 						if (i == 3) {
 							item.x = 300 + index * 260 + (i - 2) * 70;
@@ -629,47 +612,82 @@ module game {
 		private onClickHandCard(evt: egret.Event): void {
 			let item: BaseHandCardUI = evt.data;
 
-		
+
 			if (GameParmes.gameTurn == GameTurnType.SELFTURN) {//出牌阶段
 				// 	this.dispatchEvent(new egret.Event("OnClickHandCard",true,true,this));
 				// }
+				
 
 				// if (GameParmes.gameStage == GameStageType.PLAYING) {//出牌阶段
 				if (this.currentCard == item) {
+					
 					if (game.GamePlayData.M_C_P_G_sit == Global.userSit) {
-						if (item.isHuFlag) {
-							this.dispatchEvent(new egret.Event("ShowTingTip", true, true, { "isShowTing": true, "index": item.cardIndex }));
-						} else {
-							this.dispatchEvent(new egret.Event("ShowTingTip", true, true, { "isShowTing": item.isTingFlag, "index": item.cardIndex }));
-						}
-
-						const cardInfo: CardInfo = new CardInfo();
-						cardInfo.CardID = item.cardInfo.CardID;
-						if (GameParmes.nHuType == 16 && item.isHuFlag) {//天胡处理
-							let info: CardsGroupInfo = GamePlayData.Hu_Groups[0];
-							info.obtainCard.CardID = item.cardInfo.CardID;
-							game.GameWebSocket.instance().gameSender.ReqSendCardsGameFun(info);
-						} else {
-							//GameController.ReqUserSendCard(cardInfo);
-							//MJ_Operation
-							const opt: room.MJ_Operation = new room.MJ_Operation()
-							//手切，打出的是手中的牌，吃碰之后都是手切  摸切，打出的是刚摸到的牌
-
-							// console.log("=======item.isMocard",item.isMoCard)
-							// console.log("=======item.isMocard ID",item.cardInfo.CardID)
-							if (item.isMoCard) {
-								opt.operationType = CardsGroupType.MJ_OperationType.MJ_OT_D_DISCARD;//摸切
-							} else {
-								opt.operationType = CardsGroupType.MJ_OperationType.MJ_OT_H_DISCARD;//操作类型
+						//判断是欧所有的牌都是 炮
+						let isAllPao = true;
+						const ln = this.gHandCardD.$children.length;
+						for(let i = 0; i<ln; i++){
+							let pai:any = this.gHandCardD.getChildAt(i);
+							if(pai.imgPao){
+								isAllPao = false;
+								break;
 							}
+							if( pai.imgPao && pai.imgPao.visible == false ){
+								isAllPao = false;
+								break;
+							}
+						}
+						if(  !isAllPao && item.imgPao && item.imgPao.visible){
+							// console.log("====is Pao===")
+							return;
+						}
+						// if (item.isHuFlag) {
+						// 	this.dispatchEvent(new egret.Event("ShowTingTip", true, true, { "isShowTing": true, "index": item.cardIndex }));
+						// } else {
+						// 	this.dispatchEvent(new egret.Event("ShowTingTip", true, true, { "isShowTing": item.isTingFlag, "index": item.cardIndex }));
+						// }
 
+						if (item.isTingFlag) {//显示要听的牌
+							// 抱听操作
+							
+							const cardInfo: CardInfo = new CardInfo();
+							cardInfo.CardID = item.cardInfo.CardID;
+
+							const opt: room.MJ_Operation = new room.MJ_Operation()
+							opt.operationType = CardsGroupType.MJ_OperationType.MJ_OT_TING;//摸切
 							opt.Tiles = [item.cardInfo.CardID] //牌组  如果是出牌则数组中只有一张牌
+							opt.tingTileInfo = [{
+								callTile: item.cardInfo.CardID,	//听哪张牌
+								// optional	int32		callTileCount	= 2;	//听的这张牌还有几张
+								// optional	int32		fans			= 3;	//和这张牌有几番s
+							}]
 							room.RoomWebSocket.instance().roomSender.REQ_USEROPERATIONREQ(opt)
 							if (this.nAutoTime > -1) {
 								egret.clearTimeout(this.nAutoTime);
 								this.nAutoTime = -1;
 							}
+							return;
 						}
+
+						const cardInfo: CardInfo = new CardInfo();
+						cardInfo.CardID = item.cardInfo.CardID;
+
+						const opt: room.MJ_Operation = new room.MJ_Operation()
+
+						if (item.isMoCard) {
+							opt.operationType = CardsGroupType.MJ_OperationType.MJ_OT_D_DISCARD;//摸切
+						} else {
+							opt.operationType = CardsGroupType.MJ_OperationType.MJ_OT_H_DISCARD;//操作类型
+						}
+
+
+
+						opt.Tiles = [item.cardInfo.CardID] //牌组  如果是出牌则数组中只有一张牌
+						room.RoomWebSocket.instance().roomSender.REQ_USEROPERATIONREQ(opt)
+						if (this.nAutoTime > -1) {
+							egret.clearTimeout(this.nAutoTime);
+							this.nAutoTime = -1;
+						}
+						//}
 					} else {
 						item.onSelectCard();
 						this.currentCard = null;

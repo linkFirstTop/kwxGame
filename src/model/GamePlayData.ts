@@ -55,7 +55,11 @@ module game {
 
 		public static MJ_Operation: Array<room.MJ_Operation> = [];
 		public static MJ_Mopai : boolean = false;
-		public static MJ_LiangArr : Array<number> = [] ;
+		/**
+		 * 也已经听的牌的座位号
+		 */
+		public static MJ_LiangSitArr : Array<number> = [] ;
+		public static MJ_LiangOtherPais: Array<room.MJ_TingTileInfo>  = [];
 
 		/*初始化数据*/
 		public static initData(): void {
@@ -77,7 +81,8 @@ module game {
 			GamePlayData.arrLPCards = [];
 			GamePlayData.isAddHuanSanZhang = false;
 			GameParmes.nHuType = 0;
-			GamePlayData.MJ_LiangArr = [];
+			GamePlayData.MJ_LiangSitArr = [];
+			GamePlayData.MJ_LiangOtherPais = [];
 		}
 
 		/**

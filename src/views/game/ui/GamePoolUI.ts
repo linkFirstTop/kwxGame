@@ -170,8 +170,12 @@ module game {
 			if (arr.length > 0) {
 				//let card: CardInfo = arr[arr.length - 1];
 				let g: eui.Group = this.findGroupByPosition(p);
+				let idx = g.numChildren - 1;
+				if(  p == 1 ){
+					idx = 0;
+				}
 
-				const idx = g.numChildren - 1;
+				
 				// console.log("======REMOVE CARD IDX",idx,"group:",p)
 
 				let item: game.BasePoolCardUI = g.getChildAt(idx) as game.BasePoolCardUI;

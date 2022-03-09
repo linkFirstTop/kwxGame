@@ -208,7 +208,8 @@ module game {
 			this.initBtns();
 		}
 		private onGuo(): void {
-			if (this.btnTing.visible = true && GameParmes.isCurTing) {
+			console.log("GameParmes.isCurTing:",GameParmes.isCurTing)
+			if (this.btnTing.visible == true && GameParmes.isCurTing) {
 				this.initBtns();
 				this.sendGameNoOperation();
 				ViewManager.ins.gameView.gameUI.gameHand.showTingFlag(false, "ting");

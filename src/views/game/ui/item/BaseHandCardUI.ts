@@ -13,6 +13,7 @@ module game {
 		private imgCard:eui.Image = new eui.Image();
 		private imgMask:eui.Image = new eui.Image();
 		private imgTip:eui.Image;
+		public imgPao : eui.Image
 		/*p:方位 index:牌的索引 value:牌值 state:0 暗牌 1亮牌 isDQ:是否定缺牌*/
 		public setCard(p:number,index:number,value:number,state:number,isDQ:boolean=false):void{
 			let g:eui.Group = new eui.Group();
@@ -68,9 +69,9 @@ module game {
 					this.isSelect = false;
 					this.isTingFlag = false;
 					this.isHuFlag = false;
-					if(isDQ){
-						this.setMaskFlag();
-					}
+					// if(isDQ){
+					// 	this.setMaskFlag();
+					// }
 				}else{
 					this.imgBack.source = "card_down_m1";
 					this.imgCard.scaleX = this.imgCard.scaleY = 0.9;
@@ -104,7 +105,7 @@ module game {
 			if(b){//显示听提示
 				if(this.imgTip == null){
 					this.imgTip = new eui.Image();
-					(this.getChildAt(0) as eui.Group).addChild(this.imgTip);
+					this.addChild(this.imgTip);
 					this.imgTip.x = 23;
 					this.imgTip.y = -60;
 				}else{
@@ -126,6 +127,30 @@ module game {
 					this.imgTip.visible = false;
 				}
 			}
+		}
+
+		public setPaoFlag(b:boolean,){
+			if(b){//显示听提示
+				if(this.imgPao == null){
+					console.log("=setPaoFlag==")
+					// let g:eui.Group = new eui.Group();
+			        //  this.addChild(g);
+					this.imgPao = new eui.Image();
+					this.addChild(this.imgPao);
+					this.imgPao.source = "imgPao_"+Global.language;
+					this.imgPao.x = 40;
+					this.imgPao.y = 19;
+				}else{
+					this.imgPao.visible = true;
+				}
+			}else{
+				// this.isTingFlag = false;
+				// this.isHuFlag = false;
+				if(this.imgPao){
+					this.imgPao.visible = false;
+				}
+			}
+
 		}
 		
 		public setMaskFlag(isEnabled:boolean=true):void{

@@ -68,7 +68,7 @@ module game {
 			this.addChild(this.gameOpt);
 			this.gameOpt.addEventListener("ShowTianHuFlag", this.onShowTHFlag, this);
 			this.addChild(this.gameHSZ);
-			this.gameHSZ.addEventListener("OnSendHSZCards", this.onSendHSZCards, this);
+			// this.gameHSZ.addEventListener("OnSendHSZCards", this.onSendHSZCards, this);
 			this.gameHSZ.addEventListener("OnHSZAnimComplete", this.onHSZAnimComplete, this);
 
 			this.addChild(this.gameTrust);
@@ -178,8 +178,8 @@ module game {
 			// console.log("***************************************")
 			for (let i: number = 0; i < len; i++) {
 				let user: game.GameUserInfo = game.GameUserList.arrUserList[i];
-				console.log(user.userName, user.userSit,Global.userSit)
-				let p: number = Global.getUserPosition(user.userSit) ;
+				console.log(user.userName, user.userSit, Global.userSit)
+				let p: number = Global.getUserPosition(user.userSit);
 				//console.log("=====PP", p)
 				this["gameUser" + p].setUserInfo(user);
 				this["gameUser" + p].visible = true;
@@ -200,9 +200,9 @@ module game {
 		private showGameInfo(): void {
 			this.gGameInfo.visible = true;
 			this.lbInfo.text = this.findRoomName() + " " + Global.strGameGUID;
-			
+
 		}
-		public showRoomGUID(guid:number){
+		public showRoomGUID(guid: number) {
 
 			this.duyi.text = `房间号:${guid}`;
 		}
@@ -214,22 +214,22 @@ module game {
 		public initHandCard(): void {
 			this.gameHand.createHandCard(false, 0);
 		}
-		public showWallCount(count : number  ): void {
+		public showWallCount(count: number): void {
 			if (Global.language == "en") {
 				//if (108 - GamePlayData.CardsWall_Head_Index - GamePlayData.CardsWall_Tail_Index > 0) {
-					this.lbLeftCard.text = "Rest " + (count);
+				this.lbLeftCard.text = "Rest " + (count);
 				//} else {
 				//	this.lbLeftCard.text = "Rest 0";
 				//}
 			} else if (Global.language == "tc") {
 				//if (108 - GamePlayData.CardsWall_Head_Index - GamePlayData.CardsWall_Tail_Index > 0) {
-					this.lbLeftCard.text = "餘牌:" + (count) + "张";
+				this.lbLeftCard.text = "餘牌:" + (count) + "张";
 				//} else {
-					//this.lbLeftCard.text = "餘牌:0" + "张";
+				//this.lbLeftCard.text = "餘牌:0" + "张";
 				//}
 			} else {
 				//if (108 - GamePlayData.CardsWall_Head_Index - GamePlayData.CardsWall_Tail_Index > 0) {
-					this.lbLeftCard.text = "余牌:" + (count) + "张";
+				this.lbLeftCard.text = "余牌:" + (count) + "张";
 				// } else {
 				// 	this.lbLeftCard.text = "余牌:0" + "张";
 				// }
@@ -250,7 +250,7 @@ module game {
 		// 		if (Global.userSit == user.userSit) {
 		// 			//重新排序自己的手牌
 		// 			GamePlayData.SortHandCardQue(user.CardID);
-				
+
 		// 			this.gameHand.updataHandsByPosition(p, 0, true);
 		// 		}
 		// 	}
@@ -275,10 +275,7 @@ module game {
 			//发送换三张结束
 			game.GameWebSocket.instance().gameSender.ReqHuanSanZhangEnd();
 		}
-		/*玩家点击了换三张的确定按钮*/
-		private onSendHSZCards(): void {
-			this.gameHand.adjustMyHandCard();
-		}
+
 		/*玩家出牌*/
 		public userSendCard(card: CardInfo, b: boolean): void {
 			this.gameOpt.visible = false;
@@ -286,34 +283,34 @@ module game {
 			let p: number = Global.getUserPosition(card.Sit);
 			this.gameHand.updataHandsByPosition(p, 0);
 			game.SoundModel.playCardSound(card);
-			let cardValue: number =  card.CardID //game.GameParmes.getCardID(card);
-			if (this.gTingTip.visible) {
-				for (let i: number = 0; i < this.gTingCards.numChildren; i++) {
-					let item: game.BaseTingCardUI = this.gTingCards.getChildAt(i) as game.BaseTingCardUI;
-					if (item.cardIndex == cardValue) {
-						item.updataLeftCard();
-					}
-				}
-			}
+			let cardValue: number = card.CardID //game.GameParmes.getCardID(card);
+			// if (this.gTingTip.visible) {
+			// 	for (let i: number = 0; i < this.gTingCards.numChildren; i++) {
+			// 		let item: game.BaseTingCardUI = this.gTingCards.getChildAt(i) as game.BaseTingCardUI;
+			// 		if (item.cardIndex == cardValue) {
+			// 			item.updataLeftCard();
+			// 		}
+			// 	}
+			// }
 			//处理托管出牌，没有显示听牌提示的问题
-		
-			if (p == 0) {
-				if (this.arrCallCards.length > 0) {//有听牌数组，托管
-					for (let i: number = 0; i < this.arrCallCards.length; i++) {//如果出牌在数组中，显示听牌提示
-						let info: any = this.arrCallCards[i];
-						if (info.ObtainCardIndex  == cardValue) {
-							this.imgTingTip.visible = true;
-							this.addChild(this.imgTingTip);
-							this.copyTingCards(info.callTile);
-							this.createHuCards(info.CallCards);
-							return;
-						}
-					}
-					//走到这里说明出的牌破坏了听牌状态
-					this.imgTingTip.visible = false;
-					this.gTingTip.visible = false;
-				}
-			}
+
+			// if (p == 0) {
+			// 	if (this.arrCallCards.length > 0) {//有听牌数组，托管
+			// 		for (let i: number = 0; i < this.arrCallCards.length; i++) {//如果出牌在数组中，显示听牌提示
+			// 			let info: any = this.arrCallCards[i];
+			// 			if (info.ObtainCardIndex == cardValue) {
+			// 				this.imgTingTip.visible = true;
+			// 				this.addChild(this.imgTingTip);
+			// 				this.copyTingCards(info.callTile);
+			// 				this.createHuCards(info.CallCards);
+			// 				return;
+			// 			}
+			// 		}
+			// 		//走到这里说明出的牌破坏了听牌状态
+			// 		this.imgTingTip.visible = false;
+			// 		this.gTingTip.visible = false;
+			// 	}
+			// }
 		}
 		/*显示吃碰杠等操作按钮*/
 		public onShowOpt(arr: Array<any>): void {
@@ -381,9 +378,9 @@ module game {
 		public getOneCard(card: CardInfo): void {
 			this.gameOpt.visible = false;
 			//this.showWallCount();
-		
+
 			this.gameHand.getOneCard(card);
-	
+
 			//this.changeUserRight();
 		}
 		public hideTingFlag(): void {
@@ -420,6 +417,7 @@ module game {
 				}
 			}
 		}
+
 		public delPoolCard(sit: number): void {
 			this.gamePool.playHuAnim(sit);//播放闪电动画,然后移除这张牌
 		}
@@ -431,11 +429,11 @@ module game {
 
 			let p: number = Global.getUserPosition(nSit);
 
-			this.gameHand.updataHandsByPosition(p, 0,true);
+			this.gameHand.updataHandsByPosition(p, 0, true);
 			this.gameHand.createCPGCard(nSit);
 			if (card.Sit != nSit) {//吃碰杠的牌的座位号和吃碰的人的座位号不等，牌池的牌消失
-				console.log("=====吃碰杠的牌的座位号和吃碰的人的座位号不等，牌池的牌消失",card.Sit)
-				this.gamePool.removeCardToPool(card.Sit,card );
+				console.log("=====吃碰杠的牌的座位号和吃碰的人的座位号不等，牌池的牌消失", card.Sit)
+				this.gamePool.removeCardToPool(card.Sit, card);
 			}
 			this.gamePosition.stopTime();
 			this.gamePosition.startTime(GameParmes.chiPengGangSurplusTime);
@@ -564,7 +562,7 @@ module game {
 		}
 		public changeUserRight(): void {
 			const nCurrent: number = game.GamePlayData.M_C_P_G_sit;//当前操作人的座位号
-	
+
 			this.gamePosition.setCurrentPosition(nCurrent);
 			let p: number = Global.getUserPosition(nCurrent);
 			for (let i: number = 0; i < 3; i++) {
@@ -594,32 +592,26 @@ module game {
 			}
 		}
 		/*显示听牌的灯泡提示*/
-		private onShowTingTip(evt: egret.Event): void {
+		public onShowTingTip(): void {
 			//"isShowTing":item.isTingFlag,"index":item.cardIndex
-			if (GameParmes.isHu) {
-				return;
-			}
-			let obj = evt.data;
-			this.imgTingTip.visible = obj.isShowTing;
-			if (this.imgTingTip.visible) {
-				this.showTingGroup(obj.index);
-				this.addChild(this.imgTingTip);
-			} else {
-				this.gTingTip.visible = false;
-				this.arrTingCards = [];
-			}
+			// if (GameParmes.isHu) {
+			// 	return;
+			// }
+			console.log("=======显示 听的 按钮")
+
+			this.imgTingTip.visible = true;
+			
+			this.showTingGroup();
+			this.addChild(this.imgTingTip);
+
 		}
 		/*显示待胡牌*/
-		private showTingGroup(nIndex: number): void {
+		private showTingGroup(): void {
 			let arr: Array<any> = GamePlayData.GetChiPengGangHuGroup(CardsGroupType.CALL);
-			for (let i: number = 0; i < arr.length; i++) {
-				let info: any = arr[i];
-				if (info.ObtainCardIndex + 1 == nIndex) {
-					this.copyTingCards(info.CallCards);
-					this.createHuCards(info.CallCards);
-					break;
-				}
-			}
+		
+			this.copyTingCards(arr);
+			this.createHuCards(arr);
+		
 		}
 		private copyTingCards(arr: Array<any>): void {
 			this.arrTingCards = [];
@@ -632,16 +624,21 @@ module game {
 				let item = this.gTingCards.removeChildAt(1);
 				item = null;
 			}
-			this.checkLPCards();
+			this.gTingTip.visible = true;
+		
 			for (let i: number = 0; i < arr.length; i++) {
 				let item: game.BaseTingCardUI = new game.BaseTingCardUI();
 				this.gTingCards.addChild(item);
-				let cardNum: number = 4 - GamePlayData.arrLPCards[arr[i].CardIndex + 1].length;
-				cardNum = cardNum > -1 ? cardNum : 0;
-				item.setInfo(arr[i].CardIndex + 1, arr[i].FanType, cardNum);
+				let info: room.MJ_TingTileInfo = arr[i];
+				console.log("-==create hu pai", info)
+				//if (info.ObtainCardIndex + 1 == nIndex) {
+				let cardNum = info.callTileCount;
+
+				item.setInfo(info.callTile, info.fans, cardNum);
 			}
 			this.gTingTip.width = this.gTingCards.width + 58;
 		}
+
 		private onTimeComplete(evt: egret.Event): void {
 			let str: string = evt.data;
 			if (str == "hsz") {//玩家未操作,帮他处理

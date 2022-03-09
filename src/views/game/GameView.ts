@@ -182,6 +182,7 @@ module game {
 				// 其他人的操作通知
 				return;
 			}
+
 			GameParmes.isCurTing = false;
 			if (nSit != Global.userSit) {
 				//座位号 不是 自己
@@ -264,6 +265,7 @@ module game {
 					for (let i: number = 0; i < arr.length; i++) {
 						this.gameUI.arrCallCards.push(arr[i]);
 					}
+					console.log("====arrCallCards:==",this.gameUI.arrCallCards);
 				}
 
 				//和
@@ -468,10 +470,17 @@ module game {
 				this.gameUI.userSendCard(card, b);
 				SoundModel.playEffect(SoundModel.CHU);
 
+				if( nSit != Global.userSit ){
+					opt.tingTileInfo.forEach((o:any)=>{
+						GamePlayData.MJ_LiangOtherPais.push(o)
+					})
+				}else{
+					this.gameUI.onShowTingTip()
+				}
 
-			//	GamePlayData.MJ_LiangArr.push(nSit);
+				GamePlayData.MJ_LiangSitArr.push(nSit);
 
-				//this.gameUI.gameHand.createLiangPai(nSit)
+				this.gameUI.gameHand.createLiangPai(nSit)
 			}
 
 			//和
@@ -545,7 +554,7 @@ module game {
 			}
 
 			if (nSit == data.ObtainSeat) {
-				console.log("=====ADD DEL")
+				// console.log("=====ADD DEL")
 				body.DelCards.push({ CardID: data.ObtainTile, Sit: nSit })
 			}
 
