@@ -61,6 +61,8 @@ module game {
 		public static MJ_LiangSitArr : Array<number> = [] ;
 		public static MJ_LiangOtherPais: Array<room.MJ_TingTileInfo>  = [];
 
+		public static MJ_selfTingarr : Array<room.MJ_TingTileInfo> =[]
+
 		/*初始化数据*/
 		public static initData(): void {
 			console.log('初始化数据');
@@ -83,6 +85,7 @@ module game {
 			GameParmes.nHuType = 0;
 			GamePlayData.MJ_LiangSitArr = [];
 			GamePlayData.MJ_LiangOtherPais = [];
+			GamePlayData.MJ_selfTingarr = [];
 		}
 
 		/**
@@ -333,7 +336,7 @@ module game {
 					handcards.pop();
 
 				}
-				console.log("====MAX", Max, handcards.length);
+
 			}
 		}
 		/**

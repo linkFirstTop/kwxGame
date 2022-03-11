@@ -130,8 +130,8 @@ module game {
 		*收到玩家列表
 		*/
 		private ACK_GAME_PLAYERLIST(): void {
-			console.log('同步游戏的数据');
-			this.gameUI.initUser();
+			 console.log('同步游戏的数据22222');
+			 this.gameUI.initUser();
 		}
 		/*
 		*收到游戏规则
@@ -146,6 +146,7 @@ module game {
 		private ACK_USER_DAPIAO(evt: egret.Event) {
 			const body: room.VGUserDapiaoAck = evt.data;
 
+			console.log("==ACK_USER_DAPIAO==",body)
 			if (body.userInfo) {
 				let seatid = body.userInfo.userPos.seatID;
 				let p = Global.getUserPosition(seatid);
@@ -265,7 +266,7 @@ module game {
 					for (let i: number = 0; i < arr.length; i++) {
 						this.gameUI.arrCallCards.push(arr[i]);
 					}
-					console.log("====arrCallCards:==",this.gameUI.arrCallCards);
+					//console.log("====arrCallCards:==",this.gameUI.arrCallCards);
 				}
 
 				//和
@@ -313,7 +314,7 @@ module game {
 				const card: CardInfo = new CardInfo();
 				card.CardID = opt.Tiles[0];
 				card.Sit = nSit;
-				//console.log("====MOPAI=====",card)
+				// console.log("====MOPAI=====",card)
 				game.GamePlayData.MJ_Mopai = true;
 				game.GamePlayData.AddHandCards(nSit, card);
 				this.gameUI.getOneCard(card);
@@ -357,7 +358,6 @@ module game {
 				if (nSit == Global.userSit) {
 					game.GamePlayData.SaveCurrentCard(0, -1);
 				}
-
 
 				const b: boolean = false;
 				this.gameUI.userSendCard(card, b);
@@ -454,7 +454,7 @@ module game {
 			//听
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_TING) {
 				//this.gameUI.onShowTHFlag();
-				console.log("=====收到了 停的  操作通知 ==")
+				//console.log("=====收到了 停的  操作通知 ==")
 				const card: CardInfo = new CardInfo();
 				card.CardID = opt.Tiles[0];
 				card.Sit = nSit;
@@ -475,6 +475,10 @@ module game {
 						GamePlayData.MJ_LiangOtherPais.push(o)
 					})
 				}else{
+					opt.tingTileInfo.forEach((o:any)=>{
+						GamePlayData.MJ_selfTingarr.push(o)
+					})
+				
 					this.gameUI.onShowTingTip()
 				}
 
@@ -679,9 +683,6 @@ module game {
 				str = "qgh";
 			}
 
-
-
-
 	//2		自摸
 			if (fan.type == 22) {
 				str = "sm";
@@ -703,7 +704,7 @@ module game {
 				this.gameUI.hideTingFlag();
 			}
 
-			this.gameUI.showHuCard(nSit, info.Tiles[0], fan.type);
+		//	this.gameUI.showHuCard(nSit, info.Tiles[0], fan.type);
 			GameParmes.nHuType = 0;//把天胡的标记重置，胡了一次后就没用了
 		}
 		/** 
@@ -714,7 +715,7 @@ module game {
 
 			let nTime: number = 1200;
 			let body: room.VGGameResultNtc = evt.data;
-			console.log("=!!!!SHOW RESULT=====", body)
+			//console.log("=!!!!SHOW RESULT=====", body)
 			GameParmes.isGameFlower = false;
 			for (let i: number = 0; i < body.userInfos.length; i++) {
 				const user = body.userInfos[i]
@@ -740,25 +741,8 @@ module game {
 			let isAnim: boolean = false;
 			for (let i: number = 0; i < body.userInfos.length; i++) {
 				this.gameUI.updataUserCoin(body.userInfos[i].userPos.seatID, Number(body.userInfos[i].gameCoin));
-				// let arr: Array<any> = body.userInfos[i].result_list_detail;
-				// for (let j: number = 0; j < arr.length; j++) {
-				// 	let info: any = arr[j];
-				// 	if (info.type == 5 && info.score < 0) {
-				// 		isAnim = true;
-				// 		egret.setTimeout(function () {
-				// 			this.gameUI.playAnim("hz", info.selfseat);
-				// 		}, this, 1200);
-				// 		break;
-				// 	}
-				// 	if (info.type == 6 && info.score < 0) {
-				// 		isAnim = true;
-				// 		egret.setTimeout(function () {
-				// 			this.gameUI.playAnim("dj", info.selfseat);
-				// 		}, this, 1200);
-				// 		break;
-				// 	}
-				// }
 			}
+
 			if (isAnim) {
 				nTime = 2400;
 			}

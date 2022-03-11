@@ -29,8 +29,8 @@ module room {
 				case RoomProtocol.ACK | RoomProtocol.VGID_USER_MANAGED://服务器通知客户端托管
 					this.ON_ACK_GAMEPLAYERTRUST(byte);
 					break;
-				// case RoomProtocol.ACK | RoomProtocol.OGID_CLIENT_LIST_ROOM_STARTGAME://广播快速开始游戏
-				// 	this.ON_ACK_START_GAME(byte);
+				case RoomProtocol.ACK | RoomProtocol.OGID_CLIENT_LIST_ROOM_STARTGAME://广播快速开始游戏
+					this.ON_ACK_START_GAME(byte);
 				// 	break;
 				case RoomProtocol.ACK | RoomProtocol.OGID_CLIENT_LIST_ROOM_UPDATECOIN://更新金币
 					this.OGID_ACK_ROOM_UPDATECOIN(byte);
@@ -72,13 +72,15 @@ module room {
 		}
 
 		//同步游戏
-		private VGID_ACK_GAME_SYNCGAMEDATA(byte: egret.ByteArray): void {
+		private (byte: egret.ByteArray): void {
+
 			var body: room.VGSyncGameDataNtc = room.VGSyncGameDataNtc.decode(byte.bytes);
 			game.GameUserList.saveUserListInfo(body.userInfos)
 			GDGame.Msg.ins.dispatchEventWith(game.GameMessage.ACK_GAMEPLAYERLIST, false, body);
 			game.RoomInfo.ins.ChangeStatus(Number(body.status), body.second);
-
-			console.log('同步游戏', body);
+			console.log('=====同步游戏======VGID_ACK_GAME_SYNCGAMEDATA');
+			console.log('=====同步游戏======', body);
+			console.log('=====同步游戏======VGID_ACK_GAME_SYNCGAMEDATA');
 		}
 
 		//游戏状态广播消息
@@ -132,6 +134,10 @@ module room {
 			GDGame.Msg.ins.dispatchEvent(new egret.Event(game.GameMessage.VGID_GAME_OPERATION, true, true, body));
 	
 			// console.log('行牌单播消息', body);
+		}
+
+		private VGID_ACK_GAME_SYNCGAMEDATA(byte:egret.ByteArray){
+			console.log("=VGID_ACK_GAME_SYNCGAMEDATA=")
 		}
 
 	    private	VGID_USER_OPERATION(byte: egret.ByteArray): void {
@@ -307,14 +313,16 @@ module room {
 			var body: room.VGSyncGameDataNtc = room.VGSyncGameDataNtc.decode(byte.bytes);
 			console.log('同步游戏数据', body);
 
-			GDGame.Msg.ins.dispatchEvent(new egret.Event(RoomMessage.ON_START_GAME, true, true, body));
+			game.GameUserList.saveUserListInfo(body.userInfos);
+			GDGame.Msg.ins.dispatchEvent(new egret.Event(game.GameMessage.ACK_GAMEPLAYERLIST,true,true));
+			// GDGame.Msg.ins.dispatchEvent(new egret.Event(RoomMessage.ON_START_GAME, true, true, body));
 			Global.myPos.tableGuid = body.roundGuid;
 			Global.myPos.roomID = body.roomID;
 			// Global.gameTicket = body.ticket;
 			// game.GameWebSocket.instance().connectServer();
 			game.GamePlayData.initData();
 			game.GameParmes.initData();
-			// this.gameMatch.stopAnim();
+			// this.gameMatch.stopAnim();+
 			if (Global.isContinue) {
 				ViewManager.ins.switchToGame();
 				ViewManager.ins.hideWait();
@@ -327,7 +335,7 @@ module room {
 		}
 		private OGID_ACK_ROOM_CONTINUE_GAME(byte: egret.ByteArray): void {
 			// var body: room.OGContinueGameAck = room.OGContinueGameAck.decode(byte.bytes);
-			// Global.log("收到断线续完返回:" + body.result);
+			 Global.log("收到断线续完返回:" );
 			// if (body.result != 0) {
 			// 	ViewManager.ins.hideWait();
 			// }
