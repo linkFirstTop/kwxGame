@@ -151,10 +151,10 @@ module game {
 		}
 
 		//花色
-		public static getHua(card:CardInfo):number
+		public static getColor(card:CardInfo):number
 		{
-			if(card.CardID==0)return -1;//牌背
-			var hua:number = ( card.CardID >> 8 ) & 0x0F;
+			if(card.CardID==-1)return -1;//牌背
+			const hua:number = ( card.CardID >> 8 ) & 0x0F;
 			return hua;
 		}
 		//牌值
@@ -164,15 +164,16 @@ module game {
 			var value:number = ( card.CardID >> 4 ) & 0x0F;
 			return value;
 		}
+		
 		public static  getCardID(card:CardInfo):number{
 			//对应的帧数
-			var pszType:Array<number>=[1 , 10 , 19];//["万" , "条" , "饼"];
-			var pszWind:Array<number>=[28, 30, 29, 31];//["东风", "南风", "西风", "北风"];
-			var pszJian:Array<number>=[32, 33, 34];//["红中", "绿发", "白板"]
-			var pszFlower:Array<number>=[35 , 36 , 37 , 38];//["梅" , "兰" , "竹" , "菊"]
-			var pszSeason:Array<number>=[39 , 40 , 41 , 42];//["春" , "夏" , "秋" , "冬"];
+			var pszType:Array<number>=[0 , 9 , 18];//["万" , "条" , "饼"];
+			var pszWind:Array<number>=[27, 28, 29, 30];//["东风", "南风", "西风", "北风"];
+			var pszJian:Array<number>=[31, 32, 33];//["红中", "绿发", "白板"]
+			var pszFlower:Array<number>=[34 , 35 , 36 , 37];//["梅" , "兰" , "竹" , "菊"]
+			var pszSeason:Array<number>=[38 , 39 , 40 , 41];//["春" , "夏" , "秋" , "冬"];
 			
-			var nColor:number = GameParmes.getHua(card) ;
+			var nColor:number = GameParmes.getColor(card) ;
 			var nValue:number  = GameParmes.getValue(card) ; 
 			// 根据花色、点数、ID号构造牌的名字
 			switch( nColor ){

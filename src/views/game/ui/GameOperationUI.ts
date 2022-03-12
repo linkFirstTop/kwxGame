@@ -208,7 +208,7 @@ module game {
 			this.initBtns();
 		}
 		private onGuo(): void {
-			console.log("GameParmes.isCurTing:",GameParmes.isCurTing)
+			console.log("GameParmes.isCurTing:", GameParmes.isCurTing)
 			if (this.btnTing.visible == true && GameParmes.isCurTing) {
 				this.initBtns();
 				this.sendGameNoOperation();
@@ -287,25 +287,29 @@ module game {
 		public showTingGroup(nCardID: number): void {
 			this.clearTingGroup();
 			this.visible = this.gCardBg.visible = this.gTingCards.visible = true;
-			let arr: Array<any> = GamePlayData.GetChiPengGangHuGroup(CardsGroupType.CALL);
+			let arr: Array<room.MJ_Operation> = GamePlayData.GetChiPengGangHuGroup(CardsGroupType.CALL);
 			for (let i: number = 0; i < arr.length; i++) {
-				let info: any = arr[i];
-				if (info.callTile == nCardID) {
+				let info: room.MJ_Operation = arr[i];
+				if (info.Tiles[0] == nCardID) {
 					this.createHuCards(info);
 					break;
 				}
 			}
 			this.gCardBg.width = this.gTingCards.width + 58;
 		}
-		private createHuCards(info: any): void {
-			//for (let i: number = 0; i < arr.length; i++) {
-			let item: game.BaseTingCardUI = new game.BaseTingCardUI();
-			this.gTingCards.addChild(item);
-			let cardNum: number = info.callTileCount //4 - GamePlayData.arrLPCards[arr[i].CardIndex + 1].length;
-			cardNum = cardNum > -1 ? cardNum : 0;
-			item.setInfo(info.callTile + 1, info.fans, cardNum);
-			//}
+
+		private createHuCards(info: room.MJ_Operation): void {
+			for (let i: number = 0; i < info.tingTileInfo.length; i++) {
+				let opt = info.tingTileInfo[i]
+
+				let item: game.BaseTingCardUI = new game.BaseTingCardUI();
+				this.gTingCards.addChild(item);
+				let cardNum: number = opt.callTileCount //4 - GamePlayData.arrLPCards[arr[i].CardIndex + 1].length;
+				cardNum = cardNum > -1 ? cardNum : 0;
+				item.setInfo(opt.callTile + 1, opt.fans, cardNum);
+			}
 		}
+
 		private clearTingGroup(): void {
 			while (this.gTingCards.numChildren > 1) {
 				let item = this.gTingCards.removeChildAt(1);

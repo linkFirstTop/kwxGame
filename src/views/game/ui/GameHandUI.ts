@@ -107,7 +107,7 @@ module game {
 		 */
 
 		public createLiangPai(nSit: number) {
-			console.log("=====")
+			//console.log("=====")
 			//	this.updataHandsByPosition(nSit, state, isShow);
 			for (let j: number = 0; j < 3; j++) {
 				this.updataHandsByPosition(j, 0);
@@ -610,8 +610,6 @@ module game {
 			if (GameParmes.gameTurn == GameTurnType.SELFTURN) {//出牌阶段
 				// 	this.dispatchEvent(new egret.Event("OnClickHandCard",true,true,this));
 				// }
-
-
 				// if (GameParmes.gameStage == GameStageType.PLAYING) {//出牌阶段
 				if (this.currentCard == item) {
 
@@ -726,7 +724,7 @@ module game {
 			var count:number = 0;
 			for(var i:number = 0;i < num;i++){
 				var card:CardInfo = arr[count];
-				if(GameParmes.getHua(card) == type){
+				if(GameParmes.getColor(card) == type){
 					arr.push(arr.splice(count,1)[0]);
 				}else{
 					count += 1;
@@ -738,12 +736,14 @@ module game {
 		public showTingFlag(flag: boolean, str: string): void {
 			let len: number = this.gHandCardD.numChildren;
 			if (flag) {
-				let arr: Array<any> = GamePlayData.GetChiPengGangHuGroup(CardsGroupType.CALL);
-				console.log("===Ting arr", arr)
+				let arr: Array<room.IMJ_Operation> = GamePlayData.GetChiPengGangHuGroup(CardsGroupType.CALL);
+				//console.log("===Ting arr", arr)
+
 				for (let i: number = 0; i < len; i++) {
 					let item: game.BaseHandCardUI = this.gHandCardD.getChildAt(i) as game.BaseHandCardUI;
 					for (let j: number = 0; j < arr.length; j++) {
-						if (item.cardIndex == arr[j].callTile) {
+						let opt  = arr[j];
+						if (item.cardIndex == opt.Tiles[0]) {
 							item.setTingFlag(true, str);
 							break;
 						}

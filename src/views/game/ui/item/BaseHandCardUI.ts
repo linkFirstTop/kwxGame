@@ -93,7 +93,7 @@ module game {
 		}
 
 		private onCardTap():void{
-			console.log("==GameParmes.gameStage==",GameParmes.gameStage)
+			//console.log("==GameParmes.gameStage==",GameParmes.gameStage)
 
 			if(GameParmes.gameTurn == GameTurnType.SELFTURN ){//出牌阶段
 				this.dispatchEvent(new egret.Event("OnClickHandCard",true,true,this));
