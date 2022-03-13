@@ -71,16 +71,19 @@ module room {
 			}
 		}
 
-		//同步游戏
+		同步游戏
 		private VGID_ACK_GAME_SYNCGAMEDATA(byte: egret.ByteArray): void {
-
+			console.log('=====同步游戏======', body);
 			var body: room.VGSyncGameDataNtc = room.VGSyncGameDataNtc.decode(byte.bytes);
 			game.GameUserList.saveUserListInfo(body.userInfos)
-			GDGame.Msg.ins.dispatchEventWith(game.GameMessage.ACK_GAMEPLAYERLIST, false, body);
-			game.RoomInfo.ins.ChangeStatus(Number(body.status), body.second);
-			console.log('=====同步游戏======VGID_ACK_GAME_SYNCGAMEDATA');
-			console.log('=====同步游戏======', body);
-			console.log('=====同步游戏======VGID_ACK_GAME_SYNCGAMEDATA');
+			game.GamePlayData.SaveHandCarsd(body.userInfos);
+
+
+			// GDGame.Msg.ins.dispatchEventWith(game.GameMessage.ACK_GAMEPLAYERLIST, false, body);
+			// game.RoomInfo.ins.ChangeStatus(Number(body.status), body.second);
+			// console.log('=====同步游戏======VGID_ACK_GAME_SYNCGAMEDATA');
+			
+			// console.log('=====同步游戏======VGID_ACK_GAME_SYNCGAMEDATA');
 		}
 
 		//游戏状态广播消息
@@ -329,9 +332,9 @@ module room {
 		}
 
 		private ON_ACK_START_GAME(byte: egret.ByteArray): void {
-			Global.log("同步游戏数据");
+			Global.log("游戏开发消息");
 			var body: room.VGSyncGameDataNtc = room.VGSyncGameDataNtc.decode(byte.bytes);
-			console.log('同步游戏数据', body);
+			console.log('游戏开发消息', body);
 
 			game.GameUserList.saveUserListInfo(body.userInfos);
 			GDGame.Msg.ins.dispatchEvent(new egret.Event(game.GameMessage.ACK_GAMEPLAYERLIST,true,true));
@@ -340,6 +343,8 @@ module room {
 			Global.myPos.roomID = body.roomID;
 			// Global.gameTicket = body.ticket;
 			// game.GameWebSocket.instance().connectServer();
+
+			game.GamePlayData.SaveHandCarsd(body.userInfos);
 			game.GamePlayData.initData();
 			game.GameParmes.initData();
 			// this.gameMatch.stopAnim();+

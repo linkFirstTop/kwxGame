@@ -40,7 +40,7 @@ module game {
 			//游戏阶段
 			GDGame.Msg.ins.addEventListener(GameMessage.ACK_GAMESTAGE, this.onGameStage, this);
 			//玩家列表
-			console.log('查看玩家列表', GameMessage.ACK_GAMEPLAYERLIST);
+		
 			GDGame.Msg.ins.addEventListener(GameMessage.ACK_GAMEPLAYERLIST, this.ACK_GAME_PLAYERLIST, this);
 			//游戏规则
 			GDGame.Msg.ins.addEventListener(GameMessage.ACK_GAMERULE, this.ACK_GAME_RULE, this);
@@ -146,7 +146,7 @@ module game {
 		private ACK_USER_DAPIAO(evt: egret.Event) {
 			const body: room.VGUserDapiaoAck = evt.data;
 
-			console.log("==ACK_USER_DAPIAO==",body)
+			//console.log("==ACK_USER_DAPIAO==",body)
 			if (body.userInfo) {
 				let seatid = body.userInfo.userPos.seatID;
 				let p = Global.getUserPosition(seatid);
