@@ -33,7 +33,7 @@ module game {
 		//胡牌
 		public static Hu_Groups: Array<CardsGroupInfo> = [];
 
-		public static Call_Groups: Array<any> = [];
+		public static Call_Groups: Array<room.MJ_Operation> = [];
 
 		//服务器的推荐换三张与玩家选择
 		public static HSZRecommend: Array<CardInfo> = [];
@@ -273,7 +273,7 @@ module game {
 					//处理手牌
 					for (var i: number = 0; i < otherCards.length; i++) {
 						if (otherCards[i].CardsGroupType == CardsGroupType.PENG) {
-							if (game.GameParmes.getHua(otherCards[i].cards[0]) == game.GameParmes.getHua(group.obtainCard) && game.GameParmes.getValue(otherCards[i].cards[0]) == game.GameParmes.getValue(group.obtainCard)) {
+							if (game.GameParmes.getColor(otherCards[i].cards[0]) == game.GameParmes.getColor(group.obtainCard) && game.GameParmes.getValue(otherCards[i].cards[0]) == game.GameParmes.getValue(group.obtainCard)) {
 								//手中是碰  自摸杠 
 								otherCards[i].CardsGroupType = CardsGroupType.BUGANG;
 								otherCards[i].cards.push(group.obtainCard);
@@ -397,11 +397,7 @@ module game {
 				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_TING) {
 					//console.log("==**===BAOCUN TING==**===")
 					//game.GamePlayData.SaveChiPengGangHu(body);
-					this.Call_Groups.length = 0;
-					for (var i: number = 0; i < opt.tingTileInfo.length; i++) {
-						const cardgroup: any = opt.tingTileInfo[i];
-						this.Call_Groups.push(cardgroup);
-					}
+					this.Call_Groups.push(opt);
 				}
 				//和
 				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_WIN) {
@@ -489,17 +485,15 @@ module game {
 			}
 		}
 		public static getHandCards(sit: number): Array<CardInfo> {
-
-
 			let arr: Array<CardInfo> = game.GamePlayData.handCardsArr[sit];
 			if (sit == 0) {
 				arr = this.SortCards(arr);
 			}
 			return arr;
-
 			// let arr: Array<CardInfo> = game.GamePlayData.arrHandCards[sit];
 			// return arr;
 		}
+		
 		public static getOtherCards(sit: number): Array<CardsGroupInfo> {
 			let arr: Array<CardsGroupInfo> = game.GamePlayData.arrOtherCards[sit];
 			return arr;
@@ -521,11 +515,11 @@ module game {
 			// var count: number = 0;
 			// for (var i: number = 0; i < num; i++) {
 			// 	var card: CardInfo = arr[count];
-			// 	if (GameParmes.getHua(card) == type) {
+			// 	if (GameParmes.getColor(card) == type) {
 			// 		arr.push(arr.splice(count, 1)[0]);
 			// 	} else {
 			// 		count += 1;
-			// 	}
+			// 	}s
 			// }
 		}
 		/**

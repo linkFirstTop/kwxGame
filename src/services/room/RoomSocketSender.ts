@@ -42,17 +42,9 @@ module room {
 					seatID: 0
 				}
 			});
-			// data.sUserName = Global.userName;
-			// data.RoomID = RoomID;
-			// let data = {
-			// 	userName:Global.userName,
-			// 	userPos:{
-			// 		roomID:RoomID,
-			// 		tableID:'',
-			// 		seatID:''
-			// 	}
-			// }
+	
 			// data.tableGuid = "";
+			console.log("----坐下请求------");
 			let body = room.VGSitDownReq.encode(data).finish();
 			Global.log("客户端发送请求进入房间" + RoomID, data);
 			room.RoomWebSocket.instance().SendMeseage(RoomProtocol.REQ | RoomProtocol.OGID_CLIENT_LIST_ROOM_ENTERROOM, body);

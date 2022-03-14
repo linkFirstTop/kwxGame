@@ -620,25 +620,12 @@ module game {
 		private showTingGroup(): void {
 			let arr: Array<any> = GamePlayData.MJ_selfTingarr;;
 			console.log("==showTingGroup=arr",arr)
-			// if(!arr){
-				// arr =[ 
-				// 	{
-				// 		callTile		: 1,	//听哪张牌
-				// 		callTileCount	: 2,	//听的这张牌还有几张
-				// 		fans			: 3,	//和这张牌有几番
-				// 	},
-				// 	{
-				// 		callTile		: 2,	//听哪张牌
-				// 		callTileCount	: 1,	//听的这张牌还有几张
-				// 		fans			: 3,	//和这张牌有几番
-				// 	}
-				// ]
-			// }
 		
 			this.copyTingCards(arr);
 			this.createHuCards(arr);
 		
 		}
+		
 		private copyTingCards(arr: Array<any>): void {
 			this.arrTingCards = [];
 			for (let i: number = 0; i < arr.length; i++) {
