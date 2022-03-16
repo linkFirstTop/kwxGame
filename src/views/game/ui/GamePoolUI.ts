@@ -60,7 +60,7 @@ module game {
 		 * 还原牌池里的牌
 		 */
 		public reductionCardsPool(): void {
-			for (var i: number = 0; i < 4; i++) {
+			for (var i: number = 0; i < 3; i++) {
 				var arrCards: Array<CardInfo> = GamePlayData.getCardsPool(i);
 				var num: number = arrCards.length;
 				for (var j: number = 0; j < num; j++) {

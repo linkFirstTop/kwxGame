@@ -125,9 +125,6 @@ module game {
 			return this.MJ_Operation || [];
 		}
 
-
-
-
 		/**∂
 		 * 根据发牌数据创建手牌
 		 * */
@@ -135,6 +132,8 @@ module game {
 			game.GamePlayData.handCardsArr = null;
 			//game.GamePlayData.handCardsArr = [];
 			const array = [[], [], []];
+
+
 			arr.forEach((e, i) => {
 				const tiles = [...e.tileSets[0].Tiles];
 				const arrTmp = [];
@@ -148,34 +147,20 @@ module game {
 				}
 
 				let p = Global.getUserPosition(e.userPos.seatID)
-				array[p] = arrTmp
+				array[p] = arrTmp;
+				
+
+
 			})
 			game.GamePlayData.handCardsArr = array;
+		
 			// console.log("根据发牌数据创建手牌&&&&&&&&&&&&")
 			// console.log("根据发牌数据创建手牌", game.GamePlayData.handCardsArr)
 			// console.log("根据发牌数据创建手牌&&&&&&&&&&&&")
 
 		}
 
-		// public static SaveHandCarsd(arr:Array<CardInfo>):void
-		// {
-		// 	for(let i:number=0;i<4;i++){
-		// 		let arrTmp:Array<CardInfo> = [];
-		// 		if(i==Global.userSit){
-		// 			arrTmp = arr
-		// 		}else{
-		// 			let cardsLength:number = 13;
-		// 			if(i==game.GameParmes.firstSit)cardsLength = 14;
-		// 			for(let j:number = 0;j < cardsLength;j++){
-		// 				let card:CardInfo = new CardInfo();
-		// 				card.CardID = 0;
-		// 				card.Sit = i;
-		// 				arrTmp.push(card);
-		// 			}
-		// 		}
-		// 		game.GamePlayData.arrHandCards.push(arrTmp);
-		// 	}
-		// }
+
 
 
 		/*结算重新赋值手牌数据*/
@@ -273,7 +258,7 @@ module game {
 					//处理手牌
 					for (var i: number = 0; i < otherCards.length; i++) {
 						if (otherCards[i].CardsGroupType == CardsGroupType.PENG) {
-							if (game.GameParmes.getColor(otherCards[i].cards[0]) == game.GameParmes.getColor(group.obtainCard) && game.GameParmes.getValue(otherCards[i].cards[0]) == game.GameParmes.getValue(group.obtainCard)) {
+							if ( otherCards[i].cards[0].CardID ==group.obtainCard.CardID) {
 								//手中是碰  自摸杠 
 								otherCards[i].CardsGroupType = CardsGroupType.BUGANG;
 								otherCards[i].cards.push(group.obtainCard);
@@ -307,7 +292,8 @@ module game {
 		 * 1  CardsGroup.Cards
 		 * */
 		public static ClearHandCards(handcards: Array<CardInfo>, cards: Array<CardInfo>, sit: number): void {
-			// console.log("====ClearHandCardsS== ", handcards);
+			//  console.log("====ClearHandCardsS== ", handcards,cards);
+			if(!cards){return}
 		
 			if (sit == Global.userSit) {
 				this.Chi_Groups.length = 0;
@@ -508,20 +494,7 @@ module game {
 		public static DelectCardPool(cardpool: Array<CardInfo>): void {
 			cardpool.pop();
 		}
-		/*根据定缺重新排序手牌*/
-		public static SortHandCardQue(type: number): void {
-			// let arr: Array<CardInfo> = GamePlayData.getHandCards(Global.userSit);
-			// let num: number = arr.length;
-			// var count: number = 0;
-			// for (var i: number = 0; i < num; i++) {
-			// 	var card: CardInfo = arr[count];
-			// 	if (GameParmes.getColor(card) == type) {
-			// 		arr.push(arr.splice(count, 1)[0]);
-			// 	} else {
-			// 		count += 1;
-			// 	}s
-			// }
-		}
+
 		/**
 		 * 排序手牌（必须是自己的手牌）
 		 * */
@@ -531,6 +504,10 @@ module game {
 			arrCards = this.SortCards(arrCards);
 		}
 		public static SortCards(arr: Array<CardInfo>): Array<CardInfo> {
+			// console.log("======= Sort arr",arr)
+			if(!arr){
+				return [];
+			}
 			for (var x: number = 0; x < arr.length - 1; x++) {
 				for (var y: number = x + 1; y < arr.length; y++) {
 					if (arr[x].CardID > arr[y].CardID) {

@@ -94,14 +94,8 @@ module room {
 		 *请求进入GameID创建的游戏服务
 			*/
 			public static  REQ_ENTERGAME:string = RoomMessage.GAME_BASE+"REQ_ENTERGAME";
-			/**
-			 *返回进入游戏服务的结果
-				*/
-			public static  ACK_ENTERGAME:string = RoomMessage.GAME_BASE+"ACK_ENTERGAME";
-			/**
-			 *请求游戏服务准备状态
-				*/
-			public static  REQ_READYGAME:string = RoomMessage.GAME_BASE+"REQ_READYGAME";
+	
+	
 			/**
 			 *返回游戏未开时突然结束的广播消息
 				*/
@@ -110,10 +104,15 @@ module room {
 			 *下发游戏阶段消息
 				*/
 			public static  ACK_GAMESTAGE:string = RoomMessage.GAME_BASE+"ACK_GAMESTAGE";
+
 			/**
-			 *下发游戏玩家列表
+		 *下发游戏玩家列表
+			*/
+		public static ACK_GAMEPLAYERLIST: string = RoomMessage.GAME_BASE + "ACK_GAMEPLAYERLIST";
+			/**
+			 *
 				*/
-			public static  ACK_GAMEPLAYERLIST:string = RoomMessage.GAME_BASE+"ACK_GAMEPLAYERLIST";
+			public static  ACK_ENTER_TABLE:string = RoomMessage.GAME_BASE+"ACK_ENTER_TABLE";
 			/**
 			 *下发游戏规则
 				*/
@@ -155,14 +154,12 @@ module room {
 			 *服务器通知客户端托管
 				*/
 			public static  ACK_GAMEPLAYERTRUST:string = RoomMessage.GAME_BASE+"ACK_GAMEPLAYERTRUST";
-			/**
-			 *客户端请求服务器解除托管
-				*/
-			public static  REQ_GAMEPLAYERRELIEVETRUST:string = RoomMessage.GAME_BASE+"REQ_GAMEPLAYERRELIEVETRUST";
-			/**
-			 *服务器通知客户端解除托管
-				*/
-			public static  ACK_GAMEPLAYERRELIEVETRUST:string = RoomMessage.GAME_BASE+"ACK_GAMEPLAYERRELIEVETRUST";
+	
+	/**
+		 *断线重联后 继续游戏
+			*/
+			public static ACK_GAME_CONTINUE: string = RoomMessage.GAME_BASE + "ACK_GAME_CONTINUE";
+	
 			/**
 			 *客户端请求服务器延时操作
 				*/
@@ -171,11 +168,7 @@ module room {
 			 *服务器通知客户端延时操作
 				*/
 			public static  ACK_GAMEDELAY:string = RoomMessage.GAME_BASE+"ACK_GAMEDELAY";
-			/**
-			 *断线续完同步消息 发完玩家列表和规则后下发此消息
-				*/
-			public static  ACK_GAMECONTINUED:string = RoomMessage.GAME_BASE+"ACK_GAMECONTINUED";
-			
+	
 			/**
 			 *广播聊天
 			*/

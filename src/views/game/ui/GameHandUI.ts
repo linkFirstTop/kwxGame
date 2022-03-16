@@ -303,7 +303,6 @@ module game {
 				}))
 				card.setPaoFlag(isPao)
 			}
-
 		}
 
 		/*停止自动出牌*/
@@ -314,8 +313,11 @@ module game {
 			}
 		}
 		private copyHandCard(arrTmp: Array<CardInfo>): Array<CardInfo> {
+			if(!arrTmp){
+				return
+			}
 
-			//console.log("=arrTmp==",arrTmp)
+			// console.log("=arrTmp==",arrTmp)
 			let arr: Array<CardInfo> = [];
 			for (let i: number = 0; i < arrTmp.length; i++) {
 				let card: CardInfo = new CardInfo();
@@ -717,21 +719,7 @@ module game {
 			}
 
 		}
-		/*重新排序定缺的手牌*/
-		/*public sortHandCardQue(type:number):void{
-			let arr:Array<CardInfo> = GamePlayData.getHandCards(Global.userSit);
-			let num:number = arr.length;
-			var count:number = 0;
-			for(var i:number = 0;i < num;i++){
-				var card:CardInfo = arr[count];
-				if(GameParmes.getColor(card) == type){
-					arr.push(arr.splice(count,1)[0]);
-				}else{
-					count += 1;
-				}
-			}
-			this.updataHandsByPosition(Global.userSit,0,true);
-		}*/
+
 		/*手牌上显示听牌标志*/
 		public showTingFlag(flag: boolean, str: string): void {
 			let len: number = this.gHandCardD.numChildren;
