@@ -6,10 +6,7 @@ module game {
 		 *请求进入GameID创建的游戏服务
 			*/
 		public static REQ_ENTERGAME: string = GameMessage.GAME_BASE + "REQ_ENTERGAME";
-		/**
-		 *返回进入游戏服务的结果
-			*/
-		public static ACK_ENTERGAME: string = GameMessage.GAME_BASE + "ACK_ENTERGAME";
+
 		/**
 		 *请求游戏服务准备状态
 			*/
@@ -22,10 +19,7 @@ module game {
 		 *下发游戏阶段消息
 			*/
 		public static ACK_GAMESTAGE: string = GameMessage.GAME_BASE + "ACK_GAMESTAGE";
-		/**
-		 *下发游戏玩家列表
-			*/
-		public static ACK_GAMEPLAYERLIST: string = GameMessage.GAME_BASE + "ACK_GAMEPLAYERLIST";
+	
 		/**
 		 *下发游戏规则
 			*/
@@ -67,17 +61,11 @@ module game {
 		 *服务器通知客户端托管
 			*/
 		public static ACK_GAMEPLAYERTRUST: string = GameMessage.GAME_BASE + "ACK_GAMEPLAYERTRUST";
-		/**
-		 *客户端请求服务器解除托管
-			*/
-		public static REQ_GAMEPLAYERRELIEVETRUST: string = GameMessage.GAME_BASE + "REQ_GAMEPLAYERRELIEVETRUST";
-		/**
-		 *服务器通知客户端解除托管
-			*/
-		public static ACK_GAMEPLAYERRELIEVETRUST: string = GameMessage.GAME_BASE + "ACK_GAMEPLAYERRELIEVETRUST";
+		
+	
 		/**
 		 *客户端请求服务器延时操作
-			*/
+		*/
 		public static REQ_GAMEDELAY: string = GameMessage.GAME_BASE + "REQ_GAMEDELAY";
 		/**
 		 *服务器通知客户端延时操作

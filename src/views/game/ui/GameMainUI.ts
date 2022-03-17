@@ -189,9 +189,7 @@ module game {
 		public initUser(): void {
 			this.isGaming = true;
 			let len: number = game.GameUserList.arrUserList.length;
-			console.log("***************************************")
-			console.log("=========GameUserList",game.GameUserList.arrUserList)
-			console.log("***************************************")
+		
 			for (let i: number = 0; i < len; i++) {
 				let user: game.GameUserInfo = game.GameUserList.arrUserList[i];
 				console.log(user.userName, user.userSit, Global.userSit)
@@ -252,26 +250,7 @@ module game {
 			}
 
 		}
-		/*显示玩家的定缺*/
-		// public onUserDingQue(): void {
-		// 	let len: number = game.GameUserList.arrUserList.length;
-		// 	for (let i: number = 0; i < len; i++) {
-		// 		let user: game.GameUserInfo = game.GameUserList.arrUserList[i];
-		// 		let p: number = Global.getUserPosition(user.userSit);
-		// 		if (p == 1) {
-		// 			this["gameUser" + p].setUserDQ(user.CardID, "left");
-		// 		} else {
-		// 			this["gameUser" + p].setUserDQ(user.CardID, "right");
-		// 		}
-		// 		if (Global.userSit == user.userSit) {
-		// 			//重新排序自己的手牌
-		// 			GamePlayData.SortHandCardQue(user.CardID);
 
-		// 			this.gameHand.updataHandsByPosition(p, 0, true);
-		// 		}
-		// 	}
-		// 	this.gameHSZ.initHSZ();
-		// }
 		public startHSZAndDQ(state: number): void {
 			if (state == 1) {//换三张提示
 				this.gameHSZ.showHSZTips();
@@ -453,46 +432,37 @@ module game {
 			//this.changeUserRight();
 		}
 
-		public onGameContinue(arr: Array<any>, card: game.CardInfo): void {
+		public onGameContinue(): void {
+			console.log("===onGameContinue===")
 			this.gameHand.createHandCard(true, 0);//还原手牌
 			this.gameHand.createAllCPG();//还原吃碰杠牌
 
 			this.gamePool.reductionCardsPool();//还原牌池
 			this.showGameInfo();
-			room.RoomWebSocket.instance().roomSender.ReqGamePlayerReleveTrustFun();//解除托管
-			if (GameParmes.gameStage == GameStageType.PLAYING) {
-				//this.onUserDingQue();
-			}
-			//  else if (GameParmes.gameStage == GameStageType.CHANGE) {//换三张阶段
-			// 	if (GameParmes.nHSZComplete == 1) {//0:没有换  1:已经换了
-			// 		game.GameWebSocket.instance().gameSender.ReqHuanSanZhangEnd();//发送换三张结束
-			// 	} else {
-			// 		this.startHSZAndDQ(1);
-			// 	}
-			// } else if (GameParmes.gameStage == GameStageType.DINGQUE) {//定缺阶段
-			// 	if (GameParmes.arrDQState.length > 0 && GameParmes.arrDQState[0] == -1) {//没有定缺
-			// 		this.startHSZAndDQ(2);
-			// 	} else {
-			// 		this.onUserDingQue();
+
+
+			// room.RoomWebSocket.instance().roomSender.ReqGamePlayerReleveTrustFun();//解除托管
+			// if (GameParmes.gameStage == GameStageType.PLAYING) {
+			// 	//this.onUserDingQue();
+			// }
+			
+			//还原胡牌数据
+			// for (let i: number = 0; i < GameParmes.onBreakPlayerHuCards.length; i++) {
+			// 	let arr: Array<number> = GameParmes.onBreakPlayerHuCards[i];
+			// 	for (let j: number = 0; j < arr.length; j++) {
+			// 		this.showHuCard(i, arr[j], 4);
 			// 	}
 			// }
-			//还原胡牌数据
-			for (let i: number = 0; i < GameParmes.onBreakPlayerHuCards.length; i++) {
-				let arr: Array<number> = GameParmes.onBreakPlayerHuCards[i];
-				for (let j: number = 0; j < arr.length; j++) {
-					this.showHuCard(i, arr[j], 4);
-				}
-			}
 			//this.changeUserRight();
-			if (arr && arr.length > 0) {
-				this.iconTing.visible = true;
-				this.copyTingCards(arr[0].CallCards);
-				this.createHuCards(arr[0].CallCards);
-			}
-			if (card) {//断线回来自己摸了一张牌，特殊处理这张牌
-				this.gameHand.delOneHandCard(card);
-				this.gameHand.getOneCard(card);
-			}
+			// if (arr && arr.length > 0) {
+			// 	this.iconTing.visible = true;
+			// 	this.copyTingCards(arr[0].CallCards);
+			// 	this.createHuCards(arr[0].CallCards);
+			// }
+			// if (card) {//断线回来自己摸了一张牌，特殊处理这张牌
+			// 	this.gameHand.delOneHandCard(card);
+			// 	this.gameHand.getOneCard(card);
+			// }
 		}
 		public showAllHandCard(body: room.VGGameResultNtc): void {
 			this.iconTing.visible = false;
