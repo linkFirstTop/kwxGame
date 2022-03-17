@@ -100,14 +100,14 @@ module game {
 		private onGameContinue(): void {
 
 			this.gameUI.initUser();
-			console.log("=Global.isContinue=", Global.isContinue)
+	
 			//断线重联 在这里处理
-			if (Global.isContinue) {
+
 
 				//这里处理断线 的 牌
 				game.GamePlayData.arrPoolCards = [[], [], []]
 				const arr = game.GameUserList.arrUserList;
-				console.log("====arr", arr)
+				// console.log("====arr", arr)
 
 				arr.forEach((e: any, i) => {
 					const user:room.VGUserInfo = e.origin;
@@ -201,7 +201,7 @@ module game {
 						}
 						//牌池的牌
 						if (tiles.Type == 10) {
-							console.log("===tiles.Type100===")
+							// console.log("===tiles.Type100===")
 							const tmpArr = []
 
 							for (let j = 0; j < tiles.Tiles.length; j++) {
@@ -234,7 +234,7 @@ module game {
 
 				this.gameMatch.stopAnim();
 				this.gameUI.onGameContinue();
-			}
+
 		}
 
 		//打漂应答
@@ -270,7 +270,7 @@ module game {
 			console.log(">>行牌单播消息  根据这个显示操作按钮", body)
 			const nSit = body.seatid;
 			console.log(`>>需要操作的玩家的座位=${nSit}, 自己座位${Global.userSit}`,)
-
+			this.gameUI.showRoomGUID( body.roundGuid);
 			//	body.remainCount
 			this.gameUI.startTime(body.second);
 			game.GamePlayData.M_C_P_G_sit = nSit;
@@ -775,9 +775,9 @@ module game {
 		private ACK_GAME_STATUS_CHANGED(evt: egret.Event): void {
 
 			let status = game.RoomInfo.ins.status;
-			console.log("游戏状态变更==============");
+			// console.log("游戏状态变更==============");
 			console.log("游戏状态变更", status);
-			console.log("游戏状态变更==============");
+			// console.log("游戏状态变更==============");
 			let lastStatus = game.RoomInfo.ins.lastStatus;
 
 			//打漂状态

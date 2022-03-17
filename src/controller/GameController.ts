@@ -107,105 +107,6 @@ module game {
 		}
 		
 		
-		/**
-		 *断线续完同步消息 发完玩家列表和规则后下发此消息
-			* */
-		public static AckPlayerContinued(body:game.AckGameContinued):void
-		{
-			game.GamePlayData.M_C_P_G_sit = body.CurrentSit;
-			if(game.GamePlayData.M_C_P_G_sit==-1){
-				game.GamePlayData.M_C_P_G_sit = GameParmes.firstSit;
-			}
-			GameParmes.TrustNum = body.TrustNum;
-			GameParmes.gameDelayRestrictions = body.DelayTimes;
-			GameParmes.onBreakPlayerState = body.PlayerState;//玩家状态
-			GameParmes.hu_player = body.hu_player;
-			GameParmes.onBreakPlayerHuCards = [body.hupai0,body.hupai1,body.hupai2,body.hupai3];
-			let p = Global.getUserPosition(Global.userSit)
-			if(GameParmes.onBreakPlayerHuCards[p].length > 0){
-				GameParmes.isHu = true;
-			}
-			for(let n:number = 0;n < GameParmes.onBreakPlayerHuCards.length;n++){
-				if(GameParmes.onBreakPlayerHuCards[n].length > 0){
-					GameParmes.isGameFlower = false;
-					break ;
-				}
-			}
-			GameParmes.nHSZComplete = body.huan_san_zhang;//0:没有换  1:已经换了
-			GameParmes.arrDQState = body.dingque_color;//-1没有定缺
-			game.GamePlayData.firstDice = body.FirstDice;
-			game.GamePlayData.secondDice = body.SecondDice;
-			Global.strGameGUID = body.game_guid;
-			GameParmes.gameStage = body.Stage;
-			var is_Card:game.CardInfo = new game.CardInfo();
-			if(GameParmes.gameStage!=GameStageType.GAMEOVER){
-				game.GamePlayData.CardsWall_Head_Index = body.BeginCardindex;
-				game.GamePlayData.CardsWall_Tail_Index = body.EndCardindex;
-				if(body.CurrentCard){
-					var card:CardInfo = game.GamePlayData.SaveCurrentCard(body.CurrentCard.Cards[0].CardID,body.CurrentCard.Sit);
-				}
-				var i:number=0;
-				//添加牌池
-				for(i=0;i<body.CardPond.length;i++){
-					//校验胡牌次数
-					for(var n:number=0;n<GameParmes.onBreakPlayerHuCards[i].length;n++){
-						for(var m:number=0;m<body.CardPond[i].Cards.length;m++){
-							if(body.CardPond[i].Cards[m].CardID==GameParmes.onBreakPlayerHuCards[i][n]){
-								body.CardPond[i].Cards.splice(m,1);
-								break;
-							}
-						}
-					}
-					game.GamePlayData.AddCardPool(body.CardPond[i].Cards,i);
-				}
-				//手牌数据
-				for(i=0;i<body.HandCards.length;i++){
-					var playerHandCards = body.HandCards[i];
-					game.GamePlayData.SetHandCardsValue(playerHandCards.Cards,-1,i);
-					if(body.IsMoPai&&i==body.CurrentSit){
-						is_Card.Sit = i;
-						for(var x=0;x<playerHandCards.Cards.length;x++){
-							var cardsGroup = playerHandCards.Cards[x];
-							if(cardsGroup.Type==CardsGroupType.HANDCARDS){
-								is_Card.CardID = cardsGroup.Cards[cardsGroup.Cards.length-1].CardID;
-								game.GamePlayData.SaveCurrentCard(cardsGroup.Cards[cardsGroup.Cards.length-1].CardID,cardsGroup.Cards[cardsGroup.Cards.length-1].Sit);
-								break;
-							}
-						}
-					}
-					
-				}
-				game.GamePlayData.SetHandCardsSorting(Global.userSit);
-			}
-			
-			//处理玩家定缺
-			for(i=0;i<body.dingque_color.length;i++){
-				game.GameUserList.getPlayerformSit(i).CardID = body.dingque_color[i];
-			}
-			if(body.IsMoPai){
-				GDGame.Msg.ins.dispatchEvent(new egret.Event(game.GameMessage.ACK_GAMECONTINUED,true,true,[body.CallCards,is_Card]));
-			}else{
-				GDGame.Msg.ins.dispatchEvent(new egret.Event(game.GameMessage.ACK_GAMECONTINUED,true,true,[body.CallCards,null]));
-			}
-			
-		}
-		
-		//川麻换三张
-		public static AckHuanSanZhang(body:game.AckHuanSanZhang):void
-		{
-			// var cards:Array<CardInfo> = [];
-			// var count:number = body.req_huan.length;
-			// for(var i:number = 0;i < count;i++){
-			// 	var card:CardInfo = new CardInfo();
-			// 	card.CardID = body.req_huan[i].CardID;
-			// 	card.Sit = Global.userSit;
-			// 	cards.push(card);
-			// }
-			// GamePlayData.HSZGetCards = body.huan_san_zhang;
-			// game.GamePlayData.ClearHandCards(game.GamePlayData.getHandCards(Global.userSit),cards,Global.userSit);
-			// game.GamePlayData.AddHuanSanZhangCards(game.GamePlayData.getHandCards(Global.userSit),body.huan_san_zhang);
-			// GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_USER_HSZ,true,true,body));
-		}
 		//定缺
 		public static AckDingQue(body:game.AckDingQue):void
 		{
@@ -213,6 +114,14 @@ module game {
 				game.GameUserList.getPlayerformSit(i).CardID = body.dingque[i];
 			}
 			GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_USER_DINGQUE));
+		}
+
+		/**
+		 * 请求进行下一轮游戏
+		 */
+		public static onRequeseNextGame(){
+			let roomID = Global.myPos.roomID
+			room.RoomWebSocket.instance().roomSender.REQ_ROOMENTERROOM(roomID);
 		}
 	}
 }

@@ -43,8 +43,6 @@ module game {
 
 			comm.DragonAnim.ins.topLayer = this;
 
-		
-
 			if (Global.language == "en") {
 				this.lbLeftCard.text = "Rest 0";
 			} else if (Global.language == "tc") {
@@ -73,8 +71,7 @@ module game {
 			this.addChild(this.gameOpt);
 			this.gameOpt.addEventListener("ShowTianHuFlag", this.onShowTHFlag, this);
 			this.addChild(this.gameHSZ);
-			// this.gameHSZ.addEventListener("OnSendHSZCards", this.onSendHSZCards, this);
-			this.gameHSZ.addEventListener("OnHSZAnimComplete", this.onHSZAnimComplete, this);
+
 
 			this.addChild(this.gameTrust);
 			this.btnTrust.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onCancelTrust, this);
@@ -91,19 +88,18 @@ module game {
 			this.gamePosition.addEventListener("OnTimeComplete", this.onTimeComplete, this);
 			this.duyi.text = `房间号:${0}`;
 			
-
 			this.iconTing = new eui.Image();
 			this.iconTing.source = "gameIcon_tip";
 			this.iconTing.x = 26;
 			this.iconTing.y = 710;
+			this.iconTing.visible = false;
 			this.iconTing.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTingTipClick, this);
 			this.addChild(this.iconTing);
 
 			this.initGame();
 			this.initBtns();
-
-		
 		}
+		
 		public initGame(): void {
 			this.btnContinue.visible = false;
 			this.gGameInfo.visible = false;
@@ -192,7 +188,7 @@ module game {
 		
 			for (let i: number = 0; i < len; i++) {
 				let user: game.GameUserInfo = game.GameUserList.arrUserList[i];
-				console.log(user.userName, user.userSit, Global.userSit)
+				//console.log(user.userName, user.userSit, Global.userSit)
 				let p: number = Global.getUserPosition(user.userSit);
 				//console.log("=====PP", p)
 				this["gameUser" + p].setUserInfo(user);
@@ -216,7 +212,7 @@ module game {
 			this.lbInfo.text = this.findRoomName() + " " + Global.strGameGUID;
 
 		}
-		public showRoomGUID(guid: number) {
+		public showRoomGUID(guid: string) {
 
 			this.duyi.text = `房间号:${guid}`;
 		}
@@ -260,16 +256,8 @@ module game {
 			}
 
 		}
-		/*玩家换三张*/
-		public onUserHSZ(data: game.AckHuanSanZhang): void {
-			this.gameHSZ.showHSZAnim(data.order);
-		}
-		private onHSZAnimComplete(): void {
-			this.gameHand.updataHandsByPosition(Global.userSit, 0);
-			this.gameHand.showHandCardAnim(GamePlayData.HSZGetCards);
-			//发送换三张结束
-			game.GameWebSocket.instance().gameSender.ReqHuanSanZhangEnd();
-		}
+
+
 
 		/*玩家出牌*/
 		public userSendCard(card: CardInfo, b: boolean): void {
@@ -423,7 +411,7 @@ module game {
 			this.gameHand.updataHandsByPosition(p, 0, true);
 			this.gameHand.createCPGCard(nSit);
 			if (card.Sit != nSit) {//吃碰杠的牌的座位号和吃碰的人的座位号不等，牌池的牌消失
-				console.log("=====吃碰杠的牌的座位号和吃碰的人的座位号不等，牌池的牌消失", card.Sit)
+				//console.log("=====吃碰杠的牌的座位号和吃碰的人的座位号不等，牌池的牌消失", card.Sit)
 				this.gamePool.removeCardToPool(card.Sit, card);
 			}
 			this.gamePosition.stopTime();
@@ -563,9 +551,15 @@ module game {
 			this.btnContinue.visible = true;
 			this.addChild(this.btnContinue);
 		}
+		/**
+		 * 点击继续游戏
+		 */
 		private onBtnContinue(): void {
 			this.btnContinue.visible = false;
-			this.dispatchEvent(new egret.Event("OnGameContinue", true, true));
+
+			GameController.onRequeseNextGame();
+
+			//this.dispatchEvent(new egret.Event("OnGameContinue", true, true));
 		}
 		public startTime(count: number, str: string = ""): void {
 			this.gamePosition.startTime(count, str);

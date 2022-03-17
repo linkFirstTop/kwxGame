@@ -87,12 +87,13 @@ module room {
 			this.showRoomAnim();
 		}
 		private onGameResLoad():void{
-			if(this.nRoomID > 0){
-				room.RoomWebSocket.instance().roomSender.REQ_ROOMENTERROOM(this.nRoomID);
-			}
-			if(Global.isContinue){
-				room.RoomWebSocket.instance().roomSender.REQ_GAMECONTINUR();
-			}
+			console.log("===RESLOAD",this.nRoomID)
+			// if(this.nRoomID > 0){
+			// 	room.RoomWebSocket.instance().roomSender.REQ_ROOMENTERROOM(this.nRoomID);
+			// }
+			// if(Global.isContinue){
+			// 	room.RoomWebSocket.instance().roomSender.REQ_GAMECONTINUR();
+			// }
 		}
 		private onItemClick(evt:egret.Event):void{
 			this.nRoomID = evt.data;
