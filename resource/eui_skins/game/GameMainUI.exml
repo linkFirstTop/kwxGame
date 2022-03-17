@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="GameMainUISkin" width="1920" height="1080" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:game="game.*" xmlns:ns1="*" >
 	<w:Config id="16e29e9a883" ></w:Config>
-	<e:Image source="gamebg_jpg" width="100%" height="100%" y="0" locked="true"/>
+	<e:Image source="gamebg_jpg" width="100%" height="100%" y="0" locked="true" visible="true"/>
 	<!--<e:Image source="test_jpg" />-->
 	<!--用户信息-->
 	<e:Group width="100%" height="100%" visible="true">
@@ -25,13 +25,13 @@
 	</e:Group>	
 	
 	<!--中间方位-->
-	<game:GamePositionUI id="gamePosition"  y="560" x="870"/>
+	<game:GamePositionUI id="gamePosition"  y="560" x="870" visible="true"/>
 	<!--操作按钮-->
-	<game:GameOperationUI id="gameOpt" locked="true"/>
+	<game:GameOperationUI id="gameOpt" visible="true" locked="true"/>
 
-	<game:GameHSZUI id="gameHSZ"  y="0" x="-1" locked="true"/>
+	<game:GameHSZUI id="gameHSZ"  y="0" x="-1" visible="true"/>
 
-	<e:Group id="gBtns" right="42" y="24">
+	<e:Group id="gBtns" right="42" y="24" visible="true">
 		<e:Image id="imgBtnbg" source="gameButtonListbg_png" horizontalCenter="0" height="0" y="50"/>
 		<ns1:BaseButton id="btnBack" width="100" height="100">
 			<e:Skin>
@@ -62,24 +62,23 @@
 		</ns1:BaseButton>
 	</e:Group>
 	
-	<e:Group id="gameTrust" width="100%" bottom="0" height="200" visible="true">
+	<e:Group id="gameTrust" width="100%" bottom="0" height="200" visible="false" touchThrough="true">
 		<e:Image id="imgTGTip" source="gameIcon_tuoguan_cn" horizontalCenter="0.5" y="-104"/>
 		<e:Image source="game_tgbg" />
 		<e:Image id="btnTrust" source="gameButton_cancelTrust_cn" horizontalCenter="0"  y="24"/>
 	</e:Group>
 	<e:Image id="imgTHTip" source="gameIcon_tianhu_cn" visible="false" horizontalCenter="0" bottom="250"/>
-
-	<e:Image id="imgTingTip" source="gameIcon_tip"  y="710" x="26" visible="false"/>
+	<e:Image id="btnContinue" source="resultButtonContinue_cn"  horizontalCenter="0" verticalCenter="84" visible="true"/>
+	<e:Image id="imgTingTip" source="gameIcon_tip" y="710" x="26" visible="false"/>
 	<e:Group id="gTingTip" width="566" y="658" x="110" visible="false">
 		<e:Image source="gameCommbg_png" width="100%"/>
 		<e:Group id="gTingCards" verticalCenter="0" horizontalCenter="0">
-			<e:Group height="128">
-				<e:Image id="imgTHIcon" source="gameIcon_hu_cn" verticalCenter="0"/>
-			</e:Group>
-			<e:layout>
-				<e:HorizontalLayout gap="30"/>
-			</e:layout>
+		<e:Group height="128">
+			<e:Image id="imgTHIcon" source="gameIcon_hu_cn" verticalCenter="0"/>
+		</e:Group>
+		<e:layout>
+			<e:HorizontalLayout gap="30"/>
+		</e:layout>
 		</e:Group>
 	</e:Group>
-	<e:Image id="btnContinue" source="resultButtonContinue_cn"  horizontalCenter="0" verticalCenter="84" visible="true"/>
 </e:Skin>
