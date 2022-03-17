@@ -30,7 +30,12 @@ module game {
 		}
 		private onContinue():void{
 			this.visible = false;
-			this.dispatchEvent(new egret.Event("OnGameContinue",true,true));
+			// this.dispatchEvent(new egret.Event("OnGameContinue",true,true));
+
+			GameController.onRequeseNextGame();
+
+
+
 		}
 		private onClose():void{
 			this.visible = false;

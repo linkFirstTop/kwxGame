@@ -3,6 +3,6 @@
 	<w:Config id="1711130e9f7" ></w:Config>
 	<e:Group bottom="0">
 		<e:Image source="card_down_h1" />
-		<e:Image id="imgValue" horizontalCenter="0.5" verticalCenter="6" source="cardValue1"/>
+		<e:Image id="imgValue" horizontalCenter="0.5" verticalCenter="6" source="cardValue1" x="0" y="0"/>
 	</e:Group>
 </e:Skin>

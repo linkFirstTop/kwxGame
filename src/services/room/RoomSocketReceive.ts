@@ -66,7 +66,7 @@ module room {
 			}
 		}
 
-		同步游戏
+		// 同步游戏
 		private VGID_ACK_GAME_SYNCGAMEDATA(byte: egret.ByteArray): void {
 			
 			var body: room.VGSyncGameDataNtc = room.VGSyncGameDataNtc.decode(byte.bytes);
@@ -74,7 +74,7 @@ module room {
 			GDGame.Msg.ins.dispatchEventWith(room.RoomMessage.ACK_GAMEPLAYERLIST, false, body);
 
 			game.GamePlayData.SaveHandCarsd(body.userInfos);
-			console.log('=====同步游戏======',body);
+			//console.log('=====同步游戏======',body);
 			if( Number( body.status ) == 0 )
 			{
 				return;
@@ -82,8 +82,10 @@ module room {
 
 			if (Global.isContinue) {
 				//ViewManager.ins.switchToGame();
+				
 				ViewManager.ins.hideWait();
 				GDGame.Msg.ins.dispatchEventWith(room.RoomMessage.ACK_GAME_CONTINUE);
+				Global.isContinue = false;
 			}
 		}
 
@@ -116,7 +118,7 @@ module room {
 			const body: room.VGUserDapiaoAck = room.VGUserDapiaoAck.decode(byte.bytes);
 			GDGame.Msg.ins.dispatchEvent(new egret.Event(game.GameMessage.VGID_USER_DAPIAO, true, true, body));
 	
-			console.log("===VGID_ACK_USER_DAPIAP=body",body)	
+			//console.log("===VGID_ACK_USER_DAPIAP=body",body)	
 		}
 
 		//单张发牌器
@@ -284,7 +286,8 @@ module room {
 			console.log("进入房间返回结果-----" , body);
 			if (body.result == 0) {
 				//请求开始游戏
-	
+				Global.myPos.roomID = body.userInfo.userPos.roomID;
+
 				game.GamePlayData.initData();
 				game.GameParmes.initData();
 				ViewManager.ins.switchToGame();
@@ -322,7 +325,7 @@ module room {
 			game.GameParmes.initData();
 
 			// Global.myPos.tableGuid = body.roundGuid;
-			// Global.myPos.roomID = body.roomID;
+		  
 			game.GameUserList.saveUserListInfo(body.userInfos);
 			game.GamePlayData.SaveHandCarsd(body.userInfos);
 

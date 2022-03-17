@@ -116,7 +116,7 @@ module game {
 			let keyname: string = event.armature.name;
 			this.removeChild(event.armature.display);
 			event.armature.dispose();
-			this.dispatchEvent(new egret.Event("OnHSZAnimComplete"));
+			// this.dispatchEvent(new egret.Event("OnHSZAnimComplete"));
 		}
 		public showDQTips(): void {
 			for (let i: number = 0; i < 3; i++) {
