@@ -621,7 +621,7 @@ module game {
 						const ln = this.gHandCardD.$children.length;
 						for (let i = 0; i < ln; i++) {
 							let pai: any = this.gHandCardD.getChildAt(i);
-							if (pai.imgPao) {
+							if (!pai.imgPao) {
 								isAllPao = false;
 								break;
 							}
@@ -630,15 +630,12 @@ module game {
 								break;
 							}
 						}
-						if (!isAllPao && item.imgPao && item.imgPao.visible) {
-							// console.log("====is Pao===")
+
+					
+						if (!isAllPao && item.imgPao && item.imgPao.visible && !GamePlayData.isTing) {
 							return;
+							// console.log("====is Pao===")
 						}
-						// if (item.isHuFlag) {
-						// 	this.dispatchEvent(new egret.Event("ShowTingTip", true, true, { "isShowTing": true, "index": item.cardIndex }));
-						// } else {
-						// 	this.dispatchEvent(new egret.Event("ShowTingTip", true, true, { "isShowTing": item.isTingFlag, "index": item.cardIndex }));
-						// }
 
 						if (item.isTingFlag) {//显示要听的牌
 							// 抱听操作

@@ -566,6 +566,7 @@ module game {
 						GamePlayData.MJ_LiangOtherPais.push(o)
 					})
 				} else {
+					GamePlayData.isTing = true;
 					opt.tingTileInfo.forEach((o: any) => {
 						GamePlayData.MJ_selfTingarr.push(o)
 					})
@@ -658,8 +659,6 @@ module game {
 			// this.gameUI.showCoinChange(arrCoin);
 			SoundModel.playEffect(SoundModel.GANG);
 		}
-
-
 
 		private ON_USER_BUGANGPAI(card, seat: number): void {
 			const nSit: number = seat;

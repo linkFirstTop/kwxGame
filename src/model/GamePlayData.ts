@@ -62,6 +62,7 @@ module game {
 		public static MJ_LiangOtherPais: Array<room.MJ_TingTileInfo>  = [];
 
 		public static MJ_selfTingarr : Array<room.MJ_TingTileInfo> =[]
+		public static isTing : boolean = false;
 
 		/*初始化数据*/
 		public static initData(): void {
@@ -86,6 +87,7 @@ module game {
 			GamePlayData.MJ_LiangSitArr = [];
 			GamePlayData.MJ_LiangOtherPais = [];
 			GamePlayData.MJ_selfTingarr = [];
+			GamePlayData.isTing = false;
 		}
 
 		/**
