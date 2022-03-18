@@ -41,12 +41,18 @@ module game {
 				this.imgCard.y = 40;
 			}
 			if(p == 0){
-				this.imgBack.source = "BJHP_"+((index%4)+1);
+				// this.imgBack.source = "BJHP_"+((index%4)+1);
+				// this.imgCard.source = "cardValue"+value;
+				// this.imgCard.scaleX = this.imgCard.scaleY = 0.7;
+				// this.imgCard.skewX = -15;
+				// this.imgCard.verticalCenter = -12.5;
+				// this.imgCard.horizontalCenter = 2;
+
 				this.imgCard.source = "cardValue"+value;
-				this.imgCard.scaleX = this.imgCard.scaleY = 0.7;
-				this.imgCard.skewX = -15;
-				this.imgCard.verticalCenter = -12.5;
-				this.imgCard.horizontalCenter = 2;
+
+				this.imgBack.source = "card_down_m1";
+				this.imgCard.scaleX = this.imgCard.scaleY = 0.9;
+				this.imgCard.verticalCenter = -10;
 			}
 		}
 	}

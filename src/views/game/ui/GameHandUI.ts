@@ -34,10 +34,6 @@ module game {
 			[{ x: 319, y: 842 }, { x: 335, y: 799 }, { x: 350, y: 757 }, { x: 367, y: 715 }],
 			[{ x: 1523, y: 863 }, { x: 1457, y: 863 }, { x: 1392, y: 863 }, { x: 1331, y: 863 }],
 			[{ x: 496, y: 381 }],
-
-
-
-
 			[{ x: 1335, y: 371 }, { x: 1348, y: 406 }, { x: 1360, y: 443 }, { x: 1372, y: 479 }],
 		];
 
@@ -70,11 +66,6 @@ module game {
 			this.isSortComplete = false;
 			this.isHSZStart = false;
 
-			this.addChild(this.gHuCardL);
-			this.addChild(this.gHuCardR);
-			this.addChild(this.gHuCardD);
-
-
 			this.addChild(this.gHandCardL);
 			this.addChild(this.gHandCardU);
 
@@ -89,6 +80,12 @@ module game {
 			this.addChild(this.gOtherCardU);
 			this.addChild(this.gOtherCardR);
 			this.addChild(this.gOtherCardD);
+
+			this.addChild(this.gHuCardL);
+			this.addChild(this.gHuCardR);
+			this.addChild(this.gHuCardD);
+			this.addChild(this.gHuCardU);
+
 			this.clearAllGroup();
 
 			/*for(let i:number = 0;i < 4;i++){
@@ -184,61 +181,41 @@ module game {
 			let card: CardInfo = new CardInfo();
 			card.CardID = cardID;
 			card.Sit = sit;
-			let cardValue: number = card.CardID//game.GameParmes.getCardID(card);
+			let cardValue: number = card.CardID;
 			let gHu: eui.Group = this.findHuGroup(p);
-			let len: number = gHu.numChildren;
+			let ghand: eui.Group = this.findHandGroup(p);
 			let item: game.BaseHuCardUI = new game.BaseHuCardUI();
+            let len = ghand.numChildren;
 			item.setCard(p, len, cardValue);
 			item.cardInfo = card;
+		
 			gHu.addChild(item);
 			if (p == 2) {
-				if (len < 4) {
-					item.x = this.arrHuP[p][len % 4].x;
-					item.y = this.arrHuP[p][len % 4].y;
-					gHu.addChildAt(item, 0);
-				} else {
-					item.x = this.arrHuP[p][len % 4].x - 8;
-					item.y = this.arrHuP[p][len % 4].y - 20;
-					gHu.addChildAt(item, 4);
-				}
+				item.x = this.arrLHP[0].x;
+				item.y = this.arrLHP[0].y + 40;
 			}
 			if (p == 3) {
-				if (len < 4) {
-					item.x = this.arrHuP[p][0].x + len * 40;
-					item.y = this.arrHuP[p][0].y;
-				} else {
-					item.x = this.arrHuP[p][0].x + (len % 4) * 40 - 4;
-					item.y = this.arrHuP[p][0].y - 10;
-				}
+				// if (len < 4) {
+				// 	item.x = this.arrHuP[p][0].x + len * 40;
+				// 	item.y = this.arrHuP[p][0].y;
+				// } else {
+				// 	item.x = this.arrHuP[p][0].x + (len % 4) * 40 - 4;
+				// 	item.y = this.arrHuP[p][0].y - 10;
+				// }
 			}
 			if (p == 1) {
-				if (len < 4) {
-					item.x = this.arrHuP[p][len % 4].x;
-					item.y = this.arrHuP[p][len % 4].y;
-				} else {
-					item.x = this.arrHuP[p][len % 4].x + 6;
-					item.y = this.arrHuP[p][len % 4].y - 10;
-				}
+				//card.setCard(p, 13, 1, 0);
+				item.setCard(p, 13, cardValue);
+				item.x = this.arrRHP[0].x  - 25;
+				item.y = this.arrRHP[0].y  + 30 ;
 			}
 			if (p == 0) {
-				if (len < 4) {
-					item.x = this.arrHuP[p][len % 4].x;
-					item.y = this.arrHuP[p][len % 4].y;
-				} else {
-					item.x = this.arrHuP[p][len % 4].x + 6;
-					item.y = this.arrHuP[p][len % 4].y - 16;
-				}
+				item.x = (ghand.numChildren - 1) * 90;
+				item.x += 10;
+				gHu.x = ghand.x;
+				gHu.y = ghand.y;
 			}
-			if (type == 3) {//自摸
 
-				game.GamePlayData.ClearHandCards(game.GamePlayData.getHandCards(sit), [card], sit);
-				if (p == 3 && GameParmes.nHuType == 16) {//天胡自摸的时候需要删除手牌中的胡牌
-					this.updataHandsByPosition(Global.userSit, 0);
-				} else {
-					this.delHandCard(p);
-				}
-				comm.DragonAnim.ins.playAnimByPosition("zmbd", item.x + 50, item.y);
-			}
 		}
 		/*删除自摸胡牌的那张手牌*/
 		private delHandCard(p: number): void {
