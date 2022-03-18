@@ -12,7 +12,7 @@ module game {
 		private duyi: eui.Label;
 		private lbLeftCard: eui.Label;
 		public gameHand: game.GameHandUI;
-		private gamePool: game.GamePoolUI;
+		public gamePool: game.GamePoolUI;
 		private gamePosition: game.GamePositionUI;
 		private gameOpt: game.GameOperationUI;
 		public gameHSZ: game.GameHSZUI;
@@ -368,9 +368,15 @@ module game {
 			this.gameHand.showTingFlag(false, "");
 			this.gameHand.showHuFlag();
 		}
+		/**
+		 * 
+		 * @param sit 
+		 * @param huCardID 
+		 * @param type 3 = 自摸
+		 */
 		public showHuCard(sit: number, huCardID: number, type: number): void {
 			this.imgTHTip.visible = false;
-			//this.gameHand.showHuCard(sit, huCardID, type);
+			this.gameHand.showHuCard(sit, huCardID, type);
 			// if (sit == Global.userSit) {//处理胡的时候听牌显示问题
 			// 	if (this.arrCallCards.length == 1) {
 			// 		let info: any = this.arrCallCards[0];

@@ -21,10 +21,10 @@ module game {
 
 			this.gameMatch = new game.GameMatchUserUI();
 			this.addChild(this.gameMatch);
-			if(!Global.isContinue){
+			if (!Global.isContinue) {
 				this.gameMatch.startAnim();
 			}
-			
+
 			if (Global.isDeal) {
 				let gamezhuapai: GameZhuaPaiQiUI = new GameZhuaPaiQiUI();
 				this.addChild(gamezhuapai);
@@ -44,7 +44,7 @@ module game {
 			GDGame.Msg.ins.addEventListener(GameMessage.ACK_ALLGAMERESULT, this.ACK_ALL_GAMERESULT, this);
 			//服务器通知客户端托管操作
 			GDGame.Msg.ins.addEventListener(GameMessage.ACK_GAMEPLAYERTRUST, this.ACK_USER_PLAYERTRUST, this);
-		
+
 			//返回游戏未开时突然结束的广播消息
 			GDGame.Msg.ins.addEventListener(GameMessage.ACK_OVERGAME, this.ACK_OVER_GAME, this);
 			GDGame.Msg.ins.addEventListener(GameMessage.NTF_ROOM_STATE, this.ACK_GAME_STATUS_CHANGED, this);
@@ -77,15 +77,15 @@ module game {
 			this.gameMatch.stopAnim();
 		}
 
-		public onUserList(){
+		public onUserList() {
 			this.gameUI.initUser();
 		}
 
 		/*游戏*/
 		private onEnterGame(evt: egret.Event): void {
 			console.log("===onEnterGame=")
-			
-		    this.gameUI.initPosition();
+
+			this.gameUI.initPosition();
 		}
 
 		private startDealCard(evt: egret.Event) {
@@ -100,140 +100,140 @@ module game {
 		private onGameContinue(): void {
 
 			this.gameUI.initUser();
-	
+
 			//断线重联 在这里处理
 
 
-				//这里处理断线 的 牌
-				game.GamePlayData.arrPoolCards = [[], [], []]
-				const arr = game.GameUserList.arrUserList;
-				// console.log("====arr", arr)
+			//这里处理断线 的 牌
+			game.GamePlayData.arrPoolCards = [[], [], []]
+			const arr = game.GameUserList.arrUserList;
+			// console.log("====arr", arr)
 
-				arr.forEach((e: any, i) => {
-					const user:room.VGUserInfo = e.origin;
-					let p = Global.getUserPosition(user.userPos.seatID);
-					let nSit: number = user.userPos.seatID;
-					if(user.isTing){
-						GamePlayData.MJ_LiangSitArr.push(nSit);
+			arr.forEach((e: any, i) => {
+				const user: room.VGUserInfo = e.origin;
+				let p = Global.getUserPosition(user.userPos.seatID);
+				let nSit: number = user.userPos.seatID;
+				if (user.isTing) {
+					GamePlayData.MJ_LiangSitArr.push(nSit);
+				}
+
+				const tileSets = user.tileSets;
+				tileSets.forEach((tiles: room.MJ_TileSet) => {
+
+					if (tiles.Type == 1) { }//吃牌
+					//碰牌
+					if (tiles.Type == 2) {
+						let card: CardInfo = { CardID: tiles.ObtainTile, Sit: tiles.ObtainSeat };
+						const body = {
+							ObtainCard: card,
+							Type: CardsGroupType.PENG,
+							ObtainCardSit: tiles.ObtainSeat,
+							sit: nSit,
+							Cards: [
+								{ CardID: tiles.ObtainTile, Sit: nSit },
+								{ CardID: tiles.ObtainTile, Sit: nSit },
+								{ CardID: tiles.ObtainTile, Sit: nSit },
+							],
+						}
+
+						card = game.GamePlayData.AddChiPengGangCards(body, nSit);
+						this.gameUI.updataUserCPG(nSit, card);
 					}
-
-					const tileSets = user.tileSets;
-					tileSets.forEach((tiles: room.MJ_TileSet) => {
-
-						if (tiles.Type == 1) { }//吃牌
-						//碰牌
-						if (tiles.Type == 2) {
-							let card: CardInfo = { CardID: tiles.ObtainTile, Sit: tiles.ObtainSeat };
-							const body = {
-								ObtainCard: card,
-								Type: CardsGroupType.PENG,
-								ObtainCardSit: tiles.ObtainSeat,
-								sit: nSit,
-								Cards: [
-									{ CardID: tiles.ObtainTile, Sit: nSit },
-									{ CardID: tiles.ObtainTile, Sit: nSit },
-									{ CardID: tiles.ObtainTile, Sit: nSit },
-								],
-							}
-
-							card = game.GamePlayData.AddChiPengGangCards(body, nSit);
-							this.gameUI.updataUserCPG(nSit, card);
+					//暗杠牌
+					if (tiles.Type == 3) {
+						let card: CardInfo = { CardID: tiles.ObtainTile, Sit: tiles.ObtainSeat };
+						const body = {
+							ObtainCard: card,
+							Type: CardsGroupType.ANGANG,
+							ObtainCardSit: tiles.ObtainSeat,
+							sit: nSit,
+							Cards: [
+								{ CardID: tiles.ObtainTile, Sit: nSit },
+								{ CardID: tiles.ObtainTile, Sit: nSit },
+								{ CardID: tiles.ObtainTile, Sit: nSit },
+								{ CardID: tiles.ObtainTile, Sit: nSit },
+							],
 						}
-						//暗杠牌
-						if (tiles.Type == 3) {
-							let card: CardInfo = { CardID: tiles.ObtainTile, Sit: tiles.ObtainSeat };
-							const body = {
-								ObtainCard: card,
-								Type: CardsGroupType.ANGANG,
-								ObtainCardSit: tiles.ObtainSeat,
-								sit: nSit,
-								Cards: [
-									{ CardID: tiles.ObtainTile, Sit: nSit },
-									{ CardID: tiles.ObtainTile, Sit: nSit },
-									{ CardID: tiles.ObtainTile, Sit: nSit },
-									{ CardID: tiles.ObtainTile, Sit: nSit },
-								],
-							}
-		
-							game.GamePlayData.AddChiPengGangCards(body, nSit);
-							this.gameUI.updataUserCPG(nSit, card);
 
-						}
-						//明杠牌
+						game.GamePlayData.AddChiPengGangCards(body, nSit);
+						this.gameUI.updataUserCPG(nSit, card);
 
-						if (tiles.Type == 4) {
-							let card: CardInfo = { CardID: tiles.ObtainTile, Sit: tiles.ObtainSeat };
-							const body = {
-								ObtainCard: card,
-								Type: CardsGroupType.MINGGANG,
-								ObtainCardSit: tiles.ObtainSeat,
-								sit: nSit,
-								Cards: [
-									{ CardID: tiles.ObtainTile, Sit: nSit },
-									{ CardID: tiles.ObtainTile, Sit: nSit },
-									{ CardID: tiles.ObtainTile, Sit: nSit },
-									{ CardID: tiles.ObtainTile, Sit: nSit },
-								],
-							}
-
-							game.GamePlayData.AddChiPengGangCards(body, nSit);
-							this.gameUI.updataUserCPG(nSit, card);
-
-						}
-						//补杠牌					
-						if (tiles.Type == 5) {
-							let card: CardInfo = { CardID: tiles.ObtainTile, Sit: tiles.ObtainSeat };
-							const body = {
-								ObtainCard: card,
-								Type: CardsGroupType.BUGANG,
-								ObtainCardSit: tiles.ObtainSeat,
-								sit: nSit,
-								Cards: [
-									{ CardID: tiles.ObtainTile, Sit: nSit },
-									{ CardID: tiles.ObtainTile, Sit: nSit },
-									{ CardID: tiles.ObtainTile, Sit: nSit },
-									{ CardID: tiles.ObtainTile, Sit: nSit },
-								],
-							}
-							game.GamePlayData.AddChiPengGangCards(body, nSit);
-							this.gameUI.updataUserCPG(nSit, card);
-
-						}
-						//牌池的牌
-						if (tiles.Type == 10) {
-							// console.log("===tiles.Type100===")
-							const tmpArr = []
-
-							for (let j = 0; j < tiles.Tiles.length; j++) {
-								// console.log(j, tiles[j])
-								let card: CardInfo = new CardInfo();
-								card.CardID = tiles.Tiles[j];
-								card.Sit = user.userPos.seatID;
-								tmpArr[j] = card;
-							}
-							game.GamePlayData.arrPoolCards[p] = tmpArr;
-						}
-					});
-
-					//处理听的牌
-					const tileInfo = user.tingTileInfo;
-					if (nSit != Global.userSit) {
-						tileInfo.forEach((o: any) => {
-							GamePlayData.MJ_LiangOtherPais.push(o)
-						})
-					} else {
-						tileInfo.forEach((o: any) => {
-							GamePlayData.MJ_selfTingarr.push(o)
-						})
-	
-						this.gameUI.onShowTingTip()
 					}
-	
-					this.gameUI.gameHand.createLiangPai(nSit)
-				})
+					//明杠牌
 
-				this.gameMatch.stopAnim();
-				this.gameUI.onGameContinue();
+					if (tiles.Type == 4) {
+						let card: CardInfo = { CardID: tiles.ObtainTile, Sit: tiles.ObtainSeat };
+						const body = {
+							ObtainCard: card,
+							Type: CardsGroupType.MINGGANG,
+							ObtainCardSit: tiles.ObtainSeat,
+							sit: nSit,
+							Cards: [
+								{ CardID: tiles.ObtainTile, Sit: nSit },
+								{ CardID: tiles.ObtainTile, Sit: nSit },
+								{ CardID: tiles.ObtainTile, Sit: nSit },
+								{ CardID: tiles.ObtainTile, Sit: nSit },
+							],
+						}
+
+						game.GamePlayData.AddChiPengGangCards(body, nSit);
+						this.gameUI.updataUserCPG(nSit, card);
+
+					}
+					//补杠牌					
+					if (tiles.Type == 5) {
+						let card: CardInfo = { CardID: tiles.ObtainTile, Sit: tiles.ObtainSeat };
+						const body = {
+							ObtainCard: card,
+							Type: CardsGroupType.BUGANG,
+							ObtainCardSit: tiles.ObtainSeat,
+							sit: nSit,
+							Cards: [
+								{ CardID: tiles.ObtainTile, Sit: nSit },
+								{ CardID: tiles.ObtainTile, Sit: nSit },
+								{ CardID: tiles.ObtainTile, Sit: nSit },
+								{ CardID: tiles.ObtainTile, Sit: nSit },
+							],
+						}
+						game.GamePlayData.AddChiPengGangCards(body, nSit);
+						this.gameUI.updataUserCPG(nSit, card);
+
+					}
+					//牌池的牌
+					if (tiles.Type == 10) {
+						// console.log("===tiles.Type100===")
+						const tmpArr = []
+
+						for (let j = 0; j < tiles.Tiles.length; j++) {
+							// console.log(j, tiles[j])
+							let card: CardInfo = new CardInfo();
+							card.CardID = tiles.Tiles[j];
+							card.Sit = user.userPos.seatID;
+							tmpArr[j] = card;
+						}
+						game.GamePlayData.arrPoolCards[p] = tmpArr;
+					}
+				});
+
+				//处理听的牌
+				const tileInfo = user.tingTileInfo;
+				if (nSit != Global.userSit) {
+					tileInfo.forEach((o: any) => {
+						GamePlayData.MJ_LiangOtherPais.push(o)
+					})
+				} else {
+					tileInfo.forEach((o: any) => {
+						GamePlayData.MJ_selfTingarr.push(o)
+					})
+
+					this.gameUI.onShowTingTip()
+				}
+
+				this.gameUI.gameHand.createLiangPai(nSit)
+			})
+
+			this.gameMatch.stopAnim();
+			this.gameUI.onGameContinue();
 
 		}
 
@@ -245,11 +245,11 @@ module game {
 			if (body.userInfo) {
 				let seatid = body.userInfo.userPos.seatID;
 				let p = Global.getUserPosition(seatid);
-				if(this.gameUI["gameUser" + p]){
+				if (this.gameUI["gameUser" + p]) {
 					this.gameUI["gameUser" + p].user.setUserDapiaoInfo(body.userInfo.dapiao);
 					this.gameUI["gameUser" + p].showDapiaoInfo();
 				}
-			
+
 			}
 		}
 
@@ -270,7 +270,7 @@ module game {
 			console.log(">>行牌单播消息  根据这个显示操作按钮", body)
 			const nSit = body.seatid;
 			console.log(`>>需要操作的玩家的座位=${nSit}, 自己座位${Global.userSit}`,)
-			this.gameUI.showRoomGUID( body.roundGuid);
+			this.gameUI.showRoomGUID(body.roundGuid);
 			//	body.remainCount
 			this.gameUI.startTime(body.second);
 			game.GamePlayData.M_C_P_G_sit = nSit;
@@ -554,7 +554,7 @@ module game {
 				game.GamePlayData.AddCardPool(Cards, nSit);
 				if (nSit == Global.userSit) {
 					game.GamePlayData.SaveCurrentCard(0, -1);
-					
+
 				}
 
 				const b: boolean = false;
@@ -581,7 +581,31 @@ module game {
 
 			//和
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_WIN) {
-				console.log("===玩家 胡牌 了 =====")
+				
+
+				if (opt.ObtainSeat != nSit) {
+					//--
+					const card: CardInfo = new CardInfo();
+					card.CardID = opt.ObtainTile;
+					card.Sit = opt.ObtainSeat;
+
+					let op = Global.getUserPosition(opt.ObtainSeat);
+					this.gameUI.gamePool.removeCardToPool(opt.ObtainSeat, card);
+					GamePlayData.DelectCardPool(GamePlayData.getCardsPool(op));
+				
+				} 
+				if( nSit == Global.userSit ){
+					console.log("===玩家  self 胡牌 了 =====")
+					this.gameUI.showHuCard(nSit,  opt.ObtainTile,3);
+					GameParmes.isHu = true;
+					this.gameUI.hideTingFlag();
+				}else{
+					console.log("===玩家  other 胡牌 了 =====")
+					this.gameUI.showHuCard(nSit,  opt.ObtainTile,0);
+
+		
+				}
+				
 				this.checkHuInfo(opt, nSit);
 			}
 
@@ -687,18 +711,15 @@ module game {
 			}
 			this.gameUI.showCoinChange(arrScore);
 		}
+
 		private checkHuInfo(info: room.MJ_Operation, nSit: number): void {
 			//return ;
 			//info.
-
-
 			this.gameUI.playAnim("hu", nSit, info.ObtainSeat);
-
-
-
 			//	this.gameUI.showHuCard(nSit, info.Tiles[0], fan.type);
 			GameParmes.nHuType = 0;//把天胡的标记重置，胡了一次后就没用了
 		}
+
 		/** 
 		 * @param msg
 		 * 服务器通知客户端 全部结束
@@ -740,13 +761,13 @@ module game {
 			}
 			egret.setTimeout(function () {
 
-				egret.setTimeout(function(){
+				egret.setTimeout(function () {
 					this.gameResult.showResult(body);
-				},this,500 );
+				}, this, 1000);
 
 				this.gameUI.showAllHandCard(body);
 
-				
+
 			}, this, nTime);
 			ViewManager.ins.changeTimer(true);
 		}
@@ -786,7 +807,7 @@ module game {
 			////开局状态
 			if (status == game.RoomStatus.MJ_GS_KJ) {
 				this.gameUI.initPosition();
-				
+
 			}
 			////发牌状态
 			if (status == game.RoomStatus.MJ_GS_FP) {
@@ -826,20 +847,20 @@ module game {
 			//游戏阶段
 			GDGame.Msg.ins.removeEventListener(room.RoomMessage.ACK_ENTER_TABLE, this.onEnterGame, this);
 			GDGame.Msg.ins.removeEventListener(room.RoomMessage.ACK_GAMEPLAYERLIST, this.onUserList, this);
-	
+
 			//服务器通知客户端 单次胡牌消息
 			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_GAMERESULT, this.ACK_GAME_RESULT, this);
 			//游戏全部结束
 			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_ALLGAMERESULT, this.ACK_ALL_GAMERESULT, this);
 			//服务器通知客户端托管操作
 			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_GAMEPLAYERTRUST, this.ACK_USER_PLAYERTRUST, this);
-		
+
 			//返回游戏未开时突然结束的广播消息
 			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_OVERGAME, this.ACK_OVER_GAME, this);
 
-		
 
-		
+
+
 			//房间状态变更
 			GDGame.Msg.ins.removeEventListener(GameMessage.NTF_ROOM_STATE, this.ACK_GAME_STATUS_CHANGED, this);
 
