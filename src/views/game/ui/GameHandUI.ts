@@ -325,6 +325,7 @@ module game {
 			this.clearGroup(ghand);
 
 			let arr: Array<CardInfo> = this.copyHandCard(game.GamePlayData.getHandCards(sit));
+			//console.log("=====getHandCards arr",arr)
 			let index: number = 0;
 			let len: number = arr.length;
 	
@@ -337,11 +338,8 @@ module game {
 			for (let i: number = 0; i < len; i++) {
 
 				let info: CardInfo = arr[i];
-
 				let cardValue: number = info.CardID; //game.GameParmes.getCardID(info);
-
 				let card: BaseHandCardUI = new BaseHandCardUI();
-				// ghand.addChild(card);
 				card.visible = isShow;
 
 				if (p == 2) {
@@ -391,7 +389,7 @@ module game {
 					card.setPaoFlag(isPao)
 					card.setCard(p, (i + index), cardValue, state);
 					card.cardInfo = info;
-					if (GameParmes.isHu) {
+					if (GamePlayData.isSelfTing) {
 						card.setMaskFlag(false);
 						if (i == len - 1 && index == 0) {
 							card.setMaskFlag(true);
@@ -609,7 +607,7 @@ module game {
 						}
 
 					
-						if (!isAllPao && item.imgPao && item.imgPao.visible && !GamePlayData.isTing) {
+						if (!isAllPao && item.imgPao && item.imgPao.visible && !GamePlayData.isSelfTing) {
 							return;
 							// console.log("====is Pao===")
 						}

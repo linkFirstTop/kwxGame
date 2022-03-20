@@ -62,7 +62,7 @@ module game {
 			this.gamePool.initCard();
 
 			this.gameHand = new game.GameHandUI();
-			this.addChildAt(this.gameHand,6);
+			this.addChildAt(this.gameHand,3);
 			this.gameHand.addEventListener("ShowTingGroup", this.onShowTingGroup, this);
 			this.gameHand.addEventListener("ShowTingTip", this.onShowTingTip, this);
 			this.gameHand.initHand();
@@ -428,6 +428,11 @@ module game {
 
 		public onGameContinue(): void {
 			console.log("===onGameContinue===")
+			if(GamePlayData.isSelfTing){
+				this.iconTing.visible = true;
+			}else{
+				this.iconTing.visible = false;
+			}
 			this.gameHand.createHandCard(true, 0);//还原手牌
 			this.gameHand.createAllCPG();//还原吃碰杠牌
 

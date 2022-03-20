@@ -425,7 +425,7 @@ module game {
 				card.Sit = nSit;
 
 				const Cards = [card];
-				game.GamePlayData.ClearHandCards(game.GamePlayData.getHandCards(p), [card], nSit);
+				game.GamePlayData.ClearHandCards(p, [card], nSit);
 				game.GamePlayData.AddCardPool(Cards, nSit);
 				if (nSit == Global.userSit) {
 					game.GamePlayData.SaveCurrentCard(0, -1);
@@ -448,7 +448,7 @@ module game {
 				// 	game.GamePlayData.ClearHandCards(game.GamePlayData.getHandCards(p), [card], nSit);
 				// }
 
-				game.GamePlayData.ClearHandCards(game.GamePlayData.getHandCards(p), [card], nSit);
+				game.GamePlayData.ClearHandCards(p, [card], nSit);
 				const Cards = [card];
 				game.GamePlayData.AddCardPool(Cards, nSit);
 				if (nSit == Global.userSit) {
@@ -550,7 +550,7 @@ module game {
 				card.Sit = nSit;
 
 				const Cards = [card];
-				game.GamePlayData.ClearHandCards(game.GamePlayData.getHandCards(p), [card], nSit);
+				//game.GamePlayData.ClearHandCards(p, [card], nSit);
 				game.GamePlayData.AddCardPool(Cards, nSit);
 				if (nSit == Global.userSit) {
 					game.GamePlayData.SaveCurrentCard(0, -1);
@@ -566,7 +566,7 @@ module game {
 						GamePlayData.MJ_LiangOtherPais.push(o)
 					})
 				} else {
-					GamePlayData.isTing = true;
+					GamePlayData.isSelfTing = true;
 					opt.tingTileInfo.forEach((o: any) => {
 						GamePlayData.MJ_selfTingarr.push(o)
 					})
@@ -581,8 +581,8 @@ module game {
 
 			//和
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_WIN) {
+				GamePlayData.isSelfTing = false;
 				
-
 				if (opt.ObtainSeat != nSit) {
 					//--
 					const card: CardInfo = new CardInfo();
@@ -595,12 +595,12 @@ module game {
 				
 				} 
 				if( nSit == Global.userSit ){
-					console.log("===玩家  self 胡牌 了 =====")
+					console.log("===SElf hu")
 					this.gameUI.showHuCard(nSit,  opt.ObtainTile,3);
 					GameParmes.isHu = true;
 					this.gameUI.hideTingFlag();
 				}else{
-					console.log("===玩家  other 胡牌 了 =====")
+					console.log("===Other hu")
 					this.gameUI.showHuCard(nSit,  opt.ObtainTile,0);
 
 		
