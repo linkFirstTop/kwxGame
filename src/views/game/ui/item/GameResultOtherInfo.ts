@@ -49,8 +49,13 @@ module game {
 			//console.log("---ImgSource--", ImgSource);
 
 			this.imgPosition.source = ImgSource;
-			this.imgHead.source = Global.commURL + "head/iconHead" + Global.getHeadByName(info.userName) + ".png";
-			//	this.im
+
+			if( info.userPos.seatID == Global.userSit ){
+				this.imgHead.source = Global.commURL + "head/iconHead" + Global.userHead + ".png";
+			}else{
+				this.imgHead.source = Global.commURL + "head/iconHead" + Global.getHeadByName(info.userName) + ".png";
+			}
+			
 
 			this.imgLiang.visible = info.isTing == 1;
 
@@ -75,13 +80,7 @@ module game {
 			})
 		}
 
-		public showPao(data: any, coin: number) {
-			let isShow = false;
-			data.forEach((info: room.MJ_SettlementInfo) => {
-				if (info.type == 3 && coin < 0) {
-					isShow = true;
-				}
-			})
+		public showPao() {
 
 			this.imgPao.visible = true;
 
