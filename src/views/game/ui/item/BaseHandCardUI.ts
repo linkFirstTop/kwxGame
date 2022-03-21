@@ -84,6 +84,7 @@ module game {
 					this.imgCard.scaleX = this.imgCard.scaleY = 0.9;
 					this.imgCard.verticalCenter = -10;
 				}
+
 			}
 		}
 

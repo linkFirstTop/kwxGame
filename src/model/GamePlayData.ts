@@ -62,7 +62,10 @@ module game {
 		public static MJ_LiangOtherPais: Array<room.MJ_TingTileInfo>  = [];
 
 		public static MJ_selfTingarr : Array<room.MJ_TingTileInfo> =[]
-		public static isTing : boolean = false;
+		/**
+		 * 玩家听
+		 */
+		public static isSelfTing : boolean = false;
 
 		/*初始化数据*/
 		public static initData(): void {
@@ -87,7 +90,7 @@ module game {
 			GamePlayData.MJ_LiangSitArr = [];
 			GamePlayData.MJ_LiangOtherPais = [];
 			GamePlayData.MJ_selfTingarr = [];
-			GamePlayData.isTing = false;
+			GamePlayData.isSelfTing = false;
 		}
 
 		/**
@@ -139,8 +142,10 @@ module game {
 			arr.forEach((e, i) => {
 				const tiles = [...e.tileSets[0].Tiles];
 				const arrTmp = [];
+				const ln = tiles.length;
+			
 
-				for (let j = 0; j < tiles.length; j++) {
+				for (let j = 0; j < ln; j++) {
 					// console.log(j, tiles[j])
 					let card: CardInfo = new CardInfo();
 					card.CardID = tiles[j];
@@ -150,9 +155,6 @@ module game {
 
 				let p = Global.getUserPosition(e.userPos.seatID)
 				array[p] = arrTmp;
-				
-
-
 			})
 			game.GamePlayData.handCardsArr = array;
 		
@@ -247,13 +249,13 @@ module game {
 
 					this.DelectCardPool(this.getCardsPool(op));
 					//处理手牌
-					this.ClearHandCards(handCards, group.cards, sit);
+					this.ClearHandCards(p, group.cards, sit);
 					otherCards.push(group);
 					break;
 				case CardsGroupType.PENG://碰牌
 					this.DelectCardPool(this.getCardsPool(op));
 					//处理手牌
-					this.ClearHandCards(handCards, body.DelCards, sit);
+					this.ClearHandCards(p, body.DelCards, sit);
 					otherCards.push(group);
 					break;
 				case CardsGroupType.BUGANG://补杠牌
@@ -268,7 +270,7 @@ module game {
 								cardtemp.CardID = group.obtainCard.CardID;
 								cardtemp.Sit = op;
 
-								this.ClearHandCards(handCards, [cardtemp], sit);
+								this.ClearHandCards(p, [cardtemp], sit);
 								break;
 							}
 						}
@@ -276,11 +278,11 @@ module game {
 					break;
 				case CardsGroupType.MINGGANG://明杠牌
 					this.DelectCardPool(this.getCardsPool(op));
-					this.ClearHandCards(handCards, group.cards, sit);
+					this.ClearHandCards(p, group.cards, sit);
 					otherCards.push(group);
 					break;
 				case CardsGroupType.ANGANG://暗杠牌
-					this.ClearHandCards(handCards, group.cards, sit);
+					this.ClearHandCards(p, group.cards, sit);
 					otherCards.push(group);
 					break;
 				case CardsGroupType.HU://胡牌
@@ -290,13 +292,15 @@ module game {
 		}
 		/**
 		 * 删除一组/张手牌数据
-		 * 0  HandCardsInfo
+		 * p  本地座位号
+		 * cards  要删除的牌
 		 * 1  CardsGroup.Cards
 		 * */
-		public static ClearHandCards(handcards: Array<CardInfo>, cards: Array<CardInfo>, sit: number): void {
+		public static ClearHandCards(p: number, cards: Array<CardInfo>, sit: number): void {
 			//  console.log("====ClearHandCardsS== ", handcards,cards);
+			let handcards = GamePlayData.handCardsArr[p];
 			if(!cards){return}
-		
+
 			if (sit == Global.userSit) {
 				this.Chi_Groups.length = 0;
 				this.Peng_Groups.length = 0;
@@ -311,18 +315,12 @@ module game {
 						}
 					}
 				}
-
-				/*console.log("清理碰杠权限数组:"+this.Call_Groups.length);
-				if(isPeng == false){//用户处理碰后听牌的情况
-					this.Call_Groups.length = 0;
-				} */
 			} else {
 
 				const Max = cards.length;
 				//console.log("====MAX", Max);
 				for (let i = 0; i < Max; i++) {
 					handcards.pop();
-
 				}
 
 			}
@@ -477,9 +475,9 @@ module game {
 			if (sit == 0) {
 				arr = this.SortCards(arr);
 			}
+			// console.log("===getHands Cards",arr)
 			return arr;
-			// let arr: Array<CardInfo> = game.GamePlayData.arrHandCards[sit];
-			// return arr;
+
 		}
 		
 		public static getOtherCards(sit: number): Array<CardsGroupInfo> {

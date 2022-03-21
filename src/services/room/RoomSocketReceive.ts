@@ -74,7 +74,7 @@ module room {
 			GDGame.Msg.ins.dispatchEventWith(room.RoomMessage.ACK_GAMEPLAYERLIST, false, body);
 
 			game.GamePlayData.SaveHandCarsd(body.userInfos);
-			//console.log('=====同步游戏======',body);
+			console.log('=====同步游戏======',body);
 			if( Number( body.status ) == 0 )
 			{
 				return;
