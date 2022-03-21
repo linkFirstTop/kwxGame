@@ -206,8 +206,8 @@ module game {
 			if (p == 1) {
 				//card.setCard(p, 13, 1, 0);
 				item.setCard(p, 13, cardValue);
-				item.x = this.arrRHP[0].x  - 25;
-				item.y = this.arrRHP[0].y  + 30 ;
+				item.x = this.arrRHP[0].x  - 22;
+				item.y = this.arrRHP[0].y  + 25 ;
 			}
 			if (p == 0) {
 				item.x = (ghand.numChildren - 1) * 90;
