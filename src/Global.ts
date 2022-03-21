@@ -60,7 +60,7 @@ class Global {
 	public static isShowLog: boolean = true;
 	public static isShowCoin: boolean = true;
 	public static exchange: number = 100;
-	public static isDeal: boolean = true;
+	public static isDeal: boolean = false;
 	public static getWebActive(): boolean {
 		var isActive: boolean = true;
 		if (Global.isWebActive == false) {

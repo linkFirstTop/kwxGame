@@ -24,7 +24,9 @@ module game {
 			if (!Global.isContinue) {
 				this.gameMatch.startAnim();
 			}
-
+			if(egret.getOption('pai')=='1'){
+				Global.isDeal = true
+			}
 			if (Global.isDeal) {
 				let gamezhuapai: GameZhuaPaiQiUI = new GameZhuaPaiQiUI();
 				this.addChild(gamezhuapai);
