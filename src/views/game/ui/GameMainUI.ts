@@ -591,6 +591,13 @@ module game {
 			this.iconTing.visible = true;
 		}
 
+		public onShowUserLiang(nSit:number){
+			let p = Global.getUserPosition(nSit);
+			
+			this["gameUser" + p].isShowLiang(true);
+		}
+
+
 		/*显示待胡牌*/
 		private showTingGroup(): void {
 			let arr: Array<any> = GamePlayData.MJ_selfTingarr;;
