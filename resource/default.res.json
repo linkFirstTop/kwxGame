@@ -1,11 +1,11 @@
 {
 	"groups": [
 		{
-			"keys": "waitloading_png,black_png,loadprogressbg_png,loadingbg_jpg,loadingLogo_png,loadprogress_png,loadingbg2_jpg,roombg2_jpg,loadingLogo2_png,loadLogo2_png,loadLogo_png,roomLogo2_png,roomLogo_png,roomItembg13_png,roomItembg22_png,roomItembg1_png,roomItembg2_png,gamebg2_jpg,1_png,2_png,dapiaobg_png,0_png",
+			"keys": "waitloading_png,black_png,loadprogressbg_png,loadingbg_jpg,loadingLogo_png,loadprogress_png,loadingbg2_jpg,loadingLogo2_png,loadLogo2_png,loadLogo_png,roomLogo2_png,roomLogo_png,gamebg2_jpg,1_png,2_png,dapiaobg_png,0_png",
 			"name": "preload"
 		},
 		{
-			"keys": "roombg_jpg,commCoin_png,xlrw_tex_png,xlrw_tex_json,xlrw_ske_json,GameTimeFnt_fnt,GameTimeFnt_png,resultLoseFnt_fnt,resultLoseFnt_png,resultWinFnt_fnt,resultWinFnt_png,winCoinFnt_fnt,winCoinFnt_png,loseCoinFnt_fnt,loseCoinFnt_png,gameHeadHBg_png,gameHeadKuang_png,gameHeadVBg_png,positionSheet_json,gamebg_jpg,gameComm_json,changeHeadSheet_json,icon_select_yes_png,changeLanguagebg_png,alertbg_png,icon_select_no_png,gameButtonListbg_png",
+			"keys": "roombg_jpg,commCoin_png,xlrw_tex_png,xlrw_tex_json,xlrw_ske_json,GameTimeFnt_fnt,GameTimeFnt_png,resultLoseFnt_fnt,resultLoseFnt_png,resultWinFnt_fnt,resultWinFnt_png,winCoinFnt_fnt,winCoinFnt_png,loseCoinFnt_fnt,loseCoinFnt_png,gameHeadHBg_png,gameHeadKuang_png,gameHeadVBg_png,positionSheet_json,gamebg_jpg,gameComm_json,changeHeadSheet_json,icon_select_yes_png,changeLanguagebg_png,alertbg_png,icon_select_no_png,gameButtonListbg_png,roombg2_jpg,roomItembg13_png,roomItembg22_png,roomItembg1_png,roomItembg2_png,roomTxt1_json,roomTxt1_png,roomTxtbg2_png,roomTxtbg1_png,room1anim2_png,room1Anim1_png,room1Anim1_json,room1anim2_json,roomItembg1_1_png,roomItembg2_1_png",
 			"name": "room"
 		},
 		{
@@ -1482,6 +1482,56 @@
 			"url": "assets/game/cardLeft.png",
 			"type": "image",
 			"name": "cardLeft_png"
+		},
+		{
+			"url": "assets/room/room1Anim1.png",
+			"type": "image",
+			"name": "room1Anim1_png"
+		},
+		{
+			"url": "assets/room/room1anim2.png",
+			"type": "image",
+			"name": "room1anim2_png"
+		},
+		{
+			"url": "assets/room/roomTxt1.png",
+			"type": "image",
+			"name": "roomTxt1_png"
+		},
+		{
+			"url": "assets/room/room1anim2.json",
+			"type": "json",
+			"name": "room1anim2_json"
+		},
+		{
+			"url": "assets/room/roomTxt1.json",
+			"type": "json",
+			"name": "roomTxt1_json"
+		},
+		{
+			"url": "assets/room/room1Anim1.json",
+			"type": "json",
+			"name": "room1Anim1_json"
+		},
+		{
+			"url": "assets/room/roomItembg1_1.png",
+			"type": "image",
+			"name": "roomItembg1_1_png"
+		},
+		{
+			"url": "assets/room/roomItembg2_1.png",
+			"type": "image",
+			"name": "roomItembg2_1_png"
+		},
+		{
+			"url": "assets/room/roomTxtbg1.png",
+			"type": "image",
+			"name": "roomTxtbg1_png"
+		},
+		{
+			"url": "assets/room/roomTxtbg2.png",
+			"type": "image",
+			"name": "roomTxtbg2_png"
 		}
 	]
 }
