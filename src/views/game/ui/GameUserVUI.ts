@@ -18,6 +18,7 @@ module game {
 		private nSit: number = -1;
 		private piaofen_result: eui.Image;
 		private user: game.GameUserInfo;
+		private imgLiang : eui.Image;
 		protected childrenCreated(): void {
 			super.childrenCreated();
 		}
@@ -55,6 +56,8 @@ module game {
 			if (p == 1) {
 				this.imgHead.scaleX = -1;
 			}
+			this.imgLiang.source = "resultSheet_json.resultLiang_" + Global.userHead; 
+			this.isShowLiang(false)
 		}
 
 		public showResultCoin(coin: number): void {
@@ -65,6 +68,13 @@ module game {
 			}
 
 			this.nCoin = coin;
+		}
+
+/**
+ * 是否显示亮倒
+ */
+		public isShowLiang(show:boolean){
+			this.imgLiang.visible = show;
 		}
 
 		public showDapiaoInfo() {

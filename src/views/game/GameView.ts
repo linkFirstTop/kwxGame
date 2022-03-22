@@ -111,10 +111,12 @@ module game {
 
 			arr.forEach((e: any, i) => {
 				const user: room.VGUserInfo = e.origin;
-				let p = Global.getUserPosition(user.userPos.seatID);
 				let nSit: number = user.userPos.seatID;
+				let p = Global.getUserPosition(user.userPos.seatID);
+				
 				if (user.isTing) {
 					GamePlayData.MJ_LiangSitArr.push(nSit);
+					this.gameUI.onShowUserLiang(nSit)
 				}
 
 				const tileSets = user.tileSets;
@@ -573,6 +575,8 @@ module game {
 
 					this.gameUI.onShowTingTip()
 				}
+				this.gameUI.onShowUserLiang(nSit)
+				
 
 				GamePlayData.MJ_LiangSitArr.push(nSit);
 
@@ -602,8 +606,6 @@ module game {
 				}else{
 					console.log("===Other hu")
 					this.gameUI.showHuCard(nSit,  opt.ObtainTile,0);
-
-		
 				}
 				
 				this.checkHuInfo(opt, nSit);
