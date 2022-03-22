@@ -17,4 +17,5 @@
 		<e:Label id="lbCoin" text=""  size="26" textColor="0xfeeaa6" textAlign="center" width="100%" height="100%" verticalAlign="middle"/>
 	</e:Group>
 	<e:Image id="piaofen_result" source="p0f_png" y="-41.954" x="29.29"/>
+	<e:Image id="imgLiang" source="resultSheet_json.resultLiang_cn" x="35" y="-50"/>
 </e:Skin>
