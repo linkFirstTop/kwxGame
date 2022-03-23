@@ -218,16 +218,20 @@ module game {
 
 		}
 		/*删除自摸胡牌的那张手牌*/
-		private delHandCard(p: number): void {
+		public delHandCard(p: number): void {
 			let g: eui.Group = this.findHandGroup(p);
 			let len: number = g.numChildren;
 			let item: game.BaseHandCardUI;
-			if (p == 2) {//删除第一张
-				item = g.removeChildAt(0) as game.BaseHandCardUI;
-			} else {//删除最后一张
-				item = g.removeChildAt(len - 1) as game.BaseHandCardUI;
+
+			for(let i=0;i<len;i++){
+				item = g.getChildAt(i) as game.BaseHandCardUI;
+				if(item.isMoCard){
+					g.removeChild(item);
+					item = null;
+				}
 			}
-			item = null;
+			
+			
 		}
 		public delOneHandCard(info: CardInfo): void {
 			for (let i: number = 0; i < this.gHandCardD.numChildren; i++) {
