@@ -87,7 +87,7 @@ module room {
 			//动画1
 			const Animdata2 = RES.getRes("room1Anim1_json");
 			const txtr2 = RES.getRes("room1Anim1_png");
-			console.log("=-=txtr2=", txtr2)
+			//console.log("=-=txtr2=", txtr2)
 			const mcFactory2: egret.MovieClipDataFactory = new egret.MovieClipDataFactory(Animdata2, txtr2);
 			const mc2: egret.MovieClip = new egret.MovieClip(mcFactory2.generateMovieClipData());
 			mc2.x = -20;

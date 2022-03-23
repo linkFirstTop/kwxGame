@@ -566,9 +566,11 @@ module game {
 				SoundModel.playEffect(SoundModel.CHU);
 
 				if (nSit != Global.userSit) {
-					opt.tingTileInfo.forEach((o: any) => {
+					opt.tingTileInfo.forEach((o: room.MJ_TingTileInfo) => {
 						GamePlayData.MJ_LiangOtherPais.push(o)
 					})
+
+					//console.log("==GamePlayData.MJ_LiangOtherPais===",GamePlayData.MJ_LiangOtherPais)
 				} else {
 					GamePlayData.isSelfTing = true;
 					opt.tingTileInfo.forEach((o: any) => {
@@ -587,8 +589,11 @@ module game {
 
 			//和
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_WIN) {
+				this.gameUI.gameOpt.visible = false;
 				GamePlayData.isSelfTing = false;
+				GamePlayData.MJ_LiangOtherPais = [];
 				this.gameUI.gameHand.delHandCard(nSit);
+
 				if (opt.ObtainSeat != nSit) {
 					//--
 					const card: CardInfo = new CardInfo();
