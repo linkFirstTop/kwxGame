@@ -24,9 +24,7 @@ module game {
 			if (!Global.isContinue) {
 				this.gameMatch.startAnim();
 			}
-			if(egret.getOption('pai')=='1'){
-				Global.isDeal = true
-			}
+
 			if (Global.isDeal) {
 				let gamezhuapai: GameZhuaPaiQiUI = new GameZhuaPaiQiUI();
 				this.addChild(gamezhuapai);
@@ -50,7 +48,6 @@ module game {
 			//返回游戏未开时突然结束的广播消息
 			GDGame.Msg.ins.addEventListener(GameMessage.ACK_OVERGAME, this.ACK_OVER_GAME, this);
 			GDGame.Msg.ins.addEventListener(GameMessage.NTF_ROOM_STATE, this.ACK_GAME_STATUS_CHANGED, this);
-
 			//开始发牌
 			GDGame.Msg.ins.addEventListener(game.GameMessage.START_GET_CARD, this.startDealCard, this);
 
@@ -68,8 +65,6 @@ module game {
 			//断线重联
 			GDGame.Msg.ins.addEventListener(room.RoomMessage.ACK_GAME_CONTINUE, this.onGameContinue, this);
 		}
-
-
 
 		/** 
 		 * @param msg
@@ -115,7 +110,7 @@ module game {
 				const user: room.VGUserInfo = e.origin;
 				let nSit: number = user.userPos.seatID;
 				let p = Global.getUserPosition(user.userPos.seatID);
-				
+
 				if (user.isTing) {
 					GamePlayData.MJ_LiangSitArr.push(nSit);
 					this.gameUI.onShowUserLiang(nSit)
@@ -280,12 +275,14 @@ module game {
 			game.GamePlayData.M_C_P_G_sit = nSit;
 			this.gameUI.changeUserRight();
 
+			GameParmes.isCurTing = false;
+
 			if (body.operation.length == 0) {
 				// 其他人的操作通知
 				return;
 			}
 
-			GameParmes.isCurTing = false;
+
 			if (nSit != Global.userSit) {
 				//座位号 不是 自己
 				GameParmes.gameTurn = GameTurnType.OTHERTURN;
@@ -362,11 +359,7 @@ module game {
 					GameParmes.gameTurn = GameTurnType.OTHERTURN;
 					GameParmes.isCurTing = true;
 
-					//this.gameUI.checkLPCards();
-					let arr: Array<any> = GamePlayData.GetChiPengGangHuGroup(CardsGroupType.CALL);
-					for (let i: number = 0; i < arr.length; i++) {
-						this.gameUI.arrCallCards.push(arr[i]);
-					}
+					//let arr: Array<any> = GamePlayData.GetChiPengGangHuGroup(CardsGroupType.CALL);
 				}
 
 				//和
@@ -402,7 +395,7 @@ module game {
 			let p = Global.getUserPosition(nSit)
 			console.log(`****当前操作玩家座位号:${nSit}，和局部座位号:${p},玩家座位号：${Global.userSit}`)
 			const opt: room.MJ_Operation = <any>body.operation;
-
+			GameParmes.isCurTing = false;
 			if (!opt) {
 				return;
 			}
@@ -415,7 +408,7 @@ module game {
 				card.CardID = opt.Tiles[0];
 				card.Sit = nSit;
 				// console.log("====MOPAI=====",card)
-				game.GamePlayData.MJ_Mopai = true;
+		
 				game.GamePlayData.AddHandCards(nSit, card);
 				this.gameUI.getOneCard(card);
 				//room.RoomWebSocket.instance().roomSender.REQ_MAGICTILES()
@@ -451,8 +444,6 @@ module game {
 				// if (handcardsNum % 3 != 1) {
 				// 	game.GamePlayData.ClearHandCards(game.GamePlayData.getHandCards(p), [card], nSit);
 				// }
-
-				
 
 				game.GamePlayData.ClearHandCards(p, [card], nSit);
 				const Cards = [card];
@@ -582,7 +573,7 @@ module game {
 					this.gameUI.onShowTingTip()
 				}
 				this.gameUI.onShowUserLiang(nSit)
-				
+
 
 				GamePlayData.MJ_LiangSitArr.push(nSit);
 
@@ -594,9 +585,10 @@ module game {
 				this.gameUI.gameOpt.visible = false;
 				GamePlayData.isSelfTing = false;
 				GamePlayData.MJ_LiangOtherPais = [];
-				this.gameUI.gameHand.delHandCard(nSit);
+		
 
 				if (opt.ObtainSeat != nSit) {
+					
 					//--
 					const card: CardInfo = new CardInfo();
 					card.CardID = opt.ObtainTile;
@@ -605,18 +597,19 @@ module game {
 					let op = Global.getUserPosition(opt.ObtainSeat);
 					this.gameUI.gamePool.removeCardToPool(opt.ObtainSeat, card);
 					GamePlayData.DelectCardPool(GamePlayData.getCardsPool(op));
-				
-				} 
-				if( nSit == Global.userSit ){
+
+				}
+				if (nSit == Global.userSit) {
 					console.log("===SElf hu")
-					this.gameUI.showHuCard(nSit,  opt.ObtainTile,3);
+					this.gameUI.showHuCard(nSit, opt.ObtainTile, 3);
 					GameParmes.isHu = true;
 					this.gameUI.hideTingFlag();
-				}else{
+				} else {
+					this.gameUI.gameHand.delHandCard(nSit);
 					console.log("===Other hu")
-					this.gameUI.showHuCard(nSit,  opt.ObtainTile,0);
+					this.gameUI.showHuCard(nSit, opt.ObtainTile, 0);
 				}
-				
+
 				this.checkHuInfo(opt, nSit);
 			}
 
@@ -740,7 +733,7 @@ module game {
 			let nTime: number = 1200;
 			let body: room.VGGameResultNtc = evt.data;
 			//console.log("=!!!!SHOW RESULT=====", body)
-			GameParmes.isGameFlower = false;
+			GameParmes.isGameFlower = true;
 			for (let i: number = 0; i < body.userInfos.length; i++) {
 				const user = body.userInfos[i]
 				if (user.resultCoin > 0) {//自己胡做下标记
@@ -749,7 +742,6 @@ module game {
 				}
 			}
 
-
 			//this.gameUI.playAnim("djjs", -1);
 			if (GameParmes.isGameFlower) {//播放流局动画
 				egret.setTimeout(function () {
@@ -757,7 +749,6 @@ module game {
 				}, this, 1200);
 				nTime = 2400;
 			}
-
 
 			game.GamePlayData.SaveHandCarsd(body.userInfos);
 			GameParmes.gameTurn = GameTurnType.OTHERTURN;

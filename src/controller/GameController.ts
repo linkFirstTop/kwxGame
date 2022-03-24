@@ -58,15 +58,7 @@ module game {
 		 * @param e
 		 * 客户端通知服务器听牌
 		 */		
-		public static ReqCallPai(c:CardInfo):void{
-			var cardsGroup:CardsGroupInfo = new CardsGroupInfo();
-			cardsGroup.cardsit = Global.userSit;
-			cardsGroup.CardsGroupType = CardsGroupType.CALL;
-			var card:CardInfo = c;
-			cardsGroup.cards.push(card);
-			game.GameWebSocket.instance().gameSender.ReqSendCardsGameFun(cardsGroup);
-		}
-	
+
 				
 
 		/**

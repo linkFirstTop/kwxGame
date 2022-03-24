@@ -266,34 +266,10 @@ module game {
 			let p: number = Global.getUserPosition(card.Sit);
 			this.gameHand.updataHandsByPosition(p, 0);
 			game.SoundModel.playCardSound(card);
-			let cardValue: number = card.CardID //game.GameParmes.getCardID(card);
-			// if (this.gTingTip.visible) {
-			// 	for (let i: number = 0; i < this.gTingCards.numChildren; i++) {
-			// 		let item: game.BaseTingCardUI = this.gTingCards.getChildAt(i) as game.BaseTingCardUI;
-			// 		if (item.cardIndex == cardValue) {
-			// 			item.updataLeftCard();
-			// 		}
-			// 	}
-			// }
+			let cardValue: number = card.CardID 
+	
 			//处理托管出牌，没有显示听牌提示的问题
 
-			// if (p == 0) {
-			// 	if (this.arrCallCards.length > 0) {//有听牌数组，托管
-			// 		for (let i: number = 0; i < this.arrCallCards.length; i++) {//如果出牌在数组中，显示听牌提示
-			// 			let info: any = this.arrCallCards[i];
-			// 			if (info.ObtainCardIndex == cardValue) {
-			// 				this.iconTing.visible = true;
-	
-			// 				this.copyTingCards(info.callTile);
-			// 				this.createHuCards(info.CallCards);
-			// 				return;
-			// 			}
-			// 		}
-			// 		//走到这里说明出的牌破坏了听牌状态
-			// 		this.iconTing.visible = false;
-			// 		this.gTingTip.visible = false;
-			// 	}
-			// }
 		}
 		/*显示吃碰杠等操作按钮*/
 		public onShowOpt(arr: Array<any>): void {
@@ -319,15 +295,7 @@ module game {
 				this.gTingTip.visible = false;
 			}
 			if (arr[4]) {
-				// if (GameParmes.isHu == false) {
-				// 	this.gameHand.showTingFlag(true, "ting");
-				// }
 
-				// this.checkLPCards();
-				// let arr: Array<any> = GamePlayData.GetChiPengGangHuGroup(CardsGroupType.CALL);
-				// for (let i: number = 0; i < arr.length; i++) {
-				// 	this.arrCallCards.push(arr[i]);
-				// }
 			}
 		}
 
@@ -377,30 +345,7 @@ module game {
 		public showHuCard(sit: number, huCardID: number, type: number): void {
 			this.imgTHTip.visible = false;
 			this.gameHand.showHuCard(sit, huCardID, type);
-			// if (sit == Global.userSit) {//处理胡的时候听牌显示问题
-			// 	if (this.arrCallCards.length == 1) {
-			// 		let info: any = this.arrCallCards[0];
-			// 		this.iconTing.visible = true;
-			// 		this.copyTingCards(info.callTile);
-			// 		this.createHuCards(info.callTile);
-			// 	} else {
-			// 		if (type == 3) {//自摸 这时候长度可能大于1
-			// 			let card: CardInfo = new CardInfo();
-			// 			card.CardID = huCardID;
-			// 			card.Sit = sit;
-			// 			let cardValue: number = card.CardID//(card);
-			// 			for (let i: number = 0; i < this.arrCallCards.length; i++) {//如果出牌在数组中，显示听牌提示
-			// 				let info: any = this.arrCallCards[i];
-			// 				if (info.ObtainCardIndex == cardValue) {
-			// 					this.iconTing.visible = true;
-			// 					this.copyTingCards(info.CallCards);
-			// 					this.createHuCards(info.CallCards);
-			// 					return;
-			// 				}
-			// 			}
-			// 		}
-			// 	}
-			// }
+
 		}
 
 		public delPoolCard(sit: number): void {
