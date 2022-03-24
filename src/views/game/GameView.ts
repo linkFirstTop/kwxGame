@@ -452,6 +452,8 @@ module game {
 				// 	game.GamePlayData.ClearHandCards(game.GamePlayData.getHandCards(p), [card], nSit);
 				// }
 
+				
+
 				game.GamePlayData.ClearHandCards(p, [card], nSit);
 				const Cards = [card];
 				game.GamePlayData.AddCardPool(Cards, nSit);
@@ -566,9 +568,11 @@ module game {
 				SoundModel.playEffect(SoundModel.CHU);
 
 				if (nSit != Global.userSit) {
-					opt.tingTileInfo.forEach((o: any) => {
+					opt.tingTileInfo.forEach((o: room.MJ_TingTileInfo) => {
 						GamePlayData.MJ_LiangOtherPais.push(o)
 					})
+
+					//console.log("==GamePlayData.MJ_LiangOtherPais===",GamePlayData.MJ_LiangOtherPais)
 				} else {
 					GamePlayData.isSelfTing = true;
 					opt.tingTileInfo.forEach((o: any) => {
@@ -587,8 +591,11 @@ module game {
 
 			//和
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_WIN) {
+				this.gameUI.gameOpt.visible = false;
 				GamePlayData.isSelfTing = false;
-				
+				GamePlayData.MJ_LiangOtherPais = [];
+				this.gameUI.gameHand.delHandCard(nSit);
+
 				if (opt.ObtainSeat != nSit) {
 					//--
 					const card: CardInfo = new CardInfo();
@@ -847,23 +854,17 @@ module game {
 		}
 		private removeMEL(): void {
 			this.removeEventListener("OnGameContinue", this.onGameContinue, this);
-
 			//游戏阶段
 			GDGame.Msg.ins.removeEventListener(room.RoomMessage.ACK_ENTER_TABLE, this.onEnterGame, this);
 			GDGame.Msg.ins.removeEventListener(room.RoomMessage.ACK_GAMEPLAYERLIST, this.onUserList, this);
-
 			//服务器通知客户端 单次胡牌消息
 			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_GAMERESULT, this.ACK_GAME_RESULT, this);
 			//游戏全部结束
 			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_ALLGAMERESULT, this.ACK_ALL_GAMERESULT, this);
 			//服务器通知客户端托管操作
 			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_GAMEPLAYERTRUST, this.ACK_USER_PLAYERTRUST, this);
-
 			//返回游戏未开时突然结束的广播消息
 			GDGame.Msg.ins.removeEventListener(GameMessage.ACK_OVERGAME, this.ACK_OVER_GAME, this);
-
-
-
 
 			//房间状态变更
 			GDGame.Msg.ins.removeEventListener(GameMessage.NTF_ROOM_STATE, this.ACK_GAME_STATUS_CHANGED, this);
@@ -881,7 +882,6 @@ module game {
 			GDGame.Msg.ins.removeEventListener(GameMessage.VGID_SERVICE_MAGICTILES, this.ACK_MAGIC_TILES, this);
 
 			GDGame.Msg.ins.removeEventListener(game.GameMessage.START_GET_CARD, this.startDealCard, this);
-
 		}
 
 		/*移除view的时候必须调用*/

@@ -59,7 +59,7 @@ module game {
 		 * 也已经听的牌的座位号
 		 */
 		public static MJ_LiangSitArr : Array<number> = [] ;
-		public static MJ_LiangOtherPais: Array<room.MJ_TingTileInfo>  = [];
+		public static MJ_LiangOtherPais: Array<room.MJ_TingTileInfo> = [];
 
 		public static MJ_selfTingarr : Array<room.MJ_TingTileInfo> =[]
 		/**

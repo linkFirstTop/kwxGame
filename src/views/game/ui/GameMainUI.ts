@@ -14,7 +14,7 @@ module game {
 		public gameHand: game.GameHandUI;
 		public gamePool: game.GamePoolUI;
 		private gamePosition: game.GamePositionUI;
-		private gameOpt: game.GameOperationUI;
+		public gameOpt: game.GameOperationUI;
 		public gameHSZ: game.GameHSZUI;
 		private gameTrust: eui.Group;
 		private btnTrust: eui.Image;

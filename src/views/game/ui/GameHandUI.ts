@@ -218,16 +218,21 @@ module game {
 
 		}
 		/*删除自摸胡牌的那张手牌*/
-		private delHandCard(p: number): void {
+		public delHandCard(p: number): void {
 			let g: eui.Group = this.findHandGroup(p);
 			let len: number = g.numChildren;
 			let item: game.BaseHandCardUI;
-			if (p == 2) {//删除第一张
-				item = g.removeChildAt(0) as game.BaseHandCardUI;
-			} else {//删除最后一张
-				item = g.removeChildAt(len - 1) as game.BaseHandCardUI;
+
+			for(let i=0;i<len;i++){
+				item = g.getChildAt(i) as game.BaseHandCardUI;
+				//console.log("===item.isMoCard===",item.isMoCard)
+				if(item.isMoCard){
+					g.removeChild(item);
+					item = null;
+				}
 			}
-			item = null;
+			
+			
 		}
 		public delOneHandCard(info: CardInfo): void {
 			for (let i: number = 0; i < this.gHandCardD.numChildren; i++) {
@@ -245,12 +250,14 @@ module game {
 			this.gHandCardD.y = GameConfig.curHeight() - this.gHandCardD.height;
 			this.gHandCardD.x = (GameConfig.curWidth() - this.gHandCardD.width) / 2;
 		}
+
 		public getOneCard(info: CardInfo): void {
 			let p: number = Global.getUserPosition(info.Sit);
 			let ghand: eui.Group = this.findHandGroup(p);
 			let card: BaseHandCardUI = new BaseHandCardUI();
 			let cardValue: number = info.CardID; //game.GameParmes.getCardID(info);
 			card.setCard(p, 0, cardValue, 0);
+			card.isMoCard = true;
 			if (p == 2) {
 				
 				card.x = this.arrLHP[0].x;
@@ -275,9 +282,7 @@ module game {
 				card.x = (ghand.numChildren - 1) * 90;
 				card.x += 10;
 
-				const isPao = GamePlayData.MJ_LiangOtherPais.some((e => {
-					return e.callTile == cardValue;
-				}))
+				const isPao = GamePlayData.MJ_LiangOtherPais.some((e => {e.callTile == cardValue;}))
 				card.setPaoFlag(isPao)
 			}
 		}
@@ -383,17 +388,19 @@ module game {
 				}
 				if (p == 0) {
 					ghand.addChild(card);
-					const isPao = GamePlayData.MJ_LiangOtherPais.some((e => {
-						return e.callTile == cardValue;
-					}))
-					card.setPaoFlag(isPao)
+					const isPao = GamePlayData.MJ_LiangOtherPais.some(e => (e.callTile == cardValue))
+					//console.log("====isPao",isPao,cardValue)
+					
 					card.setCard(p, (i + index), cardValue, state);
 					card.cardInfo = info;
+					card.setPaoFlag(isPao)
 					if (GamePlayData.isSelfTing) {
 						card.setMaskFlag(false);
 						if (i == len - 1 && index == 0) {
 							card.setMaskFlag(true);
 						}
+
+						
 					}
 
 

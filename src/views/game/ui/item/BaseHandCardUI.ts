@@ -151,6 +151,10 @@ module game {
 				}else{
 					this.imgPao.visible = true;
 				}
+				if (GamePlayData.isSelfTing) {
+					this.imgPao.y -= 20;
+					
+				}
 			}else{
 				// this.isTingFlag = false;
 				// this.isHuFlag = false;
