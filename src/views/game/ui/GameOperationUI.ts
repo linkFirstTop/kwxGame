@@ -23,12 +23,12 @@ module game {
 		protected childrenCreated(): void {
 			super.childrenCreated();
 
-			this.btnPeng.source = "gameButton_peng_" + Global.language;
-			this.btnGang.source = "gameButton_gang_" + Global.language;
-			this.btnHu.source = "gameButton_hu_" + Global.language;
-			this.btnTing.source = "gameButton_ting_" + Global.language;
-			this.btnGuo.source = "gameButton_guo_" + Global.language;
-			this.imgIconHu.source = "gameIcon_hu_" + Global.language;
+			this.btnPeng.source = "gameBtns_json.btnPeng_" + Global.language;
+			this.btnGang.source = "gameBtns_json.btnKong_" + Global.language;
+			this.btnHu.source = "gameBtns_json.btnHu_" + Global.language;
+			this.btnTing.source = "gameBtns_json.btnLiang_" + Global.language;
+			this.btnGuo.source = "gameBtns_json.btnPass_" + Global.language;
+			this.imgIconHu.source = "gameBtns_json.btnHu_" + Global.language;
 
 			this.initBtns();
 			this.btnPeng.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onPeng, this);
@@ -38,6 +38,7 @@ module game {
 			this.btnGuo.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onGuo, this);
 			this.gPGCards.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onPGGroupTap, this);
 		}
+
 		public initBtns(): void {
 			this.arrTmp = [];
 			this.btnPeng.visible = false;
@@ -49,6 +50,7 @@ module game {
 			this.gPGCards.visible = false;
 			this.gTingCards.visible = false;
 		}
+
 		public showOpt(arr: Array<any>): void {
 			this.initBtns();
 			var isChi: boolean = arr[0];
@@ -70,8 +72,8 @@ module game {
 				this.btnPeng.visible = true;
 			}
 			if (isTing) {
-				//this.arrTmp.unshift(this.btnTing);
-				//this.btnTing.visible = true;
+				this.arrTmp.unshift(this.btnTing);
+				this.btnTing.visible = true;
 			}
 
 			if (this.arrTmp.length > 0) {
@@ -159,47 +161,74 @@ module game {
 			// this.showCardGroups(arr);
 		}
 		private onTing(): void {
+			// if(GameParmes.isCurTing ){
+			// 	this.btnTing.visible = false;
+			// }
+			console.log("GameParmes.isHu:", GameParmes.isHu)
+			if (GameParmes.isHu == false) {
 
+				ViewManager.ins.gameView.gameUI.gameHand.showTingFlag(true, "ting");
+			}
+			this.btnTing.visible = false;
 		}
+
 		private onHu(): void {
 			if (GameParmes.nHuType == 16) {//此时是天胡情况
 				this.dispatchEvent(new egret.Event("ShowTianHuFlag"));
 			} else {
 				const mj_opts = game.GamePlayData.GetMJ_Operation();
-			let mj_opt: room.MJ_Operation
-			mj_opts.forEach(e => {
-				if (e.operationType == CardsGroupType.MJ_OperationType.MJ_OT_WIN) {
-					mj_opt = e;
+				let mj_opt: room.MJ_Operation
+				mj_opts.forEach(e => {
+					if (e.operationType == CardsGroupType.MJ_OperationType.MJ_OT_WIN) {
+						mj_opt = e;
+					}
+				})
+
+				if (!mj_opt) {
+					return;
 				}
-			})
+				const opt: room.MJ_Operation = new room.MJ_Operation()
+				opt.operationType = mj_opt.operationType;//操作类型
+				opt.Tiles = [] //牌组  如果是出牌则数组中只有一张牌
+				//如果是吃、碰、杠、胡则以下值需要读取或者写入
+				opt.ObtainTile = mj_opt.ObtainTile //需要吃碰杠胡的那一张牌 
+				opt.ObtainSeat = mj_opt.ObtainSeat //被吃碰杠胡的那个人的座位号 
 
-			if (!mj_opt) {
-				return;
-			}
-			const opt: room.MJ_Operation = new room.MJ_Operation()
-			opt.operationType = mj_opt.operationType;//操作类型
-			opt.Tiles = [] //牌组  如果是出牌则数组中只有一张牌
-			//如果是吃、碰、杠、胡则以下值需要读取或者写入
-			opt.ObtainTile = mj_opt.ObtainTile //需要吃碰杠胡的那一张牌 
-			opt.ObtainSeat = mj_opt.ObtainSeat //被吃碰杠胡的那个人的座位号 
+				//如果是听，则以下值需要读取或写入
+				opt.tingTileInfo = [] //MJ_TingTileInfo /和牌信息
 
-			//如果是听，则以下值需要读取或写入
-			opt.tingTileInfo = [] //MJ_TingTileInfo /和牌信息
-
-			//如果是胡，则以下值需要读取或写入
-			opt.maxFan = 3 //最大番数 
-			//opt.fans = 3 // MJ_FanInfo 被吃碰杠胡的那个人的座位号 
-			opt.operationID = 3 //操作id
-			room.RoomWebSocket.instance().roomSender.REQ_USEROPERATIONREQ(opt)
+				//如果是胡，则以下值需要读取或写入
+				opt.maxFan = 3 //最大番数 
+				//opt.fans = 3 // MJ_FanInfo 被吃碰杠胡的那个人的座位号 
+				opt.operationID = 3 //操作id
+				room.RoomWebSocket.instance().roomSender.REQ_USEROPERATIONREQ(opt)
 
 				//game.GameWebSocket.instance().gameSender.ReqSendCardsGameFun(GamePlayData.Hu_Groups[0]);
 			}
 			this.initBtns();
 		}
 		private onGuo(): void {
+			console.log("GameParmes.isCurTing:", GameParmes.isCurTing)
+			if (this.btnTing.visible == true && GameParmes.isCurTing) {
+				this.initBtns();
+				this.sendGameNoOperation();
+				ViewManager.ins.gameView.gameUI.gameHand.showTingFlag(false, "ting");
+				return
+
+			}
+
+			if (GameParmes.isCurTing && this.btnTing.visible == false) {
+				this.btnTing.visible = true;
+				ViewManager.ins.gameView.gameUI.gameHand.showTingFlag(false, "ting");
+				return;
+			}
+
 			this.initBtns();
 			this.sendGameNoOperation();
+			ViewManager.ins.gameView.gameUI.gameHand.showTingFlag(false, "ting");
+
 		}
+
 		private sendGameNoOperation(): void {
 			// var cardsGroup:CardsGroupInfo = new CardsGroupInfo();
 			// cardsGroup.cardsit = Global.userSit;
@@ -258,25 +287,29 @@ module game {
 		public showTingGroup(nCardID: number): void {
 			this.clearTingGroup();
 			this.visible = this.gCardBg.visible = this.gTingCards.visible = true;
-			let arr: Array<any> = GamePlayData.GetChiPengGangHuGroup(CardsGroupType.CALL);
+			let arr: Array<room.MJ_Operation> = GamePlayData.GetChiPengGangHuGroup(CardsGroupType.CALL);
 			for (let i: number = 0; i < arr.length; i++) {
-				let info: any = arr[i];
-				if (info.callTile == nCardID) {
+				let info: room.MJ_Operation = arr[i];
+				if (info.Tiles[0] == nCardID) {
 					this.createHuCards(info);
 					break;
 				}
 			}
 			this.gCardBg.width = this.gTingCards.width + 58;
 		}
-		private createHuCards(info: any): void {
-			//for (let i: number = 0; i < arr.length; i++) {
+
+		private createHuCards(info: room.MJ_Operation): void {
+			for (let i: number = 0; i < info.tingTileInfo.length; i++) {
+				let opt = info.tingTileInfo[i]
+
 				let item: game.BaseTingCardUI = new game.BaseTingCardUI();
 				this.gTingCards.addChild(item);
-				let cardNum: number = info.callTileCount //4 - GamePlayData.arrLPCards[arr[i].CardIndex + 1].length;
+				let cardNum: number = opt.callTileCount //4 - GamePlayData.arrLPCards[arr[i].CardIndex + 1].length;
 				cardNum = cardNum > -1 ? cardNum : 0;
-				item.setInfo(info.callTile + 1, info.fans, cardNum);
-			//}
+				item.setInfo(opt.callTile + 1, opt.fans, cardNum);
+			}
 		}
+
 		private clearTingGroup(): void {
 			while (this.gTingCards.numChildren > 1) {
 				let item = this.gTingCards.removeChildAt(1);

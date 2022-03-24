@@ -13,13 +13,11 @@ module room {
 		//请求房间列表
 		public static OGID_CLIENT_LIST_ROOM_LIST: number = RoomProtocol.OGID_CLIENT_LIST_BASE + 0x02;
 		//请求进入房间
-		public static OGID_CLIENT_LIST_ROOM_ENTERROOM: number = RoomProtocol.OGID_CLIENT_LIST_BASE + 0x03;
+		public static VGID_ROOM_SITDOWN: number = RoomProtocol.OGID_CLIENT_LIST_BASE + 0x03;
 		//请求离开房间
 		public static OGID_CLIENT_LIST_ROOM_LEAVEROOM: number = RoomProtocol.OGID_CLIENT_LIST_BASE + 0x04;
-		//开始游戏
-		public static OGID_CLIENT_LIST_ROOM_QUICKGAME: number = RoomProtocol.OGID_CLIENT_LIST_BASE + 0x05;
-		//广播快速开始游戏
-		public static OGID_CLIENT_LIST_ROOM_STARTGAME: number = RoomProtocol.OGID_CLIENT_LIST_BASE + 0x84;
+
+
 		//金币变化
 		public static OGID_CLIENT_LIST_ROOM_UPDATECOIN: number = RoomProtocol.OGID_CLIENT_LIST_BASE + 0x08;
 		//断线续玩

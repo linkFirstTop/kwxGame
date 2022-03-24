@@ -33,7 +33,7 @@ module game {
 		//胡牌
 		public static Hu_Groups: Array<CardsGroupInfo> = [];
 
-		public static Call_Groups: Array<any> = [];
+		public static Call_Groups: Array<room.MJ_Operation> = [];
 
 		//服务器的推荐换三张与玩家选择
 		public static HSZRecommend: Array<CardInfo> = [];
@@ -55,6 +55,18 @@ module game {
 
 		public static MJ_Operation: Array<room.MJ_Operation> = [];
 
+		/**
+		 * 也已经听的牌的座位号
+		 */
+		public static MJ_LiangSitArr : Array<number> = [] ;
+		public static MJ_LiangOtherPais: Array<room.MJ_TingTileInfo> = [];
+
+		public static MJ_selfTingarr : Array<room.MJ_TingTileInfo> =[]
+		/**
+		 * 玩家听
+		 */
+		public static isSelfTing : boolean = false;
+
 		/*初始化数据*/
 		public static initData(): void {
 			console.log('初始化数据');
@@ -75,6 +87,10 @@ module game {
 			GamePlayData.arrLPCards = [];
 			GamePlayData.isAddHuanSanZhang = false;
 			GameParmes.nHuType = 0;
+			GamePlayData.MJ_LiangSitArr = [];
+			GamePlayData.MJ_LiangOtherPais = [];
+			GamePlayData.MJ_selfTingarr = [];
+			GamePlayData.isSelfTing = false;
 		}
 
 		/**
@@ -114,20 +130,22 @@ module game {
 			return this.MJ_Operation || [];
 		}
 
-
-
-
 		/**∂
 		 * 根据发牌数据创建手牌
 		 * */
 		public static SaveHandCarsd(arr: Array<room.IVGUserInfo>): void {
-
+			game.GamePlayData.handCardsArr = null;
+			//game.GamePlayData.handCardsArr = [];
 			const array = [[], [], []];
+
+
 			arr.forEach((e, i) => {
 				const tiles = [...e.tileSets[0].Tiles];
 				const arrTmp = [];
+				const ln = tiles.length;
+			
 
-				for (let j = 0; j < tiles.length; j++) {
+				for (let j = 0; j < ln; j++) {
 					// console.log(j, tiles[j])
 					let card: CardInfo = new CardInfo();
 					card.CardID = tiles[j];
@@ -136,61 +154,44 @@ module game {
 				}
 
 				let p = Global.getUserPosition(e.userPos.seatID)
-				array[p] = arrTmp
+				array[p] = arrTmp;
 			})
 			game.GamePlayData.handCardsArr = array;
+		
 			// console.log("根据发牌数据创建手牌&&&&&&&&&&&&")
 			// console.log("根据发牌数据创建手牌", game.GamePlayData.handCardsArr)
 			// console.log("根据发牌数据创建手牌&&&&&&&&&&&&")
 
 		}
 
-		// public static SaveHandCarsd(arr:Array<CardInfo>):void
-		// {
-		// 	for(let i:number=0;i<4;i++){
-		// 		let arrTmp:Array<CardInfo> = [];
-		// 		if(i==Global.userSit){
-		// 			arrTmp = arr
-		// 		}else{
-		// 			let cardsLength:number = 13;
-		// 			if(i==game.GameParmes.firstSit)cardsLength = 14;
-		// 			for(let j:number = 0;j < cardsLength;j++){
-		// 				let card:CardInfo = new CardInfo();
-		// 				card.CardID = 0;
-		// 				card.Sit = i;
-		// 				arrTmp.push(card);
-		// 			}
-		// 		}
-		// 		game.GamePlayData.arrHandCards.push(arrTmp);
-		// 	}
-		// }
+
 
 
 		/*结算重新赋值手牌数据*/
 		public static SaveResultHandCard(arr: Array<any>): void {
-			for (let i: number = 0; i < arr.length; i++) {
-				if (arr[i].seat != Global.userSit) {
-					let arrCards: Array<any> = arr[i].handCards;
-					let arrTmp: Array<CardInfo> = [];
-					for (let j: number = 0; j < arrCards.length; j++) {
-						let info: any = arrCards[j];
-						if (info.Type == 12) {//手牌
-							for (let n: number = 0; n < info.Cards.length; n++) {
-								let card: CardInfo = new CardInfo();
-								card.CardID = info.Cards[n].CardID;
-								card.Sit = info.Sit;
-								arrTmp.push(card);
-							}
-						}
-					}
-					arrTmp = this.SortCards(arrTmp);
-					//this.arrHandCards[arr[i].seat] = arrTmp;
-				}
-			}
+			// for (let i: number = 0; i < arr.length; i++) {
+			// 	if (arr[i].seat != Global.userSit) {
+			// 		let arrCards: Array<any> = arr[i].handCards;
+			// 		let arrTmp: Array<CardInfo> = [];
+			// 		for (let j: number = 0; j < arrCards.length; j++) {
+			// 			let info: any = arrCards[j];
+			// 			if (info.Type == 12) {//手牌
+			// 				for (let n: number = 0; n < info.Cards.length; n++) {
+			// 					let card: CardInfo = new CardInfo();
+			// 					card.CardID = info.Cards[n].CardID;
+			// 					card.Sit = info.Sit;
+			// 					arrTmp.push(card);
+			// 				}
+			// 			}
+			// 		}
+			// 		arrTmp = this.SortCards(arrTmp);
+			// 		//this.arrHandCards[arr[i].seat] = arrTmp;
+			// 	}
+			// }
 		}
 		/**
 		 *手牌赋值数据 arr CardsGroup
-			* */
+		* */
 		public static SetHandCardsValue(arr: Array<any>, cardID: number, sit: number): void {
 			// console.log("====hand ARR",arr)
 			var handCards: Array<CardInfo> = [];
@@ -248,20 +249,20 @@ module game {
 
 					this.DelectCardPool(this.getCardsPool(op));
 					//处理手牌
-					this.ClearHandCards(handCards, group.cards, p);
+					this.ClearHandCards(p, group.cards, sit);
 					otherCards.push(group);
 					break;
 				case CardsGroupType.PENG://碰牌
 					this.DelectCardPool(this.getCardsPool(op));
 					//处理手牌
-					this.ClearHandCards(handCards, group.cards, p);
+					this.ClearHandCards(p, body.DelCards, sit);
 					otherCards.push(group);
 					break;
 				case CardsGroupType.BUGANG://补杠牌
 					//处理手牌
 					for (var i: number = 0; i < otherCards.length; i++) {
 						if (otherCards[i].CardsGroupType == CardsGroupType.PENG) {
-							if (game.GameParmes.getHua(otherCards[i].cards[0]) == game.GameParmes.getHua(group.obtainCard) && game.GameParmes.getValue(otherCards[i].cards[0]) == game.GameParmes.getValue(group.obtainCard)) {
+							if ( otherCards[i].cards[0].CardID ==group.obtainCard.CardID) {
 								//手中是碰  自摸杠 
 								otherCards[i].CardsGroupType = CardsGroupType.BUGANG;
 								otherCards[i].cards.push(group.obtainCard);
@@ -269,7 +270,7 @@ module game {
 								cardtemp.CardID = group.obtainCard.CardID;
 								cardtemp.Sit = op;
 
-								this.ClearHandCards(handCards, [cardtemp], p);
+								this.ClearHandCards(p, [cardtemp], sit);
 								break;
 							}
 						}
@@ -277,11 +278,11 @@ module game {
 					break;
 				case CardsGroupType.MINGGANG://明杠牌
 					this.DelectCardPool(this.getCardsPool(op));
-					this.ClearHandCards(handCards, group.cards, p);
+					this.ClearHandCards(p, group.cards, sit);
 					otherCards.push(group);
 					break;
 				case CardsGroupType.ANGANG://暗杠牌
-					this.ClearHandCards(handCards, group.cards, p);
+					this.ClearHandCards(p, group.cards, sit);
 					otherCards.push(group);
 					break;
 				case CardsGroupType.HU://胡牌
@@ -291,24 +292,14 @@ module game {
 		}
 		/**
 		 * 删除一组/张手牌数据
-		 * 0  HandCardsInfo
+		 * p  本地座位号
+		 * cards  要删除的牌
 		 * 1  CardsGroup.Cards
 		 * */
-		public static ClearHandCards(handcards: Array<CardInfo>, cards: Array<CardInfo>, sit: number): void {
-			//console.log("====HANDS== Pai", handcards)
-			// for(var x:number=0;x<cards.length;x++){
-			// 	for(var y:number=0;y<handcards.length;y++){
-			// 		if(handcards[y].CardID==0&&sit==cards[x].Sit){
-			// 			handcards.shift();
-			// 			break;
-			// 		}else{
-			// 			if(cards[x].CardID==handcards[y].CardID&&sit==cards[x].Sit){
-			// 				handcards.splice(y,1);
-			// 				break;
-			// 			}
-			// 		}
-			// 	}	
-			// }
+		public static ClearHandCards(p: number, cards: Array<CardInfo>, sit: number): void {
+			//  console.log("====ClearHandCardsS== ", handcards,cards);
+			let handcards = GamePlayData.handCardsArr[p];
+			if(!cards){return}
 
 			if (sit == Global.userSit) {
 				this.Chi_Groups.length = 0;
@@ -317,24 +308,20 @@ module game {
 				this.Hu_Groups.length = 0;
 				this.Call_Groups.length = 0;
 				for (var x: number = 0; x < cards.length; x++) {
-					for (var y: number = 0; y < handcards.length; y++) {
+					for (var y: number = handcards.length - 1; y >= 0; y--) {
 						if (cards[x].CardID == handcards[y].CardID) {
 							handcards.splice(y, 1);
 							break;
 						}
 					}
 				}
-
-				/*console.log("清理碰杠权限数组:"+this.Call_Groups.length);
-				if(isPeng == false){//用户处理碰后听牌的情况
-					this.Call_Groups.length = 0;
-				} */
 			} else {
+
 				const Max = cards.length;
+				//console.log("====MAX", Max);
 				for (let i = 0; i < Max; i++) {
 					handcards.pop();
 				}
-
 
 			}
 		}
@@ -394,13 +381,9 @@ module game {
 
 				//听
 				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_TING) {
-					console.log("==**===BAOCUN TING==**===")
+					//console.log("==**===BAOCUN TING==**===")
 					//game.GamePlayData.SaveChiPengGangHu(body);
-					this.Call_Groups.length = 0;
-					for (var i: number = 0; i < opt.tingTileInfo.length; i++) {
-						const cardgroup: any = opt.tingTileInfo[i];
-						this.Call_Groups.push(cardgroup);
-					}
+					this.Call_Groups.push(opt);
 				}
 				//和
 				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_WIN) {
@@ -433,60 +416,33 @@ module game {
 		/**
 		 * 添加一张手牌数据
 		 * */
-		public static AddHandCards(sit: number, cardGroup: any): void {
-			let handcards: Array<game.CardInfo> = this.getHandCards(sit);
-			for (var x: number = 0; x < cardGroup.Cards.length; x++) {
-				var card: game.CardInfo = new game.CardInfo();
-				card.CardID = cardGroup.Cards[x].CardID;
-				card.Sit = cardGroup.Sit;
-				handcards.push(card);
-				/*if(cardGroup.Sit==Global.userSit){
-					for(var y:number = 0;y<handcards.length;y++){
-						if(handcards[handcards.length-1].CardID<cardGroup.Cards[x].CardID){
-							card.CardID = cardGroup.Cards[x].CardID;
-							card.Sit = cardGroup.Sit;
-							handcards.push(card);
-							break;
-						}else{
-							if(handcards[y].CardID>cardGroup.Cards[x].CardID){
-								card.CardID = cardGroup.Cards[x].CardID;
-								card.Sit = cardGroup.Sit;
-								handcards.splice(y,0,card);
-								break;
-							}
-						}
-					}
-				}else{
-					card.CardID = cardGroup.Cards[x].CardID;
-					card.Sit = cardGroup.Sit;
-					handcards.push(card);
-				}*/
-			}
-			if (sit == Global.userSit) {//根据定缺要排序
-				handcards = this.SortCards(handcards);
-				let type: number = game.GameUserList.arrUserList[sit].CardID;
-				if (type > -1) {
-					GamePlayData.SortHandCardQue(type);
-				}
-			}
+		public static AddHandCards(sit: number, Card: any): void {
+			let p = Global.getUserPosition(sit);
+			let handcards: Array<game.CardInfo> = this.getHandCards(p);
+
+			var card: game.CardInfo = new game.CardInfo();
+			card.CardID = Card.CardID;
+			card.Sit = Card.Sit;
+			handcards.push(card);
 		}
+
 		/**
 		 * 添加牌池
 		 * */
 		public static AddCardPool(body: Array<any>, sit: number): void {
-			let cardpool: Array<CardInfo> = this.getCardsPool(sit);
+			let p = Global.getUserPosition(sit)
+			let cardpool: Array<CardInfo> = this.getCardsPool(p);
 			for (var x: number = 0; x < body.length; x++) {
 				var card: CardInfo = new CardInfo();
 				card.CardID = body[x].CardID;
 				card.Sit = sit;
-				if (cardpool.length > 0) {
-					if (card.CardID != cardpool[cardpool.length - 1].CardID) {
-						cardpool.push(card);
-					}
-				} else {
-					cardpool.push(card);
-				}
-
+				// if (cardpool.length > 0) {
+				// 	if (card.CardID != cardpool[cardpool.length - 1].CardID) {
+				// 		cardpool.push(card);
+				// 	}
+				// } else {
+				cardpool.push(card);
+				// }
 			}
 		}
 		/**
@@ -516,11 +472,14 @@ module game {
 		}
 		public static getHandCards(sit: number): Array<CardInfo> {
 			let arr: Array<CardInfo> = game.GamePlayData.handCardsArr[sit];
+			if (sit == 0) {
+				arr = this.SortCards(arr);
+			}
+			// console.log("===getHands Cards",arr)
 			return arr;
 
-			// let arr: Array<CardInfo> = game.GamePlayData.arrHandCards[sit];
-			// return arr;
 		}
+		
 		public static getOtherCards(sit: number): Array<CardsGroupInfo> {
 			let arr: Array<CardsGroupInfo> = game.GamePlayData.arrOtherCards[sit];
 			return arr;
@@ -535,20 +494,7 @@ module game {
 		public static DelectCardPool(cardpool: Array<CardInfo>): void {
 			cardpool.pop();
 		}
-		/*根据定缺重新排序手牌*/
-		public static SortHandCardQue(type: number): void {
-			// let arr: Array<CardInfo> = GamePlayData.getHandCards(Global.userSit);
-			// let num: number = arr.length;
-			// var count: number = 0;
-			// for (var i: number = 0; i < num; i++) {
-			// 	var card: CardInfo = arr[count];
-			// 	if (GameParmes.getHua(card) == type) {
-			// 		arr.push(arr.splice(count, 1)[0]);
-			// 	} else {
-			// 		count += 1;
-			// 	}
-			// }
-		}
+
 		/**
 		 * 排序手牌（必须是自己的手牌）
 		 * */
@@ -558,6 +504,10 @@ module game {
 			arrCards = this.SortCards(arrCards);
 		}
 		public static SortCards(arr: Array<CardInfo>): Array<CardInfo> {
+			// console.log("======= Sort arr",arr)
+			if(!arr){
+				return [];
+			}
 			for (var x: number = 0; x < arr.length - 1; x++) {
 				for (var y: number = x + 1; y < arr.length; y++) {
 					if (arr[x].CardID > arr[y].CardID) {

@@ -18,9 +18,11 @@ module game {
 		private nSit: number = -1;
 		private piaofen_result: eui.Image;
 		private user: game.GameUserInfo;
+		private imgLiang : eui.Image;
 		protected childrenCreated(): void {
 			super.childrenCreated();
 		}
+
 		public setUserInfo(user: game.GameUserInfo): void {
 			this.user = user;
 			this.piaofen_result.visible = false;
@@ -51,10 +53,18 @@ module game {
 				this.imgHead.source = Global.commURL + "head/iconHead" + Global.getHeadByName(user.userName) + ".png";
 			}
 			let p: number = Global.getUserPosition(user.userSit);
-			if (p == 2) {
+			if (p == 1) {
 				this.imgHead.scaleX = -1;
 			}
+			this.imgLiang.source = "resultSheet_json.resultLiang_" + Global.language; 
+			let isShow = GamePlayData.MJ_LiangSitArr.some( e=>(e==user.origin.userPos.seatID)) 
+			this.isShowLiang(false)
+			if(isShow ){
+				this.isShowLiang(true)
+			}
+			
 		}
+
 		public showResultCoin(coin: number): void {
 			if (Global.userName == this.strUserName) {
 				this.lbCoin.text = ChipUtils.formatCoin(coin);
@@ -63,6 +73,13 @@ module game {
 			}
 
 			this.nCoin = coin;
+		}
+
+/**
+ * 是否显示亮倒
+ */
+		public isShowLiang(show:boolean){
+			this.imgLiang.visible = show;
 		}
 
 		public showDapiaoInfo() {
@@ -94,6 +111,7 @@ module game {
 				}
 			}
 		}
+		
 		public updataCoin(coin: number): void {
 			this.nCoin += coin;
 			if (this.nCoin <= 0) {

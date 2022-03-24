@@ -42,20 +42,12 @@ module room {
 					seatID: 0
 				}
 			});
-			// data.sUserName = Global.userName;
-			// data.RoomID = RoomID;
-			// let data = {
-			// 	userName:Global.userName,
-			// 	userPos:{
-			// 		roomID:RoomID,
-			// 		tableID:'',
-			// 		seatID:''
-			// 	}
-			// }
+	
 			// data.tableGuid = "";
+			console.log("----坐下请求------");
 			let body = room.VGSitDownReq.encode(data).finish();
 			Global.log("客户端发送请求进入房间" + RoomID, data);
-			room.RoomWebSocket.instance().SendMeseage(RoomProtocol.REQ | RoomProtocol.OGID_CLIENT_LIST_ROOM_ENTERROOM, body);
+			room.RoomWebSocket.instance().SendMeseage(RoomProtocol.REQ | RoomProtocol.VGID_ROOM_SITDOWN, body);
 		}
 
 		/*
@@ -71,17 +63,6 @@ module room {
 			room.RoomWebSocket.instance().SendMeseage(RoomProtocol.REQ | RoomProtocol.OGID_CLIENT_LIST_ROOM_LEAVEROOM, body);
 		}
 
-		/*
-		*请求开始
-		*/
-		public REQ_ROOMQickGameReqReq(pos: any): void {
-			let data = new room.VGGameStartNtc()
-			// data.userName = Global.userName;
-			// data.userPos = pos;
-			let body = room.VGGameStartNtc.encode(data).finish();
-			Global.log("客户端发送请求开始");
-			room.RoomWebSocket.instance().SendMeseage(RoomProtocol.REQ | RoomProtocol.OGID_CLIENT_LIST_ROOM_QUICKGAME, body);
-		}
 		public REQ_GAMECONTINUR(): void {
 			let data = new room.VGGameStartNtc();
 			// data.username = Global.userName;

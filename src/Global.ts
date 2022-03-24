@@ -88,7 +88,7 @@ class Global {
 			var timer: string = StringUtils.format(new Date(), "yyyy-MM-dd hh:mm:ss.S");
 			var args = Array.prototype.slice.call(arguments);
 			args.push("   " + timer);
-			console.log.apply(console, args);
+			//console.log.apply(console, args);
 		}
 
 	}

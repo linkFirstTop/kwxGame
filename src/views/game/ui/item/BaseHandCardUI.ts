@@ -13,19 +13,23 @@ module game {
 		private imgCard:eui.Image = new eui.Image();
 		private imgMask:eui.Image = new eui.Image();
 		private imgTip:eui.Image;
+		public imgPao : eui.Image
+		public lbIndex:eui.Label;
+
 		/*p:方位 index:牌的索引 value:牌值 state:0 暗牌 1亮牌 isDQ:是否定缺牌*/
-		public setCard(p:number,index:number,value:number,state:number,isDQ:boolean=false):void{
+		public setCard(p:number,index:number,value:number,state:number):void{
 			let g:eui.Group = new eui.Group();
 			this.addChild(g);
 			g.addChild(this.imgBack);
 			g.addChild(this.imgCard);
 			this.imgBack.horizontalCenter = this.imgBack.verticalCenter = 0;
 			this.imgCard.horizontalCenter = 0;
+			
 			if(p == 2){//左
 				if(state == 0){
-					this.imgBack.source = "card_left_h"+(index+1);
+					this.imgBack.source = "card_left_h"+(index + 1);
 				}else{
-					this.imgBack.source = "card_left_hl"+(index+1);
+					this.imgBack.source = "card_left_hl"+(index + 1);
 					this.imgCard.source = "cardValue"+value;
 					this.imgCard.scaleX = this.imgCard.scaleY = 0.6-0.01*index;
 					this.imgCard.rotation = 90;
@@ -44,10 +48,11 @@ module game {
 				}
 			}
 			if(p == 1){//右
+				//console.log("===ADD LEFT CARD")
 				if(state == 0){
-					this.imgBack.source = "card_left_h"+(index+1);
+					this.imgBack.source = "card_left_h"+(index + 1);
 				}else{
-					this.imgBack.source = "card_left_hl"+(index+1);
+					this.imgBack.source = "card_left_hl"+(index + 1);
 					this.imgCard.source = "cardValue"+value;
 					this.imgCard.scaleX = this.imgCard.scaleY = 0.6-0.01*index;
 					this.imgCard.rotation = -90;
@@ -55,10 +60,11 @@ module game {
 					this.imgCard.verticalCenter = -8;
 				}
 				this.imgBack.scaleX = -1;
+				// console.log("==lest Card=")
 			}
 			if(p == 0){
 				
-				this.imgCard.source = `cardValue${value+1}`  ;
+				this.imgCard.source = `cardValue${value}`  ;
 				this.cardIndex = value;
 				//console.log("===STATE====",state)
 				if(state == 0){
@@ -68,14 +74,15 @@ module game {
 					this.isSelect = false;
 					this.isTingFlag = false;
 					this.isHuFlag = false;
-					if(isDQ){
-						this.setMaskFlag();
-					}
+					// if(isDQ){
+					// 	this.setMaskFlag();
+					// }
 				}else{
 					this.imgBack.source = "card_down_m1";
 					this.imgCard.scaleX = this.imgCard.scaleY = 0.9;
 					this.imgCard.verticalCenter = -10;
 				}
+
 			}
 		}
 
@@ -85,31 +92,28 @@ module game {
 		}
 
 		private onCardTap():void{
-			console.log("==GameParmes.gameStage==",GameParmes.gameStage)
-			// if(GameParmes.gameStage==GameStageType.CHANGE){//换三张阶段
-			// 	this.onSelectCard();
-			// 	this.dispatchEvent(new egret.Event("OnClickHandCard",true,true,this));
-			// }
+			//console.log("==GameParmes.gameStage==",GameParmes.gameStage)
 
-
-			if(GameParmes.gameStage==GameStageType.PLAYING){//出牌阶段
+			if(GameParmes.gameTurn == GameTurnType.SELFTURN ){//出牌阶段
 				this.dispatchEvent(new egret.Event("OnClickHandCard",true,true,this));
 			}
 		}
+
 		public onSelectCard():void{
 			this.isSelect = !this.isSelect;
 			this.y = this.isSelect ? -50 : 0;
 		}
+
 		public clearSelectCard():void{
 			this.isSelect = false;
 			this.y = 0;
 		}
-		public setTingFlag(b:boolean,str:string):void{
-			
+
+		public setTingFlag(b:boolean,str:string):void{	
 			if(b){//显示听提示
 				if(this.imgTip == null){
 					this.imgTip = new eui.Image();
-					(this.getChildAt(0) as eui.Group).addChild(this.imgTip);
+					this.addChild(this.imgTip);
 					this.imgTip.x = 23;
 					this.imgTip.y = -60;
 				}else{
@@ -131,6 +135,33 @@ module game {
 					this.imgTip.visible = false;
 				}
 			}
+		}
+
+		public setPaoFlag(b:boolean,){
+			if(b){//显示听提示
+				if(this.imgPao == null){
+					// let g:eui.Group = new eui.Group();
+			        //  this.addChild(g);
+					this.imgPao = new eui.Image();
+					this.addChild(this.imgPao);
+					this.imgPao.source = "imgPao_"+Global.language;
+					this.imgPao.x = 40;
+					this.imgPao.y = 19;
+				}else{
+					this.imgPao.visible = true;
+				}
+				if (GamePlayData.isSelfTing) {
+					this.imgPao.y -= 20;
+					
+				}
+			}else{
+				// this.isTingFlag = false;
+				// this.isHuFlag = false;
+				if(this.imgPao){
+					this.imgPao.visible = false;
+				}
+			}
+
 		}
 		
 		public setMaskFlag(isEnabled:boolean=true):void{

@@ -116,7 +116,7 @@ module game {
 			let keyname: string = event.armature.name;
 			this.removeChild(event.armature.display);
 			event.armature.dispose();
-			this.dispatchEvent(new egret.Event("OnHSZAnimComplete"));
+			// this.dispatchEvent(new egret.Event("OnHSZAnimComplete"));
 		}
 		public showDQTips(): void {
 			for (let i: number = 0; i < 3; i++) {
@@ -192,8 +192,8 @@ module game {
 		private onSure(): void {
 
 			if (GamePlayData.HSZUserChoose.length == 3) {
-				if (game.GameParmes.getHua(GamePlayData.HSZUserChoose[0]) == game.GameParmes.getHua(GamePlayData.HSZUserChoose[1]) &&
-					game.GameParmes.getHua(GamePlayData.HSZUserChoose[0]) == game.GameParmes.getHua(GamePlayData.HSZUserChoose[2])) {
+				if (game.GameParmes.getColor(GamePlayData.HSZUserChoose[0]) == game.GameParmes.getColor(GamePlayData.HSZUserChoose[1]) &&
+					game.GameParmes.getColor(GamePlayData.HSZUserChoose[0]) == game.GameParmes.getColor(GamePlayData.HSZUserChoose[2])) {
 					game.GameWebSocket.instance().gameSender.ReqHuanSanZhang(GamePlayData.HSZUserChoose);
 					this.init();
 					this.dispatchEvent(new egret.Event("OnSendHSZCards"));
@@ -206,8 +206,8 @@ module game {
 		}
 		public autoHSZ(): void {
 			if (GamePlayData.HSZUserChoose.length == 3) {
-				if (game.GameParmes.getHua(GamePlayData.HSZUserChoose[0]) == game.GameParmes.getHua(GamePlayData.HSZUserChoose[1]) &&
-					game.GameParmes.getHua(GamePlayData.HSZUserChoose[0]) == game.GameParmes.getHua(GamePlayData.HSZUserChoose[2])) {
+				if (game.GameParmes.getColor(GamePlayData.HSZUserChoose[0]) == game.GameParmes.getColor(GamePlayData.HSZUserChoose[1]) &&
+					game.GameParmes.getColor(GamePlayData.HSZUserChoose[0]) == game.GameParmes.getColor(GamePlayData.HSZUserChoose[2])) {
 					game.GameWebSocket.instance().gameSender.ReqHuanSanZhang(GamePlayData.HSZUserChoose);
 				} else {
 					GamePlayData.HSZUserChoose = GamePlayData.HSZRecommend;
@@ -226,7 +226,7 @@ module game {
 			let arrHandCard: Array<CardInfo> = GamePlayData.getHandCards(Global.userSit);
 			for (let i = 0; i < arrHandCard.length; i++) {//把手牌整合在一起再比较谁最少
 				let info: CardInfo = arrHandCard[i];
-				let hua: number = game.GameParmes.getHua(info);
+				let hua: number = game.GameParmes.getColor(info);
 				arr[hua].push({ "cardInfo": CardInfo });
 			}
 			//hua：0是万，1是条，2是筒
