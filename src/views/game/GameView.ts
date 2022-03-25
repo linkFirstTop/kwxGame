@@ -99,13 +99,11 @@ module game {
 			this.gameUI.initUser();
 
 			//断线重联 在这里处理
-
-
 			//这里处理断线 的 牌
 			game.GamePlayData.arrPoolCards = [[], [], []]
 			const arr = game.GameUserList.arrUserList;
 			// console.log("====arr", arr)
-
+			GamePlayData.MJ_LiangOtherPais = [];
 			arr.forEach((e: any, i) => {
 				const user: room.VGUserInfo = e.origin;
 				let nSit: number = user.userPos.seatID;
@@ -159,7 +157,6 @@ module game {
 
 					}
 					//明杠牌
-
 					if (tiles.Type == 4) {
 						let card: CardInfo = { CardID: tiles.ObtainTile, Sit: tiles.ObtainSeat };
 						const body = {
@@ -174,10 +171,8 @@ module game {
 								{ CardID: tiles.ObtainTile, Sit: nSit },
 							],
 						}
-
 						game.GamePlayData.AddChiPengGangCards(body, nSit);
 						this.gameUI.updataUserCPG(nSit, card);
-
 					}
 					//补杠牌					
 					if (tiles.Type == 5) {
@@ -196,7 +191,6 @@ module game {
 						}
 						game.GamePlayData.AddChiPengGangCards(body, nSit);
 						this.gameUI.updataUserCPG(nSit, card);
-
 					}
 					//牌池的牌
 					if (tiles.Type == 10) {
@@ -216,6 +210,7 @@ module game {
 
 				//处理听的牌
 				const tileInfo = user.tingTileInfo;
+				// console.log("===user.tingTileInfo==",user.tingTileInfo)
 				if (nSit != Global.userSit) {
 					tileInfo.forEach((o: any) => {
 						GamePlayData.MJ_LiangOtherPais.push(o)
@@ -230,7 +225,7 @@ module game {
 
 				this.gameUI.gameHand.createLiangPai(nSit)
 			})
-
+			//console.log("===GamePlayData.MJ_LiangOtherPais CONTINUE==",GamePlayData.MJ_LiangOtherPais);
 			this.gameMatch.stopAnim();
 			this.gameUI.onGameContinue();
 
@@ -574,9 +569,7 @@ module game {
 				}
 				this.gameUI.onShowUserLiang(nSit)
 
-
 				GamePlayData.MJ_LiangSitArr.push(nSit);
-
 				this.gameUI.gameHand.createLiangPai(nSit)
 			}
 

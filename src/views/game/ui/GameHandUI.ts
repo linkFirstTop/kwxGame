@@ -300,9 +300,9 @@ module game {
 			}
 
 			// console.log("=arrTmp==",arrTmp)
-			let arr: Array<CardInfo> = [];
+			const arr: Array<CardInfo> = [];
 			for (let i: number = 0; i < arrTmp.length; i++) {
-				let card: CardInfo = new CardInfo();
+				const card: CardInfo = new CardInfo();
 				card.CardID = arrTmp[i].CardID;
 				card.Sit = arrTmp[i].Sit;
 				arr.push(card);
