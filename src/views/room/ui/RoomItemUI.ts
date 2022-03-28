@@ -63,10 +63,13 @@ module room {
 				this.txtBg2.source = "roomItembg1_1_png"
 			}
 
+			console.log("===this.roomID", this.nRoomID)
 
-			//文字
-			const Animdata1 = RES.getRes("roomTxt1_json");
-			const txtr1 = RES.getRes("roomTxt1_png");
+
+
+			//文字4
+			const Animdata1 = RES.getRes(`roomTxt${this.nRoomID}_json`);
+			const txtr1 = RES.getRes(`roomTxt${this.nRoomID}_png`);
 			const mcFactory1: egret.MovieClipDataFactory = new egret.MovieClipDataFactory(Animdata1, txtr1);
 			const mc1: egret.MovieClip = new egret.MovieClip(mcFactory1.generateMovieClipData());
 			mc1.x = -45;
@@ -75,25 +78,68 @@ module room {
 			mc1.gotoAndPlay(0, -1)
 
 			//动画2
-			const Animdata3 = RES.getRes("room1anim2_json");
-			const txtr3 = RES.getRes("room1anim2_png");
+			const Animdata3 = RES.getRes(`room${this.nRoomID}Anim2_json`);
+			const txtr3 = RES.getRes(`room${this.nRoomID}Anim2_png`);
 			const mcFactory3: egret.MovieClipDataFactory = new egret.MovieClipDataFactory(Animdata3, txtr3);
 			const mc3: egret.MovieClip = new egret.MovieClip(mcFactory3.generateMovieClipData());
-			mc3.x = -30;
-			mc3.y = -50;
+			mc3.x = -20;
+			mc3.y = -80;
 			this.animGroup.addChild(mc3);
 			mc3.gotoAndPlay(0, -1)
 
 			//动画1
-			const Animdata2 = RES.getRes("room1Anim1_json");
-			const txtr2 = RES.getRes("room1Anim1_png");
+			const Animdata2 = RES.getRes(`room${this.nRoomID}Anim1_json`);
+			const txtr2 = RES.getRes(`room${this.nRoomID}Anim1_png`);
 			//console.log("=-=txtr2=", txtr2)
 			const mcFactory2: egret.MovieClipDataFactory = new egret.MovieClipDataFactory(Animdata2, txtr2);
 			const mc2: egret.MovieClip = new egret.MovieClip(mcFactory2.generateMovieClipData());
-			mc2.x = -20;
-			mc2.y = -50;
-			this.animGroup.addChild(mc2, );
+			mc2.x = 100;
+			mc2.y = -30;
+			this.animGroup.addChild(mc2,);
 			mc2.gotoAndPlay(0, -1)
+
+			if (this.nRoomID == 6) {
+				const Animdata4 = RES.getRes(`room6Anim3_json`);
+				const txtr4 = RES.getRes(`room6Anim3_png`);
+				//console.log("=-=txtr2=", txtr2)
+				const mcFactory4: egret.MovieClipDataFactory = new egret.MovieClipDataFactory(Animdata4, txtr4);
+				const mc4: egret.MovieClip = new egret.MovieClip(mcFactory4.generateMovieClipData());
+				mc4.x = 80;
+				mc4.y = -150;
+				this.animGroup.addChild(mc4);
+				mc4.gotoAndPlay(0, -1)
+
+				mc2.x = 100;
+				mc2.y = 20;
+
+			}
+
+			if (this.nRoomID == 1) {
+				//动画2
+				mc3.x = -45;
+				mc3.y = -30;
+
+				//动画1
+				mc2.x = 10;
+				mc2.y = -50;
+			}
+
+			if(this.nRoomID == 2){
+				mc2.x = 100;
+				mc2.y = -30;
+			}
+
+
+			if(this.nRoomID == 3){
+				mc2.x = 100;
+				mc2.y = -60;
+			}
+
+			if(this.nRoomID == 4){
+				mc2.x = 100;
+				mc2.y = -70;
+			}
+
 
 
 

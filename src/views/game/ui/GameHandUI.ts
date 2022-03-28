@@ -281,7 +281,7 @@ module game {
 				card.x = (ghand.numChildren - 1) * 90;
 				card.x += 10;
 
-				const isPao = GamePlayData.MJ_LiangOtherPais.some((e => {e.callTile == cardValue;}))
+				const isPao = GamePlayData.MJ_LiangOtherPais.some(e => (e.callTile == cardValue))
 				card.setPaoFlag(isPao)
 			}
 			card.isMoCard = true;
