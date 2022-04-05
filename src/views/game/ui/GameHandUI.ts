@@ -215,19 +215,24 @@ module game {
 				gHu.x = ghand.x;
 				gHu.y = ghand.y;
 			}
-
 		}
+
 		/*删除自摸胡牌的那张手牌*/
-		private delHandCard(p: number): void {
+		public delHandCard(nSit: number): void {
+			let p = Global.getUserPosition(nSit);
 			let g: eui.Group = this.findHandGroup(p);
 			let len: number = g.numChildren;
 			let item: game.BaseHandCardUI;
-			if (p == 2) {//删除第一张
-				item = g.removeChildAt(0) as game.BaseHandCardUI;
-			} else {//删除最后一张
-				item = g.removeChildAt(len - 1) as game.BaseHandCardUI;
+
+			for(let i=0;i<len;i++){
+				item = g.getChildAt(i) as game.BaseHandCardUI;
+				 console.log("===item.isMoCard===",item.isMoCard)
+				if(item.isMoCard){
+					g.removeChild(item);
+					item = null;
+					break;
+				}
 			}
-			item = null;
 		}
 		public delOneHandCard(info: CardInfo): void {
 			for (let i: number = 0; i < this.gHandCardD.numChildren; i++) {
@@ -245,14 +250,15 @@ module game {
 			this.gHandCardD.y = GameConfig.curHeight() - this.gHandCardD.height;
 			this.gHandCardD.x = (GameConfig.curWidth() - this.gHandCardD.width) / 2;
 		}
+
 		public getOneCard(info: CardInfo): void {
 			let p: number = Global.getUserPosition(info.Sit);
 			let ghand: eui.Group = this.findHandGroup(p);
 			let card: BaseHandCardUI = new BaseHandCardUI();
 			let cardValue: number = info.CardID; //game.GameParmes.getCardID(info);
 			card.setCard(p, 0, cardValue, 0);
+			card.isMoCard = true;
 			if (p == 2) {
-				
 				card.x = this.arrLHP[0].x;
 				card.y = this.arrLHP[0].y;
 				ghand.addChild(card);
@@ -275,11 +281,10 @@ module game {
 				card.x = (ghand.numChildren - 1) * 90;
 				card.x += 10;
 
-				const isPao = GamePlayData.MJ_LiangOtherPais.some((e => {
-					return e.callTile == cardValue;
-				}))
+				const isPao = GamePlayData.MJ_LiangOtherPais.some(e => (e.callTile == cardValue))
 				card.setPaoFlag(isPao)
 			}
+			card.isMoCard = true;
 		}
 
 		/*停止自动出牌*/
@@ -295,9 +300,9 @@ module game {
 			}
 
 			// console.log("=arrTmp==",arrTmp)
-			let arr: Array<CardInfo> = [];
+			const arr: Array<CardInfo> = [];
 			for (let i: number = 0; i < arrTmp.length; i++) {
-				let card: CardInfo = new CardInfo();
+				const card: CardInfo = new CardInfo();
 				card.CardID = arrTmp[i].CardID;
 				card.Sit = arrTmp[i].Sit;
 				arr.push(card);
@@ -346,16 +351,9 @@ module game {
 
 					card.setCard(p, (i + index), cardValue, state);
 					if (state == 0) {//暗牌
-						// if(  )
-						// console.log("iiii",i)
-
 						card.x = this.arrLHP[i + index].x;
 						card.y = this.arrLHP[i + index].y;
-
-						//console.log("==i + index===",i + index,i)
-
 					} else {//亮牌
-
 						card.x = this.arrLLP[i + index].x;
 						card.y = this.arrLLP[i + index].y;
 					}
@@ -381,21 +379,21 @@ module game {
 					}
 					ghand.addChild(card);
 				}
+
 				if (p == 0) {
 					ghand.addChild(card);
-					const isPao = GamePlayData.MJ_LiangOtherPais.some((e => {
-						return e.callTile == cardValue;
-					}))
-					card.setPaoFlag(isPao)
+					const isPao = GamePlayData.MJ_LiangOtherPais.some(e => (e.callTile == cardValue))
+					//console.log("====isPao",isPao,cardValue)
+					
 					card.setCard(p, (i + index), cardValue, state);
 					card.cardInfo = info;
+					card.setPaoFlag(isPao)
 					if (GamePlayData.isSelfTing) {
 						card.setMaskFlag(false);
 						if (i == len - 1 && index == 0) {
 							card.setMaskFlag(true);
 						}
 					}
-
 
 					card.x = i * 90;
 					if (i == len - 1 && index == 0) {
@@ -583,11 +581,12 @@ module game {
 		private onClickHandCard(evt: egret.Event): void {
 			let item: BaseHandCardUI = evt.data;
 
-
 			if (GameParmes.gameTurn == GameTurnType.SELFTURN) {//出牌阶段
-				// 	this.dispatchEvent(new egret.Event("OnClickHandCard",true,true,this));
+				// if(GameParmes.isCurTing && ){
+
+				// 	return
 				// }
-				// if (GameParmes.gameStage == GameStageType.PLAYING) {//出牌阶段
+				
 				if (this.currentCard == item) {
 
 					if (game.GamePlayData.M_C_P_G_sit == Global.userSit) {
@@ -701,12 +700,18 @@ module game {
 
 				for (let i: number = 0; i < len; i++) {
 					let item: game.BaseHandCardUI = this.gHandCardD.getChildAt(i) as game.BaseHandCardUI;
+					let isTing = false;
 					for (let j: number = 0; j < arr.length; j++) {
 						let opt  = arr[j];
 						if (item.cardIndex == opt.Tiles[0]) {
 							item.setTingFlag(true, str);
+							isTing = true;
 							break;
 						}
+					}
+
+					if(!isTing){
+						item.setMaskFlag(false)
 					}
 				}
 			} else {
@@ -795,7 +800,6 @@ module game {
 			}
 			if (p == 2) {
 				return this.gHandCardL;
-
 			}
 		}
 		private findOptGroup(p: number): eui.Group {

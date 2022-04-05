@@ -56,8 +56,13 @@ module game {
 			if (p == 1) {
 				this.imgHead.scaleX = -1;
 			}
-			this.imgLiang.source = "resultSheet_json.resultLiang_" + Global.userHead; 
+			this.imgLiang.source = "resultSheet_json.resultLiang_" + Global.language; 
+			let isShow = GamePlayData.MJ_LiangSitArr.some( e=>(e==user.origin.userPos.seatID)) 
 			this.isShowLiang(false)
+			if(isShow ){
+				this.isShowLiang(true)
+			}
+			
 		}
 
 		public showResultCoin(coin: number): void {

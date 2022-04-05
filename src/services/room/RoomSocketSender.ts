@@ -88,15 +88,11 @@ module room {
 			room.RoomWebSocket.instance().SendMeseage(RoomProtocol.REQ | RoomProtocol.VGID_USER_OPERATION, body);
 		}
 
-		public REQ_MAGICTILES (id:number): void {
-			// console.log("==REQ_USEROPERATIONREQ==")
-			// let data = new room.MagicTilesReq();
-			// data.tile = 1;
-			// let body = room.MagicTilesReq.encode(data).finish();
-			var MagicTilesReq = new room.MagicTilesReq();
-        	MagicTilesReq.tile = id;
-			console.log(MagicTilesReq,'--MagicTilesReq');
-        	var body = room.MagicTilesReq.encode(MagicTilesReq).finish();
+		public REQ_MAGICTILES (): void {
+			console.log("==REQ_USEROPERATIONREQ==")
+			let data = new room.MagicTilesReq();
+			data.tile = 1;
+			let body = room.MagicTilesReq.encode(data).finish();
 			room.RoomWebSocket.instance().SendMeseage(RoomProtocol.REQ | RoomProtocol.VGID_SERVICE_MAGICTILES, body);
 		}
 

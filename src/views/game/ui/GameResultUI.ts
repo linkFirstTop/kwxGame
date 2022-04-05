@@ -29,43 +29,39 @@ module game {
 		private onContinue(): void {
 			this.visible = false;
 			// this.dispatchEvent(new egret.Event("OnGameContinue",true,true));
-
 			GameController.onRequeseNextGame();
-
-
-
 		}
+
 		private onClose(): void {
 			this.visible = false;
 			this.dispatchEvent(new egret.Event("OnHideResult"));
 		}
+
 		public showResult(body: room.VGGameResultNtc): void {
 			this.visible = true;
-
-
 			let arr: Array<any> = body.userInfos;
-
-
-			//let selfData = 
 			if (GameParmes.isGameFlower) {
 				//this.imgBg.source = "resultLosebg_png";
 				this.imgTitle.source = "resultTitle_flow_" + Global.language;
-			}
-
-			let isWin = false;
-			for (let i: number = 0; i < body.userInfos.length; i++) {
-				const user = body.userInfos[i]
-				if (user.userPos.seatID == Global.userSit && user.resultCoin > 0) {//自己胡做下标记
-					isWin = true;
-					break;
-				}
-			}
-
-			if (isWin) {
-				this.imgTitle.source = "resultTitle_win_" + Global.language;
 			} else {
-				this.imgTitle.source = "resultTitle_lose_" + Global.language;
+				let isWin = false;
+				for (let i: number = 0; i < body.userInfos.length; i++) {
+					const user = body.userInfos[i]
+					if (user.userPos.seatID == Global.userSit && user.resultCoin > 0) {//自己胡做下标记
+						isWin = true;
+						break;
+					}
+				}
+
+				if (isWin) {
+					this.imgTitle.source = "resultTitle_win_" + Global.language;
+				} else {
+					this.imgTitle.source = "resultTitle_lose_" + Global.language;
+				}
+
 			}
+
+
 
 			for (let i: number = 0; i < 3; i++) {
 				let info: room.VGUserInfo = arr[i];

@@ -54,36 +54,9 @@ module game {
 			// cardsGroup.cards.push(card);
 			// game.GameWebSocket.instance().gameSender.ReqSendCardsGameFun(cardsGroup);
 		}
-		/** 
-		 * @param e
-		 * 客户端通知服务器听牌
-		 */		
-		public static ReqCallPai(c:CardInfo):void{
-			var cardsGroup:CardsGroupInfo = new CardsGroupInfo();
-			cardsGroup.cardsit = Global.userSit;
-			cardsGroup.CardsGroupType = CardsGroupType.CALL;
-			var card:CardInfo = c;
-			cardsGroup.cards.push(card);
-			game.GameWebSocket.instance().gameSender.ReqSendCardsGameFun(cardsGroup);
-		}
-	
-				
 
-		/**
-		 * 服务器通知客户端能够吃碰杠胡的显示权限 AckUserOperation
-		 * */
-		public static  AckGameUserOperation(body:game.AckUserOperation):void
-		{
-			// game.GamePlayData.SaveChiPengGangHu(body);
-			var dataArray:any[] = [];
-			dataArray.push(body.Chi);
-			dataArray.push(body.Peng);
-			dataArray.push(body.Gang);
-			dataArray.push(body.Hu);
-			dataArray.push(body.Call);
-			console.log("chi="+body.Chi,"peng="+body.Peng,"gang="+body.Gang,"hu="+body.Hu,"call="+body.Call);
-			//GDGame.Msg.ins.dispatchEvent(new egret.Event(GameMessage.ACK_GAME_USEROPERATION,true,true,dataArray));
-		}
+
+
 		/**
 		 * 服务器通知客户端单次胡牌
 		 * */

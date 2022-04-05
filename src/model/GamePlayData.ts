@@ -54,12 +54,12 @@ module game {
 		public static arrLPCards: Array<Array<number>> = [];//亮牌数组 用于听牌张数判断
 
 		public static MJ_Operation: Array<room.MJ_Operation> = [];
-		public static MJ_Mopai : boolean = false;
+
 		/**
 		 * 也已经听的牌的座位号
 		 */
 		public static MJ_LiangSitArr : Array<number> = [] ;
-		public static MJ_LiangOtherPais: Array<room.MJ_TingTileInfo>  = [];
+		public static MJ_LiangOtherPais: Array<room.MJ_TingTileInfo> = [];
 
 		public static MJ_selfTingarr : Array<room.MJ_TingTileInfo> =[]
 		/**

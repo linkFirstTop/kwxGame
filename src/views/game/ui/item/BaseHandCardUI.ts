@@ -14,7 +14,8 @@ module game {
 		private imgMask:eui.Image = new eui.Image();
 		private imgTip:eui.Image;
 		public imgPao : eui.Image
-		public lbIndex:eui.Label 
+		public lbIndex:eui.Label;
+
 		/*p:方位 index:牌的索引 value:牌值 state:0 暗牌 1亮牌 isDQ:是否定缺牌*/
 		public setCard(p:number,index:number,value:number,state:number):void{
 			let g:eui.Group = new eui.Group();
@@ -24,10 +25,7 @@ module game {
 			this.imgBack.horizontalCenter = this.imgBack.verticalCenter = 0;
 			this.imgCard.horizontalCenter = 0;
 			
-			
-		
 			if(p == 2){//左
-	
 				if(state == 0){
 					this.imgBack.source = "card_left_h"+(index + 1);
 				}else{
@@ -100,16 +98,18 @@ module game {
 				this.dispatchEvent(new egret.Event("OnClickHandCard",true,true,this));
 			}
 		}
+
 		public onSelectCard():void{
 			this.isSelect = !this.isSelect;
 			this.y = this.isSelect ? -50 : 0;
 		}
+
 		public clearSelectCard():void{
 			this.isSelect = false;
 			this.y = 0;
 		}
-		public setTingFlag(b:boolean,str:string):void{
-			
+
+		public setTingFlag(b:boolean,str:string):void{	
 			if(b){//显示听提示
 				if(this.imgTip == null){
 					this.imgTip = new eui.Image();
@@ -140,7 +140,6 @@ module game {
 		public setPaoFlag(b:boolean,){
 			if(b){//显示听提示
 				if(this.imgPao == null){
-		
 					// let g:eui.Group = new eui.Group();
 			        //  this.addChild(g);
 					this.imgPao = new eui.Image();
@@ -150,6 +149,10 @@ module game {
 					this.imgPao.y = 19;
 				}else{
 					this.imgPao.visible = true;
+				}
+				if (GamePlayData.isSelfTing) {
+					this.imgPao.y -= 20;
+					
 				}
 			}else{
 				// this.isTingFlag = false;
