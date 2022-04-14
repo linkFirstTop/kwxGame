@@ -226,7 +226,7 @@ module game {
 
 			for(let i=0;i<len;i++){
 				item = g.getChildAt(i) as game.BaseHandCardUI;
-				 console.log("===item.isMoCard===",item.isMoCard)
+				// console.log("===item.isMoCard===",item.isMoCard)
 				if(item.isMoCard){
 					g.removeChild(item);
 					item = null;
@@ -281,7 +281,7 @@ module game {
 				card.x = (ghand.numChildren - 1) * 90;
 				card.x += 10;
 
-				const isPao = GamePlayData.MJ_LiangOtherPais.some((e => {e.callTile == cardValue;}))
+				const isPao = GamePlayData.MJ_LiangOtherPais.some(e => (e.callTile == cardValue))
 				card.setPaoFlag(isPao)
 			}
 			card.isMoCard = true;
@@ -300,9 +300,9 @@ module game {
 			}
 
 			// console.log("=arrTmp==",arrTmp)
-			let arr: Array<CardInfo> = [];
+			const arr: Array<CardInfo> = [];
 			for (let i: number = 0; i < arrTmp.length; i++) {
-				let card: CardInfo = new CardInfo();
+				const card: CardInfo = new CardInfo();
 				card.CardID = arrTmp[i].CardID;
 				card.Sit = arrTmp[i].Sit;
 				arr.push(card);

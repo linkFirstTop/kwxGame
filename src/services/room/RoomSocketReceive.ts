@@ -75,8 +75,7 @@ module room {
 
 			game.GamePlayData.SaveHandCarsd(body.userInfos);
 			console.log('=====同步游戏======',body);
-			if( Number( body.status ) == 0 )
-			{
+			if( Number( body.status ) == 0 ){
 				return;
 			}
 
