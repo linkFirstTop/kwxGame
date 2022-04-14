@@ -226,7 +226,7 @@ module game {
 
 			for(let i=0;i<len;i++){
 				item = g.getChildAt(i) as game.BaseHandCardUI;
-				 console.log("===item.isMoCard===",item.isMoCard)
+				// console.log("===item.isMoCard===",item.isMoCard)
 				if(item.isMoCard){
 					g.removeChild(item);
 					item = null;

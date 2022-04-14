@@ -65,11 +65,9 @@ module room {
 
 			console.log("===this.roomID", this.nRoomID)
 
-
-
 			//文字4
-			const Animdata1 = RES.getRes(`roomTxt${this.nRoomID}_json`);
-			const txtr1 = RES.getRes(`roomTxt${this.nRoomID}_png`);
+			const Animdata1 = RES.getRes(`roomTxt${this.nRoomID}_${Global.language}_json`);
+			const txtr1 = RES.getRes(`roomTxt${this.nRoomID}_${Global.language}_png`);
 			const mcFactory1: egret.MovieClipDataFactory = new egret.MovieClipDataFactory(Animdata1, txtr1);
 			const mc1: egret.MovieClip = new egret.MovieClip(mcFactory1.generateMovieClipData());
 			mc1.x = -45;
