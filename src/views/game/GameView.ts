@@ -823,7 +823,6 @@ module game {
 				comm.DragonAnim.ins.playAnimByName("ksyx", -1);
 			}
 
-
 			if (status != game.RoomStatus.MJ_GS_DF) {
 				this.gameMatch.stopAnim();
 			}

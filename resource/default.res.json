@@ -5,7 +5,7 @@
 			"name": "preload"
 		},
 		{
-			"keys": "roombg_jpg,commCoin_png,xlrw_tex_png,xlrw_tex_json,xlrw_ske_json,GameTimeFnt_fnt,GameTimeFnt_png,resultLoseFnt_fnt,resultLoseFnt_png,resultWinFnt_fnt,resultWinFnt_png,winCoinFnt_fnt,winCoinFnt_png,loseCoinFnt_fnt,loseCoinFnt_png,gameHeadHBg_png,gameHeadKuang_png,gameHeadVBg_png,positionSheet_json,gamebg_jpg,gameComm_json,changeHeadSheet_json,icon_select_yes_png,changeLanguagebg_png,alertbg_png,icon_select_no_png,gameButtonListbg_png,roombg2_jpg,roomItembg13_png,roomItembg22_png,roomItembg1_png,roomItembg2_png,roomTxt1_json,roomTxt1_png,roomTxtbg2_png,roomTxtbg1_png,room1Anim1_png,room1Anim1_json,roomItembg1_1_png,roomItembg2_1_png,room2Anim1_png,room3Anim1_png,room3Anim2_png,room2Anim2_png,room4Anim1_png,room4Anim2_png,room5Anim1_png,room5Anim2_png,room6Anim1_png,room6Anim2_png,room6Anim3_png,room2Anim1_json,room2Anim2_json,room4Anim1_json,room5Anim1_json,room6Anim1_json,room4Anim2_json,room6Anim3_json,room3Anim2_json,room6Anim2_json,room5Anim2_json,room3Anim1_json,roomTxt6_png,roomTxt6_json,roomTxt5_png,roomTxt5_json,roomTxt4_png,roomTxt4_json,roomTxt3_png,roomTxt3_json,roomTxt2_png,roomTxt2_json,room1Anim2_png,room1Anim2_json",
+			"keys": "roombg_jpg,commCoin_png,xlrw_tex_png,xlrw_tex_json,xlrw_ske_json,GameTimeFnt_fnt,GameTimeFnt_png,resultLoseFnt_fnt,resultLoseFnt_png,resultWinFnt_fnt,resultWinFnt_png,winCoinFnt_fnt,winCoinFnt_png,loseCoinFnt_fnt,loseCoinFnt_png,gameHeadHBg_png,gameHeadKuang_png,gameHeadVBg_png,positionSheet_json,gamebg_jpg,gameComm_json,changeHeadSheet_json,icon_select_yes_png,changeLanguagebg_png,alertbg_png,icon_select_no_png,gameButtonListbg_png,roombg2_jpg,roomItembg13_png,roomItembg22_png,roomItembg1_png,roomItembg2_png,roomTxtbg2_png,roomTxtbg1_png,room1Anim1_png,room1Anim1_json,roomItembg1_1_png,roomItembg2_1_png,room2Anim1_png,room3Anim1_png,room3Anim2_png,room2Anim2_png,room4Anim1_png,room4Anim2_png,room5Anim1_png,room5Anim2_png,room6Anim1_png,room6Anim2_png,room6Anim3_png,room2Anim1_json,room2Anim2_json,room4Anim1_json,room5Anim1_json,room6Anim1_json,room4Anim2_json,room6Anim3_json,room3Anim2_json,room6Anim2_json,room5Anim2_json,room3Anim1_json,room1Anim2_png,room1Anim2_json,roomTxt6_tc_json,roomTxt6_en_json,roomTxt6_cn_json,roomTxt5_tc_json,roomTxt5_cn_png,roomTxt5_cn_json,roomTxt4_tc_json,roomTxt4_cn_json,roomTxt4_cn_png,roomTxt3_en_json,roomTxt3_en_png,roomTxt3_cn_json,roomTxt2_cn_json,roomTxt1_tc_json,roomTxt1_en_json,roomTxt1_cn_json,roomTxt6_tc_png,roomTxt1_cn_png,roomTxt1_en_png,roomTxt1_tc_png,roomTxt2_cn_png,roomTxt3_cn_png,roomTxt3_tc_json,roomTxt3_tc_png,roomTxt4_en_json,roomTxt4_en_png,roomTxt4_tc_png,roomTxt5_en_json,roomTxt5_en_png,roomTxt5_tc_png,roomTxt6_cn_png,roomTxt6_en_png,roomTxt2_tc_png,roomTxt2_tc_json,roomTxt2_en_png,roomTxt2_en_json",
 			"name": "room"
 		},
 		{
@@ -1504,16 +1504,6 @@
 			"name": "room1Anim1_png"
 		},
 		{
-			"url": "assets/room/roomTxt1.png",
-			"type": "image",
-			"name": "roomTxt1_png"
-		},
-		{
-			"url": "assets/room/roomTxt1.json",
-			"type": "json",
-			"name": "roomTxt1_json"
-		},
-		{
 			"url": "assets/room/room1Anim1.json",
 			"type": "json",
 			"name": "room1Anim1_json"
@@ -1537,56 +1527,6 @@
 			"url": "assets/room/roomTxtbg2.png",
 			"type": "image",
 			"name": "roomTxtbg2_png"
-		},
-		{
-			"url": "assets/room/roomTxt2.png",
-			"type": "image",
-			"name": "roomTxt2_png"
-		},
-		{
-			"url": "assets/room/roomTxt3.png",
-			"type": "image",
-			"name": "roomTxt3_png"
-		},
-		{
-			"url": "assets/room/roomTxt4.png",
-			"type": "image",
-			"name": "roomTxt4_png"
-		},
-		{
-			"url": "assets/room/roomTxt5.png",
-			"type": "image",
-			"name": "roomTxt5_png"
-		},
-		{
-			"url": "assets/room/roomTxt6.png",
-			"type": "image",
-			"name": "roomTxt6_png"
-		},
-		{
-			"url": "assets/room/roomTxt4.json",
-			"type": "json",
-			"name": "roomTxt4_json"
-		},
-		{
-			"url": "assets/room/roomTxt3.json",
-			"type": "json",
-			"name": "roomTxt3_json"
-		},
-		{
-			"url": "assets/room/roomTxt5.json",
-			"type": "json",
-			"name": "roomTxt5_json"
-		},
-		{
-			"url": "assets/room/roomTxt2.json",
-			"type": "json",
-			"name": "roomTxt2_json"
-		},
-		{
-			"url": "assets/room/roomTxt6.json",
-			"type": "json",
-			"name": "roomTxt6_json"
 		},
 		{
 			"url": "assets/room/room2Anim1.png",
@@ -1707,6 +1647,186 @@
 			"url": "assets/room/room1Anim2.json",
 			"type": "json",
 			"name": "room1Anim2_json"
+		},
+		{
+			"url": "assets/room/roomTxt1_cn.png",
+			"type": "image",
+			"name": "roomTxt1_cn_png"
+		},
+		{
+			"url": "assets/room/roomTxt1_en.png",
+			"type": "image",
+			"name": "roomTxt1_en_png"
+		},
+		{
+			"url": "assets/room/roomTxt1_tc.png",
+			"type": "image",
+			"name": "roomTxt1_tc_png"
+		},
+		{
+			"url": "assets/room/roomTxt2_cn.png",
+			"type": "image",
+			"name": "roomTxt2_cn_png"
+		},
+		{
+			"url": "assets/room/roomTxt3_cn.png",
+			"type": "image",
+			"name": "roomTxt3_cn_png"
+		},
+		{
+			"url": "assets/room/roomTxt3_en.png",
+			"type": "image",
+			"name": "roomTxt3_en_png"
+		},
+		{
+			"url": "assets/room/roomTxt3_tc.png",
+			"type": "image",
+			"name": "roomTxt3_tc_png"
+		},
+		{
+			"url": "assets/room/roomTxt4_cn.png",
+			"type": "image",
+			"name": "roomTxt4_cn_png"
+		},
+		{
+			"url": "assets/room/roomTxt4_en.png",
+			"type": "image",
+			"name": "roomTxt4_en_png"
+		},
+		{
+			"url": "assets/room/roomTxt4_tc.png",
+			"type": "image",
+			"name": "roomTxt4_tc_png"
+		},
+		{
+			"url": "assets/room/roomTxt5_cn.png",
+			"type": "image",
+			"name": "roomTxt5_cn_png"
+		},
+		{
+			"url": "assets/room/roomTxt5_en.png",
+			"type": "image",
+			"name": "roomTxt5_en_png"
+		},
+		{
+			"url": "assets/room/roomTxt5_tc.png",
+			"type": "image",
+			"name": "roomTxt5_tc_png"
+		},
+		{
+			"url": "assets/room/roomTxt6_cn.png",
+			"type": "image",
+			"name": "roomTxt6_cn_png"
+		},
+		{
+			"url": "assets/room/roomTxt6_en.png",
+			"type": "image",
+			"name": "roomTxt6_en_png"
+		},
+		{
+			"url": "assets/room/roomTxt6_tc.png",
+			"type": "image",
+			"name": "roomTxt6_tc_png"
+		},
+		{
+			"url": "assets/room/roomTxt1_cn.json",
+			"type": "json",
+			"name": "roomTxt1_cn_json"
+		},
+		{
+			"url": "assets/room/roomTxt2_cn.json",
+			"type": "json",
+			"name": "roomTxt2_cn_json"
+		},
+		{
+			"url": "assets/room/roomTxt1_tc.json",
+			"type": "json",
+			"name": "roomTxt1_tc_json"
+		},
+		{
+			"url": "assets/room/roomTxt3_en.json",
+			"type": "json",
+			"name": "roomTxt3_en_json"
+		},
+		{
+			"url": "assets/room/roomTxt1_en.json",
+			"type": "json",
+			"name": "roomTxt1_en_json"
+		},
+		{
+			"url": "assets/room/roomTxt3_tc.json",
+			"type": "json",
+			"name": "roomTxt3_tc_json"
+		},
+		{
+			"url": "assets/room/roomTxt4_tc.json",
+			"type": "json",
+			"name": "roomTxt4_tc_json"
+		},
+		{
+			"url": "assets/room/roomTxt4_cn.json",
+			"type": "json",
+			"name": "roomTxt4_cn_json"
+		},
+		{
+			"url": "assets/room/roomTxt3_cn.json",
+			"type": "json",
+			"name": "roomTxt3_cn_json"
+		},
+		{
+			"url": "assets/room/roomTxt4_en.json",
+			"type": "json",
+			"name": "roomTxt4_en_json"
+		},
+		{
+			"url": "assets/room/roomTxt5_tc.json",
+			"type": "json",
+			"name": "roomTxt5_tc_json"
+		},
+		{
+			"url": "assets/room/roomTxt5_cn.json",
+			"type": "json",
+			"name": "roomTxt5_cn_json"
+		},
+		{
+			"url": "assets/room/roomTxt6_cn.json",
+			"type": "json",
+			"name": "roomTxt6_cn_json"
+		},
+		{
+			"url": "assets/room/roomTxt5_en.json",
+			"type": "json",
+			"name": "roomTxt5_en_json"
+		},
+		{
+			"url": "assets/room/roomTxt6_tc.json",
+			"type": "json",
+			"name": "roomTxt6_tc_json"
+		},
+		{
+			"url": "assets/room/roomTxt6_en.json",
+			"type": "json",
+			"name": "roomTxt6_en_json"
+		},
+		{
+			"url": "assets/room/roomTxt2_en.png",
+			"type": "image",
+			"name": "roomTxt2_en_png"
+		},
+		{
+			"url": "assets/room/roomTxt2_tc.png",
+			"type": "image",
+			"name": "roomTxt2_tc_png"
+		},
+		{
+			"url": "assets/room/roomTxt2_en.json",
+			"type": "json",
+			"name": "roomTxt2_en_json"
+		},
+		{
+			"url": "assets/room/roomTxt2_tc.json",
+			"type": "json",
+			"name": "roomTxt2_tc_json"
 		}
 	]
 }
