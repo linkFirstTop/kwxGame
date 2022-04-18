@@ -22,6 +22,7 @@ module room {
 		private btnLanguage:BaseButton;
 		private gItems:eui.Group;
 		private imgLogo:eui.Image;
+		private renwuLogo:eui.Image;
 		private logo:eui.Image;
 		private gRW:eui.Group;
 		private nRoomID:number = 0;
@@ -45,6 +46,8 @@ module room {
 			this.imgHead.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onChangeHead,this);
 
 			this.imgLogo.source = "resource/assets/language/"+Global.language+"/logo/roomLogo.png";
+			this.renwuLogo.x = 50;
+			this.renwuLogo.y = 150;
 			this.logo.source = "../public/logo.png";//"https://ts0068.com/public/logo.png";//
 			this.logo.x = 0;
             this.logo.y = 30;

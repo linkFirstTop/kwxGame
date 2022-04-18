@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "waitloading_png,black_png,loadprogressbg_png,loadingbg_jpg,loadingLogo_png,loadprogress_png,loadingbg2_jpg,loadingLogo2_png,loadLogo2_png,loadLogo_png,roomLogo2_png,roomLogo_png,gamebg2_jpg,1_png,2_png,dapiaobg_png,0_png",
+			"keys": "waitloading_png,black_png,loadprogressbg_png,loadingbg_jpg,loadingLogo_png,loadprogress_png,loadingbg2_jpg,loadingLogo2_png,loadLogo2_png,loadLogo_png,roomLogo2_png,roomLogo_png,renwuLogo_png,gamebg2_jpg,1_png,2_png,dapiaobg_png,0_png",
 			"name": "preload"
 		},
 		{
@@ -1266,6 +1266,11 @@
 			"url": "assets/language/cn/logo/roomLogo.png",
 			"type": "image",
 			"name": "roomLogo_png"
+		},
+		{
+			"url": "assets/room/renwu.png",
+			"type": "image",
+			"name": "renwuLogo_png"
 		},
 		{
 			"url": "assets/room/roomItembg13.png",
