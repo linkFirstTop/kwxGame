@@ -85,11 +85,8 @@ module room {
         `roomTxt${this.nRoomID}_${Global.language}_json`
       ); //
       const txtr1 = RES.getRes(`roomTxt${this.nRoomID}_${Global.language}_png`);
-      const mcFactory1: egret.MovieClipDataFactory =
-        new egret.MovieClipDataFactory(Animdata1, txtr1);
-      const mc1: egret.MovieClip = new egret.MovieClip(
-        mcFactory1.generateMovieClipData()
-      );
+      const mcFactory1: egret.MovieClipDataFactory =   new egret.MovieClipDataFactory(Animdata1, txtr1);
+      const mc1: egret.MovieClip = new egret.MovieClip(    mcFactory1.generateMovieClipData());
       mc1.x = -45;
       mc1.y = -54;
       this.animGroup.addChild(mc1);
@@ -143,99 +140,70 @@ module room {
         }
       }
 
-      //动画2
-      const Animdata3 = RES.getRes(`room${this.nRoomID}Anim2_json`);
-      const txtr3 = RES.getRes(`room${this.nRoomID}Anim2_png`);
-      const mcFactory3: egret.MovieClipDataFactory =
-        new egret.MovieClipDataFactory(Animdata3, txtr3);
-      const mc3: egret.MovieClip = new egret.MovieClip(
-        mcFactory3.generateMovieClipData()
-      );
-      mc3.x = -20;
-      mc3.y = -80;
-      this.animGroup.addChild(mc3);
-      mc3.gotoAndPlay(0, -1);
+      let factory: dragonBones.EgretFactory = new dragonBones.EgretFactory();
 
-      //动画1
-      const Animdata2 = RES.getRes(`room${this.nRoomID}Anim1_json`);
-      const txtr2 = RES.getRes(`room${this.nRoomID}Anim1_png`);
-      //console.log("=-=txtr2=", txtr2)
-      const mcFactory2: egret.MovieClipDataFactory =
-        new egret.MovieClipDataFactory(Animdata2, txtr2);
-      const mc2: egret.MovieClip = new egret.MovieClip(
-        mcFactory2.generateMovieClipData()
+      factory.parseDragonBonesData(
+        RES.getRes(`roomA${this.nRoomID}_1_ske_json`)
+      ); //xlrw_tex_webp
+      factory.parseTextureAtlasData(
+        RES.getRes(`roomA${this.nRoomID}_1_tex_json`),
+        RES.getRes(`roomA${this.nRoomID}_1_tex_png`)
       );
-      mc2.x = 100;
-      mc2.y = -30;
-      this.animGroup.addChild(mc2);
-      mc2.gotoAndPlay(0, -1);
 
-      if (this.nRoomID == 6) {
-        const Animdata4 = RES.getRes(`room6Anim3_json`);
-        const txtr4 = RES.getRes(`room6Anim3_png`);
-        //console.log("=-=txtr2=", txtr2)
-        const mcFactory4: egret.MovieClipDataFactory =
-          new egret.MovieClipDataFactory(Animdata4, txtr4);
-        const mc4: egret.MovieClip = new egret.MovieClip(
-          mcFactory4.generateMovieClipData()
+      let ar: dragonBones.EgretArmatureDisplay = factory.buildArmatureDisplay("Sprite");
+      ar.animation.play( "Sprite", 0);
+      ar.x = 240;
+      ar.y = 160;
+      this.animGroup.addChild(ar);
+
+      let factory2: dragonBones.EgretFactory = new dragonBones.EgretFactory();
+
+      factory2.parseDragonBonesData(
+        RES.getRes(`roomA${this.nRoomID}_2_ske_json`)
+      ); //xlrw_tex_webp
+      factory2.parseTextureAtlasData(
+        RES.getRes(`roomA${this.nRoomID}_2_tex_json`),
+        RES.getRes(`roomA${this.nRoomID}_2_tex_png`)
+      );
+  
+      let ar2: dragonBones.EgretArmatureDisplay = factory2.buildArmatureDisplay("Sprite");
+      ar2.animation.play( "Sprite", 0);
+      ar2.x = 370;
+      ar2.y = 240;
+  
+      this.animGroup.addChild(ar2);
+
+      if(this.nRoomID == 6){
+        let factory3: dragonBones.EgretFactory = new dragonBones.EgretFactory();
+
+        factory3.parseDragonBonesData(
+          RES.getRes(`roomA${6}_3_ske_json`)
+        ); //xlrw_tex_webp
+        factory3.parseTextureAtlasData(
+          RES.getRes(`roomA${6}_3_tex_json`),
+          RES.getRes(`roomA${6}_3_tex_png`)
         );
-        mc4.x = 80;
-        mc4.y = -150;
-        this.animGroup.addChild(mc4);
-        mc4.gotoAndPlay(0, -1);
+    
+        let ar3: dragonBones.EgretArmatureDisplay = factory3.buildArmatureDisplay("Sprite");
+        ar3.animation.play( "Sprite", 0);
+        ar3.x = 360;
+        ar3.y = 90;
+    
+        this.animGroup.addChild(ar3);
 
-        mc2.x = 100;
-        mc2.y = 20;
       }
 
-      if (this.nRoomID == 1) {
-        //动画2
-        mc3.x = -45;
-        mc3.y = -30;
 
-        //动画1
-        mc2.x = 10;
-        mc2.y = -50;
-      }
 
-      if (this.nRoomID == 2) {
-        mc2.x = 100;
-        mc2.y = -30;
-      }
 
-      if (this.nRoomID == 3) {
-        mc2.x = 100;
-        mc2.y = -60;
-      }
 
-      if (this.nRoomID == 4) {
-        mc2.x = 100;
-        mc2.y = -70;
-      }
+      // //动画1
 
-      // try {
-      // 	RES.getResByUrl("resource/assets/language/"+Global.language+"/roomitem/roomItem"+this.nRoomID+"_ske.json",function(text:any){
-      // 		if(text){
-      // 			this.bonesJson = text;
-      // 			this.getAnimComplete();
-      // 		}
+    }
 
-      // 	},this,RES.ResourceItem.TYPE_JSON);
-      // 	RES.getResByUrl("resource/assets/language/"+Global.language+"/roomitem/roomItem"+this.nRoomID+"_tex.json",function(text:any){
-      // 		if(text){
-      // 			this.textureJson = text;
-      // 			this.getAnimComplete();
-      // 		}
+    private loadAnim(){
 
-      // 	},this,RES.ResourceItem.TYPE_JSON);
-      // 	RES.getResByUrl("resource/assets/language/"+Global.language+"/roomitem/roomItem"+this.nRoomID+"_tex.png",function(texture:any){
-      // 		if(texture){
-      // 			this.texture = texture;
-      // 			this.getAnimComplete();
-      // 		}
 
-      // 	},this,RES.ResourceItem.TYPE_IMAGE);
-      // } catch (error) {}
     }
     private getAnimComplete(): void {
       this.nLoadNum += 1;

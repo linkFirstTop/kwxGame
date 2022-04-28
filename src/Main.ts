@@ -110,7 +110,6 @@ class Main extends eui.UILayer {
             sound.SoundManager.getInstance().setEffectOn(Global.isSound);
         }
         await this.loadResource();
-
         this.createGameScene();
 
         RES.loadGroup("game_"+Global.language);
@@ -136,11 +135,13 @@ class Main extends eui.UILayer {
 
             await this.loadTheme();
             await RES.loadGroup("preload");
+           
             
             Global.loadTime = Date.now();
             this.loadingView = new LoadingUI();
             this.stage.addChild(this.loadingView);
             this.loadingView.initView();
+  
             try{
                 window["onLoadComplete"]();
             }catch(e){}
