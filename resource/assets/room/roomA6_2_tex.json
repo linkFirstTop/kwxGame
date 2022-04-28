@@ -1,0 +1,17 @@
+{
+    "SubTexture": [{
+        "frameWidth": 167,
+        "y": 1,
+        "frameHeight": 145,
+        "width": 167,
+        "frameX": 0,
+        "height": 144,
+        "name": "图层158",
+        "frameY": 0,
+        "x": 1
+    }],
+    "width": 256,
+    "height": 256,
+    "name": "roomA6_2",
+    "imagePath": "roomA6_2_tex.png"
+}

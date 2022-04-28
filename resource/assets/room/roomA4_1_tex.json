@@ -1,0 +1,13 @@
+{
+    "SubTexture": [{
+        "width": 178,
+        "y": 1,
+        "height": 171,
+        "name": "组77",
+        "x": 1
+    }],
+    "width": 256,
+    "height": 256,
+    "name": "roomA4_1",
+    "imagePath": "roomA4_1_tex.png"
+}
