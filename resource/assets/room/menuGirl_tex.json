@@ -1,0 +1,27 @@
+{
+    "imagePath": "menuGirl_tex.png",
+    "width": 512,
+    "height": 1024,
+    "name": "xlrw",
+    "SubTexture": [{
+        "frameX": -54,
+        "y": 1,
+        "frameY": -135,
+        "frameWidth": 500,
+        "width": 392,
+        "frameHeight": 1200,
+        "height": 930,
+        "name": "人物（合并）",
+        "x": 1
+    }, {
+        "frameX": -123,
+        "y": 1,
+        "frameY": -328,
+        "frameWidth": 500,
+        "width": 97,
+        "frameHeight": 1200,
+        "height": 166,
+        "name": "hand",
+        "x": 395
+    }]
+}

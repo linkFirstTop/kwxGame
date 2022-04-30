@@ -1,0 +1,88 @@
+{
+    "frameRate": 4,
+    "name": "xlrw",
+    "version": "5.5",
+    "compatibleVersion": "5.5",
+    "armature": [{
+        "type": "Armature",
+        "frameRate": 4,
+        "name": "xlrw",
+        "aabb": {
+            "x": -321,
+            "y": -604.5,
+            "width": 502.55,
+            "height": 1205.5
+        },
+        "bone": [{
+            "name": "root"
+        }, {
+            "length": 65,
+            "name": "bone",
+            "parent": "root",
+            "transform": {
+                "x": -129.1669,
+                "y": -137.3561,
+                "skX": -133.5583,
+                "skY": -133.5583
+            }
+        }],
+        "slot": [{
+            "name": "人物（合并）",
+            "parent": "root"
+        }, {
+            "name": "hand",
+            "parent": "bone"
+        }],
+        "skin": [{
+            "slot": [{
+                "name": "hand",
+                "display": [{
+                    "name": "hand",
+                    "transform": {
+                        "x": -138.12,
+                        "y": -47.55,
+                        "skX": 131.55,
+                        "skY": 131.55
+                    }
+                }]
+            }, {
+                "name": "人物（合并）",
+                "display": [{
+                    "name": "人物（合并）",
+                    "transform": {
+                        "x": -71,
+                        "y": 1
+                    }
+                }]
+            }]
+        }],
+        "animation": [{
+            "duration": 16,
+            "playTimes": 0,
+            "name": "xlrw",
+            "bone": [{
+                "name": "bone",
+                "rotateFrame": [{
+                    "duration": 4,
+                    "tweenEasing": 0
+                }, {
+                    "duration": 4,
+                    "tweenEasing": 0,
+                    "rotate": -5
+                }, {
+                    "duration": 4,
+                    "tweenEasing": 0
+                }, {
+                    "duration": 4,
+                    "tweenEasing": 0,
+                    "rotate": -5
+                }, {
+                    "duration": 0
+                }]
+            }]
+        }],
+        "defaultActions": [{
+            "gotoAndPlay": "xlrw"
+        }]
+    }]
+}
