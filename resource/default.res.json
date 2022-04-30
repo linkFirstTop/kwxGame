@@ -5,7 +5,7 @@
 			"name": "preload"
 		},
 		{
-			"keys": "roombg_jpg,commCoin_png,xlrw_tex_png,xlrw_tex_json,xlrw_ske_json,GameTimeFnt_fnt,GameTimeFnt_png,resultLoseFnt_fnt,resultLoseFnt_png,resultWinFnt_fnt,resultWinFnt_png,winCoinFnt_fnt,winCoinFnt_png,loseCoinFnt_fnt,loseCoinFnt_png,gameHeadHBg_png,gameHeadKuang_png,gameHeadVBg_png,positionSheet_json,gamebg_jpg,gameComm_json,changeHeadSheet_json,icon_select_yes_png,changeLanguagebg_png,alertbg_png,icon_select_no_png,gameButtonListbg_png,roombg2_jpg,roomItembg13_png,roomItembg22_png,roomItembg1_png,roomItembg2_png,roomTxtbg2_png,roomTxtbg1_png,roomItembg1_1_png,roomItembg2_1_png,roomTxt6_tc_json,roomTxt6_en_json,roomTxt6_cn_json,roomTxt5_tc_json,roomTxt5_cn_png,roomTxt5_cn_json,roomTxt4_tc_json,roomTxt4_cn_json,roomTxt4_cn_png,roomTxt3_en_json,roomTxt3_en_png,roomTxt3_cn_json,roomTxt2_cn_json,roomTxt1_tc_json,roomTxt1_en_json,roomTxt1_cn_json,roomTxt6_tc_png,roomTxt1_cn_png,roomTxt1_en_png,roomTxt1_tc_png,roomTxt2_cn_png,roomTxt3_cn_png,roomTxt3_tc_json,roomTxt3_tc_png,roomTxt4_en_json,roomTxt4_en_png,roomTxt4_tc_png,roomTxt5_en_json,roomTxt5_en_png,roomTxt5_tc_png,roomTxt6_cn_png,roomTxt6_en_png,roomTxt2_tc_png,roomTxt2_tc_json,roomTxt2_en_png,roomTxt2_en_json,roomA2_2_tex_png,roomA2_2_tex_json,roomA2_2_ske_json,roomA2_1_tex_png,roomA2_1_tex_json,roomA2_1_ske_json,roomA1_2_tex_png,roomA1_2_tex_json,roomA1_2_ske_json,roomA1_1_tex_png,roomA1_1_tex_json,roomA1_1_ske_json,roomA6_2_tex_json,roomA6_2_ske_json,roomA6_1_tex_png,roomA6_1_tex_json,roomA6_1_ske_json,roomA5_2_tex_png,roomA5_2_tex_json,roomA5_2_ske_json,roomA5_1_tex_png,roomA5_1_tex_json,roomA5_1_ske_json,roomA4_2_tex_png,roomA4_2_tex_json,roomA4_2_ske_json,roomA4_1_tex_png,roomA4_1_tex_json,roomA4_1_ske_json,roomA3_2_tex_png,roomA3_2_tex_json,roomA3_2_ske_json,roomA3_1_tex_png,roomA3_1_tex_json,roomA3_1_ske_json,roomA6_3_tex_png,roomA6_3_tex_json,roomA6_3_ske_json,roomA6_2_tex_png",
+			"keys": "roombg_jpg,commCoin_png,xlrw_tex_png,xlrw_tex_json,xlrw_ske_json,GameTimeFnt_fnt,GameTimeFnt_png,resultLoseFnt_fnt,resultLoseFnt_png,resultWinFnt_fnt,resultWinFnt_png,winCoinFnt_fnt,winCoinFnt_png,loseCoinFnt_fnt,loseCoinFnt_png,gameHeadHBg_png,gameHeadKuang_png,gameHeadVBg_png,positionSheet_json,gamebg_jpg,gameComm_json,changeHeadSheet_json,icon_select_yes_png,changeLanguagebg_png,alertbg_png,icon_select_no_png,gameButtonListbg_png,roombg2_jpg,roomItembg13_png,roomItembg22_png,roomItembg1_png,roomItembg2_png,roomTxtbg2_png,roomTxtbg1_png,roomItembg1_1_png,roomItembg2_1_png,roomTxt6_tc_json,roomTxt6_en_json,roomTxt6_cn_json,roomTxt5_tc_json,roomTxt5_cn_png,roomTxt5_cn_json,roomTxt4_tc_json,roomTxt4_cn_json,roomTxt4_cn_png,roomTxt3_en_json,roomTxt3_en_png,roomTxt3_cn_json,roomTxt2_cn_json,roomTxt1_tc_json,roomTxt1_en_json,roomTxt1_cn_json,roomTxt6_tc_png,roomTxt1_cn_png,roomTxt1_en_png,roomTxt1_tc_png,roomTxt2_cn_png,roomTxt3_cn_png,roomTxt3_tc_json,roomTxt3_tc_png,roomTxt4_en_json,roomTxt4_en_png,roomTxt4_tc_png,roomTxt5_en_json,roomTxt5_en_png,roomTxt5_tc_png,roomTxt6_cn_png,roomTxt6_en_png,roomTxt2_tc_png,roomTxt2_tc_json,roomTxt2_en_png,roomTxt2_en_json,roomA2_2_tex_png,roomA2_2_tex_json,roomA2_2_ske_json,roomA2_1_tex_png,roomA2_1_tex_json,roomA2_1_ske_json,roomA1_2_tex_png,roomA1_2_tex_json,roomA1_2_ske_json,roomA1_1_tex_png,roomA1_1_tex_json,roomA1_1_ske_json,roomA6_2_tex_json,roomA6_2_ske_json,roomA6_1_tex_png,roomA6_1_tex_json,roomA6_1_ske_json,roomA5_2_tex_png,roomA5_2_tex_json,roomA5_2_ske_json,roomA5_1_tex_png,roomA5_1_tex_json,roomA5_1_ske_json,roomA4_2_tex_png,roomA4_2_tex_json,roomA4_2_ske_json,roomA4_1_tex_png,roomA4_1_tex_json,roomA4_1_ske_json,roomA3_2_tex_png,roomA3_2_tex_json,roomA3_2_ske_json,roomA3_1_tex_png,roomA3_1_tex_json,roomA3_1_ske_json,roomA6_3_tex_png,roomA6_3_tex_json,roomA6_3_ske_json,roomA6_2_tex_png,menuGirl_tex_png,menuGirl_tex_json,menuGirl_ske_json",
 			"name": "room"
 		},
 		{
@@ -1897,6 +1897,21 @@
 			"url": "assets/room/roomA6_3_tex.json",
 			"type": "json",
 			"name": "roomA6_3_tex_json"
+		},
+		{
+			"url": "assets/room/menuGirl_tex.png",
+			"type": "image",
+			"name": "menuGirl_tex_png"
+		},
+		{
+			"url": "assets/room/menuGirl_tex.json",
+			"type": "json",
+			"name": "menuGirl_tex_json"
+		},
+		{
+			"url": "assets/room/menuGirl_ske.json",
+			"type": "json",
+			"name": "menuGirl_ske_json"
 		}
 	]
 }
