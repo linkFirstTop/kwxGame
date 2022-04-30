@@ -53,15 +53,19 @@ module room {
             this.logo.y = 30;
 		}
 		private createAnim():void{
-			dragonBones.EgretFactory.factory.parseDragonBonesData(RES.getRes("xlrw_ske_json"));//xlrw_tex_webp
-			dragonBones.EgretFactory.factory.parseTextureAtlasData( RES.getRes("xlrw_tex_json"),RES.getRes("xlrw_tex_png"));
+			let factory: dragonBones.EgretFactory = new dragonBones.EgretFactory();
+			factory.parseDragonBonesData(RES.getRes("menuGirl_ske_json"));//xlrw_tex_webp
+			factory.parseTextureAtlasData( RES.getRes("menuGirl_tex_json"),RES.getRes("menuGirl_tex_png"));
+
+	
 
 			this.gRW = new eui.Group();
 			this.addChild(this.gRW);
-			let ar: dragonBones.EgretArmatureDisplay = dragonBones.EgretFactory.factory.buildArmatureDisplay("xlrw");
+			let ar: dragonBones.EgretArmatureDisplay = factory.buildArmatureDisplay("xlrw");
+
 			ar.animation.play( "xlrw", 0);
 			this.gRW.addChild(ar);
-			this.gRW.x = 290;
+			this.gRW.x = 310;
 			this.gRW.y = 700;
 			this.gRW.alpha = 0;
 		}
