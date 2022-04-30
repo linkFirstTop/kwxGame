@@ -35,7 +35,7 @@ module room {
 			super.childrenCreated();
 
 			this.onResize();
-			// this.createAnim();
+			this.createAnim();
 			this.gTop.alpha = 0;
 			this.gItems.addEventListener("OnItemClick",this.onItemClick,this);
 			GDGame.Msg.ins.addEventListener("OnGameResLoad",this.onGameResLoad,this);
@@ -46,8 +46,8 @@ module room {
 			this.imgHead.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onChangeHead,this);
 
 			this.imgLogo.source = "resource/assets/language/"+Global.language+"/logo/roomLogo.png";
-			this.renwuLogo.x = 50;
-			this.renwuLogo.y = 150;
+			// this.renwuLogo.x = 50;
+			// this.renwuLogo.y = 150;
 			this.logo.source = "../public/logo.png";//"https://ts0068.com/public/logo.png";//
 			this.logo.x = 0;
             this.logo.y = 30;
@@ -112,8 +112,8 @@ module room {
 			this.gTop.y = -190;
 			egret.Tween.get(this.gTop).to({y:0,alpha:1},1200,egret.Ease.elasticOut);
 
-			// this.gRW.x = -200;
-			// egret.Tween.get(this.gRW).to({x:290,alpha:1},1200,egret.Ease.elasticOut);
+			this.gRW.x = -200;
+			egret.Tween.get(this.gRW).to({x:290,alpha:1},1200,egret.Ease.elasticOut);
 
 			this.gItems.right = -200;
 			egret.Tween.get(this.gItems).to({right:10},1200,egret.Ease.elasticOut);

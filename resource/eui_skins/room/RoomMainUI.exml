@@ -23,9 +23,9 @@
 			<e:Image id="logo" width="48" height="38"  />
 		</e:Group>
 
-		<e:Group y="20" x="60">
+		<!-- <e:Group y="20" x="60">
 			<e:Image id="renwuLogo" source="resource/assets/room/renwu.png"  />
-		</e:Group>
+		</e:Group> -->
 		
 		<e:Group id="gBtns" right="30" top="30">
 			<ns1:BaseButton id="btnLanguage" width="106" height="108">
