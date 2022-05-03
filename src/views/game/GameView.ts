@@ -24,7 +24,9 @@ module game {
 			if (!Global.isContinue) {
 				this.gameMatch.startAnim();
 			}
-
+			if (egret.getOption("pai") == "1") {
+				Global.isDeal = true;
+			}
 			if (Global.isDeal) {
 				let gamezhuapai: GameZhuaPaiQiUI = new GameZhuaPaiQiUI();
 				this.addChild(gamezhuapai);
@@ -403,7 +405,7 @@ module game {
 				card.CardID = opt.Tiles[0];
 				card.Sit = nSit;
 				// console.log("====MOPAI=====",card)
-		
+
 				game.GamePlayData.AddHandCards(nSit, card);
 				this.gameUI.getOneCard(card);
 				//room.RoomWebSocket.instance().roomSender.REQ_MAGICTILES()
@@ -578,10 +580,10 @@ module game {
 				this.gameUI.gameOpt.visible = false;
 				GamePlayData.isSelfTing = false;
 				GamePlayData.MJ_LiangOtherPais = [];
-		
+
 
 				if (opt.ObtainSeat != nSit) {
-					
+
 					//--
 					const card: CardInfo = new CardInfo();
 					card.CardID = opt.ObtainTile;

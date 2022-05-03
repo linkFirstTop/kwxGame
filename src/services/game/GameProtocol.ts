@@ -110,7 +110,7 @@ module game {
 		// 发牌器初始化
 		public static  GLID_CLIENT_SET_OPEN_DOOR_TILE:number = GameProtocol.OGID_MAHJONG_BASE + 0x12; 
 		// /发牌器抓拍
-		public static  GLID_CLIENT_SET_WALL_TLE:number = GameProtocol.OGID_MAHJONG_BASE + 0x11; 
+		public static  GLID_CLIENT_SET_WALL_TLE:number = GameProtocol.OGID_MAHJONG_BASE + 0xF0; 
 
 		//换三张 
 		public static  OGID_SCMJ_HUAN_SAN_ZHANG:number = GameProtocol.OGID_MAHJONG_BASE + 0x18; 

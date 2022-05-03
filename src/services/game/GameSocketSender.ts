@@ -100,14 +100,11 @@ module game {
 		//发牌器抓拍
 		public ReqZhuaPai(id:number):void
 		{
-			var color:number = ( ( id >> 8 ) & 0x0F );
-			var value:number = ( ( id >> 4 ) & 0x0F );
-			let data = new game.ReqMahJongSetWallTile();
-			data.Sit = Global.userSit;
-			data.CardColor = color;
-			data.CardValue = value;
-			let body = game.ReqMahJongSetWallTile.encode(data).finish();
-			game.GameWebSocket.instance().SendMeseage(GameProtocol.REQ | GameProtocol.GLID_CLIENT_SET_WALL_TLE,body);
+			console.log(id,'---id');
+			let data = new room.MagicTilesReq();
+			data.tile = id;
+			let body = room.MagicTilesReq.encode(data).finish();
+			room.RoomWebSocket.instance().SendMeseage(GameProtocol.REQ | GameProtocol.GLID_CLIENT_SET_WALL_TLE,body);
 		}
 		//川麻消息
     	//换三张
