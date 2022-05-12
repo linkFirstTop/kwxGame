@@ -188,27 +188,43 @@ module room {
 				} catch (error) {
 				}
 			} else if (body.result == 1) {
-
+				ViewManager.ins.showAlert(Global.dic["对不起,登录游戏失败,请重新登录"]);
 			} else if (body.result == 2) {
-
+				ViewManager.ins.showAlert(Global.dic["对不起,登录游戏失败,请重新登录"]);
 			} else if (body.result == 4) {
-
+				ViewManager.ins.showAlert(Global.dic["账号不存在"]), function () {
+					window.location.href = location.href;
+				};
 			} else if (body.result == 21) {
-
+				ViewManager.ins.showAlert(Global.dic["账号不存在"], function () {
+					window.location.href = location.href;
+				});
 			} else if (body.result == 22) {
-
+				ViewManager.ins.showAlert(Global.dic["账号不存在"], function () {
+					window.location.href = location.href;
+				});
 			} else if (body.result == 23) {
-				ViewManager.ins.showAlert(Global.dic["账号不存在"]);
+				ViewManager.ins.showAlert(Global.dic["账号不存在"], function () {
+					window.location.href = location.href;
+				});
 			} else if (body.result == 24) {
-
+				ViewManager.ins.showAlert(Global.dic["游戏中"], function () {
+					window.location.href = location.href;
+				});
 			} else if (body.result == 25) {
-				ViewManager.ins.showAlert(Global.dic["账号不存在"]);
+				ViewManager.ins.showAlert(Global.dic["账号不存在"], function () {
+					window.location.href = location.href;
+				});
 			} else if (body.result == 26) {
-				ViewManager.ins.showAlert(Global.dic["账号不存在"]);
+				ViewManager.ins.showAlert(Global.dic["账号不存在"], function () {
+					window.location.href = location.href;
+				});
 			} else if (body.result == 401) {
 				ViewManager.ins.showAlert(Global.dic["游戏未开放"]);
 			} else if (body.result == 203) {
-				ViewManager.ins.showAlert(Global.dic["用户状态异常"]);
+				ViewManager.ins.showAlert(Global.dic["用户状态异常"], function () {
+					window.location.href = location.href;
+				});
 			} else if (body.result == 301) {
 				ViewManager.ins.showAlert(Global.dic["账号失效"], function () {
 					window.location.href = location.href;
@@ -216,9 +232,13 @@ module room {
 			} else if (body.result == 501) {
 				ViewManager.ins.showAlert(Global.dic["登录失败"]);
 			} else if (body.result == 302) {
-				ViewManager.ins.showAlert(Global.dic["用户频繁登陆"]);
+				ViewManager.ins.showAlert(Global.dic["用户频繁登陆"], function () {
+					window.location.href = location.href;
+				});
 			} else if (body.result == 305) {
-				ViewManager.ins.showAlert(Global.dic["用户状态异常"]);
+				ViewManager.ins.showAlert(Global.dic["用户状态异常"], function () {
+					window.location.href = location.href;
+				});
 			} else {
 				ViewManager.ins.showAlert(Global.dic["账号不存在"], function () {
 					window.location.href = location.href;
@@ -326,19 +346,13 @@ module room {
 
 			} else {
 				let str: string = Global.dic["进入房间失败"];
-				if (body.result == 1003 || body.result == 1004) {
+				if (body.result == 6) {
 					str = Global.dic["房间限制"];
-				}
-				if (body.result == 11) {
-					str = Global.dic["游戏中"];
-				}
-				if (body.result == 501) {
-					str = Global.dic["开局失败"];
-				}
-				if (body.result == 305) {
+				} else if (body.result == 7) {
+					str = Global.dic["游戏停服"];
+				} else if (body.result == 99) {
 					str = Global.dic["用户状态异常"];
-				}
-				if (body.result == 1002) {
+				} else {
 					str = Global.dic["游戏停服"];
 				}
 				ViewManager.ins.showAlert(str);

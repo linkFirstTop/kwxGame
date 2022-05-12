@@ -196,6 +196,7 @@ class Global {
 			Global.dic["账号失效"] = "您所使用的token已過期，詳細信息請咨詢客服";
 			Global.dic["游戏未开放"] = "遊戲還未開放，請您耐心等待";
 			Global.dic["开局失败"] = "遊戲開局失敗，請重新獲取鏈接進入";
+			Global.dic["对不起,登录游戏失败,请重新登录"] = "对不起,登录游戏失败,请重新登录";
 
 			Global.dic["入门馆"] = "入門館";
 			Global.dic["初级馆"] = "初級館";
@@ -250,6 +251,7 @@ class Global {
 			Global.dic["账号失效"] = "Expired token. Please contact with the customer service.";
 			Global.dic["游戏未开放"] = "Game is under development. Please wait for the notice.";
 			Global.dic["开局失败"] = "Game start failed. Please access the connection again.";
+			Global.dic["对不起,登录游戏失败,请重新登录"] = "Sorry. Login Failed. Please try again.";
 
 			Global.dic["入门馆"] = "FreshRoom";
 			Global.dic["初级馆"] = "BeginnerRoom";
@@ -304,6 +306,7 @@ class Global {
 			Global.dic["账号失效"] = "您所使用的token已过期，详细信息请咨询客服";
 			Global.dic["游戏未开放"] = "游戏还未开放，请您耐心等待。";
 			Global.dic["开局失败"] = "游戏开局失败，请重新获取链接进入";
+			Global.dic["对不起,登录游戏失败,请重新登录"] = "對不起,登錄遊戲失敗,請重新登錄";
 
 			Global.dic["入门馆"] = "入门馆";
 			Global.dic["初级馆"] = "初级馆";
