@@ -356,7 +356,7 @@ module game {
 					GameParmes.gameTurn = GameTurnType.OTHERTURN;
 					GameParmes.isCurTing = true;
 
-					//let arr: Array<any> = GamePlayData.GetChiPengGangHuGroup(CardsGroupType.CALL);
+
 				}
 
 				//和
@@ -390,7 +390,7 @@ module game {
 			this.gameUI.showWallCount(body["remainCount"])//
 
 			let p = Global.getUserPosition(nSit)
-			console.log(`****当前操作玩家座位号:${nSit}，和局部座位号:${p},玩家座位号：${Global.userSit}`)
+			//console.log(`****当前操作玩家座位号:${nSit}，和局部座位号:${p},玩家座位号：${Global.userSit}`)
 			const opt: room.MJ_Operation = <any>body.operation;
 			GameParmes.isCurTing = false;
 			if (!opt) {

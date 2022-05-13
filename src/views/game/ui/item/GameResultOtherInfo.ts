@@ -30,7 +30,7 @@ module game {
 				
 				this.lbCoin.text =  "+" + `${ChipUtils.formatCoin(Math.abs(Number( info.resultCoin)))}`;
 
-				console.log("==ChipUtils.formatCoin(Math.abs(Number( info.resultCoin)))====",ChipUtils.formatCoin(Math.abs(Number( info.resultCoin))))
+				//console.log("==ChipUtils.formatCoin(Math.abs(Number( info.resultCoin)))====",ChipUtils.formatCoin(Math.abs(Number( info.resultCoin))))
 			} else {
 				this.lbCoin.font = "resultLoseFnt_fnt";
 			
