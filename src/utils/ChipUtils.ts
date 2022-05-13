@@ -22,14 +22,19 @@ class ChipUtils {
 		public static formatCoin(tmp:number,isK:boolean = false):string{
            let str:string = "";
 			let coin:number = 0;
+			
 			if(Global.isShowCoin){//显示金币
-				//coin = tmp;
+				coin = tmp;
 				// Error
 				//临时改动 都显示 人民币
 
-				coin = Number((tmp/Global.exchange).toFixed(2))
+				//coin = Number((tmp/Global.exchange).toFixed(2))
 			}else{//显示人民币
+	
+
 				coin = Number((tmp/Global.exchange).toFixed(2))
+
+			
 			}
 			if(isK && Global.exchange < 0.1){
 				if(coin >= 0){
@@ -45,6 +50,8 @@ class ChipUtils {
 					str =	"-" + ChipUtils.fmoney(-coin,3,2,true );
 				}
 			}
+
+				
             return str;
         }
 		public static fmoney(s,dw, n,isShow): string {

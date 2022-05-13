@@ -34,12 +34,12 @@ module game {
 			} else {
 				strName = user.userShowName;
 			}
-			this.lbName.text = GameUtils.ReplaceChar(GameUtils.getShowName(strName), 8, 3);
+			this.lbName.text = GameUtils.ReplaceChar(GameUtils.getShowName(strName), 9, 3);
 
 			this.nCoin = user.userCoin;
 			this.nSit = user.userSit;
 			this.imgZhuang.source = "";
-			console.log("=this.nSit==",this.nSit)
+			//console.log("=this.nSit==",this.nSit)
 			if (this.nSit == 1) {
 				this.imgZhuang.source = "gameIcon_zhuang_" + Global.language;
 			}
