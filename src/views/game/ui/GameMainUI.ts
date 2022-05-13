@@ -86,7 +86,7 @@ module game {
 
 			this.addEventListener("UserLoseGame", this.onUserLoseGame, this);
 			this.gamePosition.addEventListener("OnTimeComplete", this.onTimeComplete, this);
-			this.duyi.text = `房间号:${0}`;
+			this.duyi.text = `局号:${0}`;
 			
 			this.iconTing = new eui.Image();
 			this.iconTing.source = "gameIcon_tip";
@@ -214,7 +214,7 @@ module game {
 		}
 		public showRoomGUID(guid: string) {
 
-			this.duyi.text = `房间号:${guid}`;
+			this.duyi.text = `局号:${guid}`;
 		}
 
 		public initPosition(): void {
