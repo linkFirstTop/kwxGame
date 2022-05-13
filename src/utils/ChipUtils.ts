@@ -23,7 +23,11 @@ class ChipUtils {
            let str:string = "";
 			let coin:number = 0;
 			if(Global.isShowCoin){//显示金币
-				coin = tmp;
+				//coin = tmp;
+				// Error
+				//临时改动 都显示 人民币
+
+				coin = Number((tmp/Global.exchange).toFixed(2))
 			}else{//显示人民币
 				coin = Number((tmp/Global.exchange).toFixed(2))
 			}

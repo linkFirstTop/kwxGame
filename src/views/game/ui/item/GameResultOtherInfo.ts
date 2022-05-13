@@ -27,11 +27,11 @@ module game {
 			//console.log("===GameUtils.getShowName(info.userName)==",GameUtils.getShowName(info.userName))
 			if (info.resultCoin >= 0) {
 				this.lbCoin.font = "resultWinFnt_fnt";
-				this.lbCoin.text = `+${info.resultCoin}` //"+"+ChipUtils.formatCoin(Number(info.resultCoin) );
+				this.lbCoin.text = "+"+ChipUtils.formatCoin(Number(info.resultCoin) );
 			} else {
 				this.lbCoin.font = "resultLoseFnt_fnt";
-				console.log("info.resultCoin", Math.abs(Number(info.resultCoin)))
-				this.lbCoin.text = `${info.resultCoin}`  //`-${ChipUtils.formatCoin(Math.abs(Number( info.resultCoin))  )}`;
+			
+				this.lbCoin.text = `- ${ChipUtils.formatCoin(Math.abs(Number( info.resultCoin)))}`;
 			}
 
 			this.imgBank.source = "";

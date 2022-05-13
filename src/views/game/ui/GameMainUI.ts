@@ -188,7 +188,7 @@ module game {
 		
 			for (let i: number = 0; i < len; i++) {
 				let user: game.GameUserInfo = game.GameUserList.arrUserList[i];
-				//console.log(user.userName, user.userSit, Global.userSit)
+				console.log(user.userName, user.userSit, Global.userSit)
 				let p: number = Global.getUserPosition(user.userSit);
 				//console.log("=====PP", p)
 				this["gameUser" + p].setUserInfo(user);

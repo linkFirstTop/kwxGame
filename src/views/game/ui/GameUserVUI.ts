@@ -24,6 +24,7 @@ module game {
 		}
 
 		public setUserInfo(user: game.GameUserInfo): void {
+	
 			this.user = user;
 			this.piaofen_result.visible = false;
 			this.strUserName = user.userName;
@@ -38,7 +39,8 @@ module game {
 			this.nCoin = user.userCoin;
 			this.nSit = user.userSit;
 			this.imgZhuang.source = "";
-			if (this.nSit == 0) {
+			console.log("=this.nSit==",this.nSit)
+			if (this.nSit == 1) {
 				this.imgZhuang.source = "gameIcon_zhuang_" + Global.language;
 			}
 			if (this.nCoin <= 0) {
@@ -52,6 +54,7 @@ module game {
 				this.lbCoin.text = ChipUtils.formatCoin(user.userCoin, true);
 				this.imgHead.source = Global.commURL + "head/iconHead" + Global.getHeadByName(user.userName) + ".png";
 			}
+
 			let p: number = Global.getUserPosition(user.userSit);
 			if (p == 1) {
 				this.imgHead.scaleX = -1;

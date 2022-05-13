@@ -36,10 +36,13 @@ module game {
 				strName = user.userShowName;
 			}
 			this.lbName.text = GameUtils.ReplaceChar(GameUtils.getShowName(strName),9,3);
+
+	
 			this.lbCoin.text = ChipUtils.formatCoin(user.userCoin,true);
 			this.nCoin = user.userCoin;
 			this.nSit = user.userSit;
 			this.imgZhuang.source = "";
+			
 			if(this.nSit == 0){
 				this.imgZhuang.source = "gameIcon_zhuang_"+Global.language;
 			}

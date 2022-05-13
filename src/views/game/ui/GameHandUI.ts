@@ -607,6 +607,7 @@ module game {
 
 					
 						if (!isAllPao && item.imgPao && item.imgPao.visible && !GamePlayData.isSelfTing) {
+							TipsUtils.showTipsFromCenter("不可打出该牌!")
 							return;
 							// console.log("====is Pao===")
 						}

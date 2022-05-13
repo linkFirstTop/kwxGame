@@ -78,7 +78,7 @@ module room {
         this.txtBg2.source = "roomItembg1_1_png";
       }
 
-      console.log("===this.roomID", this.nRoomID);
+    
 
       //文字4
       const Animdata1 = RES.getRes(
