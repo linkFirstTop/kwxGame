@@ -307,7 +307,7 @@ module game {
 				this.gTingCards.addChild(item);
 				let cardNum: number = opt.callTileCount //4 - GamePlayData.arrLPCards[arr[i].CardIndex + 1].length;
 				cardNum = cardNum > -1 ? cardNum : 0;
-				item.setInfo(opt.callTile + 1, opt.fans, cardNum);
+				item.setInfo(opt.callTile, opt.fans, cardNum);
 			}
 		}
 
