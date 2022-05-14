@@ -545,7 +545,7 @@ module game {
 
 		/*显示待胡牌*/
 		private showTingGroup(): void {
-			let arr: Array<any> = GamePlayData.MJ_selfTingarr;;
+			let arr: Array<room.MJ_Operation> = GamePlayData.GetChiPengGangHuGroup(CardsGroupType.CALL);
 			console.log("==showTingGroup=arr",arr)
 		
 			this.copyTingCards(arr);

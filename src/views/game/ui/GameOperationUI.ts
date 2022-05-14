@@ -288,7 +288,7 @@ module game {
 			this.clearTingGroup();
 			this.visible = this.gCardBg.visible = this.gTingCards.visible = true;
 			let arr: Array<room.MJ_Operation> = GamePlayData.GetChiPengGangHuGroup(CardsGroupType.CALL);
-			console.log("=====nCardID",nCardID, arr )
+			//console.log("=====nCardID",nCardID, arr )
 			for (let i: number = 0; i < arr.length; i++) {
 				let info: room.MJ_Operation = arr[i];
 				if (info.Tiles[0] == nCardID) {
