@@ -185,10 +185,10 @@ module game {
 			let gHu: eui.Group = this.findHuGroup(p);
 			let ghand: eui.Group = this.findHandGroup(p);
 			let item: game.BaseHuCardUI = new game.BaseHuCardUI();
-            let len = ghand.numChildren;
+			let len = ghand.numChildren;
 			item.setCard(p, len, cardValue);
 			item.cardInfo = card;
-		
+
 			gHu.addChild(item);
 			if (p == 2) {
 				item.x = this.arrLHP[0].x;
@@ -206,8 +206,8 @@ module game {
 			if (p == 1) {
 				//card.setCard(p, 13, 1, 0);
 				item.setCard(p, 13, cardValue);
-				item.x = this.arrRHP[0].x  - 22;
-				item.y = this.arrRHP[0].y  + 25 ;
+				item.x = this.arrRHP[0].x - 22;
+				item.y = this.arrRHP[0].y + 25;
 			}
 			if (p == 0) {
 				item.x = (ghand.numChildren - 1) * 90;
@@ -224,10 +224,10 @@ module game {
 			let len: number = g.numChildren;
 			let item: game.BaseHandCardUI;
 
-			for(let i=0;i<len;i++){
+			for (let i = 0; i < len; i++) {
 				item = g.getChildAt(i) as game.BaseHandCardUI;
 				// console.log("===item.isMoCard===",item.isMoCard)
-				if(item.isMoCard){
+				if (item.isMoCard) {
 					g.removeChild(item);
 					item = null;
 					break;
@@ -295,7 +295,7 @@ module game {
 			}
 		}
 		private copyHandCard(arrTmp: Array<CardInfo>): Array<CardInfo> {
-			if(!arrTmp){
+			if (!arrTmp) {
 				return
 			}
 
@@ -333,7 +333,7 @@ module game {
 			//console.log("=====getHandCards arr",arr)
 			let index: number = 0;
 			let len: number = arr.length;
-	
+
 			if (arr.length == 14) {//玩家有摸牌牌权
 				index = 0;
 			} else {
@@ -384,7 +384,7 @@ module game {
 					ghand.addChild(card);
 					const isPao = GamePlayData.MJ_LiangOtherPais.some(e => (e.callTile == cardValue))
 					//console.log("====isPao",isPao,cardValue)
-					
+
 					card.setCard(p, (i + index), cardValue, state);
 					card.cardInfo = info;
 					card.setPaoFlag(isPao)
@@ -586,7 +586,7 @@ module game {
 
 				// 	return
 				// }
-				
+
 				if (this.currentCard == item) {
 
 					if (game.GamePlayData.M_C_P_G_sit == Global.userSit) {
@@ -605,7 +605,7 @@ module game {
 							}
 						}
 
-					
+
 						if (!isAllPao && item.imgPao && item.imgPao.visible && !GamePlayData.isSelfTing) {
 							TipsUtils.showTipsFromCenter("不可打出该牌!")
 							return;
@@ -703,15 +703,16 @@ module game {
 					let item: game.BaseHandCardUI = this.gHandCardD.getChildAt(i) as game.BaseHandCardUI;
 					let isTing = false;
 					for (let j: number = 0; j < arr.length; j++) {
-						let opt  = arr[j];
-						if (item.cardIndex == opt.Tiles[0]) {
-							item.setTingFlag(true, str);
-							isTing = true;
-							break;
+						let opt = arr[j];
+						if (!item.imgPao || item.imgPao.visible == true) {
+							if (item.cardIndex == opt.Tiles[0]) {
+								item.setTingFlag(true, str);
+								isTing = true;
+								break;
+							}
 						}
 					}
-
-					if(!isTing){
+					if (!isTing) {
 						item.setMaskFlag(false)
 					}
 				}

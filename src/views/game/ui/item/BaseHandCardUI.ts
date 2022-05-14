@@ -111,6 +111,10 @@ module game {
 
 		public setTingFlag(b:boolean,str:string):void{	
 			if(b){//显示听提示
+				//如果是炮牌，就不显示
+				if(this.imgPao && this.imgPao.visible == true){
+					return ;
+				}
 				if(this.imgTip == null){
 					this.imgTip = new eui.Image();
 					this.addChild(this.imgTip);
@@ -138,7 +142,7 @@ module game {
 		}
 
 		public setPaoFlag(b:boolean,){
-			if(b){//显示听提示
+			if(b){//显示炮提示
 				if(this.imgPao == null){
 					// let g:eui.Group = new eui.Group();
 			        //  this.addChild(g);
