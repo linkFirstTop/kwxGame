@@ -45,6 +45,8 @@ module game {
 			
 			if(this.nSit == 0){
 				this.imgZhuang.source = "gameIcon_zhuang_"+Global.language;
+			}else{
+				this.imgZhuang.source = "";
 			}
 			if(this.nCoin <= 0){
 				this.nCoin = 0;
