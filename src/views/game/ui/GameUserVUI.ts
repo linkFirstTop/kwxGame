@@ -40,7 +40,7 @@ module game {
 			this.nSit = user.userSit;
 			this.imgZhuang.source = "";
 			//console.log("=this.nSit==",this.nSit)
-			if (this.nSit == 1) {
+			if (this.nSit == 0) {
 				this.imgZhuang.source = "gameIcon_zhuang_" + Global.language;
 			}
 			if (this.nCoin <= 0) {
