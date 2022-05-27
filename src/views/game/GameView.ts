@@ -553,7 +553,7 @@ module game {
 
 				const b: boolean = false;
 				this.gameUI.userSendCard(card, b);
-				SoundModel.playEffect(SoundModel.CHU);
+				SoundModel.playEffect(SoundModel.fanOrLiang);
 
 				if (nSit != Global.userSit) {
 					opt.tingTileInfo.forEach((o: room.MJ_TingTileInfo) => {
@@ -597,6 +597,8 @@ module game {
 				if (nSit == Global.userSit) {
 					console.log("===SElf hu")
 					this.gameUI.showHuCard(nSit, opt.ObtainTile, 3);
+					
+					
 					GameParmes.isHu = true;
 					this.gameUI.hideTingFlag();
 				} else {
@@ -724,7 +726,6 @@ module game {
 		 * 服务器通知客户端 全部结束
 		 */
 		private ACK_ALL_GAMERESULT(evt: egret.Event): void {
-
 			let nTime: number = 1200;
 			let body: room.VGGameResultNtc = evt.data;
 			//console.log("=!!!!SHOW RESULT=====", body)
@@ -737,12 +738,26 @@ module game {
 				}
 			}
 
+			
+
 			//this.gameUI.playAnim("djjs", -1);
 			if (GameParmes.isGameFlower) {//播放流局动画
+
 				egret.setTimeout(function () {
 					this.gameUI.playAnim("liuju", -1);
 				}, this, 1200);
 				nTime = 2400;
+			}else{
+				for (let i: number = 0; i < body.userInfos.length; i++) {
+					const user = body.userInfos[i]
+					if (user.userName == Global.userName ) {//自己胡做下标记
+						SoundModel.playEffect(SoundModel.WIN);
+					}else{
+						SoundModel.playEffect(SoundModel.LOSE);
+					}
+				}
+				
+				
 			}
 
 			game.GamePlayData.SaveHandCarsd(body.userInfos);
@@ -782,6 +797,7 @@ module game {
 			let body: room.VGUserManagedAck = evt.data;
 
 			if (body.isManaged == 1) {
+				SoundModel.playEffect(SoundModel.tuoGuan);
 				this.gameUI.showTrust(true);
 			} else {
 				this.gameUI.showTrust(false);
@@ -804,6 +820,7 @@ module game {
 			////开局状态
 			if (status == game.RoomStatus.MJ_GS_KJ) {
 				this.gameUI.initPosition();
+				SoundModel.playEffect(SoundModel.StartMatch)
 
 			}
 			////发牌状态

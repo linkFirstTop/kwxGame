@@ -12,6 +12,17 @@ module game {
 		public static CHU:string = "sendCard_mp3";
 		public static ZHUA:string = "zhuapai_mp3";
 		public static TIME:string = "time_mp3";
+		public static huPaiOrDianPao = "HuOrPao_mp3";
+		public static xiPai = "xiPai_mp3";
+		public static tuoGuan = "tuoGuan_mp3";
+		public static dingZhuang = "dingZhuang_mp3";
+		public static ticWaring = "ticWarning_mp3";
+		public static tianHu = "tianhu_mp3";
+		public static StartMatch = "startMatch_mp3";
+		public static shouGlod = "shouGlod_mp3";
+		public static fanOrLiang = "fanOrLiang_mp3";
+		public static LiPai = "liPai_mp3";
+
 		public static playCardSound(card:CardInfo):void{
 			let index:number = card.CardID //GameParmes.getCardID(card);
 			sound.SoundManager.getInstance().playEffect(`p${index}_mp3`);

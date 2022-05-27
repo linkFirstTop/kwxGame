@@ -222,6 +222,7 @@ module game {
 		}
 		/*初始化玩家手牌*/
 		public initHandCard(): void {
+			SoundModel.playEffect(SoundModel.LiPai);
 			this.gameHand.createHandCard(false, 0);
 		}
 		public showWallCount(count: number): void {
@@ -459,20 +460,26 @@ module game {
 			let op: number = Global.getUserPosition(obSit);
 			if (str == "peng") {
 				comm.DragonAnim.ins.playAnimByName(str, p);
+				SoundModel.playEffect(SoundModel.CHU);
+				
 			}
 			if (str == "mingGang") {
 				comm.DragonAnim.ins.playAnimByName("gf", p);
 				comm.DragonAnim.ins.playAnimByName("ljf", op);
+			
 			}
 			if (str == "anGang") {
 				comm.DragonAnim.ins.playAnimByName("xyz", p);
 				comm.DragonAnim.ins.playAnimByName("xy", -1);
+			
 			}
 			if (str == "buGang") {
 				comm.DragonAnim.ins.playAnimByName("gf", p);
 				comm.DragonAnim.ins.playAnimByName("ljf", -1);
+			
 			}
 			if (str == "hu" || str == "zm") {
+				SoundModel.playEffect(SoundModel.HU);
 				comm.DragonAnim.ins.playAnimByName(str, p);
 			}
 			if (str == "gskh" || str == "hjzy" || str == "qgh") {//杠上开花 呼叫转移 抢杠胡
@@ -480,6 +487,7 @@ module game {
 			}
 			if (str == "ypdx") {//一炮多响
 				comm.DragonAnim.ins.playAnimByName("ypdx", op);
+				SoundModel.playEffect(SoundModel.huPaiOrDianPao);
 			}
 			if (str == "djjs" || str == "liuju") {//对局结束
 				comm.DragonAnim.ins.playAnimByName(str, -1);
