@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "waitloading_png,black_png,loadprogressbg_png,loadingbg_jpg,loadingLogo_png,loadprogress_png,loadingbg2_jpg,loadingLogo2_png,loadLogo2_png,loadLogo_png,roomLogo2_png,roomLogo_png,renwuLogo_png,gamebg2_jpg,1_png,2_png,dapiaobg_png,0_png",
+			"keys": "waitloading_png,black_png,loadprogressbg_png,loadingbg_jpg,loadingLogo_png,loadprogress_png,loadingbg2_jpg,loadingLogo2_png,loadLogo2_png,loadLogo_png,roomLogo2_png,roomLogo_png,renwuLogo_png,gamebg2_jpg,1_png,2_png,dapiaobg_png,0_png,startMatch_mp3,tianhu_mp3,liPai_mp3,fanOrLiang_mp3,shouGlod_mp3,ticWarning_mp3,dingZhuang_mp3,tuoGuan_mp3,xiPai_mp3,HuOrPao_mp3",
 			"name": "preload"
 		},
 		{
@@ -9,7 +9,7 @@
 			"name": "room"
 		},
 		{
-			"keys": "gamebuttontap_mp3,blank_mp3,chi_mp3,cpgEffect_mp3,dice_mp3,gang_mp3,hu_mp3,lose_mp3,mjBgm_mp3,peng_mp3,sendCard_mp3,time_mp3,win_mp3,zhuapai_mp3,zimo_mp3,p9_mp3,p8_mp3,p7_mp3,p6_mp3,p5_mp3,p4_mp3,p3_mp3,p24_mp3,p23_mp3,p22_mp3,p21_mp3,p20_mp3,p2_mp3,p19_mp3,p18_mp3,p17_mp3,p16_mp3,p15_mp3,p14_mp3,p13_mp3,p12_mp3,p11_mp3,p10_mp3,p1_mp3,p0_mp3,p26_mp3,p25_mp3,p31_mp3,p32_mp3,p33_mp3",
+			"keys": "gamebuttontap_mp3,blank_mp3,chi_mp3,cpgEffect_mp3,dice_mp3,gang_mp3,hu_mp3,lose_mp3,mjBgm_mp3,peng_mp3,sendCard_mp3,time_mp3,win_mp3,zhuapai_mp3,zimo_mp3,p9_mp3,p8_mp3,p7_mp3,p6_mp3,p5_mp3,p4_mp3,p3_mp3,p24_mp3,p23_mp3,p22_mp3,p21_mp3,p20_mp3,p2_mp3,p19_mp3,p18_mp3,p17_mp3,p16_mp3,p15_mp3,p14_mp3,p13_mp3,p12_mp3,p11_mp3,p10_mp3,p1_mp3,p0_mp3,p26_mp3,p25_mp3,p31_mp3,p32_mp3,p33_mp3,liPai_mp3,fanOrLiang_mp3,shouGlod_mp3,startMatch_mp3,tianhu_mp3",
 			"name": "sound"
 		},
 		{
@@ -1912,6 +1912,56 @@
 			"url": "assets/room/menuGirl_ske.json",
 			"type": "json",
 			"name": "menuGirl_ske_json"
+		},
+		{
+			"url": "assets/sound/startMatch.mp3",
+			"type": "sound",
+			"name": "startMatch_mp3"
+		},
+		{
+			"url": "assets/sound/tianhu.mp3",
+			"type": "sound",
+			"name": "tianhu_mp3"
+		},
+		{
+			"url": "assets/sound/liPai.mp3",
+			"type": "sound",
+			"name": "liPai_mp3"
+		},
+		{
+			"url": "assets/sound/fanOrLiang.mp3",
+			"type": "sound",
+			"name": "fanOrLiang_mp3"
+		},
+		{
+			"url": "assets/sound/shouGlod.mp3",
+			"type": "sound",
+			"name": "shouGlod_mp3"
+		},
+		{
+			"name": "ticWarning_mp3",
+			"type": "sound",
+			"url": "assets/sound/ticWarning.mp3"
+		},
+		{
+			"name": "dingZhuang_mp3",
+			"type": "sound",
+			"url": "assets/sound/dingZhuang.mp3"
+		},
+		{
+			"name": "tuoGuan_mp3",
+			"type": "sound",
+			"url": "assets/sound/tuoGuan.mp3"
+		},
+		{
+			"name": "xiPai_mp3",
+			"type": "sound",
+			"url": "assets/sound/xiPai.mp3"
+		},
+		{
+			"name": "HuOrPao_mp3",
+			"type": "sound",
+			"url": "assets/sound/HuOrPao.mp3"
 		}
 	]
 }
