@@ -1214,7 +1214,7 @@
 			"url": "assets/game/resultSheet.json",
 			"type": "sheet",
 			"name": "resultSheet_json",
-			"subkeys": "resultButtonContinue_cn,resultButtonContinue_en,resultButtonContinue_tc,resultEast_cn,resultEast_en,resultEast_tc,resultLiang_cn,resultLiang_en,resultLiang_tc,resultNonth_cn,resultNonth_en,resultNonth_tc,resultNorth_cn,resultNorth_en,resultNorth_tc,resultPao_cn,resultPao_en,resultPao_tc,resultTitle_flow_cn,resultTitle_flow_en,resultTitle_lose_cn,resultTitle_lose_en,resultTitle_lose_tc,resultTitle_win_cn,resultTitle_win_en,resultTitle_win_tc,resultWest_cn,resultWest_en,resultWest_tc,resultZhuang_cn,resultZhuang_en,resultZhuang_tc,result_win_close"
+			"subkeys": "resultButtonContinue_cn,resultButtonContinue_en,resultButtonContinue_tc,resultEast_cn,resultEast_en,resultEast_tc,resultLiang_cn,resultLiang_en,resultLiang_tc,resultNonth_cn,resultNonth_en,resultNonth_tc,resultNorth_cn,resultNorth_en,resultNorth_tc,resultPao_cn,resultPao_en,resultPao_tc,resultTitle_flow_cn,resultTitle_flow_en,resultTitle_flow_tc,resultTitle_lose_cn,resultTitle_lose_en,resultTitle_lose_tc,resultTitle_win_cn,resultTitle_win_en,resultTitle_win_tc,resultWest_cn,resultWest_en,resultWest_tc,resultZhuang_cn,resultZhuang_en,resultZhuang_tc,result_win_close"
 		},
 		{
 			"url": "assets/game/resultLosebg.png",
@@ -1939,29 +1939,29 @@
 			"name": "shouGlod_mp3"
 		},
 		{
-			"name": "ticWarning_mp3",
+			"url": "assets/sound/ticWarning.mp3",
 			"type": "sound",
-			"url": "assets/sound/ticWarning.mp3"
+			"name": "ticWarning_mp3"
 		},
 		{
-			"name": "dingZhuang_mp3",
+			"url": "assets/sound/dingZhuang.mp3",
 			"type": "sound",
-			"url": "assets/sound/dingZhuang.mp3"
+			"name": "dingZhuang_mp3"
 		},
 		{
-			"name": "tuoGuan_mp3",
+			"url": "assets/sound/tuoGuan.mp3",
 			"type": "sound",
-			"url": "assets/sound/tuoGuan.mp3"
+			"name": "tuoGuan_mp3"
 		},
 		{
-			"name": "xiPai_mp3",
+			"url": "assets/sound/xiPai.mp3",
 			"type": "sound",
-			"url": "assets/sound/xiPai.mp3"
+			"name": "xiPai_mp3"
 		},
 		{
-			"name": "HuOrPao_mp3",
+			"url": "assets/sound/HuOrPao.mp3",
 			"type": "sound",
-			"url": "assets/sound/HuOrPao.mp3"
+			"name": "HuOrPao_mp3"
 		}
 	]
 }
