@@ -732,7 +732,7 @@ module game {
 			GameParmes.isGameFlower = true;
 			for (let i: number = 0; i < body.userInfos.length; i++) {
 				const user = body.userInfos[i]
-				if (user.resultCoin > 0) {//自己胡做下标记
+				if ( user.resultCoin > 0) {//自己胡做下标记
 					GameParmes.isGameFlower = false;
 					break;
 				}

@@ -78,39 +78,37 @@ module room {
         this.txtBg2.source = "roomItembg1_1_png";
       }
 
-    
+
 
       //文字4
       const Animdata1 = RES.getRes(
         `roomTxt${this.nRoomID}_${Global.language}_json`
       ); //
       const txtr1 = RES.getRes(`roomTxt${this.nRoomID}_${Global.language}_png`);
-      const mcFactory1: egret.MovieClipDataFactory =   new egret.MovieClipDataFactory(Animdata1, txtr1);
-      const mc1: egret.MovieClip = new egret.MovieClip(    mcFactory1.generateMovieClipData());
+      const mcFactory1: egret.MovieClipDataFactory = new egret.MovieClipDataFactory(Animdata1, txtr1);
+      const mc1: egret.MovieClip = new egret.MovieClip(mcFactory1.generateMovieClipData());
       mc1.x = -45;
       mc1.y = -54;
       this.animGroup.addChild(mc1);
       mc1.gotoAndPlay(0, -1);
 
       if (Global.language == "cn") {
-
-
         if (this.nRoomID == 2) {
-			mc1.x = -48;
-            mc1.y = -74;
+          mc1.x = -48;
+          mc1.y = -74;
         }
-		if (this.nRoomID == 3 ) {
-			mc1.x = -38;
-            mc1.y = -117;
+        if (this.nRoomID == 3) {
+          mc1.x = -38;
+          mc1.y = -117;
         }
 
-        if ( this.nRoomID == 4 || this.nRoomID == 5  ) {
-			mc1.x = -33;
-            mc1.y = -114;
+        if (this.nRoomID == 4 || this.nRoomID == 5) {
+          mc1.x = -33;
+          mc1.y = -114;
         }
-        if (this.nRoomID == 6 ) {
-			mc1.x = -43;
-            mc1.y = -110;
+        if (this.nRoomID == 6) {
+          mc1.x = -43;
+          mc1.y = -110;
         }
       }
 
@@ -151,7 +149,7 @@ module room {
       );
 
       let ar: dragonBones.EgretArmatureDisplay = factory.buildArmatureDisplay("Sprite");
-      ar.animation.play( "Sprite", 0);
+      ar.animation.play("Sprite", 0);
       ar.x = 240;
       ar.y = 160;
       this.animGroup.addChild(ar);
@@ -165,15 +163,22 @@ module room {
         RES.getRes(`roomA${this.nRoomID}_2_tex_json`),
         RES.getRes(`roomA${this.nRoomID}_2_tex_png`)
       );
-  
+
+
       let ar2: dragonBones.EgretArmatureDisplay = factory2.buildArmatureDisplay("Sprite");
-      ar2.animation.play( "Sprite", 0);
+      ar2.animation.play("Sprite", 0);
       ar2.x = 370;
       ar2.y = 240;
-  
+
+
+      if(this.nRoomID == 3){
+          ar2.x = 370;
+          ar2.y = 190;
+      }
+
       this.animGroup.addChild(ar2);
 
-      if(this.nRoomID == 6){
+      if (this.nRoomID == 6) {
         let factory3: dragonBones.EgretFactory = new dragonBones.EgretFactory();
 
         factory3.parseDragonBonesData(
@@ -183,12 +188,12 @@ module room {
           RES.getRes(`roomA${6}_3_tex_json`),
           RES.getRes(`roomA${6}_3_tex_png`)
         );
-    
+
         let ar3: dragonBones.EgretArmatureDisplay = factory3.buildArmatureDisplay("Sprite");
-        ar3.animation.play( "Sprite", 0);
+        ar3.animation.play("Sprite", 0);
         ar3.x = 360;
         ar3.y = 90;
-    
+
         this.animGroup.addChild(ar3);
 
       }
@@ -201,7 +206,7 @@ module room {
 
     }
 
-    private loadAnim(){
+    private loadAnim() {
 
 
     }
