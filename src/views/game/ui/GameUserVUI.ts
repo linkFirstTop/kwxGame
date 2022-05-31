@@ -39,8 +39,8 @@ module game {
 			this.nCoin = user.userCoin;
 			this.nSit = user.userSit;
 			this.imgZhuang.source = "";
-			//console.log("=this.nSit==",this.nSit)
-			if (this.nSit == 0) {
+			// console.log("=this.nSit== ========",this.nSit)
+			 if (this.nSit == 1) {
 				this.imgZhuang.source = "gameIcon_zhuang_" + Global.language;
 			}
 			if (this.nCoin <= 0) {

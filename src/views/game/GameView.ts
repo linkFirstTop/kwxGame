@@ -726,6 +726,7 @@ module game {
 		 * 服务器通知客户端 全部结束
 		 */
 		private ACK_ALL_GAMERESULT(evt: egret.Event): void {
+			sound.SoundManager.getInstance().stopBg();
 			let nTime: number = 1200;
 			let body: room.VGGameResultNtc = evt.data;
 			//console.log("=!!!!SHOW RESULT=====", body)
@@ -742,6 +743,7 @@ module game {
 
 			//this.gameUI.playAnim("djjs", -1);
 			if (GameParmes.isGameFlower) {//播放流局动画
+				//SoundModel.playEffect(SoundModel)
 
 				egret.setTimeout(function () {
 					this.gameUI.playAnim("liuju", -1);
@@ -797,7 +799,7 @@ module game {
 			let body: room.VGUserManagedAck = evt.data;
 
 			if (body.isManaged == 1) {
-				SoundModel.playEffect(SoundModel.tuoGuan);
+				// SoundModel.playEffect(SoundModel.tuoGuan);
 				this.gameUI.showTrust(true);
 			} else {
 				this.gameUI.showTrust(false);
@@ -820,7 +822,7 @@ module game {
 			////开局状态
 			if (status == game.RoomStatus.MJ_GS_KJ) {
 				this.gameUI.initPosition();
-				SoundModel.playEffect(SoundModel.StartMatch)
+				
 
 			}
 			////发牌状态
@@ -840,6 +842,7 @@ module game {
 			//默认状态什么都不处理
 			if (lastStatus == game.RoomStatus.MJ_GS_DF) {
 				comm.DragonAnim.ins.playAnimByName("ksyx", -1);
+				SoundModel.playEffect(SoundModel.StartMatch)
 			}
 
 			if (status != game.RoomStatus.MJ_GS_DF) {

@@ -43,7 +43,18 @@ module game {
 				this.imgBank.source = "resultZhuang_" + Global.language;
 			}
 
-			this.lbPiao.text = `飘${info.dapiao}分`
+			if(Global.language == "tc"){
+				this.lbPiao.text = `飄${info.dapiao}分`
+			}
+
+			if(Global.language == "en"){
+				this.lbPiao.text = `飘${info.dapiao}分`
+			}
+
+			if(Global.language == "cn"){
+				this.lbPiao.text = `PIAO:${info.dapiao}`
+			}
+
 			this.imgPao.visible = false;
 			this.imgLiang.source = "resultSheet_json.resultLiang_" + Global.userHead; 
 
