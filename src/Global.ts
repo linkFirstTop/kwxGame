@@ -210,6 +210,30 @@ class Global {
 			Global.dic["自动开始"] = "每局結束自動開始下一局";
 			Global.dic["同花色"] = "需要選擇三張同花色的牌";
 			Global.dic["数量不符"] = "您選擇牌的數量不符";
+
+			Global.dic["三龙七对"] = "三龍七對";
+			Global.dic["双龙七对"] = "雙龍七對";
+			Global.dic["三元七对"] = "三元七對";
+			Global.dic["龙七对"] = "龍七對";
+			Global.dic["大三元"] = "大三元";
+			Global.dic["七对"] = "七對";
+			Global.dic["暗四归一"] = "暗四歸一";
+			Global.dic["小三元"] = "小三元";
+			Global.dic["清一色"] = "清一色";
+			Global.dic["手抓一"] = "手抓一";
+			Global.dic["明四归一"] = "明四歸一";
+			Global.dic["卡五星"] = "卡五星";
+			Global.dic["碰碰胡"] = "碰碰胡";
+			Global.dic["海底炮"] = "海底炮";
+			Global.dic["海底捞"] = "海底撈";
+			Global.dic["点杠"] = "點槓";
+			Global.dic["杠上开花"] = "槓上開花";
+			Global.dic["杠上炮"] = "槓上炮";
+			Global.dic["抢杠胡"] = "搶槓胡";
+			Global.dic["亮倒"] = "亮倒";
+			Global.dic["补杠"] = "補槓";
+			Global.dic["自摸"] = "自摸";
+			Global.dic["屁胡"] = "屁胡";
 		} else if (type == 3) {
 			Global.language = "en";
 			Global.dic["底池"] = "Pot";
@@ -265,6 +289,30 @@ class Global {
 			Global.dic["自动开始"] = "Next game starts automatically when last game ends";
 			Global.dic["同花色"] = "Select 3 tiles in the same shape.";
 			Global.dic["数量不符"] = "The selected tiles number is incorrect.";
+
+			Global.dic["三龙七对"] = "三龙七对";
+			Global.dic["双龙七对"] = "双龙七对";
+			Global.dic["三元七对"] = "三元七对";
+			Global.dic["龙七对"] = "龙七对";
+			Global.dic["大三元"] = "大三元";
+			Global.dic["七对"] = "七对";
+			Global.dic["暗四归一"] = "暗四归一";
+			Global.dic["小三元"] = "小三元";
+			Global.dic["清一色"] = "清一色";
+			Global.dic["手抓一"] = "手抓一";
+			Global.dic["明四归一"] = "明四归一";
+			Global.dic["卡五星"] = "卡五星";
+			Global.dic["碰碰胡"] = "碰碰胡";
+			Global.dic["海底炮"] = "海底炮";
+			Global.dic["海底捞"] = "海底捞";
+			Global.dic["点杠"] = "点杠";
+			Global.dic["杠上开花"] = "杠上开花";
+			Global.dic["杠上炮"] = "杠上炮";
+			Global.dic["抢杠胡"] = "抢杠胡";
+			Global.dic["亮倒"] = "亮倒";
+			Global.dic["补杠"] = "补杠";
+			Global.dic["自摸"] = "自摸";
+			Global.dic["屁胡"] = "屁胡";
 		} else {
 			Global.language = "cn";
 			Global.dic["底池"] = "底池";
@@ -320,6 +368,30 @@ class Global {
 			Global.dic["自动开始"] = "每局结束自动开始下一局";
 			Global.dic["同花色"] = "需要选择三张同花色的牌";
 			Global.dic["数量不符"] = "您选择牌的数量不符";
+
+			Global.dic["三龙七对"] = "三龙七对";
+			Global.dic["双龙七对"] = "双龙七对";
+			Global.dic["三元七对"] = "三元七对";
+			Global.dic["龙七对"] = "龙七对";
+			Global.dic["大三元"] = "大三元";
+			Global.dic["七对"] = "七对";
+			Global.dic["暗四归一"] = "暗四归一";
+			Global.dic["小三元"] = "小三元";
+			Global.dic["清一色"] = "清一色";
+			Global.dic["手抓一"] = "手抓一";
+			Global.dic["明四归一"] = "明四归一";
+			Global.dic["卡五星"] = "卡五星";
+			Global.dic["碰碰胡"] = "碰碰胡";
+			Global.dic["海底炮"] = "海底炮";
+			Global.dic["海底捞"] = "海底捞";
+			Global.dic["点杠"] = "点杠";
+			Global.dic["杠上开花"] = "杠上开花";
+			Global.dic["杠上炮"] = "杠上炮";
+			Global.dic["抢杠胡"] = "抢杠胡";
+			Global.dic["亮倒"] = "亮倒";
+			Global.dic["补杠"] = "补杠";
+			Global.dic["自摸"] = "自摸";
+			Global.dic["屁胡"] = "屁胡";
 		}
 
 		game.GameParmes.setFan();

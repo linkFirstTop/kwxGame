@@ -240,7 +240,11 @@ class GameUtils {
             if(Global.userName == userName){
 				str = Global.userName;
                 if(Global.showName != ""){
-                    str = Global.showName;
+                    if (Global.showName.length > 9) {
+                        str = Global.showName.substr(0, 6) + "...";;
+                    } else {
+                        str = Global.showName;
+                    }
                 }
 			}else{
 				str = "***"+ userName.substr((userName.length-3),3);

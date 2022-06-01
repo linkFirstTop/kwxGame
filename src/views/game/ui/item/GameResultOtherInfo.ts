@@ -48,11 +48,11 @@ module game {
 			}
 
 			if(Global.language == "en"){
-				this.lbPiao.text = `飘${info.dapiao}分`
+				this.lbPiao.text = `PIAO${info.dapiao}分`
 			}
 
 			if(Global.language == "cn"){
-				this.lbPiao.text = `PIAO:${info.dapiao}`
+				this.lbPiao.text = `飘:${info.dapiao}`
 			}
 
 			this.imgPao.visible = false;
@@ -88,7 +88,7 @@ module game {
 					if(typs.includes(type)){
 						pre = "+"
 					}
-					e.text = `${CardsGroupType.FanTypeString[type]}${pre}${info.fan[i].value}`
+					e.text = `${Global.dic[CardsGroupType.FanTypeString[type]]}${pre}${info.fan[i].value}`
 			
 				} else {
 					e.text = "";
