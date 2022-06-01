@@ -511,7 +511,7 @@
 			"name": "sszhp_cn_tex_png"
 		},
 		{
-			"url": "assets/language/cn/gameAnim/xyz_cn_tex.png",
+			"url": "assets/language/cn/gameAnim/gf_cn_tex.png",
 			"type": "image",
 			"name": "xyz_cn_tex_png"
 		},
@@ -661,7 +661,7 @@
 			"name": "sszhp_cn_ske_json"
 		},
 		{
-			"url": "assets/language/cn/gameAnim/xyz_cn_tex.json",
+			"url": "assets/language/cn/gameAnim/gf_cn_tex.json",
 			"type": "json",
 			"name": "xyz_cn_tex_json"
 		},
@@ -1021,7 +1021,7 @@
 			"name": "sszhp_tc_tex_png"
 		},
 		{
-			"url": "assets/language/tc/gameAnim/xyz_tc_tex.png",
+			"url": "assets/language/tc/gameAnim/gf_tc_tex.png",
 			"type": "image",
 			"name": "xyz_tc_tex_png"
 		},
@@ -1176,7 +1176,7 @@
 			"name": "sszhp_tc_tex_json"
 		},
 		{
-			"url": "assets/language/tc/gameAnim/xyz_tc_tex.json",
+			"url": "assets/language/tc/gameAnim/gf_tc_tex.json",
 			"type": "json",
 			"name": "xyz_tc_tex_json"
 		},

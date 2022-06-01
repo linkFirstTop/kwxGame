@@ -120,6 +120,10 @@ module game {
 					this.dispatchEvent(new egret.Event("OnTimeComplete", true, true, this.strState));
 				}
 			}
+			if(this.nCount < 5){
+				if( GameParmes.gameStage == 4 )//只有行牌阶段才响
+				sound.SoundManager.getInstance().playEffect("time_mp3");
+			}
 		}
 	}
 }
