@@ -129,7 +129,7 @@ class Main extends eui.UILayer {
     private async loadResource() {
         egret.ImageLoader.crossOrigin = "anonymous";
         try {
-            RES.getVirtualUrl = function(url:string):string { return  url+"?ver=xlch_1.2.1.8" };
+            RES.getVirtualUrl = function(url:string):string { return  url+"?ver=xlch_1.2.2.9" };
 
             await RES.loadConfig("resource/default.res.json", "resource/");
 

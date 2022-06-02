@@ -40,7 +40,7 @@ module game {
 
 			this.imgBank.source = "";
 			if (info.role == 0) {
-				this.imgBank.source = "resultZhuang_" + Global.language;
+				this.imgBank.source = "gameIcon_zhuang_" + Global.language;
 			}
 
 			if(Global.language == "tc"){

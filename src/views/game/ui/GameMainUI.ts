@@ -183,6 +183,8 @@ module game {
 		}
 		/*初始化四个玩家*/
 		public initUser(): void {
+			console.log('初始化四个玩家');
+			
 			this.isGaming = true;
 			let len: number = game.GameUserList.arrUserList.length;
 		
@@ -224,6 +226,16 @@ module game {
 		public initHandCard(): void {
 			SoundModel.playEffect(SoundModel.LiPai);
 			this.gameHand.createHandCard(false, 0);
+			let len: number = game.GameUserList.arrUserList.length;
+		
+			for (let i: number = 0; i < len; i++) {
+				let user: game.GameUserInfo = game.GameUserList.arrUserList[i];
+				console.log(user.userName, user.userSit, Global.userSit)
+				let p: number = Global.getUserPosition(user.userSit);
+				//console.log("=====PP", p)
+				this["gameUser" + p].setUserInfo(user);
+				this["gameUser" + p].visible = true;
+			}
 		}
 		public showWallCount(count: number): void {
 			if (Global.language == "en") {
@@ -469,8 +481,8 @@ module game {
 			
 			}
 			if (str == "anGang") {
-				comm.DragonAnim.ins.playAnimByName("xyz", p);
-				comm.DragonAnim.ins.playAnimByName("xy", -1);
+				comm.DragonAnim.ins.playAnimByName("gf", p);
+				comm.DragonAnim.ins.playAnimByName("ljf", -1);
 			
 			}
 			if (str == "buGang") {

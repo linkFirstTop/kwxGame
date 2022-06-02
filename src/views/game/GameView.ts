@@ -597,6 +597,7 @@ module game {
 				if (nSit == Global.userSit) {
 					console.log("===SElf hu")
 					this.gameUI.showHuCard(nSit, opt.ObtainTile, 3);
+					SoundModel.playEffect(SoundModel.WIN);
 					
 					
 					GameParmes.isHu = true;
@@ -605,6 +606,7 @@ module game {
 					this.gameUI.gameHand.delHandCard(nSit);
 					console.log("===Other hu")
 					this.gameUI.showHuCard(nSit, opt.ObtainTile, 0);
+					SoundModel.playEffect(SoundModel.LOSE);
 				}
 
 				this.checkHuInfo(opt, nSit);
@@ -753,9 +755,12 @@ module game {
 				for (let i: number = 0; i < body.userInfos.length; i++) {
 					const user = body.userInfos[i]
 					if (user.userName == Global.userName ) {//自己胡做下标记
-						SoundModel.playEffect(SoundModel.WIN);
+						// SoundModel.playEffect(SoundModel.WIN);
+						console.log("赢了啊");
+						
 					}else{
-						SoundModel.playEffect(SoundModel.LOSE);
+						// SoundModel.playEffect(SoundModel.LOSE);
+						console.log("输了啊");
 					}
 				}
 				
