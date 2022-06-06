@@ -88,9 +88,11 @@ module game {
 		}
 
 		private startDealCard(evt: egret.Event) {
+			console.log("====startDealCard=====================")
 			const body: any = evt.data;
 			this.gameUI.showRoomGUID(body.roundGuid);
 			this.gameUI.showWallCount(body["remainCount"])//
+			this.gameUI.initHandCard();
 		}
 
 		/*
@@ -833,7 +835,7 @@ module game {
 			////发牌状态
 			if (status == game.RoomStatus.MJ_GS_FP) {
 				this.gameUI.gameHSZ.showDapiaoPanel(false);
-				this.gameUI.initHandCard();
+				
 			}
 			//行牌状态
 			if (status == game.RoomStatus.MJ_GS_XP) {

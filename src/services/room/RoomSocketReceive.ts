@@ -102,6 +102,7 @@ module room {
 
 		//发牌广播消息
 		private VGID_ACK_GAME_SENDCARD(byte: egret.ByteArray): void {
+			console.log("========VGID_ACK_GAME_SENDCARD============")
 			var body: room.VGGameSendCardNtc = room.VGGameSendCardNtc.decode(byte.bytes);
 			game.GamePlayData.SaveHandCarsd(body.userInfos);
 			game.GameUserList.updateUserListInfo(body.userInfos);
