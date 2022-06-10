@@ -600,8 +600,8 @@ module game {
 					console.log("===SElf hu")
 					this.gameUI.showHuCard(nSit, opt.ObtainTile, 3);
 					SoundModel.playEffect(SoundModel.WIN);
-					
-					
+
+
 					GameParmes.isHu = true;
 					this.gameUI.hideTingFlag();
 				} else {
@@ -737,13 +737,13 @@ module game {
 			GameParmes.isGameFlower = true;
 			for (let i: number = 0; i < body.userInfos.length; i++) {
 				const user = body.userInfos[i]
-				if ( user.resultCoin > 0) {//自己胡做下标记
+				if (user.resultCoin > 0) {//自己胡做下标记
 					GameParmes.isGameFlower = false;
 					break;
 				}
 			}
 
-			
+
 
 			//this.gameUI.playAnim("djjs", -1);
 			if (GameParmes.isGameFlower) {//播放流局动画
@@ -753,20 +753,20 @@ module game {
 					this.gameUI.playAnim("liuju", -1);
 				}, this, 1200);
 				nTime = 2400;
-			}else{
+			} else {
 				for (let i: number = 0; i < body.userInfos.length; i++) {
 					const user = body.userInfos[i]
-					if (user.userName == Global.userName ) {//自己胡做下标记
+					if (user.userName == Global.userName) {//自己胡做下标记
 						// SoundModel.playEffect(SoundModel.WIN);
 						console.log("赢了啊");
-						
-					}else{
+
+					} else {
 						// SoundModel.playEffect(SoundModel.LOSE);
 						console.log("输了啊");
 					}
 				}
-				
-				
+
+
 			}
 
 			game.GamePlayData.SaveHandCarsd(body.userInfos);
@@ -813,7 +813,6 @@ module game {
 			}
 		}
 
-
 		private ACK_GAME_STATUS_CHANGED(evt: egret.Event): void {
 
 			let status = game.RoomInfo.ins.status;
@@ -825,17 +824,22 @@ module game {
 			//打漂状态
 			if (status == game.RoomStatus.MJ_GS_DP) {
 				this.gameUI.gameHSZ.showDapiaoPanel(true);
+				this.gameUI.gameHSZ.showDownTime(true);
+				this.gameUI.gameHSZ.startTimeDown(3,true);
 			}
 			////开局状态
 			if (status == game.RoomStatus.MJ_GS_KJ) {
-				this.gameUI.initPosition();
-				
-
+				this.gameUI.gameHSZ.showDapiaoPanel(false);
+				this.gameUI.gameHSZ.onHideClock()
+			}
+			// 开局动画状态
+			if (status == game.RoomStatus.MJ_GS_ANIM_KJ){
+				comm.DragonAnim.ins.playAnimByName("ksyx", -1);
+				SoundModel.playEffect(SoundModel.StartMatch)
 			}
 			////发牌状态
 			if (status == game.RoomStatus.MJ_GS_FP) {
-				this.gameUI.gameHSZ.showDapiaoPanel(false);
-				
+				this.gameUI.initPosition();
 			}
 			//行牌状态
 			if (status == game.RoomStatus.MJ_GS_XP) {
@@ -848,8 +852,7 @@ module game {
 
 			//默认状态什么都不处理
 			if (lastStatus == game.RoomStatus.MJ_GS_DF) {
-				comm.DragonAnim.ins.playAnimByName("ksyx", -1);
-				SoundModel.playEffect(SoundModel.StartMatch)
+				
 			}
 
 			if (status != game.RoomStatus.MJ_GS_DF) {

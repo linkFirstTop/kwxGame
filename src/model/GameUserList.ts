@@ -6,7 +6,7 @@ module game {
 		public static saveUserListInfo(arr: Array<room.IVGUserInfo>): void {
 			game.GameUserList.arrUserList = [];
 			this.updateUserListInfo(arr);
-
+			
 		}
 
 		public static updateUserListInfo(arr: Array<room.IVGUserInfo>) {
@@ -68,16 +68,18 @@ module game {
 		*默认状态什么都不处理
 		*/
 		MJ_GS_DF = 0,
+		//开局动画状态
+		MJ_GS_ANIM_KJ = 1,
 		//打漂状态
-		MJ_GS_DP = 1,
+		MJ_GS_DP      = 2,
 		//开局状态
-		MJ_GS_KJ = 2,
+		MJ_GS_KJ      = 3,
 		//发牌状态
-		MJ_GS_FP = 3,
+		MJ_GS_FP = 4,
 		//行牌状态
-		MJ_GS_XP = 4,
+		MJ_GS_XP = 5,
 		//结算状态
-		MJ_GS_JS = 5,
+		MJ_GS_JS = 6,
 
 	}
 

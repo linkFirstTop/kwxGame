@@ -66,4 +66,8 @@
 		</e:Group>
 		<e:Image source="qxzdpbs_png" x="343" y="190"/>
 	</e:Group>
+	<e:Group horizontalCenter="0" y="300" id="downTime" visible="false">
+		<e:Image source="gameClock_png" />
+		<e:BitmapLabel id="lbTime"  text="00" horizontalCenter="0.5" verticalCenter="5" font="timeFont_fnt"/>
+	</e:Group>
 </e:Skin>

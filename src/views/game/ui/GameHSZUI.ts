@@ -21,7 +21,9 @@ module game {
 
 		private gp_dapiaoOption: eui.Group;
 		private gp_dapiaoGroup: eui.Group;
+		private downTime: eui.Group;
 		private go_dapiao: eui.Group;
+
 		protected childrenCreated(): void {
 			super.childrenCreated();
 			this.btnSure.source = "gameButtonSure_" + Global.language;
@@ -43,6 +45,7 @@ module game {
 				img.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onUserSelectedDapiaoEvent, this)
 
 			}
+			this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
 		}
 
 		public showDapiaoPanel(bool: boolean) {
@@ -50,6 +53,51 @@ module game {
 			this.go_dapiao.visible = bool;
 		}
 
+		public showDownTime(bool: boolean) {
+			this.downTime.visible = bool;
+		}
+
+		private lbTime: eui.BitmapLabel;
+		private nCount: number;
+		private isCenter: boolean = false;
+		private isStart: boolean = false;
+		private nCurTime: number = 0;
+		private onEnterFrame(): void {
+			if (this.isStart) {
+				let nTmp: number = new Date().getTime();
+
+				if (nTmp - this.nCurTime > 900) {
+					//console.log(StringUtils.format(new Date(this.nCurTime),"hh:mm:ss.S"),StringUtils.format(new Date(nTmp),"hh:mm:ss.S"));
+					this.nCurTime = nTmp;
+					this.onStartTimer();
+				}
+			}
+		}
+		public startTimeDown(nTime: number, isCenter: boolean) {
+			if (nTime == undefined) {
+				return;
+			}
+			this.isStart = true;
+			this.nCurTime = new Date().getTime();
+			this.isCenter = isCenter;
+			this.visible = true;
+			this.nCount = nTime;
+			this.lbTime.text = nTime < 10 ? "0" + nTime.toString() : nTime.toString();
+
+		}
+		public onHideClock() {
+			this.downTime.visible = false;
+			this.isStart = false;
+		}
+		private onStartTimer() {
+			if (this.nCount > 0) {
+				this.nCount -= 1;
+				this.lbTime.text = this.nCount < 10 ? "0" + this.nCount.toString() : this.nCount.toString();
+			} else {
+				this.isStart = false;
+				this.dispatchEvent(new egret.Event("TIMECOMPLETE", true, true, this.isCenter))
+			}
+		}
 		private onUserSelectedDapiaoEvent(evt: egret.Event) {
 			let target = evt.currentTarget;
 			let option = target['optionData'];

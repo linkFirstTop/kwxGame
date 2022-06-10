@@ -347,7 +347,7 @@ module room {
 
 			} else {
 				let str: string = Global.dic["进入房间失败"];
-				if (body.result == 6) {
+				if (body.result == 1003) {
 					str = Global.dic["房间限制"];
 				} else if (body.result == 7) {
 					str = Global.dic["游戏停服"];

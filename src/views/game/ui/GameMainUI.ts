@@ -46,7 +46,7 @@ module game {
 			if (Global.language == "en") {
 				this.lbLeftCard.text = "Rest 0";
 			} else if (Global.language == "tc") {
-				this.lbLeftCard.text = "餘牌:0" + "张";
+				this.lbLeftCard.text = "餘牌:0" + "張";
 			} else {
 				this.lbLeftCard.text = "余牌:0" + "张";
 			}
@@ -86,7 +86,7 @@ module game {
 
 			this.addEventListener("UserLoseGame", this.onUserLoseGame, this);
 			this.gamePosition.addEventListener("OnTimeComplete", this.onTimeComplete, this);
-			this.duyi.text = `局号:${0}`;
+			this.duyi.text = `${Global.dic["局号"]}:${0}`;
 			
 			this.iconTing = new eui.Image();
 			this.iconTing.source = "gameIcon_tip";
@@ -216,15 +216,20 @@ module game {
 		}
 		public showRoomGUID(guid: string) {
 
-			this.duyi.text = `局号:${guid}`;
+			this.duyi.text = `${Global.dic["局号"]}:${guid}`;
 		}
 
 		public initPosition(): void {
 			this.gamePosition.setPosition();
 		}
+		private drawHandTimer:egret.Timer;
 		/*初始化玩家手牌*/
 		public initHandCard(): void {
 			SoundModel.playEffect(SoundModel.LiPai);
+			this.drawHandTimer = new egret.Timer(700,2);
+			this.drawHandTimer.start()
+			this.drawHandTimer.addEventListener(egret.TimerEvent.TIMER,this.onDrawHandsTimer,this);
+			this.drawHandTimer.addEventListener(egret.TimerEvent.TIMER_COMPLETE,this.onDrawCardsComplete,this);
 			this.gameHand.createHandCard(false, 0);
 			let len: number = game.GameUserList.arrUserList.length;
 		
@@ -237,6 +242,12 @@ module game {
 				this["gameUser" + p].visible = true;
 			}
 		}
+		private onDrawHandsTimer(evt:egret.TimerEvent):void{
+			SoundModel.playEffect(SoundModel.LiPai);
+		}
+		private onDrawCardsComplete(evt:egret.TimerEvent):void{
+		}
+
 		public showWallCount(count: number): void {
 			if (Global.language == "en") {
 				//if (108 - GamePlayData.CardsWall_Head_Index - GamePlayData.CardsWall_Tail_Index > 0) {
@@ -246,7 +257,7 @@ module game {
 				//}
 			} else if (Global.language == "tc") {
 				//if (108 - GamePlayData.CardsWall_Head_Index - GamePlayData.CardsWall_Tail_Index > 0) {
-				this.lbLeftCard.text = "餘牌:" + (count) + "张";
+				this.lbLeftCard.text = "餘牌:" + (count) + "張";
 				//} else {
 				//this.lbLeftCard.text = "餘牌:0" + "张";
 				//}

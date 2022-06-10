@@ -281,12 +281,13 @@ enum MJ_PLAYERROLE
 //游戏状态
 enum MJ_GAMESTATUS
 {
-	MJ_GS_DF			= 0;	//默认状态什么都不处理
-	MJ_GS_DP			= 1;	//打漂状态
-	MJ_GS_KJ			= 2;	//开局状态
-	MJ_GS_FP			= 3;	//发牌状态
-	MJ_GS_XP			= 4;	//行牌状态
-	MJ_GS_JS			= 5;	//结算状态
+	MJ_GS_DF      = 0;  //默认状态
+  MJ_GS_ANIM_KJ = 1;  //开局动画状态
+  MJ_GS_DP      = 2;  //打漂状态
+  MJ_GS_KJ      = 3;  //开局状态
+  MJ_GS_FP      = 4;  //发牌状态
+  MJ_GS_XP      = 5;  //行牌状态
+  MJ_GS_JS      = 6;  //结算状态
 }
 
 //玩家状态
