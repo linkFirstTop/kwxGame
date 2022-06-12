@@ -743,12 +743,9 @@ module game {
 				}
 			}
 
-
-
 			//this.gameUI.playAnim("djjs", -1);
 			if (GameParmes.isGameFlower) {//播放流局动画
 				//SoundModel.playEffect(SoundModel)
-
 				egret.setTimeout(function () {
 					this.gameUI.playAnim("liuju", -1);
 				}, this, 1200);
@@ -765,8 +762,6 @@ module game {
 						console.log("输了啊");
 					}
 				}
-
-
 			}
 
 			game.GamePlayData.SaveHandCarsd(body.userInfos);

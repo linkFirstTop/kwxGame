@@ -150,7 +150,6 @@ module game {
 
 		/*用于处理开始的发牌*/
 		public showResultCard(body: room.VGGameResultNtc): void {
-
 			//
 			body.userInfos.forEach((e, i) => {
 				//∂console.log("根据发牌数据创建手牌",e)
@@ -161,7 +160,6 @@ module game {
 				//",nSit,"P:", p,"Global.userSit:", Global.userSit,e.tileSets);
 
 				if (nSit != Global.userSit) {
-
 					let g = this.findHandGroup(p);
 					for (let n: number = 0; n < tiles.length; n++) {
 						if (n < g.$children.length) {
@@ -171,8 +169,6 @@ module game {
 					}
 				}
 			})
-
-
 		}
 
 		/*显示玩家的胡牌*/
@@ -330,6 +326,11 @@ module game {
 			this.clearGroup(ghand);
 
 			let arr: Array<CardInfo> = this.copyHandCard(game.GamePlayData.getHandCards(sit));
+
+			if( p != 0 ){
+				arr = arr.reverse()
+
+			}
 			//console.log("=====getHandCards arr",arr)
 			let index: number = 0;
 			let len: number = arr.length;

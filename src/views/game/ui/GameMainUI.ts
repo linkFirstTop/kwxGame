@@ -36,6 +36,7 @@ module game {
 		private btnContinue: eui.Image;
 		private imgTHIcon: eui.Image;
 		private imgTGTip: eui.Image;
+		private paiNode:eui.Group;
 
 		private iconTing : eui.Image;
 		protected childrenCreated(): void {
@@ -58,15 +59,17 @@ module game {
 			this.imgTGTip.source = "gameIcon_tuoguan_" + Global.language;
 
 			this.gamePool = new game.GamePoolUI();
-			this.addChild(this.gamePool);
+			this.paiNode.addChild(this.gamePool);
 			this.gamePool.initCard();
 
 			this.gameHand = new game.GameHandUI();
-			this.addChildAt(this.gameHand,3);
+			this.paiNode.addChildAt(this.gameHand,3);
 			this.gameHand.addEventListener("ShowTingGroup", this.onShowTingGroup, this);
 			this.gameHand.addEventListener("ShowTingTip", this.onShowTingTip, this);
 			this.gameHand.initHand();
 			//this.gameHand.touch
+
+			this.gTingTip.zIndex = 100;
 		
 			this.addChild(this.gameOpt);
 			this.gameOpt.addEventListener("ShowTianHuFlag", this.onShowTHFlag, this);
@@ -598,6 +601,9 @@ module game {
 				item = null;
 			}
 			this.gTingTip.visible = true;
+
+			
+	
 			//console.log("===xxx==creat hu=== " ,arr)
 		
 			for (let i: number = 0; i < arr.length; i++) {
