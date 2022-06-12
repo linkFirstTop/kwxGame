@@ -69,6 +69,7 @@
 	</e:Group>
 	<e:Image id="imgTHTip" source="gameIcon_tianhu_cn" visible="false" horizontalCenter="0" bottom="250"/>
 	<e:Image id="btnContinue" source="resultButtonContinue_cn"  horizontalCenter="0" verticalCenter="84" visible="true"/>
+	<e:Group id="paiNode" width="100%" height="100%" x="0" y="0"/>
 	<e:Image id="imgTingTip" source="gameIcon_tip" y="710" x="26" visible="false"/>
 	<e:Group id="gTingTip" width="566" y="658" x="110" visible="false">
 		<e:Image source="gameCommbg_png" width="100%"/>
