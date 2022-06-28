@@ -206,7 +206,7 @@ module game {
 				item.y = this.arrRHP[0].y + 25;
 			}
 			if (p == 0) {
-				item.x = (ghand.numChildren - 1) * 90;
+				item.x = (ghand.numChildren) * 90;
 				item.x += 10;
 				gHu.x = ghand.x;
 				gHu.y = ghand.y;

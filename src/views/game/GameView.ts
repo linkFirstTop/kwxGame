@@ -585,7 +585,6 @@ module game {
 
 
 				if (opt.ObtainSeat != nSit) {
-
 					//--
 					const card: CardInfo = new CardInfo();
 					card.CardID = opt.ObtainTile;
@@ -600,7 +599,6 @@ module game {
 					console.log("===SElf hu")
 					this.gameUI.showHuCard(nSit, opt.ObtainTile, 3);
 					SoundModel.playEffect(SoundModel.WIN);
-
 
 					GameParmes.isHu = true;
 					this.gameUI.hideTingFlag();
