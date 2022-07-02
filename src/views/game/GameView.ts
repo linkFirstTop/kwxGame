@@ -595,6 +595,7 @@ module game {
 					GamePlayData.DelectCardPool(GamePlayData.getCardsPool(op));
 
 				}
+				
 				if (nSit == Global.userSit) {
 					console.log("===SElf hu")
 					this.gameUI.showHuCard(nSit, opt.ObtainTile, 3);
@@ -615,6 +616,20 @@ module game {
 			//过
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_PASS) {
 				//this.gameUI.changeUserRight();
+			}
+
+			const userInfo :room.VGUserInfo  = <any>body["userInfo"];
+
+
+			if(userInfo){
+				if(userInfo.tingTileInfo.length>0){
+					GamePlayData.MJ_selfTingarr = null;
+					GamePlayData.MJ_selfTingarr = [];
+					userInfo.tingTileInfo.forEach((o: any) => {
+						GamePlayData.MJ_selfTingarr.push(o)
+					})
+				}
+
 			}
 			// this.gameUI.startTime(body.second);
 		}
