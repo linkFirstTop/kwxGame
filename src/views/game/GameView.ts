@@ -357,8 +357,6 @@ module game {
 					game.GamePlayData.SaveChiPengGangHu(body);
 					GameParmes.gameTurn = GameTurnType.OTHERTURN;
 					GameParmes.isCurTing = true;
-
-
 				}
 
 				//和

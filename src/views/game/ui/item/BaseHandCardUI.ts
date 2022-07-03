@@ -173,8 +173,17 @@ module game {
 			this.imgMask.width = this.imgBack.width;
 			this.imgMask.height = this.imgBack.height;
 			this.imgMask.alpha = 0.4;
+			this.imgBack.visible = true;
 			this.addChild(this.imgMask);
 			this.touchEnabled = this.touchChildren = isEnabled;
+		}
+
+		public clearMaskFlag(){
+			if(this.imgBack){
+				this.imgMask.alpha =0;
+			}
+			this.touchEnabled = this.touchChildren = true;
+
 		}
 	}
 }

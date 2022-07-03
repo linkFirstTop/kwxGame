@@ -718,13 +718,17 @@ module game {
 					}
 				}
 			} else {
+				console.log("=====================SSS")
 				for (let i: number = 0; i < len; i++) {
 					let item: game.BaseHandCardUI = this.gHandCardD.getChildAt(i) as game.BaseHandCardUI;
 					item.setTingFlag(false, "");
 					item.clearSelectCard();
+					item.clearMaskFlag()
 				}
 			}
 		}
+
+
 		/*给手牌上增加遮罩*/
 		public showHuFlag(): void {
 			let len: number = this.gHandCardD.numChildren;

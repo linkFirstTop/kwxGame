@@ -211,7 +211,7 @@ module game {
 			console.log("GameParmes.isCurTing:", GameParmes.isCurTing)
 			if (this.btnTing.visible == true && GameParmes.isCurTing) {
 				this.initBtns();
-				this.sendGameNoOperation();
+				//this.sendGameNoOperation();
 				ViewManager.ins.gameView.gameUI.gameHand.showTingFlag(false, "ting");
 				return
 
