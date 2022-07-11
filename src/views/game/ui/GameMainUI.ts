@@ -574,6 +574,9 @@ module game {
 			let p = Global.getUserPosition(nSit);
 			
 			this["gameUser" + p].isShowLiang(true);
+
+			this["gameUser" + p].shake();
+
 		}
 
 
@@ -652,5 +655,6 @@ module game {
 		public dispose(): void {
 
 		}
+
 	}
 }

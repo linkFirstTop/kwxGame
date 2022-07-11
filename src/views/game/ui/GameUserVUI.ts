@@ -7,6 +7,7 @@ module game {
 		protected partAdded(partName: string, instance: any): void {
 			super.partAdded(partName, instance);
 		}
+		private mainGroup: eui.Group;
 		private lbName: eui.Label;
 		private lbCoin: eui.Label;
 		private nCoin: number = 0;
@@ -24,6 +25,8 @@ module game {
 		}
 
 		public setUserInfo(user: game.GameUserInfo): void {
+			//console.log("===this",this)
+			//this.shake();
 	
 			this.user = user;
 			this.piaofen_result.visible = false;
@@ -143,6 +146,25 @@ module game {
 			} else {
 				this.imgDQ.x = 95;
 			}
+		}
+
+		public shake(){
+			//console.log("====SHaek-==shake",this.mainGroup)
+		
+			egret.Tween.get(this.mainGroup)
+			.to({ rotation: 14  },150)
+			.to({ rotation: -14  },150)
+			.to({ rotation: 10  },130)
+			.to({ rotation: -10  },130)
+			.to({ rotation: 8  },110)
+			.to({ rotation: -8  },110)
+			.to({ rotation: 5  },90)
+			.to({ rotation: -5  },90)
+			.to({ rotation: 3  },60)
+			.to({ rotation: -3  },60)
+			.to({ rotation: 0  },30)
+			// .call(this.shake.bind(this))
+			
 		}
 	}
 }

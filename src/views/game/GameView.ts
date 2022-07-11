@@ -551,6 +551,8 @@ module game {
 
 				}
 
+				
+
 				const b: boolean = false;
 				this.gameUI.userSendCard(card, b);
 				SoundModel.playEffect(SoundModel.fanOrLiang);
