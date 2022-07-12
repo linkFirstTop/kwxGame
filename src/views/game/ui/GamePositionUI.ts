@@ -82,10 +82,11 @@ module game {
 				this.imgLeft.source = "ps_" + str + "_light_left";
 				this.imgIconLeft.source = "ps_" + str + "_light" + strLan;
 			} else if (p == 3) {
-				str = "south"
+				
 				this.imgUp.source = "ps_" + str + "_light_up";
 				this.imgIconUp.source = "ps_" + str + "_light" + strLan;
 			} else if (p == 1) {
+				str = "south"
 				this.imgRight.source = "ps_" + str + "_light_right";
 				this.imgIconRight.source = "ps_" + str + "_light" + strLan;
 			} else if (p == 0) {

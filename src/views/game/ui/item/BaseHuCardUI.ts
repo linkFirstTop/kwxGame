@@ -52,7 +52,7 @@ module game {
 
 				this.imgBack.source = "card_down_m1";
 				this.imgCard.scaleX = this.imgCard.scaleY = 0.9;
-				this.imgCard.verticalCenter = -10;
+				//this.imgCard.verticalCenter = -10;
 			}
 		}
 	}
