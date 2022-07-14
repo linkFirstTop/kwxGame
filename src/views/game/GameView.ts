@@ -548,10 +548,7 @@ module game {
 				game.GamePlayData.AddCardPool(Cards, nSit);
 				if (nSit == Global.userSit) {
 					game.GamePlayData.SaveCurrentCard(0, -1);
-
 				}
-
-				
 
 				const b: boolean = false;
 				this.gameUI.userSendCard(card, b);
@@ -597,8 +594,9 @@ module game {
 				}
 				
 				if (nSit == Global.userSit) {
+					this.gameUI.gameHand.delHandCard(nSit);
 					console.log("===SElf hu")
-					this.gameUI.showHuCard(nSit, opt.ObtainTile, 3);
+					//this.gameUI.showHuCard(nSit, opt.ObtainTile, 3);
 					SoundModel.playEffect(SoundModel.WIN);
 
 					GameParmes.isHu = true;
@@ -606,7 +604,7 @@ module game {
 				} else {
 					this.gameUI.gameHand.delHandCard(nSit);
 					console.log("===Other hu")
-					this.gameUI.showHuCard(nSit, opt.ObtainTile, 0);
+					//this.gameUI.showHuCard(nSit, opt.ObtainTile, 0);
 					SoundModel.playEffect(SoundModel.LOSE);
 				}
 
@@ -755,6 +753,7 @@ module game {
 					break;
 				}
 			}
+			let isWin = false;
 
 			//this.gameUI.playAnim("djjs", -1);
 			if (GameParmes.isGameFlower) {//播放流局动画
@@ -769,6 +768,7 @@ module game {
 					if (user.userName == Global.userName) {//自己胡做下标记
 						// SoundModel.playEffect(SoundModel.WIN);
 						console.log("赢了啊");
+						isWin = true;
 
 					} else {
 						// SoundModel.playEffect(SoundModel.LOSE);
@@ -796,7 +796,15 @@ module game {
 
 				this.gameUI.showAllHandCard(body);
 
-
+				for (let i: number = 0; i < body.userInfos.length; i++) {
+					const tileSets =  body.userInfos[i].tileSets;
+					tileSets.forEach( obj=>{
+						if(obj.Type == 6) {
+							const nSit = body.userInfos[i].userPos.seatID;
+							this.gameUI.showHuCard(nSit, obj.Tiles[0] );
+						}
+					} )
+				}
 			}, this, nTime);
 			ViewManager.ins.changeTimer(true);
 		}

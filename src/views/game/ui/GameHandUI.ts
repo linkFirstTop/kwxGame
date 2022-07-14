@@ -172,7 +172,7 @@ module game {
 		}
 
 		/*显示玩家的胡牌*/
-		public showHuCard(sit: number, cardID: number, type: number): void {
+		public showHuCard(sit: number, cardID: number): void {
 			let p: number = Global.getUserPosition(sit);
 			let card: CardInfo = new CardInfo();
 			card.CardID = cardID;
@@ -206,7 +206,7 @@ module game {
 				item.y = this.arrRHP[0].y + 25;
 			}
 			if (p == 0) {
-				item.x = (ghand.numChildren - 1) * 90;
+				item.x = (ghand.numChildren ) * 90;
 				item.x += 10;
 				gHu.x = ghand.x;
 				gHu.y = ghand.y;
@@ -218,7 +218,8 @@ module game {
 			let p = Global.getUserPosition(nSit);
 			let g: eui.Group = this.findHandGroup(p);
 			let len: number = g.numChildren;
-			let item: game.BaseHandCardUI;
+			let item: game.BaseHandCardUI; 
+			console.error("===delHandCard===")
 
 			for (let i = 0; i < len; i++) {
 				item = g.getChildAt(i) as game.BaseHandCardUI;

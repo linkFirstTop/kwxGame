@@ -369,9 +369,9 @@ module game {
 		 * @param huCardID 
 		 * @param type 3 = 自摸
 		 */
-		public showHuCard(sit: number, huCardID: number, type: number): void {
+		public showHuCard(sit: number, huCardID: number): void {
 			this.imgTHTip.visible = false;
-			this.gameHand.showHuCard(sit, huCardID, type);
+			this.gameHand.showHuCard(sit, huCardID);
 
 		}
 

@@ -45,8 +45,8 @@ module game {
 				// this.imgCard.source = "cardValue"+value;
 				// this.imgCard.scaleX = this.imgCard.scaleY = 0.7;
 				// this.imgCard.skewX = -15;
-				// this.imgCard.verticalCenter = -12.5;
-				// this.imgCard.horizontalCenter = 2;
+				this.imgCard.verticalCenter = -12.5;
+				this.imgCard.horizontalCenter = 2;
 
 				this.imgCard.source = "cardValue"+value;
 
