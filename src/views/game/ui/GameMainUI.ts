@@ -198,6 +198,8 @@ module game {
 				//console.log("=====PP", p)
 				this["gameUser" + p].setUserInfo(user);
 				this["gameUser" + p].visible = true;
+
+				this["gameUser" + p].sex = Math.random()> 0.5 ? 1 : 0;
 			}
 
 			this.showGameInfo();
@@ -292,8 +294,11 @@ module game {
 			this.gamePool.addCardToPool(card);
 			let p: number = Global.getUserPosition(card.Sit);
 			this.gameHand.updataHandsByPosition(p, 0);
-			game.SoundModel.playCardSound(card);
-			let cardValue: number = card.CardID 
+
+			
+			const sex =  this["gameUser" + p].sex > 0.5 ? "m" : "f";
+			SoundModel.playEffect(`${sex}${SoundModel.paiSoundName[card.CardID]}`)
+	
 	
 			//处理托管出牌，没有显示听牌提示的问题
 
@@ -505,7 +510,8 @@ module game {
 			
 			}
 			if (str == "hu" || str == "zm") {
-				SoundModel.playEffect(SoundModel.HU);
+				const sex =  this["gameUser" + p].sex > 0.5 ? "m" : "f"
+				SoundModel.playEffect(`${sex}${SoundModel.HU}`);
 				comm.DragonAnim.ins.playAnimByName(str, p);
 			}
 			if (str == "gskh" || str == "hjzy" || str == "qgh") {//杠上开花 呼叫转移 抢杠胡

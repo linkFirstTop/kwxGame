@@ -88,7 +88,7 @@ module game {
 		}
 
 		private startDealCard(evt: egret.Event) {
-			console.log("====startDealCard=====================")
+		
 			const body: any = evt.data;
 			this.gameUI.showRoomGUID(body.roundGuid);
 			this.gameUI.showWallCount(body["remainCount"])//
@@ -254,9 +254,9 @@ module game {
 		// 发牌器
 		private ACK_MAGIC_TILES(evt: egret.Event) {
 			const body: room.MagicTilesAck = evt.data;
-			console.log("==获得了 发牌")
-			console.log("==获得了 发牌:", body)
-			console.log("==获得了 发牌")
+			// console.log("==获得了 发牌")
+			// console.log("==获得了 发牌:", body)
+			// console.log("==获得了 发牌")
 		}
 
 		/**
@@ -280,7 +280,6 @@ module game {
 				// 其他人的操作通知
 				return;
 			}
-
 
 			if (nSit != Global.userSit) {
 				//座位号 不是 自己
@@ -383,7 +382,7 @@ module game {
 
 		private ACK_USER_OPERATION(evt: egret.Event) {
 			const body: room.VGGameOperationNtc = evt.data;
-			console.log("****行牌应答:这是玩家操作的结果:", body)
+			egret.log("****行牌应答:这是玩家操作的结果:", body)
 			//console.log("=== 行牌应答 这是玩家操作的seat:", body["seatID"])
 			const nSit = body["seatID"];
 			GameParmes.gameStage = GameStageType.PLAYING;
@@ -408,6 +407,7 @@ module game {
 
 				game.GamePlayData.AddHandCards(nSit, card);
 				this.gameUI.getOneCard(card);
+				
 				//room.RoomWebSocket.instance().roomSender.REQ_MAGICTILES()
 			}
 
@@ -428,6 +428,8 @@ module game {
 				const b: boolean = false;
 				this.gameUI.userSendCard(card, b);
 				SoundModel.playEffect(SoundModel.CHU);
+
+			
 			}
 
 			//摸切，打出的是刚摸到的牌s
@@ -452,6 +454,7 @@ module game {
 				const b: boolean = false;
 				this.gameUI.userSendCard(card, b);
 				SoundModel.playEffect(SoundModel.CHU);
+				
 			}
 			//左吃，吃的牌是最小点, 例如45吃3
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_L_CHOW) {
@@ -595,16 +598,13 @@ module game {
 				
 				if (nSit == Global.userSit) {
 					this.gameUI.gameHand.delHandCard(nSit);
-					console.log("===SElf hu")
-					//this.gameUI.showHuCard(nSit, opt.ObtainTile, 3);
+				
 					SoundModel.playEffect(SoundModel.WIN);
 
 					GameParmes.isHu = true;
 					this.gameUI.hideTingFlag();
 				} else {
 					this.gameUI.gameHand.delHandCard(nSit);
-					console.log("===Other hu")
-					//this.gameUI.showHuCard(nSit, opt.ObtainTile, 0);
 					SoundModel.playEffect(SoundModel.LOSE);
 				}
 
@@ -669,7 +669,9 @@ module game {
 
 			this.gameUI.playAnim("peng", nSit);
 			this.gameUI.updataUserCPG(nSit, card);
-			SoundModel.playEffect(SoundModel.PENG);
+			let p: number = Global.getUserPosition(nSit);
+			const sex =  this.gameUI["gameUser" + p].sex > 0.5 ? "m" : "f";
+			SoundModel.playEffect(`${sex}${SoundModel.PENG}` );
 		}
 
 
@@ -685,7 +687,9 @@ module game {
 			this.gameUI.playAnim("mingGang", nSit, obSit);
 			//const arrCoin: Array<number> = data.Tiles;
 			//this.gameUI.showCoinChange(arrCoin);
-			SoundModel.playEffect(SoundModel.GANG);
+			let p: number = Global.getUserPosition(nSit);
+			const sex =  this.gameUI["gameUser" + p].sex > 0.5 ? "m" : "f";
+			SoundModel.playEffect(`${sex}$${SoundModel.GANG}`);
 		}
 
 
@@ -697,7 +701,9 @@ module game {
 			this.gameUI.playAnim("anGang", nSit);
 			// const arrCoin: Array<number> = data.Tiles;
 			// this.gameUI.showCoinChange(arrCoin);
-			SoundModel.playEffect(SoundModel.GANG);
+			let p: number = Global.getUserPosition(nSit);
+			const sex =  this.gameUI["gameUser" + p].sex > 0.5 ? "m" : "f";
+			SoundModel.playEffect(`${sex}${SoundModel.GANG}`);
 		}
 
 		private ON_USER_BUGANGPAI(card, seat: number): void {
@@ -707,7 +713,9 @@ module game {
 			this.gameUI.playAnim("buGang", nSit);
 			// const arrCoin: Array<number> = data.Tiles;
 			// this.gameUI.showCoinChange(arrCoin);
-			SoundModel.playEffect(SoundModel.GANG);
+			let p: number = Global.getUserPosition(nSit);
+			const sex =  this.gameUI["gameUser" + p].sex > 0.5 ? "m" : "f";
+			SoundModel.playEffect(`${sex}${SoundModel.GANG}`);
 		}
 		/** 
 		 * @param msg
@@ -757,7 +765,6 @@ module game {
 
 			//this.gameUI.playAnim("djjs", -1);
 			if (GameParmes.isGameFlower) {//播放流局动画
-				//SoundModel.playEffect(SoundModel)
 				egret.setTimeout(function () {
 					this.gameUI.playAnim("liuju", -1);
 				}, this, 1200);
@@ -766,12 +773,10 @@ module game {
 				for (let i: number = 0; i < body.userInfos.length; i++) {
 					const user = body.userInfos[i]
 					if (user.userName == Global.userName) {//自己胡做下标记
-						// SoundModel.playEffect(SoundModel.WIN);
 						console.log("赢了啊");
 						isWin = true;
-
 					} else {
-						// SoundModel.playEffect(SoundModel.LOSE);
+					
 						console.log("输了啊");
 					}
 				}
