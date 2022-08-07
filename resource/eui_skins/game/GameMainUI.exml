@@ -60,6 +60,14 @@
 				<e:Image source="" width="100" height="100"/>
 			</e:Skin>
 		</ns1:BaseButton>
+		<ns1:BaseButton id="btnTuoGuan" width="100" height="100"  x="-130">
+			<ns1:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image source="tuoguan_png"/>
+				<!-- <e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/> -->
+				</e:Skin>
+			</ns1:skinName>
+		</ns1:BaseButton>
 	</e:Group>
 	
 	<e:Group id="gameTrust" width="100%" bottom="0" height="200" visible="false" touchThrough="true">
