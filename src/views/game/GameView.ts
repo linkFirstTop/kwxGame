@@ -703,7 +703,7 @@ module game {
 			// this.gameUI.showCoinChange(arrCoin);
 			let p: number = Global.getUserPosition(nSit);
 			const sex =  this.gameUI["gameUser" + p].sex > 0.5 ? "m" : "f";
-			SoundModel.playEffect(`${sex}${SoundModel.GANG}`);
+			SoundModel.playEffect(sex+SoundModel.GANG);
 		}
 
 		private ON_USER_BUGANGPAI(card, seat: number): void {
