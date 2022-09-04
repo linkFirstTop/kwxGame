@@ -76,6 +76,9 @@ module game {
 					}
 				})
 			}
+			// 重制一下
+
+			GameParmes.isGameFlower = true;
 		}
 		/*显示详细信息*/
 		private showDetailInfo(arr: Array<any>): void {

@@ -88,7 +88,7 @@ module game {
 		}
 
 		private startDealCard(evt: egret.Event) {
-		
+			GameParmes.isGameFlower = true;
 			const body: any = evt.data;
 			this.gameUI.showRoomGUID(body.roundGuid);
 			this.gameUI.showWallCount(body["remainCount"])//
@@ -99,7 +99,7 @@ module game {
 		*收到玩家列表
 		*/
 		private onGameContinue(): void {
-
+			GameParmes.isGameFlower = true;
 			this.gameUI.initUser();
 
 			//断线重联 在这里处理
@@ -579,6 +579,7 @@ module game {
 
 			//和
 			if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_WIN) {
+				GameParmes.isGameFlower = false;
 				this.gameUI.gameOpt.visible = false;
 				GamePlayData.isSelfTing = false;
 				GamePlayData.MJ_LiangOtherPais = [];
@@ -689,7 +690,7 @@ module game {
 			//this.gameUI.showCoinChange(arrCoin);
 			let p: number = Global.getUserPosition(nSit);
 			const sex =  this.gameUI["gameUser" + p].sex > 0.5 ? "m" : "f";
-			SoundModel.playEffect(`${sex}$${SoundModel.GANG}`);
+			SoundModel.playEffect(`${sex}${SoundModel.GANG}`);
 		}
 
 
@@ -703,7 +704,7 @@ module game {
 			// this.gameUI.showCoinChange(arrCoin);
 			let p: number = Global.getUserPosition(nSit);
 			const sex =  this.gameUI["gameUser" + p].sex > 0.5 ? "m" : "f";
-			SoundModel.playEffect(sex+SoundModel.GANG);
+			SoundModel.playEffect(`${sex}${SoundModel.GANG}`);
 		}
 
 		private ON_USER_BUGANGPAI(card, seat: number): void {
@@ -749,18 +750,11 @@ module game {
 		 * 服务器通知客户端 全部结束
 		 */
 		private ACK_ALL_GAMERESULT(evt: egret.Event): void {
-			sound.SoundManager.getInstance().stopBg();
+			// sound.SoundManager.getInstance().stopBg();
 			let nTime: number = 1200;
 			let body: room.VGGameResultNtc = evt.data;
 			//console.log("=!!!!SHOW RESULT=====", body)
-			GameParmes.isGameFlower = true;
-			for (let i: number = 0; i < body.userInfos.length; i++) {
-				const user = body.userInfos[i]
-				if (user.resultCoin > 0) {//自己胡做下标记
-					GameParmes.isGameFlower = false;
-					break;
-				}
-			}
+	
 			let isWin = false;
 
 			//this.gameUI.playAnim("djjs", -1);
