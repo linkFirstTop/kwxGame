@@ -672,7 +672,7 @@ module game {
 			this.gameUI.updataUserCPG(nSit, card);
 			let p: number = Global.getUserPosition(nSit);
 			const sex =  this.gameUI["gameUser" + p].sex > 0.5 ? "m" : "f";
-			SoundModel.playEffect(`${sex}${SoundModel.PENG}` );
+			SoundModel.playEffect(`${sex}${SoundModel.PENG}`);
 		}
 
 
@@ -690,7 +690,7 @@ module game {
 			//this.gameUI.showCoinChange(arrCoin);
 			let p: number = Global.getUserPosition(nSit);
 			const sex =  this.gameUI["gameUser" + p].sex > 0.5 ? "m" : "f";
-			SoundModel.playEffect(`${sex}${SoundModel.GANG}`);
+			SoundModel.playEffect(sex+SoundModel.GANG);
 		}
 
 
@@ -716,7 +716,7 @@ module game {
 			// this.gameUI.showCoinChange(arrCoin);
 			let p: number = Global.getUserPosition(nSit);
 			const sex =  this.gameUI["gameUser" + p].sex > 0.5 ? "m" : "f";
-			SoundModel.playEffect(`${sex}${SoundModel.GANG}`);
+			SoundModel.playEffect(sex+SoundModel.GANG);
 		}
 		/** 
 		 * @param msg
@@ -757,7 +757,7 @@ module game {
 	
 			let isWin = false;
 
-			//this.gameUI.playAnim("djjs", -1);
+			// this.gameUI.playAnim("djjs", -1);
 			if (GameParmes.isGameFlower) {//播放流局动画
 				egret.setTimeout(function () {
 					this.gameUI.playAnim("liuju", -1);

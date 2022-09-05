@@ -552,7 +552,8 @@ module game {
 		 */
 		private onBtnContinue(): void {
 			this.btnContinue.visible = false;
-
+			console.log('---jisss');
+			
 			GameController.onRequeseNextGame();
 
 			//this.dispatchEvent(new egret.Event("OnGameContinue", true, true));
