@@ -42,7 +42,7 @@ module game {
 			this.nCoin = user.userCoin;
 			this.nSit = user.userSit;
 			this.imgZhuang.source = "";
-			console.log(user,'----user');
+	
 			if(this.nSit == 0){
 				this.imgZhuang.source = "gameIcon_zhuang_"+Global.language;
 			}else{
@@ -57,6 +57,8 @@ module game {
 			}else{
 				this.imgHead.source = Global.commURL + "head/iconHead"+Global.getHeadByName(user.userName)+".png";
 			}
+
+			
 		}
 		public showResultCoin(coin:number):void{
 			this.lbCoin.text = ChipUtils.formatCoin(coin,true);

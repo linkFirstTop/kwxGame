@@ -351,7 +351,7 @@ module game {
 
 				//听
 				if (opt.operationType == CardsGroupType.MJ_OperationType.MJ_OT_TING) {
-					console.log("=====收到了 停的  操作请求 ==")
+					egret.log("=====收到了 停的  操作请求 ==")
 					optArr[4] = true;
 					game.GamePlayData.SaveChiPengGangHu(body);
 					GameParmes.gameTurn = GameTurnType.OTHERTURN;
@@ -370,7 +370,7 @@ module game {
 			})
 
 			const isShow = optArr.some((e) => (e))
-			console.log(">>>>操作按钮 数组<<<<", isShow, optArr)
+			egret.log(">>>>操作按钮 数组<<<<", isShow, optArr)
 			if (isShow) {
 				this.gameUI.onShowOpt(optArr)
 			}
@@ -671,8 +671,8 @@ module game {
 			this.gameUI.playAnim("peng", nSit);
 			this.gameUI.updataUserCPG(nSit, card);
 			let p: number = Global.getUserPosition(nSit);
-			const sex =  this.gameUI["gameUser" + p].sex > 0.5 ? "m" : "f";
-			SoundModel.playEffect(`${sex}${SoundModel.PENG}`);
+			const sex =  this.gameUI["gameUser" + p].sex;
+			SoundModel.playEffect(`${sex}${SoundModel.PENG}` );
 		}
 
 
@@ -689,8 +689,8 @@ module game {
 			//const arrCoin: Array<number> = data.Tiles;
 			//this.gameUI.showCoinChange(arrCoin);
 			let p: number = Global.getUserPosition(nSit);
-			const sex =  this.gameUI["gameUser" + p].sex > 0.5 ? "m" : "f";
-			SoundModel.playEffect(sex+SoundModel.GANG);
+			const sex =  this.gameUI["gameUser" + p].sex ;
+			SoundModel.playEffect(`${sex}${SoundModel.GANG}`);
 		}
 
 
@@ -703,7 +703,7 @@ module game {
 			// const arrCoin: Array<number> = data.Tiles;
 			// this.gameUI.showCoinChange(arrCoin);
 			let p: number = Global.getUserPosition(nSit);
-			const sex =  this.gameUI["gameUser" + p].sex > 0.5 ? "m" : "f";
+			const sex =  this.gameUI["gameUser" + p].sex ;
 			SoundModel.playEffect(`${sex}${SoundModel.GANG}`);
 		}
 
@@ -715,8 +715,8 @@ module game {
 			// const arrCoin: Array<number> = data.Tiles;
 			// this.gameUI.showCoinChange(arrCoin);
 			let p: number = Global.getUserPosition(nSit);
-			const sex =  this.gameUI["gameUser" + p].sex > 0.5 ? "m" : "f";
-			SoundModel.playEffect(sex+SoundModel.GANG);
+			const sex =  this.gameUI["gameUser" + p].sex ;
+			SoundModel.playEffect(`${sex}${SoundModel.GANG}`);
 		}
 		/** 
 		 * @param msg
@@ -757,7 +757,7 @@ module game {
 	
 			let isWin = false;
 
-			// this.gameUI.playAnim("djjs", -1);
+			//this.gameUI.playAnim("djjs", -1);
 			if (GameParmes.isGameFlower) {//播放流局动画
 				egret.setTimeout(function () {
 					this.gameUI.playAnim("liuju", -1);

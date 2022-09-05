@@ -28,7 +28,6 @@ module game {
 		}
 		private onContinue(): void {
 			this.visible = false;
-			sound.SoundManager.getInstance().playBg("mjBgm_mp3");
 			// this.dispatchEvent(new egret.Event("OnGameContinue",true,true));
 			GameController.onRequeseNextGame();
 		}

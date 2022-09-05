@@ -58,6 +58,12 @@ module game {
 				this.imgHead.source = Global.commURL + "head/iconHead" + Global.getHeadByName(user.userName) + ".png";
 			}
 
+	
+			
+
+
+
+
 			let p: number = Global.getUserPosition(user.userSit);
 			if (p == 1) {
 				this.imgHead.scaleX = -1;

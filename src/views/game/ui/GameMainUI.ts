@@ -199,7 +199,20 @@ module game {
 				this["gameUser" + p].setUserInfo(user);
 				this["gameUser" + p].visible = true;
 
-				this["gameUser" + p].sex = Math.random()> 0.5 ? 1 : 0;
+				const girlArr = [20,19,18,17,6,5,4,3,2,1,0 ]
+
+				let Gidx =  Global.getHeadByName(user.userName);
+				if (Global.userName == user.userName) {
+					Gidx =  Global.userHead;
+			
+				} else {
+					
+					Gidx =Global.getHeadByName(user.userName)
+				}
+	
+				const sex = girlArr.some(e=>(e == Gidx)) ? "f" : "m";
+		
+				this["gameUser" + p].sex = sex;
 			}
 
 			this.showGameInfo();
@@ -287,7 +300,6 @@ module game {
 		}
 
 
-
 		/*玩家出牌*/
 		public userSendCard(card: CardInfo, b: boolean): void {
 			this.gameOpt.visible = false;
@@ -295,10 +307,8 @@ module game {
 			let p: number = Global.getUserPosition(card.Sit);
 			this.gameHand.updataHandsByPosition(p, 0);
 
-			
-			const sex =  this["gameUser" + p].sex > 0.5 ? "m" : "f";
+			const sex =  this["gameUser" + p].sex ;
 			SoundModel.playEffect(`${sex}${SoundModel.paiSoundName[card.CardID]}`)
-	
 	
 			//处理托管出牌，没有显示听牌提示的问题
 
@@ -510,7 +520,7 @@ module game {
 			
 			}
 			if (str == "hu" || str == "zm") {
-				const sex =  this["gameUser" + p].sex > 0.5 ? "m" : "f"
+				const sex =  this["gameUser" + p].sex ;
 				SoundModel.playEffect(`${sex}${SoundModel.HU}`);
 				comm.DragonAnim.ins.playAnimByName(str, p);
 			}
@@ -552,8 +562,7 @@ module game {
 		 */
 		private onBtnContinue(): void {
 			this.btnContinue.visible = false;
-			console.log('---jisss');
-			
+
 			GameController.onRequeseNextGame();
 
 			//this.dispatchEvent(new egret.Event("OnGameContinue", true, true));
