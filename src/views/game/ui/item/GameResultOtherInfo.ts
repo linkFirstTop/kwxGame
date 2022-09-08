@@ -82,7 +82,7 @@ module game {
 				if (info.fan[i]) {
 					const type = info.fan[i].type
 					//飘分和杠是加或者减 其他的都是乘
-					const typs:any = [15,16,17,18,19,20];
+					const typs:any = [15,16];
 
 					let pre = "x"
 					if(typs.includes(type)){

@@ -21,6 +21,7 @@ module game {
 		private imgBtnbg: eui.Image;
 		private gBtns: eui.Group;
 		private btnMore: BaseButton;
+		private btnTuoGuan:BaseButton;
 		private gSound: eui.Group;
 		private btnSoundOff: BaseButton;
 		private btnSoundOn: BaseButton;
@@ -81,6 +82,7 @@ module game {
 
 			this.addChild(this.gBtns);
 			this.btnMore.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onShowMoreBtns, this);
+			this.btnTuoGuan.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickTuoGuan, this);
 			this.gSound.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onSoundChange, this);
 			this.btnRule.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onShowRule, this);
 			this.btnBack.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onBackRoom, this);
@@ -135,6 +137,9 @@ module game {
 			} else {
 				this.changeMoreGroup(true, true);
 			}
+		}
+		private onClickTuoGuan(): void {
+			room.RoomWebSocket.instance().roomSender.ReqPlayerTrustFun()
 		}
 		private changeMoreGroup(b: boolean, isAnim: boolean): void {
 			if (isAnim) {
